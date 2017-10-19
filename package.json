@@ -7,7 +7,7 @@
     "clean": "rimraf public",
     "build:prod": "cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
     "start:prod": "npm-run-all clean build:prod && cross-env NODE_ENV=production node app.js",
-    "start": "cross-env NODE_ENV=development nodemon --exec babel-node app.js",
+    "start": "cross-env NODE_ENV=development nodemon --exec node app.js",
     "lint:all": "npm-run-all lint:js lint:style",
     "lint:js": "eslint build config src",
     "lint:style": "stylelint 'src/**/*.scss' && exit 0",
