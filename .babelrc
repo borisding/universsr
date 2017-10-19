@@ -1,0 +1,22 @@
+{
+  "presets": ["env", "react", "stage-2"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "@build": "./build",
+          "@config": "./config",
+          "@public": "./public",
+          "@client": "./src/client",
+          "@common": "./src/client/common",
+          "@modules": "./src/client/modules",
+          "@redux": "./src/client/redux",
+          "@api": "./src/api",
+          "@server": "./src/server"
+        }
+      }
+    ]
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "extends": ["prettier"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "plugins": ["prettier"],
+  "rules": {
+     "prettier/prettier": ["error", { "singleQuote": true }]
+  }
+}
