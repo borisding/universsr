@@ -8,6 +8,7 @@ const serverConfig = {
   name: 'server',
   target: 'node',
   context: appPath.src,
+  devtool: 'source-map',
   node: {
     __filename: false,
     __dirname: false

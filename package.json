@@ -7,7 +7,7 @@
     "clean": "rimraf public",
     "build:prod": "cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
     "start:prod": "npm-run-all clean build:prod && cross-env NODE_ENV=production node app.js",
-    "start": "npm-run-all clean && cross-env NODE_ENV=development babel-node app.js",
+    "start": "cross-env NODE_ENV=development babel-node app.js",
     "lint:all": "npm-run-all lint:js lint:style",
     "lint:js": "eslint build config src",
     "lint:style": "stylelint '**/*.scss'; exit 0",
@@ -54,6 +54,7 @@
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
+    "assets-webpack-plugin": "^3.5.1",
     "autoprefixer": "^7.1.5",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -66,20 +67,17 @@
     "copy-webpack-plugin": "^4.1.1",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
-    "css-modules-require-hook": "^4.2.2",
     "eslint": "^4.8.0",
     "eslint-config-prettier": "^2.6.0",
     "eslint-plugin-prettier": "^2.3.1",
     "extract-text-webpack-plugin": "^3.0.1",
     "file-loader": "^1.1.5",
-    "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.5.3",
     "nodemon": "^1.12.1",
     "npm": "^5.5.1",
     "npm-run-all": "^4.1.1",
     "postcss-loader": "^2.0.6",
     "prettier": "^1.7.4",
-    "raw-loader": "^0.5.1",
     "react-hot-loader": "^3.0.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
@@ -101,6 +99,7 @@
     },
     "ignore": [
       "client/*",
+      "server/index.js",
       "public/dist/*",
       "index.*.js"
     ]

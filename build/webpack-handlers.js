@@ -29,5 +29,6 @@ module.exports = app => {
     })
   );
 
+  // server hot reload must be placed after client hot reload
   app.use(webpackHotServerMiddleware(compiler));
 };

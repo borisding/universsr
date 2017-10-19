@@ -2,9 +2,9 @@ const webpack = require('webpack');
 const fs = require('fs');
 const isDev = require('isdev');
 const autoprefixer = require('autoprefixer');
+const AssetsPlugin = require('assets-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const appPath = require('../config/app-path');
 const pkg = require('../package');
 const babel = JSON.parse(fs.readFileSync('./.babelrc'));
@@ -17,7 +17,7 @@ const clientConfig = {
   output: {
     publicPath: '/dist/',
     path: `${appPath.public}/dist`,
-    filename: 'js/bundle.js'
+    filename: `js/${isDev ? 'bundle' : 'bundle-[hash]'}.js`
   },
   module: {
     rules: [
@@ -84,24 +84,10 @@ const clientConfig = {
         JSON.stringify(process.env.NODE_ENV) || 'development'
     }),
     new ExtractTextPlugin({
-      filename: 'css/screen.css',
+      filename: `css/${isDev ? 'screen' : 'screen-[contenthash]'}.css`,
       ignoreOrder: true,
       allChunks: true
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: `${appPath.src}/assets/icons`,
-        to: `${appPath.public}/dist/icons`
-      }
-    ])
-    // new HtmlWebpackPlugin({
-    //   template: `!!raw-loader!${appPath.src}/assets/views/template.ejs`,
-    //   filename: `${appPath.public}/index.ejs`,
-    //   minify: {
-    //     collapseWhitespace: !isDev,
-    //     removeComments: !isDev
-    //   }
-    // })
+    })
   ]
 };
 
@@ -119,6 +105,17 @@ if (isDev) {
 } else {
   clientConfig.devtool = 'source-map';
   clientConfig.plugins = clientConfig.plugins.concat([
+    new AssetsPlugin({
+      fullPath: false,
+      filename: 'assets.json',
+      path: appPath.public
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: `${appPath.src}/assets/icons`,
+        to: `${appPath.public}/dist/icons`
+      }
+    ]),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
       comments: false,
