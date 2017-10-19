@@ -3,7 +3,7 @@ import isDev from 'isdev';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
-import appPath from '@config/app-path';
+import syspath from '@config/syspath';
 import store from '@redux/store';
 import App from '@client/App';
 
@@ -19,7 +19,7 @@ function getAssets() {
   // which consisted of hashed asset file names
   try {
     const { css, js } = JSON.parse(
-      fs.readFileSync(`${appPath.public}/assets.json`)
+      fs.readFileSync(`${syspath.public}/assets.json`)
     ).main;
 
     return {

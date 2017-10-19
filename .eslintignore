@@ -1,2 +1,2 @@
 public/**/*.js
-serve-*.js
+*-built.js

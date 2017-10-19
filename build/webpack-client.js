@@ -3,20 +3,20 @@ const fs = require('fs');
 const isDev = require('isdev');
 const autoprefixer = require('autoprefixer');
 const AssetsPlugin = require('assets-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const appPath = require('../config/app-path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const pkg = require('../package');
+const syspath = require('../config/syspath');
 const babel = JSON.parse(fs.readFileSync('./.babelrc'));
 
 const clientConfig = {
   name: 'client',
   target: 'web',
-  context: appPath.src,
-  entry: [`${appPath.src}/client/index.js`],
+  context: syspath.src,
+  entry: [`${syspath.src}/client/index.js`],
   output: {
     publicPath: '/dist/',
-    path: `${appPath.public}/dist`,
+    path: `${syspath.public}/dist`,
     filename: `js/${isDev ? 'bundle' : 'bundle-[hash]'}.js`
   },
   module: {
@@ -87,7 +87,13 @@ const clientConfig = {
       filename: `css/${isDev ? 'screen' : 'screen-[contenthash]'}.css`,
       ignoreOrder: true,
       allChunks: true
-    })
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: `${syspath.src}/assets/icons`,
+        to: `${syspath.public}/dist/icons`
+      }
+    ])
   ]
 };
 
@@ -108,14 +114,8 @@ if (isDev) {
     new AssetsPlugin({
       fullPath: false,
       filename: 'assets.json',
-      path: appPath.public
+      path: syspath.public
     }),
-    new CopyWebpackPlugin([
-      {
-        from: `${appPath.src}/assets/icons`,
-        to: `${appPath.public}/dist/icons`
-      }
-    ]),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
       comments: false,

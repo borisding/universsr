@@ -1,7 +1,7 @@
 const http = require('http');
 const config = require('../../config/index');
 
-module.exports = app => {
+const serverBoot = app => {
   // running server based on the config
   const server = http.createServer(app);
 
@@ -31,3 +31,5 @@ module.exports = app => {
     }
   });
 };
+
+module.exports = serverBoot;

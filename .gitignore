@@ -3,4 +3,5 @@ node_modules
 public
 .DS_Store
 *.log
-src/server/*-built.js
+*.map
+*-built.js

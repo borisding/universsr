@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const apiRouter = require('../api/router');
 const config = require('../../config/index');
-const appPath = require('../../config/app-path');
+const syspath = require('../../config/syspath');
 const webpackHandlers = require('../../build/webpack-handlers');
 const boot = require('./boot');
 
@@ -17,10 +17,11 @@ const app = express();
 app
   .set('json spaces', 2)
   .set('view engine', 'ejs')
-  .set('views', `${appPath.src}/assets/views`);
+  .set('views', `${syspath.src}/assets/views`);
 
 app
-  .use(express.static(appPath.public))
+  .use(express.static(syspath.public))
+  .use(favicon(`${syspath.public}/dist/icons/favicon.ico`))
   .use(helmet())
   .use(cookieParser(config.get('secret')))
   .use(bodyParser.json())
@@ -35,10 +36,7 @@ if (isDev) {
 } else {
   // using server renderer directly instead for production
   const serverRenderer = require('./index-built').default;
-
-  app
-    .use(favicon(`${appPath.public}/dist/icons/favicon.ico`))
-    .use(serverRenderer());
+  app.use(serverRenderer());
 }
 
 boot(app);
