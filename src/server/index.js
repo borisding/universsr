@@ -1,5 +1,4 @@
 import fs from 'fs';
-import isDev from 'isdev';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -8,7 +7,7 @@ import store from '@redux/store';
 import App from '@client/App';
 
 function getAssets() {
-  if (isDev) {
+  if (_DEV_) {
     return {
       css: 'css/screen.css',
       js: 'js/bundle.js'

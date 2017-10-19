@@ -1,5 +1,4 @@
 const express = require('express');
-const isDev = require('isDev');
 const hpp = require('hpp');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
@@ -29,16 +28,16 @@ app
   .use(hpp()) // right after parsed body
   .use('/api', apiRouter);
 
-// webpack compiler & both client and server hot reload for development
-// using built server renderer instead for production
-if (!isDev) {
+// both client and server hot reload for development
+if (_DEV_) {
+  webpackHandlers(app);
+} else {
   app.use(express.static(syspath.public));
   app.use(favicon(`${syspath.public}/dist/icons/favicon.ico`));
 
+  // using built server renderer instead for production
   const serverRenderer = require('./index-built').default;
   app.use(serverRenderer());
-} else {
-  webpackHandlers(app);
 }
 
 boot(app);
