@@ -1,15 +1,20 @@
 const express = require('express');
+const isDev = require('isDev');
 const hpp = require('hpp');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const favicon = require('serve-favicon');
 const apiRouter = require('../api/router');
 const config = require('../../config/index');
 const syspath = require('../../config/syspath');
-const hmr = require('./hmr');
+const webpackHandlers = require('../../build/webpack-handlers');
+const logger = require('./logger');
 const boot = require('./boot');
 
 const app = express();
+
+logger(app);
 
 app
   .set('json spaces', 2)
@@ -24,10 +29,16 @@ app
   .use(hpp()) // right after parsed body
   .use('/api', apiRouter);
 
-Promise.resolve()
-  .then(() => hmr(app))
-  .then(() => boot(app))
-  .catch(err => {
-    console.error('Failed to boot app!');
-    console.error(err.stack);
-  });
+// webpack compiler & both client and server hot reload for development
+// using built server renderer instead for production
+if (!isDev) {
+  app.use(express.static(syspath.public));
+  app.use(favicon(`${syspath.public}/dist/icons/favicon.ico`));
+
+  const serverRenderer = require('./index-built').default;
+  app.use(serverRenderer());
+} else {
+  webpackHandlers(app);
+}
+
+boot(app);
