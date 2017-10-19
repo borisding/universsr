@@ -10,8 +10,8 @@ import App from '@client/App';
 function getAssets() {
   if (isDev) {
     return {
-      style: 'css/screen.css',
-      script: 'js/bundle.js'
+      css: 'css/screen.css',
+      js: 'js/bundle.js'
     };
   }
 
@@ -23,8 +23,8 @@ function getAssets() {
     ).main;
 
     return {
-      style: css,
-      script: js
+      css,
+      js
     };
   } catch (err) {
     console.error(err);
@@ -35,7 +35,7 @@ function getAssets() {
 // also, should allow it to be mounted as middleware for production usage
 // TODO: initial state handling, etc
 function serverRenderer(options) {
-  const assets = getAssets();
+  const { css, js } = getAssets();
   const content = renderToString(
     <Provider store={store}>
       <App />
@@ -44,8 +44,8 @@ function serverRenderer(options) {
 
   return (req, res, next) => {
     res.render('index', {
-      style: assets.style,
-      script: assets.script,
+      css,
+      js,
       content
     });
   };
