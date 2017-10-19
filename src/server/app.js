@@ -20,9 +20,8 @@ app
   .set('views', `${syspath.src}/assets/views`);
 
 app
-  .use(express.static(syspath.public))
-  .use(favicon(`${syspath.public}/dist/icons/favicon.ico`))
   .use(helmet())
+  .use(express.static(syspath.public))
   .use(cookieParser(config.get('secret')))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true, limit: '10mb' }))
@@ -36,6 +35,8 @@ if (isDev) {
 } else {
   // using server renderer directly instead for production
   const serverRenderer = require('./index-built').default;
+
+  app.use(favicon(`${syspath.public}/dist/icons/favicon.ico`));
   app.use(serverRenderer());
 }
 
