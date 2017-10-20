@@ -32,6 +32,10 @@ app
 // both client and server hot reload for development
 if (isDev) {
   webpackHandlers(app);
+
+  // error handler for development only
+  const errorhandler = require('errorhandler');
+  app.use(errorhandler());
 } else {
   app.use(express.static(syspath.public));
   app.use(favicon(`${syspath.public}/dist/icons/favicon.ico`));
