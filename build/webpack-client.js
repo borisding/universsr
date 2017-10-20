@@ -86,8 +86,7 @@ const clientConfig = {
     new ExtractTextPlugin({
       filename: `css/${isDev ? 'screen' : 'screen-[contenthash]'}.css`,
       ignoreOrder: true,
-      allChunks: true,
-      disable: !!isDev
+      allChunks: true
     }),
     new CopyWebpackPlugin([
       {
