@@ -10,10 +10,11 @@ import syspath from '@config/syspath';
 import store from '@redux/store';
 
 const getAssets = () => {
-  // TODO: need to look for more decent approach for hot reload stuff
+  // leave css propery as empty for development mode
+  // as extract css is disabled to allow hot reload
   if (isDev) {
     return {
-      css: 'css/screen.css',
+      css: '',
       js: 'js/bundle.js'
     };
   }
