@@ -1,4 +1,5 @@
 const express = require('express');
+const isDev = require('isdev');
 const hpp = require('hpp');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
@@ -29,7 +30,7 @@ app
   .use('/api', apiRouter);
 
 // both client and server hot reload for development
-if (_DEV_) {
+if (isDev) {
   webpackHandlers(app);
 } else {
   app.use(express.static(syspath.public));

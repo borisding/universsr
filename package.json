@@ -4,7 +4,7 @@
   "description": "Universal React + Redux, Express application boilerplate.",
   "main": "app.js",
   "scripts": {
-    "clean": "rimraf public",
+    "clean": "rimraf public src/**/*-built.js",
     "build:prod": "cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
     "start:prod": "npm-run-all clean build:prod && cross-env NODE_ENV=production node app.js",
     "start": "npm run clean && cross-env NODE_ENV=development nodemon --exec node app.js",

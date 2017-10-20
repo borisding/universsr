@@ -8,7 +8,6 @@ const serverConfig = {
   name: 'server',
   target: 'node',
   context: syspath.src,
-  devtool: 'source-map',
   node: {
     __filename: false,
     __dirname: false
