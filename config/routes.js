@@ -1,5 +1,5 @@
-import LayoutContainer from '@modules/general/LayoutContainer';
-import NotFoundContainer from '@modules/general/NotFoundContainer';
+import LayoutContainer from '@modules/base/LayoutContainer';
+import NotFoundContainer from '@modules/base/NotFoundContainer';
 import HomeContainer from '@modules/home/HomeContainer';
 
 export default [
