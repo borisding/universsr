@@ -1,13 +1,16 @@
 import fs from 'fs';
 import isDev from 'isdev';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { renderToString } from 'react-dom/server';
+import { renderRoutes } from 'react-router-config';
+import routes from '@config/routes';
 import syspath from '@config/syspath';
 import store from '@redux/store';
-import App from '@client/App';
 
-function getAssets() {
+const getAssets = () => {
+  // TODO: need to look for more decent approach for hot reload stuff
   if (isDev) {
     return {
       css: 'css/screen.css',
@@ -29,26 +32,27 @@ function getAssets() {
   } catch (err) {
     console.error(err);
   }
-}
+};
 
 // export default server renderer
 // also, should allow it to be mounted as middleware for production usage
-// TODO: initial state handling, etc
-function serverRenderer(options) {
+// TODO: prefetch data, etc
+const serverRenderer = options => (req, res, next) => {
+  const context = {};
   const { css, js } = getAssets();
   const content = renderToString(
     <Provider store={store}>
-      <App />
+      <StaticRouter location={req.url} context={context}>
+        {renderRoutes(routes)}
+      </StaticRouter>
     </Provider>
   );
 
-  return (req, res, next) => {
-    res.render('index', {
-      css,
-      js,
-      content
-    });
-  };
-}
+  res.render('index', {
+    css,
+    js,
+    content
+  });
+};
 
 export default serverRenderer;

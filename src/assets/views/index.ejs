@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset="utf-8">
-      <title>Universal React Redux</title>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Universal React Redux</title>
+    <% if (css) { %>
       <link type="text/css" href="dist/<%- css -%>" rel="stylesheet" />
-    </head>
+    <% } %>
+  </head>
   <body>
     <div id="root">
       <%- content -%>
     </div>
-    <script src="dist/<%- js -%>"></script>
+    <% if (js) { %>
+      <script src="dist/<%- js -%>"></script>
+    <% } %>
   </body>
 </html>

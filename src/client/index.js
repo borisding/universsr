@@ -1,16 +1,18 @@
 import 'babel-polyfill';
 import React from 'react';
 import { AppContainer } from 'react-hot-loader';
-import { hydrate } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import App from '@client/App';
+import { hydrate } from 'react-dom';
+import { renderRoutes } from 'react-router-config';
+import routes from '@config/routes';
 import store from '@redux/store';
 
-const init = () => {
+const render = () => {
   hydrate(
     <Provider store={store}>
       <AppContainer>
-        <App />
+        <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
       </AppContainer>
     </Provider>,
     document.getElementById('root')
@@ -18,7 +20,7 @@ const init = () => {
 };
 
 if (module.hot) {
-  module.hot.accept(() => init());
+  module.hot.accept(() => render());
 }
 
-init();
+render();

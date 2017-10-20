@@ -101,8 +101,7 @@ if (isDev) {
   clientConfig.devtool = 'cheap-module-eval-source-map';
   clientConfig.entry.unshift(
     'react-hot-loader/patch',
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-    'webpack/hot/only-dev-server'
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
   );
   clientConfig.plugins.unshift(
     new webpack.HotModuleReplacementPlugin(),
