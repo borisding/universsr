@@ -5,10 +5,13 @@ import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { renderRoutes } from 'react-router-config';
+import serialize from 'serialize-javascript';
 import routes from '@config/routes';
 import syspath from '@config/syspath';
-import store from '@redux/store';
+import configStore from '@redux/store';
+import todos from '@fixtures/todos';
 
+// TODO: improve assets handling
 const getAssets = () => {
   // leave css property as empty for development mode
   // as extract css is disabled to allow hot reload
@@ -38,9 +41,19 @@ const getAssets = () => {
 // export default server renderer
 // also, should allow it to be mounted as middleware for production usage
 // TODO: prefetch data, etc
-const serverRenderer = options => (req, res, next) => {
-  const context = {};
+const serverRenderer = options => (req, res) => {
   const { css, js } = getAssets();
+  const context = {};
+
+  const store = configStore({ todos });
+  const preloadedStateScript = `
+  <script>
+    window.__PRELOADED_STATE__ = ${serialize(store.getState(), {
+      isJSON: true
+    })}
+  </script>
+`;
+
   const content = renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={context}>
@@ -52,7 +65,8 @@ const serverRenderer = options => (req, res, next) => {
   res.render('index', {
     css,
     js,
-    content
+    content,
+    preloadedStateScript
   });
 };
 

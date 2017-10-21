@@ -8,6 +8,7 @@
         "alias": {
           "@build": "./build",
           "@config": "./config",
+          "@fixtures": "./fixtures",
           "@public": "./public",
           "@client": "./src/client",
           "@common": "./src/client/common",

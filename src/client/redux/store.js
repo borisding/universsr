@@ -1,15 +1,34 @@
 import isDev from 'isdev';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
+import readyWrapper from 'redux-ready-wrapper';
+import rootReducer from './root';
 
-const middlewares = [];
+const configStore = preloadedState => {
+  const middlewares = [readyWrapper()];
 
-if (isDev) {
-  middlewares.push(createLogger({ duration: true }));
-}
+  if (isDev) {
+    middlewares.push(
+      createLogger({
+        duration: true
+      })
+    );
+  }
 
-const rootReducer = combineReducers({
-  todos: () => ({})
-});
+  const store = createStore(
+    rootReducer,
+    preloadedState,
+    applyMiddleware(...middlewares)
+  );
 
-export default createStore(rootReducer, applyMiddleware(...middlewares));
+  if (module.hot) {
+    module.hot.accept(() => {
+      const nextRootReducer = require('./root').default;
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
+  return store;
+};
+
+export default configStore;

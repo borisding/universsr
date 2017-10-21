@@ -1,12 +1,15 @@
 import 'babel-polyfill';
 import React from 'react';
+import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { hydrate } from 'react-dom';
 import { renderRoutes } from 'react-router-config';
+import { hydrate } from 'react-dom';
 import routes from '@config/routes';
-import store from '@redux/store';
+import configStore from '@redux/store';
+
+const preloadedState = window.__PRELOADED_STATE__;
+const store = configStore(preloadedState);
 
 const render = () => {
   hydrate(
