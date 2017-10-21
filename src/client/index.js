@@ -5,11 +5,11 @@ import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { hydrate } from 'react-dom';
-import routes from '@config/routes';
-import configStore from '@redux/store';
+import storeFactory from '@redux/store';
+import routes from './routes';
 
 const preloadedState = window.__PRELOADED_STATE__;
-const store = configStore(preloadedState);
+const store = storeFactory(preloadedState);
 
 const render = () => {
   hydrate(

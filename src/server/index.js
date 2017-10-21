@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
-import routes from '@config/routes';
+import routes from '@client/routes';
 import syspath from '@config/syspath';
-import configStore from '@redux/store';
+import storeFactory from '@redux/store';
 import todos from '@fixtures/todos';
 
 // TODO: improve assets handling
@@ -45,7 +45,7 @@ const serverRenderer = options => (req, res) => {
   const { css, js } = getAssets();
   const context = {};
 
-  const store = configStore({ todos });
+  const store = storeFactory({ todos });
   const preloadedStateScript = `
   <script>
     window.__PRELOADED_STATE__ = ${serialize(store.getState(), {

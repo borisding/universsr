@@ -12,8 +12,8 @@
   <body>
     <div id="root">
       <%- content -%>
-      <%- preloadedStateScript -%>
     </div>
+    <%- preloadedStateScript -%>
     <% if (js) { %>
       <script src="dist/<%- js -%>"></script>
     <% } %>

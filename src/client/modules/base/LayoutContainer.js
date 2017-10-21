@@ -3,7 +3,7 @@ import { renderRoutes } from 'react-router-config';
 import PropTypes from 'prop-types';
 
 const LayoutContainer = ({ route }) => {
-  return <div>{renderRoutes(route.routes)}</div>;
+  return renderRoutes(route.routes);
 };
 
 LayoutContainer.propTypes = {
