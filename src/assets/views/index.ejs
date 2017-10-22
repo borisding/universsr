@@ -10,9 +10,7 @@
     <% } %>
   </head>
   <body>
-    <div id="root">
-      <%- content -%>
-    </div>
+    <div id="root"><%- content -%></div>
     <%- preloadedStateScript -%>
     <% if (js) { %>
       <script src="dist/<%- js -%>"></script>

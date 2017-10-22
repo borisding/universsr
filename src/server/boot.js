@@ -30,6 +30,10 @@ const serverBoot = app => {
         throw err;
     }
   });
+
+  process.on('unhandledRejection', err => {
+    console.error(err.stack);
+  });
 };
 
 module.exports = serverBoot;

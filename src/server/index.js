@@ -4,15 +4,14 @@ import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
-import { renderRoutes } from 'react-router-config';
+import { renderRoutes, matchRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
 import routes from '@client/routes';
 import syspath from '@config/syspath';
 import storeFactory from '@redux/store';
-import todos from '@fixtures/todos';
 
 // TODO: improve assets handling
-const getAssets = () => {
+function getAssets() {
   // leave css property as empty for development mode
   // as extract css is disabled to allow hot reload
   if (isDev) {
@@ -36,38 +35,56 @@ const getAssets = () => {
   } catch (err) {
     console.error(err);
   }
-};
+}
+
+// prefetching branch data from matched component
+function prefetchBranchData(pathname) {
+  const branch = matchRoutes(routes, pathname);
+  const promises = branch.map(({ route, match }) => {
+    return route.component.loadData
+      ? route.component.loadData(match)
+      : Promise.resolve(null);
+  });
+
+  return Promise.all(promises);
+}
 
 // export default server renderer
 // also, should allow it to be mounted as middleware for production usage
-// TODO: prefetch data, etc
-const serverRenderer = options => (req, res) => {
-  const { css, js } = getAssets();
-  const context = {};
+export default function serverRenderer() {
+  return (req, res) => {
+    try {
+      const { css, js } = getAssets();
+      const store = storeFactory({});
+      const context = {};
 
-  const store = storeFactory({ todos });
-  const preloadedStateScript = `
-  <script>
-    window.__PRELOADED_STATE__ = ${serialize(store.getState(), {
-      isJSON: true
-    })}
-  </script>
-`;
+      // proceed to rendering once prefetched data is ready in store
+      prefetchBranchData(req.url).then(() => {
+        const preloadedStateScript = `
+        <script>
+          window.__PRELOADED_STATE__ = ${serialize(store.getState(), {
+            isJSON: true
+          })}
+        </script>
+      `;
 
-  const content = renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
-        {renderRoutes(routes)}
-      </StaticRouter>
-    </Provider>
-  );
+        const content = renderToString(
+          <Provider store={store} key="provider">
+            <StaticRouter location={req.url} context={context}>
+              {renderRoutes(routes)}
+            </StaticRouter>
+          </Provider>
+        );
 
-  res.render('index', {
-    css,
-    js,
-    content,
-    preloadedStateScript
-  });
-};
-
-export default serverRenderer;
+        res.render('index', {
+          css,
+          js,
+          content,
+          preloadedStateScript
+        });
+      });
+    } catch (err) {
+      console.error(err.stack);
+    }
+  };
+}

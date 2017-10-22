@@ -13,11 +13,11 @@ const store = storeFactory(preloadedState);
 
 const render = () => {
   hydrate(
-    <Provider store={store}>
-      <AppContainer>
+    <AppContainer>
+      <Provider store={store}>
         <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
-      </AppContainer>
-    </Provider>,
+      </Provider>
+    </AppContainer>,
     document.getElementById('root')
   );
 };
