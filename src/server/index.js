@@ -33,7 +33,7 @@ function getAssets() {
       js
     };
   } catch (err) {
-    console.error(err);
+    throw new Error(err);
   }
 }
 
@@ -52,7 +52,7 @@ function prefetchBranchData(pathname) {
 // export default server renderer
 // also, should allow it to be mounted as middleware for production usage
 export default function serverRenderer() {
-  return (req, res) => {
+  return (req, res, next) => {
     try {
       const { css, js } = getAssets();
       const store = storeFactory({});
@@ -76,7 +76,13 @@ export default function serverRenderer() {
           </Provider>
         );
 
-        res.render('index', {
+        const { statusCode, redirectUrl } = context;
+
+        if ([301, 302].includes(statusCode)) {
+          return res.redirect(statusCode, redirectUrl);
+        }
+
+        res.status(statusCode || 200).render('index', {
           css,
           js,
           content,
@@ -84,7 +90,7 @@ export default function serverRenderer() {
         });
       });
     } catch (err) {
-      console.error(err.stack);
+      next(err);
     }
   };
 }

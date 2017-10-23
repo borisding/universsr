@@ -17,12 +17,13 @@ const app = express();
 logger(app);
 
 app
+  .set('etag', !isDev)
   .set('json spaces', 2)
   .set('view engine', 'ejs')
   .set('views', `${syspath.src}/assets/views`);
 
 app
-  .use(helmet())
+  //.use(helmet())
   .use(cookieParser(config.get('secret')))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true, limit: '10mb' }))
