@@ -23,7 +23,7 @@ app
   .set('views', `${syspath.src}/assets/views`);
 
 app
-  //.use(helmet())
+  .use(helmet())
   .use(cookieParser(config.get('secret')))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true, limit: '10mb' }))
