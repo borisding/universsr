@@ -91,7 +91,7 @@ const clientConfig = {
     }),
     new CopyWebpackPlugin([
       {
-        from: `${syspath.src}/assets/icons`,
+        from: `${syspath.src}/resources/assets/icons`,
         to: `${syspath.public}/dist/icons`
       }
     ])

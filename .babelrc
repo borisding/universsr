@@ -13,7 +13,7 @@
           "@client": "./src/client",
           "@common": "./src/client/common",
           "@modules": "./src/client/modules",
-          "@redux": "./src/client/redux",
+          "@redux": "./src/redux",
           "@api": "./src/api",
           "@server": "./src/server"
         }

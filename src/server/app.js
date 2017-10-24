@@ -20,7 +20,7 @@ app
   .set('etag', !isDev)
   .set('json spaces', 2)
   .set('view engine', 'ejs')
-  .set('views', `${syspath.src}/assets/views`);
+  .set('views', `${syspath.src}/resources/views`);
 
 app
   .use(helmet())
@@ -30,8 +30,8 @@ app
   .use(hpp()) // right after parsed body
   .use('/api', apiRouter);
 
-// both client and server hot reload for development
 if (isDev) {
+  // both client and server hot reload for development
   webpackHandlers(app);
 
   // error handler for development only
