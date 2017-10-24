@@ -1,5 +1,5 @@
 import isDev from 'isdev';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
 import readyWrapper from 'redux-ready-wrapper';
 import rootReducer from './root';
@@ -22,7 +22,7 @@ function storeFactory(preloadedState) {
   );
 
   if (module.hot) {
-    module.hot.accept(() => {
+    module.hot.accept('./root', () => {
       const nextRootReducer = require('./root').default;
       store.replaceReducer(nextRootReducer);
     });

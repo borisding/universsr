@@ -1,7 +1,7 @@
 import fs from 'fs';
 import isDev from 'isdev';
 import React from 'react';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { renderRoutes, matchRoutes } from 'react-router-config';
@@ -70,9 +70,9 @@ export default function serverRenderer() {
 
         const content = renderToString(
           <Provider store={store} key="provider">
-            <StaticRouter location={req.url} context={context}>
+            <Router location={req.url} context={context}>
               {renderRoutes(routes)}
-            </StaticRouter>
+            </Router>
           </Provider>
         );
 
