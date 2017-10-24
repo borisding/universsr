@@ -1,5 +1,5 @@
 import isDev from 'isdev';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import readyWrapper from 'redux-ready-wrapper';
 import rootReducer from './root';

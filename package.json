@@ -103,6 +103,7 @@
     },
     "ignore": [
       "client/*",
+      "redux/*",
       "server/index.js",
       "public/dist/*",
       "index.*.js"
