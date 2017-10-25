@@ -1,9 +1,9 @@
 import React from 'react';
 import Status from './Status';
 
-const NotFoundContainer = props => {
+const NotFoundContainer = () => {
   return (
-    <Status statusCode={404} {...props}>
+    <Status statusCode={404}>
       <h3>{'404 - Page Not Found.'}</h3>
     </Status>
   );

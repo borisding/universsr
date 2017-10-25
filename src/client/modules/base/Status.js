@@ -1,20 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 
-const Status = ({ staticContext, children, statusCode, redirectUrl = '' }) => {
-  if (staticContext && statusCode) {
-    staticContext.statusCode = statusCode;
-  }
+const Status = ({ children, statusCode, redirectUrl = '/' }) => (
+  <Route
+    render={({ staticContext }) => {
+      if (staticContext && statusCode) {
+        staticContext.statusCode = statusCode;
+      }
 
-  if (staticContext && redirectUrl) {
-    staticContext.redirectUrl = redirectUrl;
-  }
+      if (staticContext && redirectUrl) {
+        staticContext.redirectUrl = redirectUrl;
+      }
 
-  return children;
-};
+      return children;
+    }}
+  />
+);
 
 Status.propTypes = {
-  staticContext: PropTypes.object,
   children: PropTypes.element.isRequired,
   statusCode: PropTypes.number.isRequired,
   redirectUrl: PropTypes.string
