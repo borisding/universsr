@@ -60,13 +60,12 @@ export default function serverRenderer() {
 
       // proceed to rendering once prefetched data is ready in store
       prefetchBranchData(req.url).then(() => {
-        const preloadedStateScript = `
-        <script>
-          window.__PRELOADED_STATE__ = ${serialize(store.getState(), {
+        const preloadedStateScript = `<script>window.__PRELOADED_STATE__ = ${serialize(
+          store.getState(),
+          {
             isJSON: true
-          })}
-        </script>
-      `;
+          }
+        )}</script>`;
 
         const content = renderToString(
           <Provider store={store} key="provider">

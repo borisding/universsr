@@ -19,8 +19,7 @@ logger(app);
 app
   .set('etag', !isDev)
   .set('json spaces', 2)
-  .set('view engine', 'ejs')
-  .set('views', `${syspath.src}/resources/views`);
+  .set('view engine', 'ejs');
 
 app
   .use(helmet())
@@ -31,13 +30,17 @@ app
   .use('/api', apiRouter);
 
 if (isDev) {
-  // both client and server hot reload for development
-  webpackHandlers(app);
+  app.set('views', `${syspath.src}/resources/views`);
 
   // error handler for development only
   const errorhandler = require('errorhandler');
   app.use(errorhandler());
+
+  // both client and server hot reload for development
+  webpackHandlers(app);
 } else {
+  app.set('views', syspath.public);
+
   app.use(express.static(syspath.public));
   app.use(favicon(`${syspath.public}/dist/icons/favicon.ico`));
 

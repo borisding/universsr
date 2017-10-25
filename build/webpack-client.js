@@ -5,6 +5,7 @@ const autoprefixer = require('autoprefixer');
 const AssetsPlugin = require('assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const pkg = require('../package');
 const syspath = require('../config/syspath');
 const babel = JSON.parse(fs.readFileSync('./.babelrc'));
@@ -13,7 +14,7 @@ const clientConfig = {
   name: 'client',
   target: 'web',
   context: syspath.src,
-  entry: [`${syspath.src}/client/index.js`],
+  entry: ['./client/index.js'],
   output: {
     publicPath: '/dist/',
     path: `${syspath.public}/dist`,
@@ -115,6 +116,16 @@ if (isDev) {
       fullPath: false,
       filename: 'assets.json',
       path: syspath.public
+    }),
+    // moved to public and with minification only
+    new HtmlWebpackPlugin({
+      inject: false,
+      template: `!!raw-loader!${syspath.src}/resources/views/index.ejs`,
+      filename: `${syspath.public}/index.ejs`,
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true
+      }
     }),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,

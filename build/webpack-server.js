@@ -13,7 +13,7 @@ const serverConfig = {
     __dirname: false
   },
   externals: [nodeExternals()],
-  entry: [`${syspath.src}/server/index.js`],
+  entry: ['./server/index.js'],
   output: {
     libraryTarget: 'commonjs2',
     path: `${syspath.src}/server`,
