@@ -13,7 +13,6 @@ module.exports = app => {
 
   app.use(
     webpackDevMiddleware(compiler, {
-      headers: { 'Access-Control-Allow-Origin': '*' },
       hot: true,
       noInfo: true,
       serverSideRender: true,

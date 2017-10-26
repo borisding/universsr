@@ -3,7 +3,9 @@ const isDev = require('isdev');
 const hpp = require('hpp');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 const favicon = require('serve-favicon');
 const apiRouter = require('../api/router');
 const config = require('../../config/index');
@@ -23,18 +25,20 @@ app
 
 app
   .use(helmet())
-  .use(cookieParser(config.get('secret')))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true, limit: '10mb' }))
-  .use(hpp()) // right after parsed body
+  .use(cors())
+  .use(compression())
+  .use(cookieParser(config.get('secret')))
+  .use(hpp()) // after parsed body
   .use('/api', apiRouter);
 
 if (isDev) {
   app.set('views', `${syspath.src}/resources/views`);
 
   // error handler for development only
-  const errorhandler = require('errorhandler');
-  app.use(errorhandler());
+  const errorHandler = require('errorhandler');
+  app.use(errorHandler());
 
   // both client and server hot reload for development
   webpackHandlers(app);
