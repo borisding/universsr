@@ -14,6 +14,7 @@ const clientConfig = {
   name: 'client',
   target: 'web',
   context: syspath.src,
+  devtool: 'inline-source-map',
   entry: ['./client/index.js'],
   output: {
     publicPath: '/dist/',
@@ -100,7 +101,6 @@ const clientConfig = {
 };
 
 if (isDev) {
-  clientConfig.devtool = 'cheap-module-eval-source-map';
   clientConfig.entry.unshift(
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
@@ -110,7 +110,6 @@ if (isDev) {
     new webpack.NamedModulesPlugin()
   );
 } else {
-  clientConfig.devtool = 'source-map';
   clientConfig.plugins = clientConfig.plugins.concat([
     new AssetsPlugin({
       fullPath: false,

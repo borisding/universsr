@@ -1,4 +1,7 @@
 {
   "defaultSeverity": "warning",
-  "extends": "stylelint-config-sass-guidelines"
+  "extends": "stylelint-config-sass-guidelines",
+  "rules": {
+    "selector-class-pattern": null
+  }
 }

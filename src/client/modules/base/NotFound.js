@@ -1,7 +1,7 @@
 import React from 'react';
 import Status from './Status';
 
-const NotFoundContainer = () => {
+const NotFound = () => {
   return (
     <Status statusCode={404}>
       <h3>{'404 - Page Not Found.'}</h3>
@@ -9,4 +9,4 @@ const NotFoundContainer = () => {
   );
 };
 
-export default NotFoundContainer;
+export default NotFound;

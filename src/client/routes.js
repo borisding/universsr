@@ -1,19 +1,25 @@
-import LayoutContainer from './modules/base/LayoutContainer';
-import NotFoundContainer from './modules/base/NotFoundContainer';
-import HomeContainer from './modules/home/HomeContainer';
+import Root from './modules/base/Root';
+import NotFound from './modules/base/NotFound';
+import HomePage from './modules/home/HomePage';
+import TodosPage from './modules/todos/TodosPage';
 
 export default [
   {
-    component: LayoutContainer,
+    component: Root,
     routes: [
       {
         path: '/',
         exact: true,
-        component: HomeContainer
+        component: HomePage
+      },
+      {
+        path: '/todos',
+        exact: true,
+        component: TodosPage
       },
       {
         path: '/*',
-        component: NotFoundContainer
+        component: NotFound
       }
     ]
   }

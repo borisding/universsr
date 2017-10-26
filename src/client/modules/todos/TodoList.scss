@@ -1,0 +1,25 @@
+@import '../../common/styles/variables';
+
+label {
+  cursor: pointer;
+  display: inline-block;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+
+  > li {
+    padding-bottom: $base-padding / 3;
+    padding-top: $base-padding / 3;
+  }
+
+  .done {
+    color: $color-black;
+    text-decoration: line-through;
+  }
+
+  .pending {
+    color: $color-blue;
+  }
+}

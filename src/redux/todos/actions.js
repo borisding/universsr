@@ -4,11 +4,11 @@ import todos from '@fixtures/todos';
 
 let id = todos.length;
 
-// fake adding new todo
+// fake adding new todo without saving into db
 export const addTodo = input =>
   wrap(dispatch =>
     dispatch({
-      type: ADD_TODO,
+      type: types.ADD_TODO,
       payload: {
         id: ++id,
         todo: input,
@@ -17,9 +17,9 @@ export const addTodo = input =>
     })
   );
 
-// fake updating todo status
+// fake updating todo status without saving into db
 export const updateTodo = ({ value, checked }) => ({
-  type: UPDATE_TODO,
+  type: types.UPDATE_TODO,
   payload: {
     id: value,
     done: checked

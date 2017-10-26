@@ -8,12 +8,13 @@ const serverConfig = {
   name: 'server',
   target: 'node',
   context: syspath.src,
+  devtool: 'inline-source-map',
   node: {
     __filename: false,
     __dirname: false
   },
   externals: [nodeExternals()],
-  entry: ['./server/index.js'],
+  entry: ['babel-polyfill', './server/index.js'],
   output: {
     libraryTarget: 'commonjs2',
     path: `${syspath.src}/server`,

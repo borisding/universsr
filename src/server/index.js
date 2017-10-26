@@ -1,14 +1,14 @@
 import fs from 'fs';
 import isDev from 'isdev';
 import React from 'react';
-import { StaticRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
-import { renderRoutes, matchRoutes } from 'react-router-config';
+import { matchRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
 import routes from '@client/routes';
 import syspath from '@config/syspath';
 import storeFactory from '@redux/store';
+import App from '@client/App';
 
 // TODO: improve assets handling
 function getAssets() {
@@ -38,28 +38,34 @@ function getAssets() {
 }
 
 // prefetching branch data from matched component
-function prefetchBranchData(pathname) {
-  const branch = matchRoutes(routes, pathname);
-  const promises = branch.map(({ route, match }) => {
-    return route.component.loadData
-      ? route.component.loadData(match)
-      : Promise.resolve(null);
-  });
+async function prefetchBranchData(pathname) {
+  try {
+    const branch = await matchRoutes(routes, pathname);
+    const promises = await branch.map(({ route, match }) => {
+      if (match && match.isExact && route.component.fetchData) {
+        return route.component.fetchData(match);
+      }
 
-  return Promise.all(promises);
+      return Promise.resolve(null);
+    });
+
+    return Promise.all(promises);
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 // export default server renderer
 // also, should allow it to be mounted as middleware for production usage
 export default function serverRenderer() {
-  return (req, res, next) => {
+  return async (req, res, next) => {
     try {
       const { css, js } = getAssets();
       const store = storeFactory({});
       const context = {};
 
       // proceed to rendering once prefetched data is ready in store
-      prefetchBranchData(req.url).then(() => {
+      await prefetchBranchData(req.url).then(() => {
         const preloadedStateScript = `<script>window.__PRELOADED_STATE__ = ${serialize(
           store.getState(),
           {
@@ -68,10 +74,8 @@ export default function serverRenderer() {
         )}</script>`;
 
         const content = renderToString(
-          <Provider store={store} key="provider">
-            <Router location={req.url} context={context}>
-              {renderRoutes(routes)}
-            </Router>
+          <Provider store={store}>
+            <App isServer={true} location={req.url} context={context} />
           </Provider>
         );
 

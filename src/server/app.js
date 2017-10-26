@@ -34,14 +34,14 @@ app
   .use('/api', apiRouter);
 
 if (isDev) {
+  // both client and server hot reload for development
+  webpackHandlers(app);
+
   app.set('views', `${syspath.src}/resources/views`);
 
   // error handler for development only
   const errorHandler = require('errorhandler');
   app.use(errorHandler());
-
-  // both client and server hot reload for development
-  webpackHandlers(app);
 } else {
   app.set('views', syspath.public);
 
