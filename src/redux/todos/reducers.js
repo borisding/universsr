@@ -2,13 +2,16 @@ import * as types from './types';
 import todos from '@fixtures/todos';
 
 // initial state with some dummy data
-const initialState = todos;
+const initialState = [];
 
 // todo state management
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_TODO:
       return [...state, action.payload];
+
+    case types.FETCH_TODO:
+      return initialState.concat(action.payload);
 
     case types.UPDATE_TODO:
       return state.map(record => {

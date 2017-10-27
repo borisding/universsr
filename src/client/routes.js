@@ -1,11 +1,11 @@
-import Root from './modules/base/Root';
+import Layout from './modules/base/Layout';
 import NotFound from './modules/base/NotFound';
 import HomePage from './modules/home/HomePage';
 import TodosPage from './modules/todos/TodosPage';
 
 export default [
   {
-    component: Root,
+    component: Layout,
     routes: [
       {
         path: '/',

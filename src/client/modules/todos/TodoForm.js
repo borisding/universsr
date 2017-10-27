@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '@common/components/TextInput';
-import styles from '@modules/todos/TodoForm.scss';
+import styles from './styles/TodoForm.scss';
 
 const initialState = {
   todoInput: '',
@@ -57,7 +57,7 @@ export default class TodoForm extends Component {
     const { todoInput, isInvalid } = this.state;
 
     return (
-      <form method="post" onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <TextInput
           className={styles.todoInput}
           name="newTodo"

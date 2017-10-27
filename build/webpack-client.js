@@ -19,7 +19,10 @@ const clientConfig = {
   output: {
     publicPath: '/dist/',
     path: `${syspath.public}/dist`,
-    filename: `js/${isDev ? 'bundle' : 'bundle-[hash]'}.js`
+    filename: `js/${isDev ? 'bundle' : '[name].bundle-[hash]'}.js`
+  },
+  resolve: {
+    alias: { styles: `${syspath.src}/client/common/styles` } // alias for @import
   },
   module: {
     rules: [

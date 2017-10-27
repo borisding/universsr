@@ -20,6 +20,9 @@ const serverConfig = {
     path: `${syspath.src}/server`,
     filename: 'index-built.js'
   },
+  resolve: {
+    alias: { styles: `${syspath.src}/client/common/styles` } // alias for @import
+  },
   module: {
     rules: [
       {

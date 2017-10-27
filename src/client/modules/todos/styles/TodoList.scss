@@ -1,0 +1,35 @@
+@import '~styles/variables';
+
+ul {
+  list-style: none;
+}
+
+ul > li {
+  padding-bottom: $base-padding / 3;
+  padding-top: $base-padding / 3;
+}
+
+label {
+  cursor: pointer;
+  display: inline-block;
+}
+
+span {
+  display: inline-block;
+  min-width: 120px;
+  padding-left: $base-padding;
+}
+
+.done {
+  color: $color-black;
+  text-decoration: line-through;
+}
+
+.pending {
+  color: $color-blue;
+}
+
+.noRecords {
+  color: $color-red;
+  padding-left: 0;
+}

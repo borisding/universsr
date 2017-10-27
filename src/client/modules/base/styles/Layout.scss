@@ -1,0 +1,23 @@
+@import '~styles/variables';
+
+body {
+  background-color: $color-white;
+  font: 100% $font-stack;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+
+  > .content {
+    flex: 1 100%;
+    padding: $base-padding;
+  }
+}
