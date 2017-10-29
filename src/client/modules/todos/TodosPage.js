@@ -24,7 +24,7 @@ class TodosPage extends Component {
   }
 
   render() {
-    const { actions, todos, isFetching } = this.props;
+    const { actions, todos } = this.props;
 
     return (
       <div>
