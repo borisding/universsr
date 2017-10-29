@@ -6,7 +6,7 @@ import routes from './routes';
 
 const renderComponents = () => renderRoutes(routes);
 
-const App = ({ isServer = false, location, context }) => {
+const App = ({ isServer = false, isFetching, location, context }) => {
   return isServer ? (
     <StaticRouter location={location} context={context}>
       {renderComponents()}

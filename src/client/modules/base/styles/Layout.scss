@@ -1,8 +1,14 @@
 @import '~styles/variables';
 
+html,
+body {
+  min-height: 100%;
+}
+
 body {
   background-color: $color-white;
   font: 100% $font-stack;
+  position: relative;
 }
 
 ol,
@@ -20,4 +26,20 @@ ul {
     flex: 1 100%;
     padding: $base-padding;
   }
+}
+
+.loader {
+  $pixel: 100px;
+  $percent: 50%;
+
+  height: $pixel;
+  left: $percent;
+  line-height: $pixel;
+  margin-left: -($pixel);
+  margin-top: -($pixel);
+  position: fixed;
+  text-align: center;
+  top: $percent;
+  width: $pixel * 2;
+  z-index: 999;
 }

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import * as todoActions from '@redux/todos/actions';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
+import * as todoActions from '@redux/todos/actions';
 
 class TodosPage extends Component {
   static propTypes = {
@@ -13,16 +13,18 @@ class TodosPage extends Component {
     actions: PropTypes.objectOf(PropTypes.func).isRequired
   };
 
-  static fetchData(match) {
-    // TODO: invoke fetching action
+  static fetchData({ dispatch }) {
+    return dispatch(todoActions.fetchTodos());
   }
 
   componentDidMount() {
-    TodosPage.fetchData();
+    if (this.props.todos.length === 0) {
+      return this.props.actions.fetchTodos();
+    }
   }
 
   render() {
-    const { actions, todos } = this.props;
+    const { actions, todos, isFetching } = this.props;
 
     return (
       <div>

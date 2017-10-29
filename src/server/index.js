@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { matchRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
-import routes from '@client/routes';
 import syspath from '@config/syspath';
 import storeFactory from '@redux/store';
+import routes from '@client/routes';
 import App from '@client/App';
 
 // TODO: improve assets handling
@@ -38,12 +38,12 @@ function getAssets() {
 }
 
 // prefetching branch data from matched component
-async function prefetchBranchData(pathname) {
+async function prefetchBranchData(store, pathname) {
   try {
     const branch = await matchRoutes(routes, pathname);
     const promises = await branch.map(({ route, match }) => {
       if (match && match.isExact && route.component.fetchData) {
-        return route.component.fetchData(match);
+        return route.component.fetchData(store, match);
       }
 
       return Promise.resolve(null);
@@ -65,7 +65,7 @@ export default function serverRenderer() {
       const context = {};
 
       // proceed to rendering once prefetched data is ready in store
-      await prefetchBranchData(req.url).then(() => {
+      await prefetchBranchData(store, req.url).then(() => {
         const preloadedStateScript = `<script>window.__PRELOADED_STATE__ = ${serialize(
           store.getState(),
           {

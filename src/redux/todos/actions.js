@@ -1,26 +1,34 @@
-import axios from 'axios';
 import { ready, wrap } from 'redux-ready-wrapper';
+import requestFactory from '@api/request';
 import * as types from './types';
-import todos from '@fixtures/todos';
 
-let id = todos.length;
+let id = 2;
+const request = requestFactory();
 
-// TODO: make api request for existing todos and dispatch
-export const fetchTodos = () =>
-  ready(dispatch => {
-    axios
-      .get('/api/todos')
+// make api request for existing todos and dispatch
+export function fetchTodos() {
+  return ready(dispatch =>
+    request
+      .get('/todos')
       .then(response => {
-        console.log(response);
+        // fake dispatch with delay for loading effect
+        setTimeout(() => {
+          dispatch({
+            type: types.FETCH_TODO,
+            payload: response.data
+          });
+        }, 1500);
       })
       .catch(err => {
+        // TODO: dispatch error
         console.log(err);
-      });
-  });
+      })
+  );
+}
 
 // fake adding new todo without saving into db
-export const addTodo = input =>
-  wrap(dispatch =>
+export function addTodo(input) {
+  return wrap(dispatch =>
     dispatch({
       type: types.ADD_TODO,
       payload: {
@@ -30,12 +38,15 @@ export const addTodo = input =>
       }
     })
   );
+}
 
 // fake updating todo status without saving into db
-export const updateTodo = ({ value, checked }) => ({
-  type: types.UPDATE_TODO,
-  payload: {
-    id: value,
-    done: checked
-  }
-});
+export function updateTodo({ value, checked }) {
+  return {
+    type: types.UPDATE_TODO,
+    payload: {
+      id: value,
+      done: checked
+    }
+  };
+}

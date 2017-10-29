@@ -47,10 +47,6 @@ export default class TodoList extends Component {
   }
 
   render() {
-    if (this.props.todos.length === 0) {
-      return <span className={styles.noRecords}>No todo created so far.</span>;
-    }
-
     return this.getTodos();
   }
 }
