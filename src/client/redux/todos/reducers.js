@@ -1,5 +1,4 @@
 import * as types from './types';
-import todos from '@fixtures/todos';
 
 // initial state with some dummy data
 const initialState = [];

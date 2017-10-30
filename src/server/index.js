@@ -60,37 +60,37 @@ async function prefetchBranchData(store, pathname) {
 export default function serverRenderer() {
   return async (req, res, next) => {
     try {
-      const { css, js } = getAssets();
-      const store = storeFactory({});
-      const context = {};
+      const { css, js } = await getAssets();
+      const store = await storeFactory({});
 
       // proceed to rendering once prefetched data is ready in store
-      await prefetchBranchData(store, req.url).then(() => {
-        const preloadedStateScript = `<script>window.__PRELOADED_STATE__ = ${serialize(
-          store.getState(),
-          {
-            isJSON: true
-          }
-        )}</script>`;
+      await prefetchBranchData(store, req.url);
 
-        const content = renderToString(
-          <Provider store={store}>
-            <App isServer={true} location={req.url} context={context} />
-          </Provider>
-        );
-
-        const { statusCode, redirectUrl } = context;
-
-        if ([301, 302].includes(statusCode)) {
-          return res.redirect(statusCode, redirectUrl);
+      const preloadedStateScript = `<script>window.__PRELOADED_STATE__ = ${serialize(
+        store.getState(),
+        {
+          isJSON: true
         }
+      )}</script>`;
 
-        res.status(statusCode || 200).render('index', {
-          css,
-          js,
-          content,
-          preloadedStateScript
-        });
+      const context = {};
+      const content = renderToString(
+        <Provider store={store}>
+          <App isServer={true} location={req.url} context={context} />
+        </Provider>
+      );
+
+      const { statusCode, redirectUrl } = context;
+
+      if ([301, 302].includes(statusCode)) {
+        return res.redirect(statusCode, redirectUrl);
+      }
+
+      res.status(statusCode || 200).render('index', {
+        css,
+        js,
+        content,
+        preloadedStateScript
       });
     } catch (err) {
       next(err);
