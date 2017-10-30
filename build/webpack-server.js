@@ -1,28 +1,27 @@
 const webpack = require('webpack');
-const isDev = require('isdev');
 const nodeExternals = require('webpack-node-externals');
+const isDev = require('isdev');
+const commonConfig = require('./webpack-common');
 const pkg = require('../package');
 const syspath = require('../config/syspath');
 
 const serverConfig = {
   name: 'server',
   target: 'node',
-  context: syspath.src,
-  devtool: 'inline-source-map',
+  context: commonConfig.context,
+  devtool: commonConfig.devtool,
   node: {
     __filename: false,
     __dirname: false
   },
   externals: [nodeExternals()],
-  entry: ['babel-polyfill', './server/index.js'],
+  entry: [commonConfig.polyfill, './server/index.js'],
   output: {
-    libraryTarget: 'commonjs2',
     path: `${syspath.src}/server`,
+    libraryTarget: 'commonjs2',
     filename: 'index-built.js'
   },
-  resolve: {
-    alias: { styles: `${syspath.src}/client/common/styles` } // alias for @import
-  },
+  resolve: commonConfig.resolve,
   module: {
     rules: [
       {
@@ -48,16 +47,11 @@ const serverConfig = {
             loader: 'sass-loader'
           }
         ]
-      }
+      },
+      ...commonConfig.rules
     ]
   },
-  plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV':
-        JSON.stringify(process.env.NODE_ENV) || 'development'
-    })
-  ]
+  plugins: commonConfig.plugins
 };
 
 module.exports = serverConfig;

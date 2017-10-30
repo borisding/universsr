@@ -1,29 +1,28 @@
 const webpack = require('webpack');
-const fs = require('fs');
-const isDev = require('isdev');
-const autoprefixer = require('autoprefixer');
 const AssetsPlugin = require('assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const fs = require('fs');
+const isDev = require('isdev');
+const autoprefixer = require('autoprefixer');
+const commonConfig = require('./webpack-common');
 const pkg = require('../package');
 const syspath = require('../config/syspath');
-const babel = JSON.parse(fs.readFileSync('./.babelrc'));
 
 const clientConfig = {
   name: 'client',
   target: 'web',
-  context: syspath.src,
-  devtool: 'inline-source-map',
+  context: commonConfig.context,
+  devtool: commonConfig.devtool,
   entry: ['./client/index.js'],
   output: {
     publicPath: '/dist/',
     path: `${syspath.public}/dist`,
     filename: `js/${isDev ? 'bundle' : '[name].bundle-[hash]'}.js`
   },
-  resolve: {
-    alias: { styles: `${syspath.src}/client/common/styles` } // alias for @import
-  },
+  resolve: commonConfig.resolve,
   module: {
     rules: [
       {
@@ -34,9 +33,7 @@ const clientConfig = {
           options: {
             babelrc: false,
             presets: [['env', { modules: false }], 'react', 'stage-2'],
-            plugins: isDev
-              ? babel.plugins.concat(['react-hot-loader/babel'])
-              : babel.plugins
+            plugins: isDev ? ['react-hot-loader/babel'] : []
           }
         }
       },
@@ -68,26 +65,11 @@ const clientConfig = {
           ]
         })
       },
-      {
-        test: /\.(eot|ttf|woff2?)(\?.*)?$/i,
-        use: isDev
-          ? 'url-loader?name=fonts/[name].[ext]'
-          : 'file-loader?name=fonts/[name].[ext]'
-      },
-      {
-        test: /\.(svg|png|jpe?g|gif)(\?.*)?$/i,
-        use: isDev
-          ? 'url-loader?name=images/[name].[ext]'
-          : 'file-loader?name=images/[name].[ext]'
-      }
+      ...commonConfig.rules
     ]
   },
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV':
-        JSON.stringify(process.env.NODE_ENV) || 'development'
-    }),
+    ...commonConfig.plugins,
     new ExtractTextPlugin({
       filename: `css/${isDev ? 'screen' : 'screen-[contenthash]'}.css`,
       ignoreOrder: true,
@@ -105,6 +87,7 @@ const clientConfig = {
 
 if (isDev) {
   clientConfig.entry.unshift(
+    commonConfig.polyfill,
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
   );

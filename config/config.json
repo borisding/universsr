@@ -1,0 +1,5 @@
+{
+  "host": "localhost",
+  "port": 8888,
+  "secret": "change-this-to-yours"
+}

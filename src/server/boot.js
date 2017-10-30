@@ -5,7 +5,7 @@ const serverBoot = app => {
   // running server based on the config
   const server = http.createServer(app);
 
-  server.listen(config.get('port'), config.get('ip'));
+  server.listen(config.get('port'), config.get('host'));
 
   // server on listening event
   server.on('listening', () => {

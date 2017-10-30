@@ -1,4 +1,5 @@
 const convict = require('convict');
+const syspath = require('./syspath');
 
 // application configuration in general
 const config = convict({
@@ -8,11 +9,11 @@ const config = convict({
     default: 'development',
     env: 'NODE_ENV'
   },
-  ip: {
-    doc: 'The express server IP address to bind.',
-    format: 'ipaddress',
-    default: '127.0.0.1',
-    env: 'IP_ADDRESS'
+  host: {
+    doc: 'The express server host.',
+    format: String,
+    default: 'localhost',
+    env: 'HOST'
   },
   port: {
     doc: 'The express server port to bind.',
@@ -23,11 +24,11 @@ const config = convict({
   secret: {
     doc: 'Secret used for application session cookies and CSRF tokens',
     format: '*',
-    default: 'please.change.this.default.to.your.secret.value',
+    default: 'your.default.secret',
     sensitive: true
   }
 });
 
-config.validate();
+config.loadFile(`${syspath.config}/config.json`).validate();
 
 module.exports = config;
