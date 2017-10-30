@@ -10,7 +10,7 @@ const favicon = require('serve-favicon');
 const apiRouter = require('../api/router');
 const config = require('../../config/index');
 const syspath = require('../../config/syspath');
-const webpackHandlers = require('../../build/webpack-handlers');
+const webpackHot = require('../../build/webpack-hot');
 const logger = require('./logger');
 const boot = require('./boot');
 
@@ -35,7 +35,7 @@ app
 
 if (isDev) {
   // both client and server hot reload for development
-  webpackHandlers(app);
+  webpackHot(app);
 
   app.set('views', `${syspath.src}/resources/views`);
 

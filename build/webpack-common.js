@@ -14,13 +14,13 @@ const commonConfig = {
       '@config': syspath.config,
       '@fixtures': syspath.fixtures,
       '@public': syspath.public,
+      '@api': `${syspath.src}/api`,
+      '@server': `${syspath.src}/server`,
       '@client': `${syspath.src}/client`,
       '@common': `${syspath.src}/client/common`,
       '@modules': `${syspath.src}/client/modules`,
-      '@redux': `${syspath.src}/redux`,
-      '@api': `${syspath.src}/api`,
-      '@server': `${syspath.src}/server`,
-      styles: `${syspath.src}/client/common/styles` // alias for @import
+      '@redux': `${syspath.src}/client/redux`,
+      '@styles': `${syspath.src}/client/common/styles`
     }
   },
   rules: [
