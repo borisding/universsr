@@ -11,13 +11,10 @@ export function fetchTodos() {
     request
       .get('/todos')
       .then(response => {
-        // fake dispatch with delay for loading effect
-        setTimeout(() => {
-          dispatch({
-            type: types.FETCH_TODO,
-            payload: response.data
-          });
-        }, 1500);
+        dispatch({
+          type: types.FETCH_TODO,
+          payload: response.data
+        });
       })
       .catch(err => {
         // TODO: dispatch error

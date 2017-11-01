@@ -1,5 +1,4 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import { hydrate } from 'react-dom';
 import storeFactory from '@redux/store';
@@ -10,17 +9,16 @@ const store = storeFactory(preloadedState);
 
 const render = AppComponent => {
   hydrate(
-    <Provider store={store}>
-      <AppContainer>
-        <AppComponent />
-      </AppContainer>
-    </Provider>,
+    <AppContainer>
+      <AppComponent store={store} />
+    </AppContainer>,
     document.getElementById('root')
   );
 };
 
 if (module.hot) {
-  module.hot.accept('./App', () => render(App));
+  module.hot.accept('./index.js');
+  module.hot.accept('./App', () => render(require('./App')));
 }
 
 render(App);

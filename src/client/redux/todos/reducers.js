@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
       return [...state, action.payload];
 
     case types.FETCH_TODO:
-      return initialState.concat(action.payload);
+      return [...state, ...action.payload];
 
     case types.UPDATE_TODO:
       return state.map(record => {

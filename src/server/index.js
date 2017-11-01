@@ -1,7 +1,6 @@
 import fs from 'fs';
 import isDev from 'isdev';
 import React from 'react';
-import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { matchRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
@@ -63,7 +62,16 @@ export default function serverRenderer() {
       const { css, js } = await getAssets();
       const store = await storeFactory({});
 
-      // proceed to rendering once prefetched data is ready in store
+      const context = {};
+      const appString = renderToString(
+        <App
+          store={store}
+          isServer={true}
+          location={req.url}
+          context={context}
+        />
+      );
+
       await prefetchBranchData(store, req.url);
 
       const preloadedStateScript = `<script>window.__PRELOADED_STATE__ = ${serialize(
@@ -73,13 +81,6 @@ export default function serverRenderer() {
         }
       )}</script>`;
 
-      const context = {};
-      const content = renderToString(
-        <Provider store={store}>
-          <App isServer={true} location={req.url} context={context} />
-        </Provider>
-      );
-
       const { statusCode, redirectUrl } = context;
 
       if ([301, 302].includes(statusCode)) {
@@ -87,10 +88,10 @@ export default function serverRenderer() {
       }
 
       res.status(statusCode || 200).render('index', {
+        appString,
+        preloadedStateScript,
         css,
-        js,
-        content,
-        preloadedStateScript
+        js
       });
     } catch (err) {
       next(err);

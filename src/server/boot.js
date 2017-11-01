@@ -33,6 +33,7 @@ const serverBoot = app => {
 
   process.on('unhandledRejection', err => {
     console.error(err.stack);
+    process.exit(-1);
   });
 };
 
