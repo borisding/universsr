@@ -61,16 +61,7 @@ export default function serverRenderer() {
     try {
       const { css, js } = await getAssets();
       const store = await storeFactory({});
-
       const context = {};
-      const appString = renderToString(
-        <App
-          store={store}
-          isServer={true}
-          location={req.url}
-          context={context}
-        />
-      );
 
       await prefetchBranchData(store, req.url);
 
@@ -80,6 +71,15 @@ export default function serverRenderer() {
           isJSON: true
         }
       )}</script>`;
+
+      const appString = renderToString(
+        <App
+          store={store}
+          isServer={true}
+          location={req.url}
+          context={context}
+        />
+      );
 
       const { statusCode, redirectUrl } = context;
 
