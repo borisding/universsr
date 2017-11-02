@@ -1,40 +1,13 @@
-import fs from 'fs';
-import isDev from 'isdev';
 import React from 'react';
+import flushChunks from 'webpack-flush-chunks';
 import { renderToString } from 'react-dom/server';
 import { matchRoutes } from 'react-router-config';
+import { flushChunkNames } from 'react-universal-component/server';
+
 import serialize from 'serialize-javascript';
-import syspath from '@config/syspath';
 import storeFactory from '@redux/store';
 import routes from '@client/routes';
 import App from '@client/App';
-
-// TODO: improve assets handling
-function getAssets() {
-  // leave css property as empty for development mode
-  // as extract css is disabled to allow hot reload
-  if (isDev) {
-    return {
-      css: '',
-      js: 'js/bundle.js'
-    };
-  }
-
-  // if production, read from built `assets.json` instead
-  // which consisted of hashed asset file names
-  try {
-    const { css, js } = JSON.parse(
-      fs.readFileSync(`${syspath.public}/assets.json`)
-    ).main;
-
-    return {
-      css,
-      js
-    };
-  } catch (err) {
-    throw new Error(err);
-  }
-}
 
 // prefetching branch data from matched component
 async function prefetchBranchData(store, pathname) {
@@ -56,10 +29,9 @@ async function prefetchBranchData(store, pathname) {
 
 // export default server renderer
 // also, should allow it to be mounted as middleware for production usage
-export default function serverRenderer() {
+export default function serverRenderer({ clientStats }) {
   return async (req, res, next) => {
     try {
-      const { css, js } = await getAssets();
       const store = await storeFactory({});
       const context = {};
 
@@ -81,6 +53,8 @@ export default function serverRenderer() {
         />
       );
 
+      const chunkNames = flushChunkNames();
+      const { js, styles, cssHash } = flushChunks(clientStats, { chunkNames });
       const { statusCode, redirectUrl } = context;
 
       if ([301, 302].includes(statusCode)) {
@@ -90,7 +64,8 @@ export default function serverRenderer() {
       res.status(statusCode || 200).render('index', {
         appString,
         preloadedStateScript,
-        css,
+        cssHash,
+        styles,
         js
       });
     } catch (err) {

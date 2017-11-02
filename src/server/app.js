@@ -10,7 +10,7 @@ const favicon = require('serve-favicon');
 const apiRouter = require('../api/router');
 const config = require('../../config/index');
 const syspath = require('../../config/syspath');
-const webpackHot = require('../../build/webpack-hot');
+const webpackCompiler = require('../../build/webpack-compiler');
 const logger = require('./logger');
 const boot = require('./boot');
 
@@ -33,24 +33,28 @@ app
   .use(hpp()) // after parsed body
   .use('/api', apiRouter);
 
+const compiler = webpackCompiler(app);
+
 if (isDev) {
-  // both client and server hot reload for development
-  webpackHot(app);
-
-  app.set('views', `${syspath.src}/resources/views`);
-
   // error handler for development only
   const errorHandler = require('errorhandler');
+
+  app.set('views', `${syspath.src}/resources/views`);
   app.use(errorHandler());
 } else {
-  app.set('views', syspath.public);
+  compiler.run((err, stats) => {
+    if (err) {
+      throw new Error(err.stack);
+    }
 
-  app.use(express.static(syspath.public));
-  app.use(favicon(`${syspath.public}/dist/icons/favicon.ico`));
+    const clientStats = stats.toJson().children[0];
+    const serverRenderer = require('./index-built').default;
 
-  // using built server renderer instead for production
-  const serverRenderer = require('./index-built').default;
-  app.use(serverRenderer());
+    app.set('views', syspath.public);
+    app.use(express.static(syspath.public));
+    app.use(favicon(`${syspath.public}/dist/icons/favicon.ico`));
+    app.use(serverRenderer({ clientStats }));
+  });
 }
 
 boot(app);

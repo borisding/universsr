@@ -1,15 +1,14 @@
+const isDev = require('isdev');
 const webpack = require('webpack');
-const AssetsPlugin = require('assets-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const fs = require('fs');
-const isDev = require('isdev');
-const autoprefixer = require('autoprefixer');
 const commonConfig = require('./webpack-common');
 const pkg = require('../package');
 const syspath = require('../config/syspath');
+const bundleFilename = isDev ? '[name].js' : '[name].[chunkhash].js';
 
 const clientConfig = {
   name: 'client',
@@ -20,7 +19,8 @@ const clientConfig = {
   output: {
     publicPath: '/dist/',
     path: `${syspath.public}/dist`,
-    filename: `js/${isDev ? 'bundle' : '[name].bundle-[hash]'}.js`
+    chunkFilename: bundleFilename,
+    filename: bundleFilename
   },
   resolve: commonConfig.resolve,
   module: {
@@ -33,13 +33,15 @@ const clientConfig = {
           options: {
             babelrc: false,
             presets: [['env', { modules: false }], 'react', 'stage-2'],
-            plugins: isDev ? ['react-hot-loader/babel'] : []
+            plugins: ['universal-import'].concat(
+              isDev ? ['react-hot-loader/babel'] : []
+            )
           }
         }
       },
       {
         test: /\.s?css$/,
-        use: ExtractTextPlugin.extract({
+        use: ExtractCssChunks.extract({
           fallback: 'style-loader',
           use: [
             {
@@ -70,11 +72,11 @@ const clientConfig = {
   },
   plugins: [
     ...commonConfig.plugins,
-    new ExtractTextPlugin({
-      filename: `css/${isDev ? 'screen' : 'screen-[contenthash]'}.css`,
-      ignoreOrder: true,
-      allChunks: true,
-      disable: !!isDev
+    new ExtractCssChunks(),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['bootstrap'], // needed to put webpack bootstrap code before chunks
+      filename: bundleFilename,
+      minChunks: Infinity
     }),
     new CopyWebpackPlugin([
       {
@@ -97,11 +99,6 @@ if (isDev) {
   );
 } else {
   clientConfig.plugins = clientConfig.plugins.concat([
-    new AssetsPlugin({
-      fullPath: false,
-      filename: 'assets.json',
-      path: syspath.public
-    }),
     // moved to public and with minification only
     new HtmlWebpackPlugin({
       inject: false,
@@ -124,7 +121,7 @@ if (isDev) {
         warnings: false
       }
     }),
-    new webpack.optimize.AggressiveMergingPlugin()
+    new webpack.HashedModuleIdsPlugin()
   ]);
 }
 

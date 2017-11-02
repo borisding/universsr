@@ -1,6 +1,6 @@
+const isDev = require('isdev');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const isDev = require('isdev');
 const commonConfig = require('./webpack-common');
 const pkg = require('../package');
 const syspath = require('../config/syspath');
@@ -14,7 +14,15 @@ const serverConfig = {
     __filename: false,
     __dirname: false
   },
-  externals: [nodeExternals()],
+  externals: [
+    nodeExternals({
+      whitelist: [
+        'react-universal-component',
+        'require-universal-module',
+        'webpack-flush-chunks'
+      ]
+    })
+  ],
   entry: [commonConfig.polyfill, './server/index.js'],
   output: {
     path: `${syspath.src}/server`,
@@ -51,7 +59,10 @@ const serverConfig = {
       ...commonConfig.rules
     ]
   },
-  plugins: commonConfig.plugins
+  plugins: [
+    ...commonConfig.plugins,
+    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
+  ]
 };
 
 module.exports = serverConfig;
