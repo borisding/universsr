@@ -6,7 +6,7 @@ const config = require('../config/index');
 const commonConfig = {
   polyfill: 'babel-polyfill',
   context: syspath.src,
-  devtool: 'inline-source-map',
+  devtool: isDev ? 'cheap-module-inline-source-map' : 'source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
     alias: {
