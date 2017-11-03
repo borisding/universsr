@@ -9,7 +9,7 @@ const store = storeFactory(preloadedState);
 
 const render = AppComponent => {
   hydrate(
-    <AppContainer>
+    <AppContainer warnings={false}>
       <AppComponent store={store} />
     </AppContainer>,
     document.getElementById('root')
