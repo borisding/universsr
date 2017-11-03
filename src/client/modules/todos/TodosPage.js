@@ -13,10 +13,6 @@ class TodosPage extends Component {
     actions: PropTypes.objectOf(PropTypes.func).isRequired
   };
 
-  static fetchData({ dispatch }) {
-    return dispatch(todoActions.fetchTodos());
-  }
-
   componentDidMount() {
     if (this.props.todos.length === 0) {
       return this.props.actions.fetchTodos();

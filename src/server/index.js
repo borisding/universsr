@@ -1,24 +1,21 @@
 import React from 'react';
+import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
+import { flushChunkNames } from 'react-universal-component/server';
 import { renderToString } from 'react-dom/server';
 import { matchRoutes } from 'react-router-config';
-import { flushChunkNames } from 'react-universal-component/server';
-
-import serialize from 'serialize-javascript';
 import storeFactory from '@redux/store';
 import routes from '@client/routes';
 import App from '@client/App';
 
-// prefetching branch data from matched component
+// preload data for matched route
 async function prefetchBranchData(store, pathname) {
   try {
     const branch = await matchRoutes(routes, pathname);
     const promises = await branch.map(({ route, match }) => {
-      if (match && match.isExact && route.component.fetchData) {
-        return route.component.fetchData(store, match);
-      }
-
-      return Promise.resolve(null);
+      return match && match.isExact && route.loadData
+        ? store.dispatch(route.loadData())
+        : Promise.resolve(null);
     });
 
     return Promise.all(promises);
@@ -27,22 +24,16 @@ async function prefetchBranchData(store, pathname) {
   }
 }
 
-// export default server renderer
+// export default server renderer and receiving stats
 // also, should allow it to be mounted as middleware for production usage
 export default function serverRenderer({ clientStats }) {
   return async (req, res, next) => {
     try {
-      const store = await storeFactory({});
-      const context = {};
+      const initial = {};
+      const context = initial;
+      const store = storeFactory(initial);
 
       await prefetchBranchData(store, req.url);
-
-      const preloadedStateScript = `<script>window.__PRELOADED_STATE__ = ${serialize(
-        store.getState(),
-        {
-          isJSON: true
-        }
-      )}</script>`;
 
       const appString = renderToString(
         <App
@@ -53,8 +44,19 @@ export default function serverRenderer({ clientStats }) {
         />
       );
 
-      const chunkNames = flushChunkNames();
-      const { js, styles, cssHash } = flushChunks(clientStats, { chunkNames });
+      const preloadedState = `<script>window.__PRELOADED_STATE__ = ${serialize(
+        store.getState(),
+        {
+          isJSON: true
+        }
+      )}</script>`;
+
+      const flushChunksOptions = { chunkNames: flushChunkNames() };
+      const { js, styles, cssHash } = flushChunks(
+        clientStats,
+        flushChunksOptions
+      );
+
       const { statusCode, redirectUrl } = context;
 
       if ([301, 302].includes(statusCode)) {
@@ -63,7 +65,7 @@ export default function serverRenderer({ clientStats }) {
 
       res.status(statusCode || 200).render('index', {
         appString,
-        preloadedStateScript,
+        preloadedState,
         cssHash,
         styles,
         js

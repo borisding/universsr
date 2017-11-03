@@ -1,9 +1,19 @@
+const fs = require('fs');
+const path = require('path');
 const isDev = require('isdev');
 const webpack = require('webpack');
-const nodeExternals = require('webpack-node-externals');
 const commonConfig = require('./webpack-common');
 const pkg = require('../package');
 const syspath = require('../config/syspath');
+
+const externalRegExp = /\.bin|react-universal-component|require-universal-module|webpack-flush-chunks/;
+const nodeExternals = fs
+  .readdirSync(path.join(__dirname, '../node_modules'))
+  .filter(x => !externalRegExp.test(x))
+  .reduce((externals, module) => {
+    externals[module] = `commonjs ${module}`;
+    return externals;
+  }, {});
 
 const serverConfig = {
   name: 'server',
@@ -14,15 +24,7 @@ const serverConfig = {
     __filename: false,
     __dirname: false
   },
-  externals: [
-    nodeExternals({
-      whitelist: [
-        'react-universal-component',
-        'require-universal-module',
-        'webpack-flush-chunks'
-      ]
-    })
-  ],
+  externals: nodeExternals,
   entry: [commonConfig.polyfill, './server/index.js'],
   output: {
     path: `${syspath.src}/server`,
@@ -46,7 +48,6 @@ const serverConfig = {
           {
             loader: 'css-loader/locals',
             options: {
-              importLoaders: 1,
               modules: true, // enable css modules
               localIdentName: pkg.cssModules.scopedName
             }
@@ -61,7 +62,9 @@ const serverConfig = {
   },
   plugins: [
     ...commonConfig.plugins,
-    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1
+    })
   ]
 };
 

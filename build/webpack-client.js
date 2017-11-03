@@ -47,7 +47,6 @@ const clientConfig = {
             {
               loader: 'css-loader',
               options: {
-                importLoaders: 1,
                 modules: true, // enable css modules
                 localIdentName: pkg.cssModules.scopedName,
                 sourceMap: !!isDev

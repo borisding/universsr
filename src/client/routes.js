@@ -1,7 +1,12 @@
+import universal from 'react-universal-component';
 import Layout from './modules/base/Layout';
 import NotFound from './modules/base/NotFound';
-import HomePage from './modules/home/HomePage';
-import TodosPage from './modules/todos/TodosPage';
+import { fetchTodos } from '@redux/todos/actions';
+
+const options = {
+  minDelay: 500,
+  error: NotFound
+};
 
 export default [
   {
@@ -10,12 +15,13 @@ export default [
       {
         path: '/',
         exact: true,
-        component: HomePage
+        component: universal(import('./modules/home/HomePage'), options)
       },
       {
         path: '/todos',
         exact: true,
-        component: TodosPage
+        loadData: fetchTodos,
+        component: universal(import('./modules/todos/TodosPage'), options)
       },
       {
         path: '/*',
