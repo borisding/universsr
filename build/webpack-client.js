@@ -4,10 +4,10 @@ const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 const commonConfig = require('./webpack-common');
 const pkg = require('../package');
 const syspath = require('../config/syspath');
+
 const bundleFilename = isDev ? '[name].js' : '[name].[chunkhash].js';
 
 const clientConfig = {
@@ -15,7 +15,17 @@ const clientConfig = {
   target: 'web',
   context: commonConfig.context,
   devtool: commonConfig.devtool,
-  entry: ['./client/index.js'],
+  entry: {
+    main: ['./client/index.js'],
+    vendor: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'redux',
+      'react-redux',
+      'redux-ready-wrapper'
+    ]
+  },
   output: {
     publicPath: '/dist/',
     path: `${syspath.public}/dist`,
@@ -73,7 +83,7 @@ const clientConfig = {
     ...commonConfig.plugins,
     new ExtractCssChunks(),
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['bootstrap'], // needed to put webpack bootstrap code before chunks
+      names: ['bootstrap', 'vendor'], // needed to put webpack bootstrap code before chunks
       filename: bundleFilename,
       minChunks: Infinity
     }),
@@ -87,7 +97,7 @@ const clientConfig = {
 };
 
 if (isDev) {
-  clientConfig.entry.unshift(
+  clientConfig.entry.main.unshift(
     commonConfig.polyfill,
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
