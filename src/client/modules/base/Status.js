@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
@@ -13,13 +13,13 @@ const Status = ({ children, statusCode, redirectUrl = '/' }) => (
         staticContext.redirectUrl = redirectUrl;
       }
 
-      return children;
+      return Children.only(children);
     }}
   />
 );
 
 Status.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
   statusCode: PropTypes.number.isRequired,
   redirectUrl: PropTypes.string
 };
