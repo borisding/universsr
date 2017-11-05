@@ -15,19 +15,16 @@ export default [
       {
         path: '/',
         exact: true,
-        pageTitle: 'Home',
         component: universal(import('./modules/home/HomePage'), options)
       },
       {
         path: '/todos',
         exact: true,
-        pageTitle: 'Todos',
         loadData: fetchTodos,
         component: universal(import('./modules/todos/TodosPage'), options)
       },
       {
         path: '/*',
-        pageTitle: 'Page Not Found',
         component: NotFound
       }
     ]
