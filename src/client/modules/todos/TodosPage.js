@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
+import PageTitle from '@client/modules/base/PageTitle';
 import * as todoActions from '@redux/todos/actions';
 
 class TodosPage extends Component {
@@ -23,12 +24,14 @@ class TodosPage extends Component {
     const { actions, todos } = this.props;
 
     return (
-      <div>
-        <h3>Todos Demo</h3>
-        <TodoForm addTodo={actions.addTodo} />
-        <hr />
-        <TodoList updateTodo={actions.updateTodo} todos={todos} />
-      </div>
+      <PageTitle title="Todos">
+        <div>
+          <h3>Todos Demo</h3>
+          <TodoForm addTodo={actions.addTodo} />
+          <hr />
+          <TodoList updateTodo={actions.updateTodo} todos={todos} />
+        </div>
+      </PageTitle>
     );
   }
 }

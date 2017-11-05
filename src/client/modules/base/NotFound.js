@@ -1,11 +1,14 @@
 import React from 'react';
+import PageTitle from './PageTitle';
 import Status from './Status';
 
 const NotFound = () => {
   return (
-    <Status statusCode={404}>
-      <h3>{'404 - Page Not Found.'}</h3>
-    </Status>
+    <PageTitle title="Not Found">
+      <Status statusCode={404}>
+        <h3>{'404 - Page Not Found.'}</h3>
+      </Status>
+    </PageTitle>
   );
 };
 

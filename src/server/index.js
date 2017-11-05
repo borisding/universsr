@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title';
 import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
 import { flushChunkNames } from 'react-universal-component/server';
@@ -35,6 +36,13 @@ export default function serverRenderer({ clientStats }) {
 
       await prefetchBranchData(store, req.url);
 
+      const preloadedState = `<script>window.__PRELOADED_STATE__ = ${serialize(
+        store.getState(),
+        {
+          isJSON: true
+        }
+      )}</script>`;
+
       const appString = renderToString(
         <App
           store={store}
@@ -44,12 +52,7 @@ export default function serverRenderer({ clientStats }) {
         />
       );
 
-      const preloadedState = `<script>window.__PRELOADED_STATE__ = ${serialize(
-        store.getState(),
-        {
-          isJSON: true
-        }
-      )}</script>`;
+      DocumentTitle.rewind();
 
       const flushChunksOptions = { chunkNames: flushChunkNames() };
       const { js, styles, cssHash } = flushChunks(

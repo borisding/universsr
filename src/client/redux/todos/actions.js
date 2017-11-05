@@ -6,20 +6,25 @@ let id = 2;
 const request = requestFactory();
 
 // make api request for existing todos and dispatch
+// fake request delay for is fetching effect
 export function fetchTodos() {
   return ready(dispatch =>
-    request
-      .get('/todos')
-      .then(response => {
-        dispatch({
-          type: types.FETCH_TODO,
-          payload: response.data
-        });
-      })
-      .catch(err => {
-        // TODO: dispatch error
-        console.log(err);
-      })
+    setTimeout(
+      () =>
+        request
+          .get('/todos')
+          .then(response => {
+            dispatch({
+              type: types.FETCH_TODO,
+              payload: response.data
+            });
+          })
+          .catch(err => {
+            // TODO: dispatch error
+            console.log(err);
+          }),
+      1000
+    )
   );
 }
 
