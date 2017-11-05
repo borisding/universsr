@@ -8,23 +8,27 @@ const request = requestFactory();
 // make api request for existing todos and dispatch
 // fake request delay for is fetching effect
 export function fetchTodos() {
-  return ready(dispatch =>
-    setTimeout(
-      () =>
-        request
-          .get('/todos')
-          .then(response => {
-            dispatch({
-              type: types.FETCH_TODO,
-              payload: response.data
-            });
-          })
-          .catch(err => {
-            // TODO: dispatch error
-            console.log(err);
-          }),
-      1000
-    )
+  const makeRequest = dispatch =>
+    request
+      .get('/todos')
+      .then(res => {
+        dispatch({
+          type: types.FETCH_TODO,
+          payload: res.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: types.REQUEST_ERROR,
+          payload: err
+        });
+      });
+
+  return ready(
+    (dispatch, getState) =>
+      getState().isClient
+        ? setTimeout(() => makeRequest(dispatch), 1000) // fake delay on client side
+        : makeRequest(dispatch)
   );
 }
 
