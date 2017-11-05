@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
+import PageTitle from './PageTitle';
 import styles from './styles/Layout.scss';
 
 const Layout = ({ route, isClient, isFetching }) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>{renderRoutes(route.routes)}</div>
-      {isClient &&
-        isFetching && <div className={styles.loader}>Loading...</div>}
-    </div>
+    <PageTitle>
+      <div className={styles.container}>
+        <div className={styles.content}>{renderRoutes(route.routes)}</div>
+        {isClient &&
+          isFetching && <div className={styles.loader}>Loading...</div>}
+      </div>
+    </PageTitle>
   );
 };
 
