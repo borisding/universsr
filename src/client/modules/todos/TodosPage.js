@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
-import PageTitle from '@client/modules/base/PageTitle';
+import PageTitle from '@common/components/PageTitle';
 import * as todoActions from '@redux/todos/actions';
 
 class TodosPage extends Component {

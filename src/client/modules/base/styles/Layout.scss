@@ -2,11 +2,12 @@
 
 html,
 body {
-  min-height: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 body {
-  background-color: $color-white;
+  background-color: #f7f8f9;
   font: 100% $font-stack;
   position: relative;
 }
@@ -17,6 +18,12 @@ ul {
   padding: 0;
 }
 
+hr {
+  background: #dedede;
+  border: 0;
+  height: 1px;
+}
+
 .container {
   display: flex;
   flex-flow: row wrap;
@@ -24,22 +31,6 @@ ul {
 
   > .content {
     flex: 1 100%;
-    padding: $base-padding;
+    padding: $base-padding * 5 $base-padding;
   }
-}
-
-.loader {
-  $pixel: 100px;
-  $percent: 50%;
-
-  height: $pixel;
-  left: $percent;
-  line-height: $pixel;
-  margin-left: -($pixel);
-  margin-top: -($pixel);
-  position: fixed;
-  text-align: center;
-  top: $percent;
-  width: $pixel * 2;
-  z-index: 999;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import PageTitle from '@client/modules/base/PageTitle';
+import PageTitle from '@common/components/PageTitle';
 import Home from './Home';
 
 const HomePage = () => (

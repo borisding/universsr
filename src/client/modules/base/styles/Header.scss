@@ -1,0 +1,53 @@
+@import '~@styles/variables';
+
+$height: 60px;
+$width: 60px;
+
+header {
+  background-color: $color-black;
+  color: $color-white;
+  height: $height;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.menu {
+  .active,
+  %active {
+    background-color: lighten($color-black, 20%);
+    text-decoration: underline;
+  }
+
+  ul {
+    height: $height;
+    list-style: none;
+  }
+
+  li {
+    display: inline-block;
+    height: $height;
+    padding: 0;
+    text-align: center;
+  }
+
+  li > a {
+    color: $color-white;
+    display: inline-block;
+    height: $height;
+    line-height: $height;
+    min-width: $width;
+    padding: 0 $base-padding;
+    text-decoration: none;
+  }
+
+  li > a:hover,
+  li > a:active,
+  li > a:focus {
+    @extend %active;
+  }
+}

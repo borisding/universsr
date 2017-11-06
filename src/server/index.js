@@ -52,8 +52,7 @@ export default function serverRenderer({ clientStats }) {
         />
       );
 
-      DocumentTitle.rewind();
-
+      const pageTitle = DocumentTitle.rewind();
       const flushChunksOptions = { chunkNames: flushChunkNames() };
       const { js, styles, cssHash } = flushChunks(
         clientStats,
@@ -67,6 +66,7 @@ export default function serverRenderer({ clientStats }) {
       }
 
       res.status(statusCode || 200).render('index', {
+        pageTitle,
         appString,
         preloadedState,
         cssHash,

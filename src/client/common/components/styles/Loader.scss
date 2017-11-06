@@ -1,0 +1,15 @@
+.loaderContainer {
+  $pixel: 100px;
+  $percent: 50%;
+
+  height: $pixel;
+  left: $percent;
+  line-height: $pixel;
+  margin-left: -($pixel);
+  margin-top: -($pixel);
+  position: fixed;
+  text-align: center;
+  top: $percent;
+  width: $pixel * 2;
+  z-index: 999;
+}

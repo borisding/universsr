@@ -2,7 +2,7 @@ import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-const Status = ({ children, statusCode, redirectUrl = '/' }) => (
+const HttpStatus = ({ children, statusCode, redirectUrl = '/' }) => (
   <Route
     render={({ staticContext }) => {
       if (staticContext && statusCode) {
@@ -18,10 +18,10 @@ const Status = ({ children, statusCode, redirectUrl = '/' }) => (
   />
 );
 
-Status.propTypes = {
+HttpStatus.propTypes = {
   children: PropTypes.node.isRequired,
   statusCode: PropTypes.number.isRequired,
   redirectUrl: PropTypes.string
 };
 
-export default Status;
+export default HttpStatus;

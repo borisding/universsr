@@ -1,13 +1,13 @@
 import React from 'react';
-import PageTitle from './PageTitle';
-import Status from './Status';
+import HttpStatus from '@common/components/HttpStatus';
+import PageTitle from '@common/components/PageTitle';
 
 const NotFound = () => {
   return (
     <PageTitle title="Not Found">
-      <Status statusCode={404}>
+      <HttpStatus statusCode={404}>
         <h3>{'404 - Page Not Found.'}</h3>
-      </Status>
+      </HttpStatus>
     </PageTitle>
   );
 };

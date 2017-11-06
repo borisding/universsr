@@ -23,7 +23,7 @@ export default class TodoList extends Component {
     const totalDone = todos.filter(todo => this.isTruthy(todo.done)).length;
 
     return (
-      <div>
+      <div className={styles.todosContainer}>
         <h3>{`My Todos (${totalDone} / ${todos.length})`}</h3>
         <ul>
           {todos.map(record => (
