@@ -8,14 +8,14 @@ import Loader from '@common/components/Loader';
 import Header from './Header';
 import styles from './styles/Layout.scss';
 
-const Layout = ({ route }) => {
+const Layout = ({ route, isClient, isFetching }) => {
   return (
     <PageTitle>
       <div className={styles.container}>
         <Header />
         <div className={styles.content}>
           {renderRoutes(route.routes)}
-          <Loader />
+          {isClient && isFetching && <Loader />}
         </div>
       </div>
     </PageTitle>
@@ -23,7 +23,14 @@ const Layout = ({ route }) => {
 };
 
 Layout.propTypes = {
+  isClient: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   route: PropTypes.object.isRequired
 };
 
-export default withRouter(connect()(Layout));
+export default withRouter(
+  connect(state => ({
+    isClient: state.isClient,
+    isFetching: state.isFetching
+  }))(Layout)
+);

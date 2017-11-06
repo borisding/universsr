@@ -52,7 +52,7 @@ if (isDev) {
 
     app.set('views', syspath.public);
     app.use(express.static(syspath.public));
-    app.use(favicon(`${syspath.public}/dist/icons/favicon.ico`));
+    app.use(favicon(`${syspath.public}/dist/icons/favicon.png`));
     app.use(serverRenderer({ clientStats }));
   });
 }

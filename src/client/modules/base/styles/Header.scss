@@ -4,7 +4,7 @@ $height: 60px;
 $width: 60px;
 
 header {
-  background-color: $color-black;
+  background-color: lighten($color-black, 10%);
   color: $color-white;
   height: $height;
   left: 0;
@@ -19,7 +19,7 @@ header {
 .menu {
   .active,
   %active {
-    background-color: lighten($color-black, 20%);
+    background-color: lighten($color-black, 25%);
     text-decoration: underline;
   }
 
@@ -45,9 +45,7 @@ header {
     text-decoration: none;
   }
 
-  li > a:hover,
-  li > a:active,
-  li > a:focus {
+  li > a:hover {
     @extend %active;
   }
 }

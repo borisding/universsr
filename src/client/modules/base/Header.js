@@ -21,6 +21,11 @@ const Header = () => (
               </li>
             )
         )}
+        <li>
+          <NavLink to="/untitled" activeClassName={styles.active}>
+            Untitled Page
+          </NavLink>
+        </li>
       </ul>
     </nav>
   </header>

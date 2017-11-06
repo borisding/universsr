@@ -1,10 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import styles from './styles/Home.scss';
 
 export default () => {
   return (
     <div>
-      <h3>Welcome to Universal React-Redux App!</h3>
+      <p className={styles.lead}>
+        universsr is <strong>universal</strong> React-Redux boilerplate.
+      </p>
+      <a href="https://github.com/borisding/universsr">GitHub Repository</a>
     </div>
   );
 };

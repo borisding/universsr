@@ -6,9 +6,8 @@ let id = 2;
 const request = requestFactory();
 
 // make api request for existing todos and dispatch
-// fake request delay for is fetching effect
 export function fetchTodos() {
-  const makeRequest = dispatch =>
+  return ready(dispatch =>
     request
       .get('/todos')
       .then(res => {
@@ -22,13 +21,7 @@ export function fetchTodos() {
           type: types.REQUEST_ERROR,
           payload: err
         });
-      });
-
-  return ready(
-    (dispatch, getState) =>
-      getState().isClient
-        ? setTimeout(() => makeRequest(dispatch), 1000) // fake delay on client side
-        : makeRequest(dispatch)
+      })
   );
 }
 
