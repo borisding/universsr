@@ -16,7 +16,16 @@ const clientConfig = {
   context: commonConfig.context,
   devtool: commonConfig.devtool,
   entry: {
-    main: ['./client/index.js'],
+    main: [
+      commonConfig.polyfill,
+      ...(isDev
+        ? [
+            'react-hot-loader/patch',
+            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
+          ]
+        : []),
+      './client/index.js'
+    ],
     vendor: [
       'react',
       'react-dom',
@@ -93,45 +102,38 @@ const clientConfig = {
         to: `${syspath.public}/dist/icons`
       }
     ])
-  ]
+  ].concat(
+    isDev
+      ? [
+          new webpack.HotModuleReplacementPlugin(),
+          new webpack.NamedModulesPlugin()
+        ]
+      : [
+          // moved to public and with minification only
+          new HtmlWebpackPlugin({
+            inject: false,
+            template: `!!raw-loader!${syspath.src}/resources/views/index.ejs`,
+            filename: `${syspath.public}/index.ejs`,
+            minify: {
+              collapseWhitespace: true,
+              removeComments: true
+            }
+          }),
+          new webpack.optimize.UglifyJsPlugin({
+            beautify: false,
+            comments: false,
+            sourceMap: true,
+            minimize: true,
+            output: { comments: false },
+            mangle: { screw_ie8: true },
+            compress: {
+              screw_ie8: true,
+              warnings: false
+            }
+          }),
+          new webpack.HashedModuleIdsPlugin()
+        ]
+  )
 };
-
-if (isDev) {
-  clientConfig.entry.main.unshift(
-    commonConfig.polyfill,
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
-  );
-  clientConfig.plugins.unshift(
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
-  );
-} else {
-  clientConfig.plugins = clientConfig.plugins.concat([
-    // moved to public and with minification only
-    new HtmlWebpackPlugin({
-      inject: false,
-      template: `!!raw-loader!${syspath.src}/resources/views/index.ejs`,
-      filename: `${syspath.public}/index.ejs`,
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      beautify: false,
-      comments: false,
-      sourceMap: true,
-      minimize: true,
-      output: { comments: false },
-      mangle: { screw_ie8: true },
-      compress: {
-        screw_ie8: true,
-        warnings: false
-      }
-    }),
-    new webpack.HashedModuleIdsPlugin()
-  ]);
-}
 
 module.exports = clientConfig;
