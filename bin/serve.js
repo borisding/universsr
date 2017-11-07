@@ -1,7 +1,9 @@
-const http = require('http');
-const config = require('../../config/index');
+#!/usr/bin/env node
 
-const serverBoot = app => {
+const http = require('http');
+const config = require('../config');
+
+module.exports = app => {
   // running server based on the config
   const server = http.createServer(app);
 
@@ -36,5 +38,3 @@ const serverBoot = app => {
     process.exit(-1);
   });
 };
-
-module.exports = serverBoot;

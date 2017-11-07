@@ -6,13 +6,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
-const favicon = require('serve-favicon');
-const apiRouter = require('../api/router');
 const config = require('../../config/index');
-const syspath = require('../../config/syspath');
-const webpackCompiler = require('../../build/webpack-compiler');
+const apiRouter = require('../api/router');
 const logger = require('./logger');
-const boot = require('./boot');
+const run = require('./run');
 
 const app = express();
 
@@ -33,28 +30,4 @@ app
   .use(hpp()) // after parsed body
   .use('/api', apiRouter);
 
-const compiler = webpackCompiler(app);
-
-if (isDev) {
-  // error handler for development only
-  const errorHandler = require('errorhandler');
-
-  app.set('views', `${syspath.src}/resources/views`);
-  app.use(errorHandler());
-} else {
-  compiler.run((err, stats) => {
-    if (err) {
-      throw new Error(err.stack);
-    }
-
-    const clientStats = stats.toJson().children[0];
-    const serverRenderer = require('./index-built').default;
-
-    app.set('views', syspath.public);
-    app.use(express.static(syspath.public));
-    app.use(favicon(`${syspath.public}/dist/icons/favicon.png`));
-    app.use(serverRenderer({ clientStats }));
-  });
-}
-
-boot(app);
+run(app);
