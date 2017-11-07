@@ -35,6 +35,7 @@
   "dependencies": {
     "app-root-path": "^2.0.1",
     "axios": "^0.17.0",
+    "babel-plugin-react-css-modules": "^3.3.2",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
@@ -89,6 +90,8 @@
     "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.1",
     "postcss-loader": "^2.0.6",
+    "postcss-nested": "^2.1.2",
+    "postcss-scss": "^1.0.2",
     "prettier": "^1.7.4",
     "raw-loader": "^0.5.1",
     "react-hot-loader": "^3.1.1",
@@ -120,8 +123,5 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ],
-  "cssModules": {
-    "scopedName": "[local]___[hash:base64:5]"
-  }
+  ]
 }

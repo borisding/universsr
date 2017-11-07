@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { routes } from '@client/routes';
-import styles from './styles/Header.scss';
+import { active } from './styles/Header.scss';
 
 const Header = () => (
   <header>
-    <nav className={styles.menu}>
+    <nav styleName="menu">
       <ul>
         {routes.map(
           (route, index) =>
@@ -14,18 +14,13 @@ const Header = () => (
                 <NavLink
                   to={route.path}
                   exact={route.exact === true}
-                  activeClassName={styles.active}
+                  activeClassName={active}
                 >
                   {route.menu}
                 </NavLink>
               </li>
             )
         )}
-        <li>
-          <NavLink to="/untitled" activeClassName={styles.active}>
-            Untitled Page
-          </NavLink>
-        </li>
       </ul>
     </nav>
   </header>

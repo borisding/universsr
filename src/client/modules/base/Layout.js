@@ -6,14 +6,14 @@ import { renderRoutes } from 'react-router-config';
 import PageTitle from '@common/components/PageTitle';
 import Loader from '@common/components/Loader';
 import Header from './Header';
-import styles from './styles/Layout.scss';
+import './styles/Layout.scss';
 
 const Layout = ({ route, isClient, isFetching }) => {
   return (
     <PageTitle>
-      <div className={styles.container}>
+      <div styleName="container">
         <Header />
-        <div className={styles.content}>
+        <div styleName="content">
           {renderRoutes(route.routes)}
           {isClient && isFetching && <Loader />}
         </div>

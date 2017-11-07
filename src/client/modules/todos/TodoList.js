@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from '@common/components/Checkbox';
-import styles from './styles/TodoList.scss';
+import './styles/TodoList.scss';
 
 export default class TodoList extends Component {
   static propTypes = {
@@ -23,7 +23,7 @@ export default class TodoList extends Component {
     const totalDone = todos.filter(todo => this.isTruthy(todo.done)).length;
 
     return (
-      <div className={styles.todosContainer}>
+      <div styleName="todos-container">
         <h3>{`My Todos (${totalDone} / ${todos.length})`}</h3>
         <ul>
           {todos.map(record => (
@@ -35,7 +35,7 @@ export default class TodoList extends Component {
                   onChange={evt => updateTodo(evt.target)}
                   isChecked={this.isTruthy(record.done)}
                 />
-                <span className={!record.done ? styles.pending : styles.done}>
+                <span styleName={!record.done ? 'pending' : 'done'}>
                   {record.todo}
                 </span>
               </label>

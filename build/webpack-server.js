@@ -3,7 +3,6 @@ const path = require('path');
 const isDev = require('isdev');
 const webpack = require('webpack');
 const commonConfig = require('./webpack-common');
-const pkg = require('../package');
 const syspath = require('../config/syspath');
 
 const externalRegExp = /\.bin|react-universal-component|require-universal-module|webpack-flush-chunks/;
@@ -49,7 +48,7 @@ const serverConfig = {
             loader: 'css-loader/locals',
             options: {
               modules: true, // enable css modules
-              localIdentName: pkg.cssModules.scopedName
+              localIdentName: commonConfig.cssScopedName
             }
           },
           {

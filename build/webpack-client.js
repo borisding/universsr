@@ -1,3 +1,4 @@
+const fs = require('fs');
 const isDev = require('isdev');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
@@ -5,9 +6,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonConfig = require('./webpack-common');
-const pkg = require('../package');
 const syspath = require('../config/syspath');
 
+const babel = JSON.parse(fs.readFileSync(`${syspath.root}/.babelrc`, 'utf8'));
 const bundleFilename = isDev ? '[name].js' : '[name].[chunkhash].js';
 
 const clientConfig = {
@@ -52,7 +53,7 @@ const clientConfig = {
           options: {
             babelrc: false,
             presets: [['env', { modules: false }], 'react', 'stage-2'],
-            plugins: ['universal-import'].concat(
+            plugins: babel.plugins.concat(
               isDev ? ['react-hot-loader/babel'] : []
             )
           }
@@ -67,7 +68,7 @@ const clientConfig = {
               loader: 'css-loader',
               options: {
                 modules: true, // enable css modules
-                localIdentName: pkg.cssModules.scopedName,
+                localIdentName: commonConfig.cssScopedName,
                 sourceMap: !!isDev
               }
             },
