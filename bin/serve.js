@@ -2,6 +2,7 @@
 
 const http = require('http');
 const config = require('../config');
+const { error, info } = require('../src/utils');
 
 module.exports = app => {
   // running server based on the config
@@ -12,21 +13,20 @@ module.exports = app => {
   // server on listening event
   server.on('listening', () => {
     const address = server.address();
-    console.info(
-      `Server is up! Listening:${'port' in address ? address.port : address}`
-    );
+
+    info('Server is up! Listening: %s', 0, [
+      'port' in address ? address.port : address
+    ]);
   });
 
   // server on error event
   server.on('error', err => {
     switch (err.code) {
       case 'EACCES':
-        console.error('Not enough privileges to run server.');
-        process.exit(-1);
+        error('Not enough privileges to run server.', -1);
         break;
       case 'EADDRINUSE':
-        console.error(`${config.get('port')} is already in use.`);
-        process.exit(-1);
+        error('%s is already in use.', -1, [config.get('port')]);
         break;
       default:
         throw err;
@@ -34,7 +34,6 @@ module.exports = app => {
   });
 
   process.on('unhandledRejection', err => {
-    console.error(err.stack);
-    process.exit(-1);
+    error(err.stack, -1);
   });
 };

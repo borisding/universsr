@@ -4,6 +4,7 @@ const favicon = require('serve-favicon');
 const serve = require('../../bin/serve');
 const syspath = require('../../config/syspath');
 const webpackCompiler = require('../../build/webpack-compiler');
+const { error } = require('../utils');
 
 module.exports = async app => {
   try {
@@ -32,6 +33,6 @@ module.exports = async app => {
       });
     }
   } catch (err) {
-    throw new Error(err.stack);
+    error(err.stack, -1);
   }
 };

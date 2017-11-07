@@ -4,7 +4,7 @@
   "description": "Universal React + Redux, Express application boilerplate.",
   "main": "app.js",
   "scripts": {
-    "clean": "rimraf public src/**/*-built.js",
+    "clean": "rimraf public src/**/*-built.*",
     "build:prod": "cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
     "start:prod": "npm-run-all clean build:prod && cross-env NODE_ENV=production node app.js",
     "start": "npm run clean && cross-env NODE_ENV=development nodemon --exec node app.js",
@@ -38,6 +38,7 @@
     "babel-plugin-react-css-modules": "^3.3.2",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
+    "chalk": "^2.3.0",
     "compression": "^1.7.1",
     "convict": "^4.0.1",
     "cookie-parser": "^1.4.3",
