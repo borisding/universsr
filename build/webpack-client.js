@@ -5,6 +5,7 @@ const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const StatsPlugin = require('stats-webpack-plugin');
 const commonConfig = require('./webpack-common');
 const syspath = require('../config/syspath');
 
@@ -132,7 +133,8 @@ const clientConfig = {
               warnings: false
             }
           }),
-          new webpack.HashedModuleIdsPlugin()
+          new webpack.HashedModuleIdsPlugin(),
+          new StatsPlugin('stats.json')
         ]
   )
 };
