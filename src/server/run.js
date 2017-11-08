@@ -8,10 +8,13 @@ const { error } = require('../utils');
 module.exports = async app => {
   try {
     if (isDev) {
-      await require('../../build/webpack-compiler')(app);
+      const errorHandler = require('errorhandler');
+      const webpackCompiler = require('../../build/webpack-compiler');
+
+      await webpackCompiler(app);
 
       app.set('views', `${syspath.src}/resources/views`);
-      app.use(require('errorhandler')());
+      app.use(errorHandler());
     } else {
       const clientStats = require('../../public/dist/stats.json');
       const serverRenderer = require('./index-built').default;
