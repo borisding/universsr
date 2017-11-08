@@ -90,6 +90,7 @@
     "node-sass": "^4.5.3",
     "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.1",
+    "offline-plugin": "^4.8.4",
     "postcss-loader": "^2.0.6",
     "postcss-nested": "^2.1.2",
     "postcss-scss": "^1.0.2",

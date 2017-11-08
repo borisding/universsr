@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
 const commonConfig = require('./webpack-common');
 const syspath = require('../config/syspath');
 
@@ -98,12 +99,23 @@ const clientConfig = {
       filename: bundleFilename,
       minChunks: Infinity
     }),
-    new CopyWebpackPlugin([
-      {
-        from: `${syspath.src}/resources/assets/icons`,
-        to: `${syspath.public}/dist/icons`
-      }
-    ])
+    new CopyWebpackPlugin(
+      [
+        {
+          from: `${syspath.src}/resources/assets/icons`,
+          to: `${syspath.public}/dist/icons`
+        }
+      ].concat(
+        !isDev
+          ? [
+              {
+                from: `${syspath.src}/resources/assets/pwa`,
+                to: `${syspath.public}/dist/pwa`
+              }
+            ]
+          : []
+      )
+    )
   ].concat(
     isDev
       ? [
@@ -134,7 +146,13 @@ const clientConfig = {
             }
           }),
           new webpack.HashedModuleIdsPlugin(),
-          new StatsPlugin('stats.json')
+          new StatsPlugin('stats.json'),
+          new OfflinePlugin({
+            ServiceWorker: { events: true }, // use ServiceWorker for offline usage
+            AppCache: false, // disable for AppCache
+            relativePaths: false, // to allow using publicPath
+            cacheMaps: [{ requestTypes: ['navigate', 'same-origin'] }]
+          })
         ]
   )
 };
