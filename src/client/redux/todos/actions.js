@@ -1,5 +1,5 @@
 import { ready, wrap } from 'redux-ready-wrapper';
-import requestFactory from '@api/request';
+import requestFactory from '@utils/request';
 import * as types from './types';
 
 let id = 2;

@@ -11,11 +11,13 @@ const commonConfig = {
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
     alias: {
+      '@bin': syspath.bin,
       '@build': syspath.build,
       '@config': syspath.config,
       '@fixtures': syspath.fixtures,
       '@public': syspath.public,
       '@api': `${syspath.src}/api`,
+      '@utils': `${syspath.src}/utils`,
       '@server': `${syspath.src}/server`,
       '@client': `${syspath.src}/client`,
       '@common': `${syspath.src}/client/common`,
