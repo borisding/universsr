@@ -5,17 +5,15 @@ import { BrowserRouter, StaticRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import routes from './routes';
 
-const renderRouteComponents = () => renderRoutes(routes);
-
 const App = ({ store, isServer = false, location, context }) => {
   return (
     <Provider store={store}>
       {isServer ? (
         <StaticRouter location={location} context={context}>
-          {renderRouteComponents()}
+          {renderRoutes(routes)}
         </StaticRouter>
       ) : (
-        <BrowserRouter>{renderRouteComponents()}</BrowserRouter>
+        <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
       )}
     </Provider>
   );

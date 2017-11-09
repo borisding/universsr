@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import TextInput from '@common/components/TextInput';
 import './styles/TodoForm.scss';
 
@@ -55,14 +56,16 @@ export default class TodoForm extends Component {
 
   render() {
     const { todoInput, isInvalid } = this.state;
+    const styles = classNames('todo-input', { 'error-input': !!isInvalid });
+    const placeholder = isInvalid ? 'Todo is required!' : 'Enter new todo...';
 
     return (
       <form onSubmit={this.handleSubmit}>
         <TextInput
           name="newTodo"
           value={todoInput}
-          styleName={'todo-input' + (isInvalid ? ' error-input' : '')}
-          placeholder={isInvalid ? 'Todo is required!' : 'Enter new todo...'}
+          styleName={styles}
+          placeholder={placeholder}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
         />
