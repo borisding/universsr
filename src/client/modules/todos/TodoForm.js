@@ -62,6 +62,7 @@ export default class TodoForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <TextInput
+          autoFocus={true}
           name="newTodo"
           value={todoInput}
           styleName={styles}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TextInput = ({
+  autoFocus,
   className,
   name,
   id,
@@ -13,6 +14,7 @@ const TextInput = ({
   return (
     <input
       type="text"
+      autoFocus={autoFocus}
       className={className}
       name={name}
       id={id}
@@ -25,6 +27,7 @@ const TextInput = ({
 };
 
 TextInput.propTypes = {
+  autoFocus: PropTypes.bool,
   className: PropTypes.string,
   name: PropTypes.string,
   id: PropTypes.any,
