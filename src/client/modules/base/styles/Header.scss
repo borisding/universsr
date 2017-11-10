@@ -1,12 +1,10 @@
 @import '~@styles/variables';
 
-$height: 60px;
-$width: 60px;
-
 header {
   background-color: lighten($color-black, 10%);
   color: $color-white;
-  height: $height;
+  display: block;
+  height: $header-height;
   left: 0;
   margin: 0;
   padding: 0;
@@ -24,13 +22,12 @@ header {
   }
 
   ul {
-    height: $height;
+    height: $header-height;
     list-style: none;
   }
 
   li {
     display: inline-block;
-    height: $height;
     padding: 0;
     text-align: center;
   }
@@ -38,9 +35,9 @@ header {
   li > a {
     color: $color-white;
     display: inline-block;
-    height: $height;
-    line-height: $height;
-    min-width: $width;
+    height: $header-height;
+    line-height: $header-height;
+    min-width: 60px;
     padding: 0 $base-padding;
     text-decoration: none;
   }

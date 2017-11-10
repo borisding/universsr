@@ -1,19 +1,25 @@
 @import '~@styles/variables';
 
 html,
-body {
-  height: 100%;
-  width: 100%;
+#root {
+  min-height: 100%;
+  position: relative;
 }
 
 body {
   background-color: #fafbfc;
-  font: 100% $font-stack;
-  position: relative;
+  font: $base-font-size $font-stack;
+  margin-top: $header-height;
 }
 
-#root {
-  height: 100%;
+body > .container {
+  padding: ($base-padding * 3) $base-padding;
+}
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
 
 ol,
@@ -23,13 +29,7 @@ ul {
 }
 
 hr {
-  background: #dedede;
+  background: $color-border;
   border: 0;
   height: 1px;
-}
-
-.container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
 }

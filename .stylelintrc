@@ -2,6 +2,9 @@
   "extends": "stylelint-config-sass-guidelines",
   "rules": {
     "selector-max-id": 1,
-    "selector-class-pattern": null
+    "selector-class-pattern": null,
+    "property-no-unknown": [true, {
+      ignoreProperties: ["composes"]
+    }]
   }
 }
