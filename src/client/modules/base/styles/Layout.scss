@@ -12,6 +12,10 @@ body {
   position: relative;
 }
 
+#root {
+  height: 100%;
+}
+
 ol,
 ul {
   margin: 0;
@@ -28,9 +32,4 @@ hr {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-
-  > .content {
-    flex: 1 100%;
-    padding: $base-padding * 5 $base-padding;
-  }
 }
