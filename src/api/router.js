@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const todos = require('../../fixtures/todos');
+const todos = require('../../fixtures/data/todos');
 
 router.get('/', (req, res) => {
   res.json({
