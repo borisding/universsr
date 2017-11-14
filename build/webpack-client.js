@@ -10,7 +10,6 @@ const OfflinePlugin = require('offline-plugin');
 const commonConfig = require('./webpack-common');
 const syspath = require('../config/syspath');
 
-const babel = JSON.parse(fs.readFileSync(`${syspath.root}/.babelrc`, 'utf8'));
 const bundleFilename = isDev ? '[name].js' : '[name].[chunkhash].js';
 
 const clientConfig = {
@@ -55,7 +54,7 @@ const clientConfig = {
           options: {
             babelrc: false,
             presets: [['env', { modules: false }], 'react', 'stage-2'],
-            plugins: babel.plugins.concat(
+            plugins: commonConfig.babelPlugins.concat(
               isDev ? ['react-hot-loader/babel'] : []
             )
           }

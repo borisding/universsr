@@ -12,7 +12,7 @@
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
     "lint:js": "eslint . --fix",
     "precommit": "lint-staged",
-    "test": "npm run lint:js && jest",
+    "test": "npm run lint:js && cross-env NODE_ENV=test jest",
     "test:watch": "npm test -- --watch",
     "test:coverage": "rimraf coverage && npm test -- --coverage"
   },
@@ -166,7 +166,7 @@
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fixtures/mocks/fileMock.js",
-      "\\.(css|scss)$": "identity-obj-proxy"
+      "\\.(css|scss)$": "<rootDir>/fixtures/mocks/styleMock.js"
     },
     "testEnvironment": "node",
     "testRegex": ".*.spec\\.js$",

@@ -1,24 +1,24 @@
 {
   "presets": ["env", "react", "stage-2"],
-  "plugins": [
-    "universal-import",
-    [
-      "react-css-modules",
-      {
-        "context": "./src",
-        "generateScopedName": "[local]___[hash:base64:5]",
-        "filetypes": {
-          ".scss": {
-            "syntax": "postcss-scss",
-            "plugins": ["postcss-nested"]
-          }
-        }
-      }
-    ]
-  ],
   "env": {
     "test": {
-      "plugins": ["dynamic-import-node", ["babel-plugin-webpack-alias", { "config": "./build/index.js" }]]
+      "plugins": [
+        "dynamic-import-node",
+        ["babel-plugin-webpack-alias", { "config": "./build/index.js" }],
+        [
+          "react-css-modules",
+          {
+            "context": "./src",
+            "generateScopedName": "[local]",
+            "filetypes": {
+              ".scss": {
+                "syntax": "postcss-scss",
+                "plugins": ["postcss-nested"]
+              }
+            }
+          }
+        ]
+      ]
     }
   }
 }

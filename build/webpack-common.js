@@ -3,10 +3,11 @@ const isDev = require('isdev');
 const syspath = require('../config/syspath');
 const config = require('../config/index');
 
+const cssScopedName = '[local]___[hash:base64:5]';
 const commonConfig = {
   polyfill: 'babel-polyfill',
   context: syspath.src,
-  cssScopedName: '[local]___[hash:base64:5]',
+  cssScopedName,
   devtool: isDev ? 'cheap-module-inline-source-map' : 'source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
@@ -47,6 +48,22 @@ const commonConfig = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'development'
       }
     })
+  ],
+  babelPlugins: [
+    'universal-import',
+    [
+      'react-css-modules',
+      {
+        context: syspath.src,
+        generateScopedName: cssScopedName,
+        filetypes: {
+          '.scss': {
+            syntax: 'postcss-scss',
+            plugins: ['postcss-nested']
+          }
+        }
+      }
+    ]
   ]
 };
 

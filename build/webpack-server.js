@@ -37,7 +37,12 @@ const serverConfig = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            presets: ['env', 'react', 'stage-2'],
+            plugins: commonConfig.babelPlugins
+          }
         }
       },
       {
