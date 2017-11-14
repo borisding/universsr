@@ -37,8 +37,8 @@ const clientConfig = {
     ]
   },
   output: {
-    publicPath: '/',
-    path: syspath.dist,
+    publicPath: commonConfig.publicPath,
+    path: `${syspath.public}/dist`,
     chunkFilename: bundleFilename,
     filename: bundleFilename
   },
@@ -86,10 +86,7 @@ const clientConfig = {
           ]
         })
       },
-      {
-        test: /\.(eot|ttf|woff2?|svg|png|jpe?g|gif)(\?.*)?$/i,
-        use: 'file-loader?name=images/[name].[ext]'
-      }
+      ...commonConfig.fileLoaders()
     ]
   },
   plugins: [
@@ -111,7 +108,7 @@ const clientConfig = {
           new HtmlWebpackPlugin({
             inject: false,
             template: `!!raw-loader!${syspath.public}/views/index.ejs`,
-            filename: `${syspath.dist}/index.ejs`,
+            filename: `${syspath.public}/dist/index.ejs`,
             minify: {
               collapseWhitespace: true,
               removeComments: true
@@ -132,9 +129,10 @@ const clientConfig = {
           new webpack.HashedModuleIdsPlugin(),
           new StatsPlugin('stats.json'),
           new OfflinePlugin({
+            publicPath: commonConfig.publicPath,
+            relativePaths: false, // to allow using publicPath
             ServiceWorker: { events: true }, // use ServiceWorker for offline usage
             AppCache: false, // disable for AppCache
-            relativePaths: false, // to allow using publicPath
             cacheMaps: [{ requestTypes: ['navigate', 'same-origin'] }]
           })
         ]

@@ -3,10 +3,13 @@ const isDev = require('isdev');
 const syspath = require('../config/syspath');
 const config = require('../config/index');
 
+const publicPath = '/dist/';
 const cssScopedName = '[local]___[hash:base64:5]';
+
 const commonConfig = {
   polyfill: 'babel-polyfill',
   context: syspath.src,
+  publicPath,
   cssScopedName,
   devtool: isDev ? 'cheap-module-inline-source-map' : 'source-map',
   resolve: {
@@ -51,7 +54,37 @@ const commonConfig = {
         }
       }
     ]
-  ]
+  ],
+  fileLoaders: (emitFile = true) => {
+    return [
+      {
+        test: /\.(svg|png|jpe?g|gif)(\?.*)?$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              publicPath,
+              emitFile,
+              name: 'images/[name].[ext]'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(eot|ttf|woff2?)(\?.*)?$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              publicPath,
+              emitFile,
+              name: 'fonts/[name].[ext]'
+            }
+          }
+        ]
+      }
+    ];
+  }
 };
 
 module.exports = commonConfig;

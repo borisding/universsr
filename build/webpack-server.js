@@ -9,8 +9,8 @@ const externalRegExp = /\.bin|react-universal-component|require-universal-module
 const nodeExternals = fs
   .readdirSync(path.join(__dirname, '../node_modules'))
   .filter(x => !externalRegExp.test(x))
-  .reduce((externals, module) => {
-    externals[module] = `commonjs ${module}`;
+  .reduce((externals, mod) => {
+    externals[mod] = `commonjs ${mod}`;
     return externals;
   }, {});
 
@@ -61,10 +61,7 @@ const serverConfig = {
           }
         ]
       },
-      {
-        test: /\.(eot|ttf|woff2?|svg|png|jpe?g|gif)(\?.*)?$/i,
-        use: 'file-loader?name=images/[name].[ext]&emitFile=false'
-      }
+      ...commonConfig.fileLoaders(false)
     ]
   },
   plugins: [
