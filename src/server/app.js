@@ -7,6 +7,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const config = require('../../config/index');
+const syspath = require('../../config/syspath');
 const apiRouter = require('../api/router');
 const logger = require('./logger');
 const run = require('./run');
@@ -28,6 +29,8 @@ app
   .use(compression())
   .use(cookieParser(config.get('secret')))
   .use(hpp()) // after parsed body
+  .use(express.static(syspath.public))
+  .use(express.static(syspath.dist))
   .use('/api', apiRouter);
 
 run(app);

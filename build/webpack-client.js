@@ -2,7 +2,6 @@ const fs = require('fs');
 const isDev = require('isdev');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
@@ -38,8 +37,8 @@ const clientConfig = {
     ]
   },
   output: {
-    publicPath: '/dist/',
-    path: `${syspath.public}/dist`,
+    publicPath: '/',
+    path: syspath.dist,
     chunkFilename: bundleFilename,
     filename: bundleFilename
   },
@@ -87,7 +86,10 @@ const clientConfig = {
           ]
         })
       },
-      ...commonConfig.rules
+      {
+        test: /\.(eot|ttf|woff2?|svg|png|jpe?g|gif)(\?.*)?$/i,
+        use: 'file-loader?name=images/[name].[ext]'
+      }
     ]
   },
   plugins: [
@@ -97,24 +99,7 @@ const clientConfig = {
       names: ['bootstrap', 'vendor'], // needed to put webpack bootstrap code before chunks
       filename: bundleFilename,
       minChunks: Infinity
-    }),
-    new CopyWebpackPlugin(
-      [
-        {
-          from: `${syspath.src}/resources/assets/icons`,
-          to: `${syspath.public}/dist/icons`
-        }
-      ].concat(
-        !isDev
-          ? [
-              {
-                from: `${syspath.src}/resources/assets/pwa`,
-                to: `${syspath.public}/dist/pwa`
-              }
-            ]
-          : []
-      )
-    )
+    })
   ].concat(
     isDev
       ? [
@@ -125,8 +110,8 @@ const clientConfig = {
           // moved to public and with minification only
           new HtmlWebpackPlugin({
             inject: false,
-            template: `!!raw-loader!${syspath.src}/resources/views/index.ejs`,
-            filename: `${syspath.public}/index.ejs`,
+            template: `!!raw-loader!${syspath.public}/views/index.ejs`,
+            filename: `${syspath.dist}/index.ejs`,
             minify: {
               collapseWhitespace: true,
               removeComments: true

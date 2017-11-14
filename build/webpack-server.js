@@ -61,7 +61,10 @@ const serverConfig = {
           }
         ]
       },
-      ...commonConfig.rules
+      {
+        test: /\.(eot|ttf|woff2?|svg|png|jpe?g|gif)(\?.*)?$/i,
+        use: 'file-loader?name=images/[name].[ext]&emitFile=false'
+      }
     ]
   },
   plugins: [

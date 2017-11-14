@@ -17,6 +17,7 @@ const commonConfig = {
       '@config': syspath.config,
       '@fixtures': syspath.fixtures,
       '@public': syspath.public,
+      '@assets': `${syspath.public}/assets`,
       '@api': `${syspath.src}/api`,
       '@utils': `${syspath.src}/utils`,
       '@server': `${syspath.src}/server`,
@@ -27,20 +28,6 @@ const commonConfig = {
       '@styles': `${syspath.src}/client/common/styles`
     }
   },
-  rules: [
-    {
-      test: /\.(eot|ttf|woff2?)(\?.*)?$/i,
-      use: isDev
-        ? 'url-loader?name=fonts/[name].[ext]'
-        : 'file-loader?name=fonts/[name].[ext]'
-    },
-    {
-      test: /\.(svg|png|jpe?g|gif)(\?.*)?$/i,
-      use: isDev
-        ? 'url-loader?name=images/[name].[ext]'
-        : 'file-loader?name=images/[name].[ext]'
-    }
-  ],
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({

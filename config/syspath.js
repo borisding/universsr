@@ -6,6 +6,7 @@ module.exports = {
   bin: `${root}/bin`,
   build: `${root}/build`,
   config: `${root}/config`,
+  dist: `${root}/dist`,
   fixtures: `${root}/fixtures`,
   public: `${root}/public`,
   src: `${root}/src`,

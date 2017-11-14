@@ -4,14 +4,13 @@
   "description": "Universal React + Redux, Express application boilerplate.",
   "main": "app.js",
   "scripts": {
-    "clean": "rimraf public src/**/*-built.*",
+    "clean": "rimraf dist src/**/*-built.*",
     "build:prod": "cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
     "start": "npm-run-all clean build:prod && cross-env NODE_ENV=production node app.js",
     "start:dev": "npm run clean && nodemon --exec node app.js",
     "lint": "npm-run-all lint:js lint:style",
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
     "lint:js": "eslint . --fix",
-    "precommit": "lint-staged",
     "test": "npm run lint:js && cross-env NODE_ENV=test jest",
     "test:watch": "npm test -- --watch",
     "test:coverage": "rimraf coverage && npm test -- --coverage"
@@ -96,7 +95,6 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "copy-webpack-plugin": "^4.1.1",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "enzyme": "^3.1.1",
