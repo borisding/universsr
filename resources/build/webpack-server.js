@@ -1,13 +1,12 @@
 const fs = require('fs');
-const path = require('path');
 const isDev = require('isdev');
 const webpack = require('webpack');
 const commonConfig = require('./webpack-common');
-const syspath = require('../config/syspath');
+const syspath = require('../../config/syspath');
 
 const externalRegExp = /\.bin|react-universal-component|require-universal-module|webpack-flush-chunks/;
 const nodeExternals = fs
-  .readdirSync(path.join(__dirname, '../node_modules'))
+  .readdirSync(`${syspath.root}/node_modules`)
   .filter(x => !externalRegExp.test(x))
   .reduce((externals, mod) => {
     externals[mod] = `commonjs ${mod}`;

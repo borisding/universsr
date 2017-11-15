@@ -2,7 +2,7 @@
 
 const http = require('http');
 const config = require('../config');
-const { error, info } = require('../utils');
+const { error, info } = require('../src/utils');
 
 module.exports = function serve(app) {
   // running server based on the config

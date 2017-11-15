@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "clean": "rimraf public/dist src/**/*-built.*",
-    "build:prod": "cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
+    "build:prod": "cross-env NODE_ENV=production webpack --config resources/build/index.js -p --progress --hide-modules",
     "start": "npm-run-all clean build:prod && cross-env NODE_ENV=production node app.js",
     "start:dev": "npm run clean && nodemon --exec node app.js",
     "lint": "npm-run-all lint:js lint:style",
@@ -143,9 +143,9 @@
     },
     "ignore": [
       "coverage/**/*",
-      "client/*",
-      "redux/*",
-      "server/index.js",
+      "src/client/*",
+      "src/redux/*",
+      "src/server/index.js",
       "public/dist/*",
       "index.*.js"
     ]
@@ -164,8 +164,8 @@
       "jsx"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fixtures/mocks/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/fixtures/mocks/styleMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/mocks/fileMock.js",
+      "\\.(css|scss)$": "<rootDir>/resources/mocks/styleMock.js"
     },
     "testEnvironment": "node",
     "testRegex": ".*.spec\\.js$",

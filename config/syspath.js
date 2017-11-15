@@ -4,11 +4,9 @@ const root = require('app-root-path').path;
 module.exports = {
   root,
   bin: `${root}/bin`,
-  build: `${root}/build`,
   config: `${root}/config`,
-  fixtures: `${root}/fixtures`,
+  resources: `${root}/resources`,
   public: `${root}/public`,
   src: `${root}/src`,
-  logs: `${root}/logs`,
-  utils: `${root}/utils`
+  logs: `${root}/logs`
 };

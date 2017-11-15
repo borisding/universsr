@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const commonConfig = require('./webpack-common');
-const syspath = require('../config/syspath');
+const syspath = require('../../config/syspath');
 
 const bundleFilename = isDev ? '[name].js' : '[name].[chunkhash].js';
 
