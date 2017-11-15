@@ -1,4 +1,3 @@
-const fs = require('fs');
 const isDev = require('isdev');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
@@ -67,7 +66,7 @@ const clientConfig = {
             {
               loader: 'css-loader',
               options: {
-                modules: true, // enable css modules
+                modules: true,
                 localIdentName: commonConfig.cssScopedName,
                 sourceMap: !!isDev
               }

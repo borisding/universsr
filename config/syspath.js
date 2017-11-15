@@ -9,5 +9,6 @@ module.exports = {
   fixtures: `${root}/fixtures`,
   public: `${root}/public`,
   src: `${root}/src`,
-  logs: `${root}/logs`
+  logs: `${root}/logs`,
+  utils: `${root}/utils`
 };

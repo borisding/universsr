@@ -52,7 +52,7 @@ const serverConfig = {
           {
             loader: 'css-loader/locals',
             options: {
-              modules: true, // enable css modules
+              modules: true,
               localIdentName: commonConfig.cssScopedName
             }
           },

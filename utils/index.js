@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 
-const utils = {
+module.exports = {
   error: (message, code, substitution = []) => {
     console.error(chalk.red(`${message}\n`), ...substitution);
     code && process.exit(code);
@@ -18,5 +18,3 @@ const utils = {
     code && process.exit(code);
   }
 };
-
-module.exports = utils;

@@ -6,7 +6,7 @@ const webpackClient = require('./webpack-client');
 const webpackServer = require('./webpack-server');
 
 // hot reload for development mode
-module.exports = app => {
+module.exports = function webpackCompiler(app) {
   const compiler = webpack([webpackClient, webpackServer]);
   const clientCompiler = compiler.compilers.find(
     compiler => compiler.name === 'client'

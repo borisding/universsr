@@ -1,9 +1,7 @@
 import * as types from './types';
 
-// initial state with some dummy data
 const initialState = [];
 
-// todo state management
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_TODO:

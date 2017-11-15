@@ -4,7 +4,7 @@ import { createLogger } from 'redux-logger';
 import readyWrapper from 'redux-ready-wrapper';
 import rootReducer from './root';
 
-function storeFactory(preloadedState) {
+export default function storeFactory(preloadedState) {
   const middlewares = [readyWrapper()];
 
   if (isDev) {
@@ -30,5 +30,3 @@ function storeFactory(preloadedState) {
 
   return store;
 }
-
-export default storeFactory;

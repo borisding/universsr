@@ -2,9 +2,9 @@
 
 const http = require('http');
 const config = require('../config');
-const { error, info } = require('../src/utils');
+const { error, info } = require('../utils');
 
-module.exports = app => {
+module.exports = function serve(app) {
   // running server based on the config
   const server = http.createServer(app);
 

@@ -1,10 +1,10 @@
 const webpack = require('webpack');
 const isDev = require('isdev');
-const syspath = require('../config/syspath');
 const config = require('../config/index');
+const syspath = require('../config/syspath');
 
 const publicPath = '/dist/';
-const cssScopedName = '[local]___[hash:base64:5]';
+const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
 
 const commonConfig = {
   polyfill: 'babel-polyfill',
@@ -19,10 +19,10 @@ const commonConfig = {
       '@build': syspath.build,
       '@config': syspath.config,
       '@fixtures': syspath.fixtures,
+      '@utils': syspath.utils,
       '@public': syspath.public,
       '@assets': `${syspath.public}/assets`,
       '@api': `${syspath.src}/api`,
-      '@utils': `${syspath.src}/utils`,
       '@server': `${syspath.src}/server`,
       '@client': `${syspath.src}/client`,
       '@common': `${syspath.src}/client/common`,

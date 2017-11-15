@@ -2,9 +2,9 @@ const isDev = require('isdev');
 const favicon = require('serve-favicon');
 const serve = require('../../bin/serve');
 const syspath = require('../../config/syspath');
-const { error } = require('../utils');
+const { error } = require('../../utils');
 
-module.exports = async app => {
+module.exports = async function run(app) {
   try {
     if (isDev) {
       const errorHandler = require('errorhandler');
