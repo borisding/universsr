@@ -61,7 +61,7 @@ export default function serverRenderer({ clientStats }) {
 
       const { statusCode, redirectUrl } = context;
 
-      if ([301, 302].includes(statusCode)) {
+      if ([301, 302].includes(statusCode) && redirectUrl) {
         return res.redirect(statusCode, redirectUrl);
       }
 

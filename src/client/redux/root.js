@@ -1,8 +1,20 @@
 import { combineReducers } from 'redux';
 import todos from './todos/reducers';
 
-export default combineReducers({
+const isClient = (state = false, action) => {
+  state = typeof window !== 'undefined';
+  return state;
+};
+
+const isFetching = (state = false, action) => {
+  state = action.type === 'READY_ACTION';
+  return state;
+};
+
+const rootReducer = combineReducers({
   todos,
-  isClient: (initialState = false, action) => typeof window !== 'undefined',
-  isFetching: (initialState = false, action) => action.type === 'READY_ACTION'
+  isClient,
+  isFetching
 });
+
+export default rootReducer;
