@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "./",
+  "start_url": "../",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#333333",
