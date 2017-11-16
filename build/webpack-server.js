@@ -2,7 +2,7 @@ const fs = require('fs');
 const isDev = require('isdev');
 const webpack = require('webpack');
 const commonConfig = require('./webpack-common');
-const syspath = require('../../config/syspath');
+const syspath = require('../config/syspath');
 
 const externalRegExp = /\.bin|react-universal-component|require-universal-module|webpack-flush-chunks/;
 const nodeExternals = fs

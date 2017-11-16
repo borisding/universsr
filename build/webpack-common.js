@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const isDev = require('isdev');
-const config = require('../../config/index');
-const syspath = require('../../config/syspath');
+const config = require('../config/index');
+const syspath = require('../config/syspath');
 
 const publicPath = '/dist/';
 const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
@@ -16,10 +16,11 @@ const commonConfig = {
     extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
     alias: {
       '@bin': syspath.bin,
+      '@build': syspath.build,
       '@config': syspath.config,
       '@public': syspath.public,
       '@resources': syspath.resources,
-      '@assets': `${syspath.public}/assets`,
+      '@assets': `${syspath.resources}/assets`,
       '@utils': `${syspath.src}/utils`,
       '@api': `${syspath.src}/api`,
       '@server': `${syspath.src}/server`,

@@ -1,12 +1,13 @@
 const isDev = require('isdev');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const commonConfig = require('./webpack-common');
-const syspath = require('../../config/syspath');
+const syspath = require('../config/syspath');
 
 const bundleFilename = isDev ? '[name].js' : '[name].[chunkhash].js';
 
@@ -95,7 +96,17 @@ const clientConfig = {
       names: ['bootstrap', 'vendor'], // needed to put webpack bootstrap code before chunks
       filename: bundleFilename,
       minChunks: Infinity
-    })
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: `${syspath.resources}/assets/manifest.json`,
+        to: `${syspath.public}/dist`
+      },
+      {
+        from: `${syspath.resources}/assets/icons`,
+        to: `${syspath.public}/dist/icons`
+      }
+    ])
   ].concat(
     isDev
       ? [
@@ -106,7 +117,7 @@ const clientConfig = {
           // moved to public and with minification only
           new HtmlWebpackPlugin({
             inject: false,
-            template: `!!raw-loader!${syspath.public}/views/index.ejs`,
+            template: `!!raw-loader!${syspath.resources}/views/index.ejs`,
             filename: `${syspath.public}/dist/index.ejs`,
             minify: {
               collapseWhitespace: true,

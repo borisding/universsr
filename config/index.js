@@ -18,7 +18,7 @@ const config = convict({
   port: {
     doc: 'The express server port to bind.',
     format: 'port',
-    default: 3000,
+    default: 5000,
     env: 'PORT'
   },
   secret: {

@@ -8,7 +8,7 @@ module.exports = function serve(app) {
   // running server based on the config
   const server = http.createServer(app);
 
-  server.listen(config.get('port'), config.get('host'));
+  server.listen(config.get('port'));
 
   // server on listening event
   server.on('listening', () => {
