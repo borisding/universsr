@@ -1,5 +1,4 @@
 {
   "host": "localhost",
-  "port": 5000,
-  "secret": "change-this-to-yours"
+  "port": 5000
 }

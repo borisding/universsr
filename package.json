@@ -28,8 +28,7 @@
   },
   "verbose": true,
   "engines": {
-    "node": ">=7.6",
-    "npm": ">=4.0"
+    "node": "8.x"
   },
   "repository": {
     "type": "git",

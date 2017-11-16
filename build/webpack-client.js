@@ -118,7 +118,7 @@ const clientConfig = {
           new HtmlWebpackPlugin({
             inject: false,
             template: `!!raw-loader!${syspath.resources}/views/index.ejs`,
-            filename: `${syspath.public}/dist/index.ejs`,
+            filename: `${syspath.public}/index.ejs`,
             minify: {
               collapseWhitespace: true,
               removeComments: true
@@ -142,8 +142,7 @@ const clientConfig = {
             publicPath: commonConfig.publicPath,
             relativePaths: false, // to allow using publicPath
             ServiceWorker: { events: true }, // use ServiceWorker for offline usage
-            AppCache: false, // disable for AppCache
-            cacheMaps: [{ requestTypes: ['navigate', 'same-origin'] }]
+            AppCache: false // disable for AppCache
           })
         ]
   )

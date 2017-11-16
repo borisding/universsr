@@ -18,7 +18,7 @@ module.exports = async function run(app) {
       const clientStats = require(`${syspath.public}/dist/stats.json`);
       const serverRenderer = require('./index-built').default;
 
-      app.set('views', `${syspath.public}/dist`);
+      app.set('views', syspath.public);
       app.use(favicon(`${syspath.public}/dist/icons/favicon.png`));
       app.use(serverRenderer({ clientStats }));
     }
