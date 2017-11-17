@@ -15,11 +15,11 @@ module.exports = async function run(app) {
       app.set('views', `${syspath.resources}/views`);
       app.use(errorHandler());
     } else {
-      const clientStats = require(`${syspath.public}/dist/stats.json`);
+      const clientStats = require(`${syspath.public}/stats.json`);
       const serverRenderer = require('./index-built').default;
 
       app.set('views', syspath.public);
-      app.use(favicon(`${syspath.public}/dist/icons/favicon.png`));
+      app.use(favicon(`${syspath.public}/icons/favicon.png`));
       app.use(serverRenderer({ clientStats }));
     }
 

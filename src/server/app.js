@@ -29,7 +29,7 @@ app
   .use(compression())
   .use(cookieParser(config.get('secret')))
   .use(hpp()) // after parsed body
-  .use(express.static(syspath.public))
+  .use('/', express.static(syspath.public))
   .use('/api', apiRouter);
 
 run(app);

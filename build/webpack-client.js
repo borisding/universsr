@@ -38,7 +38,7 @@ const clientConfig = {
   },
   output: {
     publicPath: commonConfig.publicPath,
-    path: `${syspath.public}/dist`,
+    path: syspath.public,
     chunkFilename: bundleFilename,
     filename: bundleFilename
   },
@@ -100,11 +100,11 @@ const clientConfig = {
     new CopyWebpackPlugin([
       {
         from: `${syspath.resources}/assets/manifest.json`,
-        to: `${syspath.public}/dist`
+        to: syspath.public
       },
       {
         from: `${syspath.resources}/assets/icons`,
-        to: `${syspath.public}/dist/icons`
+        to: `${syspath.public}/icons`
       }
     ])
   ].concat(
@@ -119,6 +119,16 @@ const clientConfig = {
             inject: false,
             template: `!!raw-loader!${syspath.resources}/views/index.ejs`,
             filename: `${syspath.public}/index.ejs`,
+            minify: {
+              collapseWhitespace: true,
+              removeComments: true
+            }
+          }),
+          // also generate a static index.html
+          new HtmlWebpackPlugin({
+            inject: false,
+            template: `!!raw-loader!${syspath.resources}/views/index.ejs`,
+            filename: `${syspath.public}/static/index.html`,
             minify: {
               collapseWhitespace: true,
               removeComments: true
@@ -139,6 +149,7 @@ const clientConfig = {
           new webpack.HashedModuleIdsPlugin(),
           new StatsPlugin('stats.json'),
           new OfflinePlugin({
+            externals: ['/'],
             publicPath: commonConfig.publicPath,
             relativePaths: false, // to allow using publicPath
             ServiceWorker: { events: true }, // use ServiceWorker for offline usage
