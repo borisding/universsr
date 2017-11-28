@@ -12,7 +12,7 @@ install:
 script:
   - npm run clean
   - npm run build:prod:config
-  - npm run build:prod
+  - npm run build:prod:webpack
   - npm test
 
 branches:
