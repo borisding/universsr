@@ -7,7 +7,7 @@
     "clean": "rimraf public src/**/*-built.*",
     "build:dev:config": "cross-env NODE_ENV=development node build/scripts/config.js",
     "build:prod:config": "cross-env NODE_ENV=production node build/scripts/config.js",
-    "build:prod": "cross-env NODE_ENV=production webpack --config build/webpack -p --progress --hide-modules",
+    "build:prod": "cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
     "start": "npm-run-all clean build:prod:config build:prod && cross-env NODE_ENV=production node app.js",
     "start:dev": "npm-run-all clean build:dev:config && nodemon --exec node app.js",
     "lint": "npm-run-all lint:js lint:style",
