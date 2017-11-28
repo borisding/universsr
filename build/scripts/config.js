@@ -3,8 +3,8 @@ const syspath = require('../../config/syspath');
 const nodeConfig = require('../../config/index');
 const { error, info } = require('../../src/utils');
 
-// writing validated node config into `config.json`
-// this can be imported directly for client side usage later
+// writing validated node config into targeted config filename
+// which can be imported directly for client side usage later
 function writeConfig() {
   const configFilename = 'index.json';
 

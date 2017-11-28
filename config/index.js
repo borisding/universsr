@@ -34,7 +34,8 @@ const config = convict({
   }
 });
 
-// load targeted environment json config file and validate it
+// load and merge targeted environment json config file with default values
+// and then perform the validation for the configuration values
 config
   .loadFile(`${syspath.config}/env/${process.env.NODE_ENV}.json`)
   .validate();
