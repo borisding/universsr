@@ -1,1 +1,7 @@
-{}
+{
+  "env": "production",
+  "host": "localhost",
+  "port": 5000,
+  "apiBaseUrl": "http://localhost:5000/api/",
+  "secret": "your.default.secret"
+}

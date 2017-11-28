@@ -5,3 +5,4 @@ public
 *.log
 *.map
 *-built.js
+index.json
