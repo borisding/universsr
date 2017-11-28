@@ -1,11 +1,11 @@
 const convict = require('convict');
 const syspath = require('./syspath');
 
-// application configuration in general
+// application's default node config in general
 const config = convict({
   env: {
     doc: 'The application valid environment values.',
-    format: ['production', 'prod', 'development', 'dev', 'test'],
+    format: ['production', 'development', 'test'],
     default: 'development',
     env: 'NODE_ENV'
   },
@@ -18,8 +18,13 @@ const config = convict({
   port: {
     doc: 'The express server port to bind.',
     format: 'port',
-    default: 5000,
+    default: 3000,
     env: 'PORT'
+  },
+  apiBaseUrl: {
+    doc: 'The API base URL',
+    format: 'url',
+    default: 'http://localhost:3000/api/'
   },
   secret: {
     doc: 'Secret used for application session cookies and CSRF tokens',
@@ -29,6 +34,9 @@ const config = convict({
   }
 });
 
-config.loadFile(`${syspath.config}/config.json`).validate();
+// load targeted environment json config file and validate it
+config
+  .loadFile(`${syspath.config}/env/${process.env.NODE_ENV}.json`)
+  .validate();
 
 module.exports = config;

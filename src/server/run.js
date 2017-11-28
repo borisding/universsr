@@ -8,7 +8,7 @@ module.exports = async function run(app) {
   try {
     if (isDev) {
       const errorHandler = require('errorhandler');
-      const webpackCompiler = require(`${syspath.root}/build/webpack-compiler`);
+      const webpackCompiler = require(`${syspath.root}/build/webpack/compiler`);
 
       await webpackCompiler(app);
 

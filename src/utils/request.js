@@ -1,9 +1,9 @@
 import axios from 'axios';
 import extend from 'extend';
-import config from '@config/config.json';
+import { apiBaseUrl } from '@config/index.json';
 
 const defaultConfig = {
-  baseURL: `http://${config.host}:${config.port}/api/`,
+  baseURL: apiBaseUrl,
   timeout: 3000
 };
 

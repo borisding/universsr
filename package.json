@@ -5,9 +5,11 @@
   "main": "app.js",
   "scripts": {
     "clean": "rimraf public src/**/*-built.*",
-    "build:prod": "cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
-    "start": "npm-run-all clean build:prod && cross-env NODE_ENV=production node app.js",
-    "start:dev": "npm run clean && nodemon --exec node app.js",
+    "build:dev:config": "cross-env NODE_ENV=development node build/scripts/config.js",
+    "build:prod:config": "cross-env NODE_ENV=production node build/scripts/config.js",
+    "build:prod": "cross-env NODE_ENV=production webpack --config build/webpack -p --progress --hide-modules",
+    "start": "npm-run-all clean build:prod:config build:prod && cross-env NODE_ENV=production node app.js",
+    "start:dev": "npm-run-all clean build:dev:config && nodemon --exec node app.js",
     "lint": "npm-run-all lint:js lint:style",
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
     "lint:js": "eslint . --fix",
@@ -84,7 +86,6 @@
     "webpack-flush-chunks": "^1.2.1"
   },
   "devDependencies": {
-    "assets-webpack-plugin": "^3.5.1",
     "autoprefixer": "^7.1.5",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -130,9 +131,9 @@
     "stylelint-config-sass-guidelines": "^3.1.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
-    "webpack-dev-middleware": "^1.12.0",
-    "webpack-hot-middleware": "^2.20.0",
-    "webpack-hot-server-middleware": "^0.2.0"
+    "webpack-dev-middleware": "^1.12.2",
+    "webpack-hot-middleware": "^2.21.0",
+    "webpack-hot-server-middleware": "^0.3.0"
   },
   "nodemonConfig": {
     "debug": true,

@@ -6,19 +6,19 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
-const commonConfig = require('./webpack-common');
-const syspath = require('../config/syspath');
+const webpackCommon = require('./common');
+const syspath = require('../../config/syspath');
 
 const bundleFilename = isDev ? '[name].js' : '[name].[chunkhash].js';
 
 const clientConfig = {
   name: 'client',
   target: 'web',
-  context: commonConfig.context,
-  devtool: commonConfig.devtool,
+  context: webpackCommon.context,
+  devtool: webpackCommon.devtool,
   entry: {
     main: [
-      commonConfig.polyfill,
+      webpackCommon.polyfill,
       ...(isDev
         ? [
             'react-hot-loader/patch',
@@ -37,12 +37,12 @@ const clientConfig = {
     ]
   },
   output: {
-    publicPath: commonConfig.publicPath,
+    publicPath: webpackCommon.publicPath,
     path: syspath.public,
     chunkFilename: bundleFilename,
     filename: bundleFilename
   },
-  resolve: commonConfig.resolve,
+  resolve: webpackCommon.resolve,
   module: {
     rules: [
       {
@@ -53,7 +53,7 @@ const clientConfig = {
           options: {
             babelrc: false,
             presets: [['env', { modules: false }], 'react', 'stage-2'],
-            plugins: commonConfig.babelPlugins.concat(
+            plugins: webpackCommon.babelPlugins.concat(
               isDev ? ['react-hot-loader/babel'] : []
             )
           }
@@ -68,7 +68,7 @@ const clientConfig = {
               loader: 'css-loader',
               options: {
                 modules: true,
-                localIdentName: commonConfig.cssScopedName,
+                localIdentName: webpackCommon.cssScopedName,
                 sourceMap: !!isDev
               }
             },
@@ -86,11 +86,11 @@ const clientConfig = {
           ]
         })
       },
-      ...commonConfig.fileLoaders()
+      ...webpackCommon.fileLoaders()
     ]
   },
   plugins: [
-    ...commonConfig.plugins,
+    ...webpackCommon.plugins,
     new ExtractCssChunks(),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['bootstrap', 'vendor'], // needed to put webpack bootstrap code before chunks
@@ -150,7 +150,7 @@ const clientConfig = {
           new StatsPlugin('stats.json'),
           new OfflinePlugin({
             externals: ['/'],
-            publicPath: commonConfig.publicPath,
+            publicPath: webpackCommon.publicPath,
             relativePaths: false, // to allow using publicPath
             ServiceWorker: { events: true }, // use ServiceWorker for offline usage
             AppCache: false // disable for AppCache

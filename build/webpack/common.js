@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const isDev = require('isdev');
-const config = require('../config/index');
-const syspath = require('../config/syspath');
+const config = require('../../config/index');
+const syspath = require('../../config/syspath');
 
 const publicPath = '/';
 const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
