@@ -1,4 +1,5 @@
 const fs = require('fs');
+const slash = require('slash');
 const syspath = require('../../config/syspath');
 const nodeConfig = require('../../config/index');
 const { error, info } = require('../../src/utils');
@@ -23,7 +24,7 @@ function writeConfig() {
 
     info('Config file [%s] was written in location [%s]!', 0, [
       configFilename,
-      syspath.config
+      slash(syspath.config)
     ]);
   } catch (err) {
     error('Failed to write config file [%s]', -1, [configFilename]);

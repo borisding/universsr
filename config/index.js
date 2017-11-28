@@ -36,8 +36,12 @@ const config = convict({
 
 // load and merge targeted environment json config file with default values
 // and then perform the validation for the configuration values
-config
-  .loadFile(`${syspath.config}/env/${process.env.NODE_ENV}.json`)
-  .validate();
+let envFilename = 'production';
+
+if (process.env.NODE_ENV === 'development') {
+  envFilename = process.env.NODE_ENV;
+}
+
+config.loadFile(`${syspath.config}/env/${envFilename}.json`).validate();
 
 module.exports = config;

@@ -7,8 +7,8 @@
     "clean": "rimraf public config/index.json src/**/*-built.*",
     "build:dev:config": "cross-env NODE_ENV=development node build/scripts/config.js",
     "build:prod:config": "cross-env NODE_ENV=production node build/scripts/config.js",
-    "build:prod": "cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
-    "start": "npm-run-all clean build:prod:config build:prod && cross-env NODE_ENV=production node app.js",
+    "build:prod:webpack": "cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
+    "start": "npm-run-all clean build:prod:config build:prod:webpack && cross-env NODE_ENV=production node app.js",
     "start:dev": "npm-run-all clean build:dev:config && nodemon --exec node app.js",
     "lint": "npm-run-all lint:js lint:style",
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
@@ -83,6 +83,7 @@
     "rimraf": "^2.6.2",
     "serialize-javascript": "^1.4.0",
     "serve-favicon": "^2.4.5",
+    "slash": "^1.0.0",
     "webpack-flush-chunks": "^1.2.1"
   },
   "devDependencies": {
