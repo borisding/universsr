@@ -6,7 +6,7 @@ import Loader from '@common/components/Loader';
 import { fetchTodos } from '@redux/todos/actions';
 
 const options = {
-  minDelay: 500,
+  minDelay: 250,
   loading: Loader,
   error: NotFound
 };

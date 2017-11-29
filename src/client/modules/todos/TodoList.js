@@ -18,7 +18,7 @@ export default class TodoList extends Component {
     return value === true;
   }
 
-  getTodos() {
+  render() {
     const { todos, updateTodo } = this.props;
     const totalDone = todos.filter(todo => this.isTruthy(todo.done)).length;
 
@@ -44,9 +44,5 @@ export default class TodoList extends Component {
         </ul>
       </div>
     );
-  }
-
-  render() {
-    return this.getTodos();
   }
 }

@@ -1,5 +1,5 @@
 // only for production PWA purpose
-function registerOffline() {
+export default function registerOffline() {
   const runtime = require('offline-plugin/runtime');
 
   return runtime.install({
@@ -17,5 +17,3 @@ function registerOffline() {
     }
   });
 }
-
-export default registerOffline;

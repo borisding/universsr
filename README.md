@@ -25,12 +25,12 @@ git clone https://github.com/borisding/universsr.git my-project
 cd my-project && npm install
 ```
 
-ii) for local production, run
+ii) for production, run
 ```
 npm start
 ```
 
-or, for local development
+or, for development
 ```
 npm run start:dev
 ```
