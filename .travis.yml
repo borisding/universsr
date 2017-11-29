@@ -12,8 +12,7 @@ install:
 
 script:
   - npm run clean
-  - npm run build:prod:config
-  - npm run build:prod:source
+  - npm run build:prod
   - npm test
 
 branches:
