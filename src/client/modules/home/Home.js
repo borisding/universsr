@@ -1,4 +1,5 @@
 import React from 'react';
+import Alert from 'react-s-alert';
 import logo from '@assets/images/logo.png'; // example of import assets image
 import './styles/Home.scss';
 
@@ -12,9 +13,24 @@ export default () => {
         <span>
           universsr is <strong>universal</strong> React-Redux boilerplate.
         </span>
-        {' | '}
-        <a href="https://github.com/borisding/universsr">GitHub Repo</a>
       </p>
+      <div>
+        <a
+          href="#"
+          onClick={evt => {
+            evt.preventDefault();
+            Alert.info('Hello! This is universal React + Redux demo site.', {
+              position: 'top',
+              effect: 'flip',
+              timeout: 5000
+            });
+          }}
+        >
+          Show alert
+        </a>
+        {' or, go to '}
+        <a href="https://github.com/borisding/universsr">GitHub repository</a>
+      </div>
     </div>
   );
 };

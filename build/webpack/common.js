@@ -27,8 +27,7 @@ const commonConfig = {
       '@client': `${syspath.src}/client`,
       '@common': `${syspath.src}/client/common`,
       '@modules': `${syspath.src}/client/modules`,
-      '@redux': `${syspath.src}/client/redux`,
-      '@styles': `${syspath.src}/client/common/styles`
+      '@redux': `${syspath.src}/client/redux`
     }
   },
   plugins: [
@@ -45,6 +44,7 @@ const commonConfig = {
       'react-css-modules',
       {
         context: syspath.src,
+        exclude: 'node_modules',
         generateScopedName: cssScopedName,
         filetypes: {
           '.scss': {

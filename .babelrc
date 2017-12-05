@@ -9,6 +9,7 @@
           "react-css-modules",
           {
             "context": "./src",
+            "exclude": "node_modules",
             "generateScopedName": "[local]",
             "filetypes": {
               ".scss": {

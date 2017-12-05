@@ -2,6 +2,7 @@ const isDev = require('isdev');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
@@ -61,8 +62,30 @@ const clientConfig = {
       },
       {
         test: /\.s?css$/,
-        use: ExtractCssChunks.extract({
+        exclude: syspath.src,
+        use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader'
+            },
+            {
+              loader: 'sass-loader'
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: !!isDev,
+                plugins: () => [autoprefixer]
+              }
+            }
+          ]
+        })
+      },
+      {
+        test: /\.s?css$/,
+        exclude: /node_modules/,
+        use: ExtractCssChunks.extract({
           use: [
             {
               loader: 'css-loader',
@@ -92,6 +115,11 @@ const clientConfig = {
   plugins: [
     ...webpackCommon.plugins,
     new ExtractCssChunks(),
+    new ExtractTextPlugin({
+      filename: 'global.[contenthash].css',
+      disable: !!isDev,
+      allChunks: true
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['bootstrap', 'vendor'], // needed to put webpack bootstrap code before chunks
       filename: bundleFilename,
@@ -119,16 +147,6 @@ const clientConfig = {
             inject: false,
             template: `!!raw-loader!${syspath.resources}/views/index.ejs`,
             filename: `${syspath.public}/index.ejs`,
-            minify: {
-              collapseWhitespace: true,
-              removeComments: true
-            }
-          }),
-          // also generate a static index.html
-          new HtmlWebpackPlugin({
-            inject: false,
-            template: `!!raw-loader!${syspath.resources}/views/index.ejs`,
-            filename: `${syspath.public}/static/index.html`,
             minify: {
               collapseWhitespace: true,
               removeComments: true
