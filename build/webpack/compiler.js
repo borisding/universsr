@@ -12,19 +12,6 @@ module.exports = function webpackCompiler(app) {
     compiler => compiler.name === 'client'
   );
 
-  // temp fix for multiple times build issue at first start
-  // this happens when creating files right before watching starts
-  // ref: https://github.com/webpack/watchpack/issues/25
-  const timefix = 11000;
-  clientCompiler.plugin('watch-run', (watching, callback) => {
-    watching.startTime += timefix;
-    callback();
-  });
-
-  clientCompiler.plugin('done', stats => {
-    stats.startTime -= timefix;
-  });
-
   // mount respective webpack middlewares for Express
   app.use(
     webpackDevMiddleware(compiler, {

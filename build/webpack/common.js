@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const isDev = require('isdev');
+const HeyWatcher = require('hey-watcher');
 const config = require('../../config/index');
 const syspath = require('../../config/syspath');
 
@@ -37,7 +38,7 @@ const commonConfig = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'development'
       }
     })
-  ],
+  ].concat(isDev ? [new HeyWatcher()] : []),
   babelPlugins: [
     'universal-import',
     [
