@@ -62,16 +62,13 @@ const clientConfig = {
       },
       {
         test: /\.s?css$/,
+        include: /node_modules/,
         exclude: syspath.src,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            {
-              loader: 'css-loader'
-            },
-            {
-              loader: 'sass-loader'
-            },
+            'css-loader',
+            'sass-loader',
             {
               loader: 'postcss-loader',
               options: {
@@ -84,7 +81,7 @@ const clientConfig = {
       },
       {
         test: /\.s?css$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /public/],
         use: ExtractCssChunks.extract({
           use: [
             {

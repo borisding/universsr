@@ -46,12 +46,13 @@ const serverConfig = {
       },
       {
         test: /\.s?css$/,
+        include: /node_modules/,
         exclude: syspath.src,
         use: ['css-loader', 'sass-loader']
       },
       {
         test: /\.s?css$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /public/],
         use: [
           {
             loader: 'css-loader/locals',
