@@ -1,9 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { routes } from '@client/routes';
-
-import 'react-s-alert/dist/s-alert-default.css';
-import 'react-s-alert/dist/s-alert-css-effects/flip.css';
 import { active } from './styles/Header.scss';
 
 const Header = () => (

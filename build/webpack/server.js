@@ -4,6 +4,8 @@ const webpack = require('webpack');
 const webpackCommon = require('./common');
 const syspath = require('../../config/syspath');
 
+const configName = 'server';
+const commonConfig = webpackCommon(configName);
 const externalRegExp = /\.bin|react-universal-component|require-universal-module|webpack-flush-chunks/;
 const nodeExternals = fs
   .readdirSync(`${syspath.root}/node_modules`)
@@ -14,32 +16,32 @@ const nodeExternals = fs
   }, {});
 
 const serverConfig = {
-  name: 'server',
   target: 'node',
-  context: webpackCommon.context,
-  devtool: webpackCommon.devtool,
-  node: {
-    __filename: false,
-    __dirname: false
-  },
+  name: configName,
   externals: nodeExternals,
-  resolve: webpackCommon.resolve,
-  entry: [webpackCommon.polyfill, './server/index.js'],
+  context: commonConfig.context,
+  devtool: commonConfig.devtool,
+  resolve: commonConfig.resolve,
+  entry: [commonConfig.polyfill, './server/index.js'],
   output: {
     path: `${syspath.src}/server`,
     libraryTarget: 'commonjs2',
     filename: 'index-built.js'
   },
+  node: {
+    __filename: false,
+    __dirname: false
+  },
   module: {
     rules: [
-      ...webpackCommon.babelRule(),
-      ...webpackCommon.fileRule(),
-      ...webpackCommon.cssModulesRule(),
-      ...webpackCommon.globalStylesRule()
+      ...commonConfig.babelRule(),
+      ...commonConfig.fileRule(),
+      ...commonConfig.cssModulesRule(),
+      ...commonConfig.globalStylesRule()
     ]
   },
   plugins: [
-    ...webpackCommon.plugins(),
+    ...commonConfig.plugins(),
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
   ]
 };

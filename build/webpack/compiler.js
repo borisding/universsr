@@ -5,7 +5,6 @@ const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const webpackClient = require('./client');
 const webpackServer = require('./server');
 
-// hot reload for development mode
 module.exports = function webpackCompiler(app) {
   const compiler = webpack([webpackClient, webpackServer]);
   const clientCompiler = compiler.compilers.find(

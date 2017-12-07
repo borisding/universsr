@@ -9,6 +9,8 @@ const OfflinePlugin = require('offline-plugin');
 const webpackCommon = require('./common');
 const syspath = require('../../config/syspath');
 
+const configName = 'client';
+const commonConfig = webpackCommon(configName);
 const bundleFilename = isDev ? '[name].js' : '[name].[chunkhash].js';
 const extractCssChunks = new ExtractCssChunks();
 const extractText = new ExtractTextPlugin({
@@ -18,14 +20,14 @@ const extractText = new ExtractTextPlugin({
 });
 
 const clientConfig = {
-  name: 'client',
   target: 'web',
-  context: webpackCommon.context,
-  devtool: webpackCommon.devtool,
-  resolve: webpackCommon.resolve,
+  name: configName,
+  context: commonConfig.context,
+  devtool: commonConfig.devtool,
+  resolve: commonConfig.resolve,
   entry: {
     main: [
-      webpackCommon.polyfill,
+      commonConfig.polyfill,
       ...(isDev
         ? [
             'react-hot-loader/patch',
@@ -44,21 +46,21 @@ const clientConfig = {
     ]
   },
   output: {
-    publicPath: webpackCommon.publicPath,
     path: syspath.public,
+    publicPath: commonConfig.publicPath,
     chunkFilename: bundleFilename,
     filename: bundleFilename
   },
   module: {
     rules: [
-      ...webpackCommon.babelRule(false),
-      ...webpackCommon.fileRule(true),
-      ...webpackCommon.cssModulesRule(extractCssChunks),
-      ...webpackCommon.globalStylesRule(extractText)
+      ...commonConfig.babelRule(),
+      ...commonConfig.fileRule(),
+      ...commonConfig.cssModulesRule(extractCssChunks),
+      ...commonConfig.globalStylesRule(extractText)
     ]
   },
   plugins: [
-    ...webpackCommon.plugins(),
+    ...commonConfig.plugins(),
     extractCssChunks,
     extractText,
     new webpack.optimize.CommonsChunkPlugin({
@@ -88,10 +90,7 @@ const clientConfig = {
             inject: false,
             template: `!!raw-loader!${syspath.resources}/views/index.ejs`,
             filename: `${syspath.public}/index.ejs`,
-            minify: {
-              collapseWhitespace: true,
-              removeComments: true
-            }
+            minify: { collapseWhitespace: true, removeComments: true }
           }),
           new webpack.optimize.UglifyJsPlugin({
             beautify: false,
@@ -100,16 +99,13 @@ const clientConfig = {
             minimize: true,
             output: { comments: false },
             mangle: { screw_ie8: true },
-            compress: {
-              screw_ie8: true,
-              warnings: false
-            }
+            compress: { screw_ie8: true, warnings: false }
           }),
           new webpack.HashedModuleIdsPlugin(),
           new StatsPlugin('stats.json'),
           new OfflinePlugin({
             externals: ['/'],
-            publicPath: webpackCommon.publicPath,
+            publicPath: commonConfig.publicPath,
             relativePaths: false, // to allow using publicPath
             ServiceWorker: { events: true }, // use ServiceWorker for offline usage
             AppCache: false // disable for AppCache
