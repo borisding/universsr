@@ -20,7 +20,7 @@ export default () => {
           onClick={evt => {
             evt.preventDefault();
             Alert.info('Hello! This is universal React + Redux demo site.', {
-              position: 'top',
+              position: 'bottom',
               effect: 'flip',
               timeout: 5000
             });

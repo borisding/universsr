@@ -1,6 +1,5 @@
 const isDev = require('isdev');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
@@ -11,12 +10,19 @@ const webpackCommon = require('./common');
 const syspath = require('../../config/syspath');
 
 const bundleFilename = isDev ? '[name].js' : '[name].[chunkhash].js';
+const extractCssChunks = new ExtractCssChunks();
+const extractText = new ExtractTextPlugin({
+  filename: 'global.[contenthash].css',
+  disable: !!isDev,
+  allChunks: true
+});
 
 const clientConfig = {
   name: 'client',
   target: 'web',
   context: webpackCommon.context,
   devtool: webpackCommon.devtool,
+  resolve: webpackCommon.resolve,
   entry: {
     main: [
       webpackCommon.polyfill,
@@ -43,80 +49,18 @@ const clientConfig = {
     chunkFilename: bundleFilename,
     filename: bundleFilename
   },
-  resolve: webpackCommon.resolve,
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            babelrc: false,
-            presets: [['env', { modules: false }], 'react', 'stage-2'],
-            plugins: webpackCommon.babelPlugins.concat(
-              isDev ? ['react-hot-loader/babel'] : []
-            )
-          }
-        }
-      },
-      {
-        test: /\.s?css$/,
-        include: /node_modules/,
-        exclude: syspath.src,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader',
-            'sass-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: !!isDev,
-                plugins: () => [autoprefixer]
-              }
-            }
-          ]
-        })
-      },
-      {
-        test: /\.s?css$/,
-        exclude: [/node_modules/, /public/],
-        use: ExtractCssChunks.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                localIdentName: webpackCommon.cssScopedName,
-                sourceMap: !!isDev
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: { sourceMap: !!isDev }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: !!isDev,
-                plugins: () => [autoprefixer]
-              }
-            }
-          ]
-        })
-      },
-      ...webpackCommon.fileLoaders()
+      ...webpackCommon.babelRule(false),
+      ...webpackCommon.fileRule(true),
+      ...webpackCommon.cssModulesRule(extractCssChunks),
+      ...webpackCommon.globalStylesRule(extractText)
     ]
   },
   plugins: [
-    ...webpackCommon.plugins,
-    new ExtractCssChunks(),
-    new ExtractTextPlugin({
-      filename: 'global.[contenthash].css',
-      disable: !!isDev,
-      allChunks: true
-    }),
+    ...webpackCommon.plugins(),
+    extractCssChunks,
+    extractText,
     new webpack.optimize.CommonsChunkPlugin({
       names: ['bootstrap', 'vendor'], // needed to put webpack bootstrap code before chunks
       filename: bundleFilename,

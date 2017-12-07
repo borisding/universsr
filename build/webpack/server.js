@@ -23,57 +23,24 @@ const serverConfig = {
     __dirname: false
   },
   externals: nodeExternals,
+  resolve: webpackCommon.resolve,
   entry: [webpackCommon.polyfill, './server/index.js'],
   output: {
     path: `${syspath.src}/server`,
     libraryTarget: 'commonjs2',
     filename: 'index-built.js'
   },
-  resolve: webpackCommon.resolve,
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            babelrc: false,
-            presets: ['env', 'react', 'stage-2'],
-            plugins: webpackCommon.babelPlugins
-          }
-        }
-      },
-      {
-        test: /\.s?css$/,
-        include: /node_modules/,
-        exclude: syspath.src,
-        use: ['css-loader', 'sass-loader']
-      },
-      {
-        test: /\.s?css$/,
-        exclude: [/node_modules/, /public/],
-        use: [
-          {
-            loader: 'css-loader/locals',
-            options: {
-              modules: true,
-              localIdentName: webpackCommon.cssScopedName
-            }
-          },
-          {
-            loader: 'sass-loader'
-          }
-        ]
-      },
-      ...webpackCommon.fileLoaders(false)
+      ...webpackCommon.babelRule(),
+      ...webpackCommon.fileRule(),
+      ...webpackCommon.cssModulesRule(),
+      ...webpackCommon.globalStylesRule()
     ]
   },
   plugins: [
-    ...webpackCommon.plugins,
-    new webpack.optimize.LimitChunkCountPlugin({
-      maxChunks: 1
-    })
+    ...webpackCommon.plugins(),
+    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
   ]
 };
 
