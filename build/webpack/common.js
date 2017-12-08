@@ -5,12 +5,11 @@ const HeyWatcher = require('hey-watcher');
 const config = require('../../config/index');
 const syspath = require('../../config/syspath');
 
-const publicPath = '/';
-const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
-const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
-
 module.exports = function commonConfig(target) {
   const isClient = target === 'client';
+  const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
+  const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
+  const publicPath = '/';
 
   return {
     devtool,
@@ -80,40 +79,41 @@ module.exports = function commonConfig(target) {
         {
           test: /\.s?css$/,
           exclude: /node_modules/,
-          use: isClient
-            ? extractCssChunks.extract({
-                use: [
+          use:
+            isClient && extractCssChunks
+              ? extractCssChunks.extract({
+                  use: [
+                    {
+                      loader: 'css-loader',
+                      options: {
+                        modules,
+                        localIdentName,
+                        sourceMap
+                      }
+                    },
+                    {
+                      loader: 'sass-loader',
+                      options: { sourceMap }
+                    },
+                    {
+                      loader: 'postcss-loader',
+                      options: {
+                        sourceMap,
+                        plugins: () => [autoprefixer]
+                      }
+                    }
+                  ]
+                })
+              : [
                   {
-                    loader: 'css-loader',
+                    loader: 'css-loader/locals',
                     options: {
                       modules,
-                      localIdentName,
-                      sourceMap
+                      localIdentName
                     }
                   },
-                  {
-                    loader: 'sass-loader',
-                    options: { sourceMap }
-                  },
-                  {
-                    loader: 'postcss-loader',
-                    options: {
-                      sourceMap,
-                      plugins: () => [autoprefixer]
-                    }
-                  }
+                  'sass-loader'
                 ]
-              })
-            : [
-                {
-                  loader: 'css-loader/locals',
-                  options: {
-                    modules,
-                    localIdentName
-                  }
-                },
-                'sass-loader'
-              ]
         }
       ];
     },
@@ -126,42 +126,32 @@ module.exports = function commonConfig(target) {
           // specify package name to be imported as global style
           include: [/react-s-alert/],
           exclude: syspath.src,
-          use: isClient
-            ? extractText.extract({ fallback: 'style-loader', use: loaders })
-            : loaders
+          use:
+            isClient && extractText
+              ? extractText.extract({ fallback: 'style-loader', use: loaders })
+              : loaders
         }
       ];
     },
     fileRule: () => {
-      const emitFile = isClient === true;
-      const loader = 'file-loader';
+      const loaders = options => [
+        {
+          loader: 'file-loader',
+          options: Object.assign(
+            { publicPath, emitFile: isClient === true },
+            options
+          )
+        }
+      ];
 
       return [
         {
           test: /\.(svg|png|jpe?g|gif)(\?.*)?$/i,
-          use: [
-            {
-              loader,
-              options: {
-                publicPath,
-                emitFile,
-                name: 'images/[name].[ext]'
-              }
-            }
-          ]
+          use: loaders({ name: 'images/[name].[ext]' })
         },
         {
           test: /\.(eot|ttf|woff2?)(\?.*)?$/i,
-          use: [
-            {
-              loader,
-              options: {
-                publicPath,
-                emitFile,
-                name: 'fonts/[name].[ext]'
-              }
-            }
-          ]
+          use: loaders({ name: 'fonts/[name].[ext]' })
         }
       ];
     },
