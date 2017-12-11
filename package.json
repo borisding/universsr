@@ -87,6 +87,7 @@
     "serialize-javascript": "^1.4.0",
     "serve-favicon": "^2.4.5",
     "slash": "^1.0.0",
+    "uuid": "^3.1.0",
     "webpack-flush-chunks": "^1.2.2"
   },
   "devDependencies": {

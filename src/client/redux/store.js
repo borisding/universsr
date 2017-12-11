@@ -2,10 +2,11 @@ import isDev from 'isdev';
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import readyWrapper from 'redux-ready-wrapper';
+import requestAlert from '@redux/middlewares/requestAlert';
 import rootReducer from './root';
 
 export default function storeFactory(preloadedState) {
-  const middlewares = [readyWrapper()];
+  const middlewares = [readyWrapper(), requestAlert()];
 
   if (isDev) {
     middlewares.push(

@@ -30,8 +30,7 @@ TextInput.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string,
   name: PropTypes.string,
-  id: PropTypes.any,
-  value: PropTypes.any,
+  id: PropTypes.string,
   placeholder: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func

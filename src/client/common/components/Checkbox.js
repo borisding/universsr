@@ -27,8 +27,7 @@ const Checkbox = ({
 Checkbox.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string,
-  id: PropTypes.any,
-  value: PropTypes.any,
+  id: PropTypes.string,
   isChecked: PropTypes.bool,
   onChange: PropTypes.func,
   onClick: PropTypes.func

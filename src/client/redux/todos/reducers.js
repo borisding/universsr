@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
 
     case types.UPDATE_TODO:
       return state.map(record => {
-        if (record.id !== +action.payload.id) {
+        if (record.id !== action.payload.id) {
           return record;
         }
 

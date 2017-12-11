@@ -10,7 +10,12 @@ const Body = ({ route, isClient, isFetching }) => {
     <div styleName="content">
       {renderRoutes(route.routes)}
       {isClient && isFetching && <Loader />}
-      <Alert stack={{ limit: 1 }} />
+      <Alert
+        stack={{ limit: 1 }}
+        position="bottom"
+        effect="flip"
+        timeout={5000}
+      />
     </div>
   );
 };

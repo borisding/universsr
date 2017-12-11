@@ -24,7 +24,12 @@ const config = convict({
   apiBaseUrl: {
     doc: 'The API base URL',
     format: 'url',
-    default: 'http://localhost:3000/api/'
+    default: 'http://localhost:3000/api'
+  },
+  apiVersion: {
+    doc: 'The version of API to be used.',
+    format: String,
+    default: 'v1'
   },
   secret: {
     doc: 'Secret used for application session cookies and CSRF tokens',

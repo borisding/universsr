@@ -7,7 +7,7 @@ export default class TodoList extends Component {
   static propTypes = {
     todos: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
         todo: PropTypes.string.isRequired,
         done: PropTypes.bool.isRequired
       })

@@ -30,6 +30,6 @@ app
   .use(cookieParser(config.get('secret')))
   .use(hpp()) // after parsed body
   .use('/', express.static(syspath.public))
-  .use('/api', apiRouter);
+  .use(`/api/${config.get('apiVersion')}`, apiRouter);
 
 run(app);

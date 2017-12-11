@@ -19,11 +19,7 @@ export default () => {
           href="#"
           onClick={evt => {
             evt.preventDefault();
-            Alert.info('Hello! This is universal React + Redux demo site.', {
-              position: 'bottom',
-              effect: 'flip',
-              timeout: 5000
-            });
+            Alert.info('Hello! This is universal React + Redux demo site.');
           }}
         >
           Show alert
