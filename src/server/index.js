@@ -1,4 +1,5 @@
 import React from 'react';
+import isDev from 'isdev';
 import DocumentTitle from 'react-document-title';
 import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
@@ -33,7 +34,6 @@ export default function serverRenderer({ clientStats }) {
       const initial = {};
       const context = initial;
       const store = storeFactory(initial);
-
       await prefetchBranchData(store, req.url);
 
       const preloadedState = `<script>window.__PRELOADED_STATE__ = ${serialize(
@@ -53,13 +53,10 @@ export default function serverRenderer({ clientStats }) {
       );
 
       const pageTitle = DocumentTitle.rewind();
-      const flushChunksOptions = { chunkNames: flushChunkNames() };
-      const { js, styles, cssHash } = flushChunks(
-        clientStats,
-        flushChunksOptions
-      );
-
       const { statusCode, redirectUrl } = context;
+      const { js, styles, cssHash } = flushChunks(clientStats, {
+        chunkNames: flushChunkNames()
+      });
 
       if ([301, 302].includes(statusCode) && redirectUrl) {
         return res.redirect(statusCode, redirectUrl);
@@ -74,7 +71,12 @@ export default function serverRenderer({ clientStats }) {
         js
       });
     } catch (err) {
-      next(err);
+      if (isDev) return next(err);
+      // could be sending an error message or,
+      // rendering error view template for production
+      return res
+        .status(500)
+        .send('<h3>Sorry! Something went wrong. Please try again later.</h3>');
     }
   };
 }
