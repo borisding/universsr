@@ -21,9 +21,9 @@ export default () => store => next => action => {
   switch (type) {
     case REQUEST_ERROR:
       if (payload.response && payload.response.status >= 500 && !isDev) {
-        message = 'Sorry! Something went wrong. Please try again later.';
+        message = 'Sorry! Request failure. Please try again later.';
       } else if (payload.code === 'ECONNABORTED') {
-        message = 'Request Timeout!';
+        message = 'Request Timeout! Please try again.';
       }
 
       Alert.error(message);

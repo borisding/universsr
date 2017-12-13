@@ -1,17 +1,11 @@
 import uuidv4 from 'uuid/v4';
-import { ready, wrap } from 'redux-ready-wrapper';
-import { errorCreator } from '@redux/middlewares/requestAlert';
-import makeRequest from '@utils/request';
+import { wrap } from 'redux-ready-wrapper';
+import service from '@utils/service';
 import * as types from './types';
 
 // make api request for existing todos and dispatch
 export const fetchTodos = () =>
-  ready(dispatch =>
-    makeRequest
-      .get('/todos')
-      .then(res => dispatch({ type: types.FETCH_TODO, payload: res.data }))
-      .catch(err => dispatch(errorCreator(err)))
-  );
+  service.get('/todos', { type: types.FETCH_TODO });
 
 // fake adding new todo without saving into db
 export const addTodo = input =>
