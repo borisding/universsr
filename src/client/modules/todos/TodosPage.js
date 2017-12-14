@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { PageTitle } from '@common/components';
+import * as todoActions from '@redux/todos/actions';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
-import PageTitle from '@common/components/PageTitle';
-import * as todoActions from '@redux/todos/actions';
 
 class TodosPage extends Component {
   static propTypes = {

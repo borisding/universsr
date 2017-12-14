@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Alert from 'react-s-alert';
 import { renderRoutes } from 'react-router-config';
-import ErrorBoundary from '@common/components/ErrorBoundary';
-import Loader from '@common/components/Loader';
+import { ErrorBoundary, Loader } from '@common/components';
 import './styles/Body.scss';
 
 const Body = ({ route, isClient, isFetching }) => {

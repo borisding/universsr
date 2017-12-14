@@ -1,6 +1,5 @@
 import React from 'react';
-import HttpStatus from '@common/components/HttpStatus';
-import PageTitle from '@common/components/PageTitle';
+import { HttpStatus, PageTitle } from '@common/components';
 
 const NotFound = () => {
   return (

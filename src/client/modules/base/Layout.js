@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import PageTitle from '@common/components/PageTitle';
-import Header from './Header';
-import Body from './Body';
+import { Header, Body } from '@modules/base';
+import { PageTitle } from '@common/components';
 
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/flip.css';

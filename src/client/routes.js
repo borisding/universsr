@@ -1,12 +1,11 @@
 import universal from 'react-universal-component';
-import Layout from './modules/base/Layout';
-import HomePage from './modules/home/HomePage';
-import NotFound from './modules/base/NotFound';
-import Loader from '@common/components/Loader';
+import HomePage from './modules/home';
+import { Layout, NotFound } from './modules/base';
+import { Loader } from '@common/components';
 import { fetchTodos } from '@redux/todos/actions';
 
 const options = {
-  minDelay: 250,
+  minDelay: 100,
   loading: Loader,
   error: NotFound
 };
@@ -23,7 +22,7 @@ export const routes = [
     exact: true,
     menu: 'Todos',
     loadData: fetchTodos,
-    component: universal(import('./modules/todos/TodosPage'), options)
+    component: universal(import('./modules/todos'), options)
   },
   {
     path: '/*',
