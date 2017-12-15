@@ -9,6 +9,11 @@ const config = convict({
     default: 'development',
     env: 'NODE_ENV'
   },
+  publicPath: {
+    doc: 'The public path of application.',
+    format: String,
+    default: '/'
+  },
   host: {
     doc: 'The express server host.',
     format: String,

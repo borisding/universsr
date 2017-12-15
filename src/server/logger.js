@@ -3,17 +3,15 @@ const isDev = require('isdev');
 const morgan = require('morgan');
 const syspath = require('../../config/syspath');
 
-module.exports = function logger(app) {
+module.exports = logger = () => {
   if (isDev) {
-    app.use(morgan('dev'));
-  } else {
-    const logFile = `${syspath.logs}/access.log`;
-
-    app.use(
-      morgan('combined', {
-        stream: fs.createWriteStream(logFile, { flags: 'a' }),
-        skip: (req, res) => res.statusCode < 400
-      })
-    );
+    return morgan('dev');
   }
+
+  return morgan('combined', {
+    stream: fs.createWriteStream(`${syspath.logs}/access.log`, {
+      flags: 'a'
+    }),
+    skip: (req, res) => res.statusCode < 400
+  });
 };

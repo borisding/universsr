@@ -9,7 +9,7 @@ module.exports = function commonConfig(target) {
   const isClient = target === 'client';
   const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
   const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
-  const publicPath = '/';
+  const publicPath = config.get('publicPath');
 
   return {
     devtool,

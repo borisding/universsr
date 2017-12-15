@@ -7,6 +7,7 @@ import { flushChunkNames } from 'react-universal-component/server';
 import { renderToString } from 'react-dom/server';
 import { matchRoutes } from 'react-router-config';
 import storeFactory from '@redux/store';
+import config from '@config/index';
 import routes from '@client/routes';
 import App from '@client/App';
 
@@ -33,16 +34,13 @@ export default function serverRenderer({ clientStats }) {
     try {
       const initial = {};
       const context = initial;
+      const nonce = res.locals.nonce;
       const store = storeFactory(initial);
+
       await prefetchBranchData(store, req.url);
 
-      const preloadedState = `<script>window.__PRELOADED_STATE__ = ${serialize(
-        store.getState(),
-        {
-          isJSON: true
-        }
-      )}</script>`;
-
+      const publicPath = config.get('publicPath');
+      const pageTitle = DocumentTitle.rewind();
       const appString = renderToString(
         <App
           store={store}
@@ -52,11 +50,13 @@ export default function serverRenderer({ clientStats }) {
         />
       );
 
-      const pageTitle = DocumentTitle.rewind();
-      const { statusCode, redirectUrl } = context;
-      const { js, styles, cssHash } = flushChunks(clientStats, {
+      const { scripts, styles, cssHashRaw } = flushChunks(clientStats, {
         chunkNames: flushChunkNames()
       });
+
+      const preloadedState = serialize(store.getState(), { isJSON: true });
+      const cssChunks = serialize(cssHashRaw, { isJSON: true });
+      const { statusCode, redirectUrl } = context;
 
       if ([301, 302].includes(statusCode) && redirectUrl) {
         return res.redirect(statusCode, redirectUrl);
@@ -65,18 +65,17 @@ export default function serverRenderer({ clientStats }) {
       res.status(statusCode || 200).render('index', {
         pageTitle,
         appString,
+        publicPath,
         preloadedState,
-        cssHash,
+        cssChunks,
+        scripts,
         styles,
-        js
+        nonce
       });
     } catch (err) {
-      if (isDev) return next(err);
-      // could be sending an error message or,
-      // rendering error view template for production
-      return res
-        .status(500)
-        .send('<h3>Sorry! Something went wrong. Please try again later.</h3>');
+      isDev
+        ? next(err)
+        : res.status(500).send('<h3>Sorry! Something went wrong.</h3>');
     }
   };
 }
