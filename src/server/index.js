@@ -1,5 +1,5 @@
-import React from 'react';
 import isDev from 'isdev';
+import React from 'react';
 import DocumentTitle from 'react-document-title';
 import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
@@ -39,8 +39,6 @@ export default function serverRenderer({ clientStats }) {
 
       await prefetchBranchData(store, req.url);
 
-      const publicPath = config.get('publicPath');
-      const pageTitle = DocumentTitle.rewind();
       const appString = renderToString(
         <App
           store={store}
@@ -50,6 +48,8 @@ export default function serverRenderer({ clientStats }) {
         />
       );
 
+      const publicPath = config.get('publicPath');
+      const pageTitle = DocumentTitle.rewind();
       const { scripts, styles, cssHashRaw } = flushChunks(clientStats, {
         chunkNames: flushChunkNames()
       });
@@ -73,13 +73,13 @@ export default function serverRenderer({ clientStats }) {
         nonce
       });
     } catch (err) {
-      internalServer(res, next, err);
+      internalServer(err, req, res, next);
     }
   };
 }
 
 // caught internal server error handling
-function internalServer(res, next, err) {
+function internalServer(err, req, res, next) {
   if (!isDev) {
     return res
       .status(500)
