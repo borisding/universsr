@@ -6,11 +6,11 @@ const nonce = () => (req, res, next) => {
 };
 
 // helmet nonces ref: https://helmetjs.github.io/docs/csp/
-const register = helmet =>
+const mount = helmet =>
   helmet.contentSecurityPolicy({
     directives: {
       scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`]
     }
   });
 
-module.exports = { nonce, register };
+module.exports = { nonce, mount };

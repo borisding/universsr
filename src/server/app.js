@@ -9,8 +9,8 @@ const compression = require('compression');
 const config = require('../../config/index');
 const syspath = require('../../config/syspath');
 const apiRouter = require('../api/router');
-const logger = require('./logger');
-const csp = require('./csp');
+const logger = require('./middlewares/logger');
+const csp = require('./middlewares/csp');
 const run = require('./run');
 
 const { secret, publicPath, apiVersion } = config.getProperties();
@@ -25,7 +25,7 @@ app
   .use(logger())
   .use(helmet())
   .use(csp.nonce())
-  .use(csp.register(helmet))
+  .use(csp.mount(helmet))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true, limit: '10mb' }))
   .use(cors())

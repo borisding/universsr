@@ -73,9 +73,18 @@ export default function serverRenderer({ clientStats }) {
         nonce
       });
     } catch (err) {
-      isDev
-        ? next(err)
-        : res.status(500).send('<h3>Sorry! Something went wrong.</h3>');
+      internalServer(res, next, err);
     }
   };
+}
+
+// caught internal server error handling
+function internalServer(res, next, err) {
+  if (!isDev) {
+    return res
+      .status(500)
+      .send('<h3>Sorry! Something went wrong. Please come back later.</h3>');
+  }
+
+  return next(err);
 }

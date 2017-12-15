@@ -1,7 +1,7 @@
 const fs = require('fs');
 const isDev = require('isdev');
 const morgan = require('morgan');
-const syspath = require('../../config/syspath');
+const syspath = require('../../../config/syspath');
 
 module.exports = logger = () => {
   if (isDev) {
