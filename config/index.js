@@ -23,7 +23,7 @@ const config = convict({
   port: {
     doc: 'The express server port to bind.',
     format: 'port',
-    default: process.env.PORT || 3000,
+    default: 3000,
     env: 'PORT'
   },
   apiBaseUrl: {
