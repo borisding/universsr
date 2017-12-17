@@ -1,7 +1,7 @@
 import axios from 'axios';
 import extend from 'extend';
 import { ready } from 'redux-ready-wrapper';
-import { errorCreator, successCreator } from '@redux/middlewares/serviceAlert';
+import { errorCreator, successCreator } from '@redux/middlewares/service-alert';
 import { apiBaseUrl, apiVersion } from '@config/index.json';
 
 export const instance = axiosFactory();
