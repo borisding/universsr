@@ -17,10 +17,11 @@ const methods = {
   DELETE: 'delete'
 };
 
-export const instance = axiosFactory();
+// create default axios instance
+const instance = axiosFactory();
 
 // create axios instance with provided config, if any
-export function axiosFactory(userConfig = initial) {
+function axiosFactory(userConfig = initial) {
   return axios.create(
     extend(
       { baseURL: `${apiBaseUrl}/${apiVersion}`, timeout: 3000 },
@@ -68,9 +69,9 @@ function makeRequest(
   return ({ dispatch }) => requestor(dispatch);
 }
 
-// abstract away respective service requests and dispatchers
-// request config ref: https://github.com/axios/axios#request-config
-export default {
+module.exports = {
+  // abstract away respective service requests and dispatchers
+  // request config ref: https://github.com/axios/axios#request-config
   get(url, config, callback) {
     return makeRequest(methods.GET, url, config, callback);
   },
@@ -82,5 +83,9 @@ export default {
   },
   delete(url, config, callback) {
     return makeRequest(methods.DELETE, url, config, callback);
-  }
+  },
+
+  // also, export default axios instance and axios factory
+  instance,
+  axiosFactory
 };
