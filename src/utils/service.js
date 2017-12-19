@@ -1,18 +1,23 @@
-import axios from 'axios';
-import extend from 'extend';
-import { ready } from 'redux-ready-wrapper';
-import { errorCreator, successCreator } from '@redux/middlewares/service-alert';
-import { apiBaseUrl, apiVersion } from '@config/index.json';
+const axios = require('axios');
+const extend = require('extend');
+const { ready } = require('redux-ready-wrapper');
+const { apiBaseUrl, apiVersion } = require('@config/index.json');
+const {
+  errorCreator,
+  infoCreator,
+  successCreator
+} = require('@redux/middlewares/service-alert');
 
-export const instance = axiosFactory();
-const initial = {};
 const payload = data => data;
+const initial = {};
 const methods = {
   GET: 'get',
   POST: 'post',
   PUT: 'put',
   DELETE: 'delete'
 };
+
+export const instance = axiosFactory();
 
 // create axios instance with provided config, if any
 export function axiosFactory(userConfig = initial) {
@@ -29,7 +34,14 @@ export function axiosFactory(userConfig = initial) {
 function makeRequest(
   method,
   url,
-  { type, dispatchReady = true, success = initial, error = initial, ...config },
+  {
+    type,
+    dispatchReady = true,
+    error = initial,
+    info = initial,
+    success = initial,
+    ...config
+  },
   callback = payload
 ) {
   const requestor = dispatch =>
@@ -37,7 +49,9 @@ function makeRequest(
       .request({ method, url, ...config })
       .then(res => dispatch({ type, payload: callback(res.data) }))
       .then(action => {
+        info.message && dispatch(infoCreator(info));
         success.message && dispatch(successCreator(success));
+
         return action;
       })
       .catch(err => {
@@ -49,9 +63,9 @@ function makeRequest(
     return ready(dispatch => requestor(dispatch), {
       isGet: method === methods.GET
     });
-  } else {
-    return ({ dispatch }) => requestor(dispatch);
   }
+
+  return ({ dispatch }) => requestor(dispatch);
 }
 
 // abstract away respective service requests and dispatchers
