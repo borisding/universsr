@@ -70,6 +70,7 @@
     "husky": "^0.14.3",
     "isdev": "^1.0.1",
     "lint-staged": "^5.0.0",
+    "module-alias": "^2.0.3",
     "morgan": "^1.9.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
@@ -180,5 +181,21 @@
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/"
     ]
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@bin": "bin",
+    "@build": "build",
+    "@config": "config",
+    "@public": "public",
+    "@resources": "resources",
+    "@assets": "resources/assets",
+    "@utils": "src/utils",
+    "@api": "src/api",
+    "@server": "src/server",
+    "@client": "src/client",
+    "@common": "src/client/common",
+    "@modules": "src/client/modules",
+    "@redux": "src/client/redux"
   }
 }

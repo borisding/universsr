@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const todos = require('../../resources/fixtures/todos');
+const todos = require('@resources/fixtures/todos');
 
 // records should be reading from db for real world app
 // can add more http verbs request for complete CRUD

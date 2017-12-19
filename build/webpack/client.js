@@ -6,8 +6,8 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
+const syspath = require('@config/syspath');
 const webpackCommon = require('./common');
-const syspath = require('../../config/syspath');
 
 const configName = 'client';
 const commonConfig = webpackCommon(configName);

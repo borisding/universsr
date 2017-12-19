@@ -1,8 +1,11 @@
+// enable module aliases for config `require`
+require('module-alias/register');
+
 const fs = require('fs');
 const slash = require('slash');
-const syspath = require('../../config/syspath');
-const nodeConfig = require('../../config/index');
-const { error, info } = require('../../src/utils');
+const syspath = require('@config/syspath');
+const nodeConfig = require('@config');
+const { error, info } = require('@utils');
 
 // writing validated node config into targeted config filename
 // which can be imported directly for client side usage later

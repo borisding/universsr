@@ -2,8 +2,9 @@ const isDev = require('isdev');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HeyWatcher = require('hey-watcher');
-const config = require('../../config/index');
-const syspath = require('../../config/syspath');
+const config = require('@config');
+const syspath = require('@config/syspath');
+const pkg = require('@root/package.json');
 
 module.exports = function commonConfig(target) {
   const isClient = target === 'client';
@@ -18,21 +19,7 @@ module.exports = function commonConfig(target) {
     context: syspath.src,
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
-      alias: {
-        '@bin': syspath.bin,
-        '@build': syspath.build,
-        '@config': syspath.config,
-        '@public': syspath.public,
-        '@resources': syspath.resources,
-        '@assets': `${syspath.resources}/assets`,
-        '@utils': `${syspath.src}/utils`,
-        '@api': `${syspath.src}/api`,
-        '@server': `${syspath.src}/server`,
-        '@client': `${syspath.src}/client`,
-        '@common': `${syspath.src}/client/common`,
-        '@modules': `${syspath.src}/client/modules`,
-        '@redux': `${syspath.src}/client/redux`
-      }
+      alias: pkg._moduleAliases
     },
     babelRule: () => {
       return [
