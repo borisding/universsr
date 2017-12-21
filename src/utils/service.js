@@ -8,21 +8,98 @@ const {
   successCreator
 } = require('@redux/middlewares/service-alert');
 
-const payload = data => data;
-const initial = {};
-const methods = {
-  GET: 'get',
-  POST: 'post',
-  PUT: 'put',
-  DELETE: 'delete'
-};
+class Service {
+  static methods = {
+    get: 'get',
+    post: 'post',
+    put: 'put',
+    delete: 'delete'
+  };
 
-// create default axios instance
-const instance = axiosFactory();
+  constructor(axiosConfig) {
+    if (typeof axiosConfig !== 'object') {
+      throw new TypeError(
+        'Invalid axios config. Expecting object data type to be provided.'
+      );
+    }
 
-// axios request/response interceptors for default instance
+    this.axios = axios.create(
+      extend(
+        { baseURL: `${apiBaseUrl}/${apiVersion}`, timeout: 3000 },
+        axiosConfig
+      )
+    );
+  }
+
+  static create(axiosConfig = {}) {
+    return new Service(axiosConfig);
+  }
+
+  // request config ref: https://github.com/axios/axios#request-config
+  request(method, url, config, callback = data => data) {
+    const {
+      type,
+      dispatchReady = true,
+      error = {},
+      info = {},
+      success = {},
+      ...restConfig
+    } = config;
+
+    const makeRequest = dispatch =>
+      this.axios
+        .request({ method, url, ...restConfig })
+        .then(res => dispatch({ type, payload: callback(res.data) }))
+        .then(action => {
+          info.message && dispatch(infoCreator(info));
+          success.message && dispatch(successCreator(success));
+
+          return action;
+        })
+        .catch(err => {
+          error.message && (err = error);
+          dispatch(errorCreator(err));
+        });
+
+    if (dispatchReady) {
+      return ready(dispatch => makeRequest(dispatch), {
+        isGet: method === Service.methods.get
+      });
+    }
+
+    return ({ dispatch }) => makeRequest(dispatch);
+  }
+
+  interceptRequest(resolve, reject) {
+    return this.axios.interceptors.request.use(resolve, reject);
+  }
+
+  interceptResponse(resolve, reject) {
+    return this.axios.interceptors.response.use(resolve, reject);
+  }
+
+  get(url, config, callback) {
+    return this.request(Service.methods.get, url, config, callback);
+  }
+
+  post(url, config, callback) {
+    return this.request(Service.methods.post, url, config, callback);
+  }
+
+  put(url, config, callback) {
+    return this.request(Service.methods.put, url, config, callback);
+  }
+
+  delete(url, config, callback) {
+    return this.request(Service.methods.delete, url, config, callback);
+  }
+}
+
+// create default service instance and interceptors
 // interceptors ref: https://github.com/axios/axios#interceptors
-instance.interceptors.request.use(
+const service = Service.create();
+
+service.interceptRequest(
   config => {
     // we may do something here before request is sent
     return config;
@@ -30,7 +107,7 @@ instance.interceptors.request.use(
   err => Promise.reject(err)
 );
 
-instance.interceptors.response.use(
+service.interceptResponse(
   res => {
     // we may do something here before returning response data
     return res;
@@ -38,69 +115,5 @@ instance.interceptors.response.use(
   err => Promise.reject(err)
 );
 
-// create axios instance with provided config, if any
-function axiosFactory(userConfig = initial) {
-  return axios.create(
-    extend(
-      { baseURL: `${apiBaseUrl}/${apiVersion}`, timeout: 3000 },
-      userConfig
-    )
-  );
-}
-
-// make request for action creator based on the provided arguments
-// callback could be, say, a provided normalizer function which returns normalized data
-// request config ref: https://github.com/axios/axios#request-config
-function makeRequest(method, url, config, callback = payload) {
-  const {
-    type,
-    dispatchReady = true,
-    error = initial,
-    info = initial,
-    success = initial,
-    ...restConfig
-  } = config;
-
-  const requestor = dispatch =>
-    instance
-      .request({ method, url, ...restConfig })
-      .then(res => dispatch({ type, payload: callback(res.data) }))
-      .then(action => {
-        info.message && dispatch(infoCreator(info));
-        success.message && dispatch(successCreator(success));
-
-        return action;
-      })
-      .catch(err => {
-        error.message && (err = error);
-        dispatch(errorCreator(err));
-      });
-
-  if (dispatchReady) {
-    return ready(dispatch => requestor(dispatch), {
-      isGet: method === methods.GET
-    });
-  }
-
-  return ({ dispatch }) => requestor(dispatch);
-}
-
-module.exports = {
-  // abstract away respective service requests and dispatchers
-  get(url, config, callback) {
-    return makeRequest(methods.GET, url, config, callback);
-  },
-  post(url, config, callback) {
-    return makeRequest(methods.POST, url, config, callback);
-  },
-  put(url, config, callback) {
-    return makeRequest(methods.PUT, url, config, callback);
-  },
-  delete(url, config, callback) {
-    return makeRequest(methods.DELETE, url, config, callback);
-  },
-
-  // also, export default axios instance and axios factory
-  instance,
-  axiosFactory
-};
+module.exports = service;
+module.exports.Service = Service;
