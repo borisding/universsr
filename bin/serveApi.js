@@ -4,17 +4,18 @@ const http = require('http');
 const config = require('@config');
 const { error, info } = require('@utils');
 
-module.exports = function serve(app) {
-  // running server based on the config
+module.exports = function serveApi(app) {
+  // running api server based on the config
   const server = http.createServer(app);
+  const apiPort = config.get('apiPort');
 
-  server.listen(config.get('port'));
+  server.listen(apiPort);
 
   // server on listening event
   server.on('listening', () => {
     const address = server.address();
 
-    info('App Server is up! Listening: %s', 0, [
+    info('API Server is up! Listening: %s', 0, [
       'port' in address ? address.port : address
     ]);
   });
@@ -23,10 +24,10 @@ module.exports = function serve(app) {
   server.on('error', err => {
     switch (err.code) {
       case 'EACCES':
-        error('Not enough privileges to run server.', -1);
+        error('Not enough privileges to run API server.', -1);
         break;
       case 'EADDRINUSE':
-        error('%s is already in use.', -1, [config.get('port')]);
+        error('%s is already in use.', -1, [apiPort]);
         break;
       default:
         throw err;

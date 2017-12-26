@@ -10,8 +10,12 @@
     "build:prod:config": "cross-env NODE_ENV=production node build/scripts/config.js",
     "build:prod:modules": "cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
     "build:prod": "npm-run-all clean build:prod:config build:prod:modules",
-    "start": "npm run build:prod && cross-env NODE_ENV=production node app.js",
-    "start:dev": "npm run build:dev && nodemon --exec node app.js",
+    "start:prod:api": "cross-env NODE_ENV=production node api.js",
+    "start:prod:app": "npm run build:prod && cross-env NODE_ENV=production node app.js",
+    "start:dev:api": "nodemon --ignore src/server/* --ignore src/client/* --exec node api.js",
+    "start:dev:app": "npm run build:dev && nodemon --ignore src/api/* --ignore src/client/* --exec node app.js",
+    "start": "run-p start:prod:api start:prod:app",
+    "start:dev": "run-p start:dev:api start:dev:app",
     "lint": "npm-run-all lint:js lint:style",
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
     "lint:js": "eslint . --fix",
@@ -67,6 +71,7 @@
     "extend": "^3.0.1",
     "helmet": "^3.9.0",
     "hpp": "^0.2.2",
+    "http-proxy": "^1.16.2",
     "husky": "^0.14.3",
     "isdev": "^1.0.1",
     "lint-staged": "^5.0.0",
@@ -150,14 +155,7 @@
     "ext": "js jsx",
     "env": {
       "NODE_ENV": "development"
-    },
-    "ignore": [
-      "src/client/*",
-      "src/server/index.js",
-      "coverage/**/*",
-      "public/**/*",
-      "index.*.js"
-    ]
+    }
   },
   "browserslist": [
     "> 1%",

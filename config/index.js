@@ -23,18 +23,35 @@ const config = convict({
   port: {
     doc: 'The express server port to bind.',
     format: 'port',
-    default: 3000,
+    default: 5000,
     env: 'PORT'
   },
-  apiBaseUrl: {
-    doc: 'The API base URL',
-    format: 'url',
-    default: 'http://localhost:3000/api'
-  },
-  apiVersion: {
-    doc: 'The version of API to be used.',
+  apiProtocol: {
+    doc: 'The API server protocol.',
     format: String,
-    default: 'v1'
+    default: 'http'
+  },
+  apiHost: {
+    doc: 'The API server host.',
+    format: String,
+    default: 'localhost',
+    env: 'HOST'
+  },
+  apiPort: {
+    doc: 'The API server port to bind.',
+    format: 'port',
+    default: 3001,
+    env: 'PORT'
+  },
+  apiUrl: {
+    doc: 'The API URL with version to be used.',
+    format: String,
+    default: '/api/v1'
+  },
+  requestTimeout: {
+    doc: 'The maximum duration for request timeout.',
+    format: 'duration',
+    default: 5000
   },
   secret: {
     doc: 'Secret used for application session cookies and CSRF tokens',

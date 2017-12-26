@@ -1,5 +1,5 @@
-const express = require('express');
 const isDev = require('isdev');
+const express = require('express');
 const hpp = require('hpp');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
@@ -8,12 +8,11 @@ const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const config = require('@config');
 const syspath = require('@config/syspath');
-const apiRouter = require('@api/router');
-const logger = require('./middlewares/logger');
-const csp = require('./middlewares/csp');
+const { error, info } = require('@utils');
+const { csp, logger, proxy } = require('./middlewares');
 const run = require('./run');
 
-const { secret, publicPath, apiVersion } = config.getProperties();
+const { secret, publicPath, apiUrl } = config.getProperties();
 const app = express();
 
 app
@@ -33,6 +32,6 @@ app
   .use(cookieParser(secret))
   .use(hpp()) // after parsed body
   .use(publicPath, express.static(syspath.public))
-  .use(`${publicPath}api/${apiVersion}`, apiRouter);
+  .use(apiUrl, proxy.proxyWeb);
 
 run(app);
