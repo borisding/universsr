@@ -14,7 +14,6 @@ const config = convict({
     format: String,
     default: '/'
   },
-
   protocol: {
     doc: 'The express app server protocol to bind.',
     format: String,
@@ -32,7 +31,6 @@ const config = convict({
     default: 5000,
     env: 'PORT'
   },
-
   apiProtocol: {
     doc: 'The API server protocol.',
     format: String,
@@ -42,20 +40,19 @@ const config = convict({
     doc: 'The API server host.',
     format: String,
     default: 'localhost',
-    env: 'HOST'
+    env: 'API_HOST'
   },
   apiPort: {
     doc: 'The API server port to bind.',
     format: 'port',
-    default: 3001,
-    env: 'PORT'
+    default: 5001,
+    env: 'API_PORT'
   },
   apiUrl: {
     doc: 'The API URL with version to be used.',
     format: String,
     default: '/api/v1'
   },
-
   timeout: {
     doc: 'The maximum duration for request timeout.',
     format: 'duration',
