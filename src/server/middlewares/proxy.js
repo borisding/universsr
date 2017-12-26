@@ -6,7 +6,7 @@ const proxyTarget = `${apiProtocol}://${apiHost}:${apiPort}${apiUrl}`;
 const proxy = httpProxy.createProxyServer({ target: proxyTarget });
 
 const proxyWeb = (req, res) => {
-  proxy.web(req, res, { target: proxyTarget });
+  proxy.web(req, res);
 };
 
 proxy.on('error', (err, req, res) => {
