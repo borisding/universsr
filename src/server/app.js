@@ -12,7 +12,7 @@ const { error, info } = require('@utils');
 const { csp, logger, proxy } = require('./middlewares');
 const run = require('./run');
 
-const { secret, publicPath, apiUrl } = config.getProperties();
+const { secret, publicPath, apiVersion } = config.getProperties();
 const app = express();
 
 app
@@ -32,6 +32,6 @@ app
   .use(cookieParser(secret))
   .use(hpp()) // after parsed body
   .use(publicPath, express.static(syspath.public))
-  .use(apiUrl, proxy.proxyWeb);
+  .use(`/api/${apiVersion}`, proxy.proxyWeb);
 
 run(app);
