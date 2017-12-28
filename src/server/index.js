@@ -16,7 +16,7 @@ async function prefetchBranchData(store, pathname) {
   try {
     const branch = await matchRoutes(routes, pathname);
     const promises = await branch.map(({ route, match }) => {
-      return match && match.isExact && route.loadData
+      return match && match.isExact && route && route.loadData
         ? store.dispatch(route.loadData())
         : Promise.resolve(null);
     });

@@ -43,20 +43,20 @@ class Service {
       ...restConfig
     } = config;
 
-    const makeRequest = dispatch =>
-      this.axios
-        .request({ method, url, ...restConfig })
-        .then(res => dispatch({ type, payload: callback(res.data) }))
-        .then(action => {
-          info.message && dispatch(infoCreator(info));
-          success.message && dispatch(successCreator(success));
+    const makeRequest = async dispatch => {
+      try {
+        const res = await this.axios.request({ method, url, ...restConfig });
+        const action = await dispatch({ type, payload: callback(res.data) });
 
-          return action;
-        })
-        .catch(err => {
-          error.message && (err = error);
-          dispatch(errorCreator(err));
-        });
+        info.message && dispatch(infoCreator(info));
+        success.message && dispatch(successCreator(success));
+
+        return action;
+      } catch (err) {
+        error.message && (err = error);
+        dispatch(errorCreator(err));
+      }
+    };
 
     if (dispatchReady) {
       return ready(dispatch => makeRequest(dispatch), {

@@ -22,11 +22,11 @@ export const successCreator = success => ({
 
 export default () => store => next => action => {
   const { type, payload = null } = action;
-  let message = payload && payload.message;
+  let message = (payload && payload.message) || 'Unknown message.';
 
   switch (type) {
     case REQUEST_ERROR:
-      if (payload.response && payload.response.status >= 500 && !isDev) {
+      if (!isDev && payload.response && payload.response.status >= 500) {
         message = 'Sorry! Request failure. Please try again later.';
       } else if (payload.code === 'ECONNABORTED') {
         message = 'Request Timeout! Please try again.';
