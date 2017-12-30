@@ -1,9 +1,14 @@
 const httpProxy = require('http-proxy');
-const config = require('@config');
+const {
+  apiProtocol,
+  apiHost,
+  apiPort,
+  apiVersion
+} = require('@config/properties');
 
-const { proxyBaseURL, apiVersion } = config.getProperties();
-const proxyTarget = `${proxyBaseURL}/api/${apiVersion}`;
-const proxy = httpProxy.createProxyServer({ target: proxyTarget });
+const proxy = httpProxy.createProxyServer({
+  target: `${apiProtocol}://${apiHost}:${apiPort}/api/${apiVersion}`
+});
 
 const proxyWeb = (req, res) => {
   proxy.web(req, res);

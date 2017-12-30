@@ -1,7 +1,14 @@
 const axios = require('axios');
 const extend = require('extend');
 const { ready } = require('redux-ready-wrapper');
-const { apiVersion, baseURL, timeout } = require('@config/index.json');
+const {
+  protocol,
+  host,
+  port,
+  apiVersion,
+  requestTimeout
+} = require('@config/properties');
+
 const {
   errorCreator,
   infoCreator,
@@ -24,7 +31,13 @@ class Service {
     }
 
     this.axios = axios.create(
-      extend({ baseURL: `${baseURL}/api/${apiVersion}`, timeout }, axiosConfig)
+      extend(
+        {
+          baseURL: `${protocol}://${host}:${port}/api/${apiVersion}`,
+          timeout: requestTimeout
+        },
+        axiosConfig
+      )
     );
   }
 

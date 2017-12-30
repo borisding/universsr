@@ -3,9 +3,10 @@ import HomePage from './modules/home';
 import { Layout, NotFound } from './modules/base';
 import { Loader } from '@common/components';
 import { fetchTodos } from '@redux/todos/actions';
+import { minDelay } from '@config/properties';
 
 const options = {
-  minDelay: 100,
+  minDelay,
   loading: Loader,
   error: NotFound
 };

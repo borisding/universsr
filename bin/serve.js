@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
 const http = require('http');
-const config = require('@config');
+const { port } = require('@config/properties');
 const { error, info } = require('@utils');
 
 module.exports = function serve(app) {
   // running server based on the config
   const server = http.createServer(app);
 
-  server.listen(config.get('port'));
+  server.listen(port);
 
   // server on listening event
   server.on('listening', () => {
@@ -26,7 +26,7 @@ module.exports = function serve(app) {
         error('Not enough privileges to run server.', -1);
         break;
       case 'EADDRINUSE':
-        error('%s is already in use.', -1, [config.get('port')]);
+        error('%s is already in use.', -1, [port]);
         break;
       default:
         throw err;

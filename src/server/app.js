@@ -3,13 +3,12 @@ const express = require('express');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
-const config = require('@config');
 const syspath = require('@config/syspath');
 const { error, info } = require('@utils');
+const { secretKey, apiVersion } = require('@config/properties');
 const { csp, proxy } = require('./middlewares');
 const run = require('./run');
 
-const { secret, publicPath, apiVersion } = config.getProperties();
 const app = express();
 
 app
@@ -19,8 +18,8 @@ app
   .use(csp.nonce())
   .use(csp.mount(helmet))
   .use(compression())
-  .use(cookieParser(secret))
-  .use(publicPath, express.static(syspath.public))
+  .use(cookieParser(secretKey))
+  .use(express.static(syspath.public))
   .use(`/api/${apiVersion}`, proxy.proxyWeb);
 
 run(app);

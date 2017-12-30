@@ -7,7 +7,6 @@ import { flushChunkNames } from 'react-universal-component/server';
 import { renderToString } from 'react-dom/server';
 import { matchRoutes } from 'react-router-config';
 import storeFactory from '@redux/store';
-import config from '@config/index';
 import routes from '@client/routes';
 import App from '@client/App';
 
@@ -50,7 +49,6 @@ export default function serverRenderer({ clientStats }) {
         />
       );
 
-      const publicPath = config.get('publicPath');
       const pageTitle = DocumentTitle.rewind();
       const { scripts, styles, cssHashRaw } = flushChunks(clientStats, {
         chunkNames: flushChunkNames()
@@ -67,7 +65,6 @@ export default function serverRenderer({ clientStats }) {
       res.status(statusCode || 200).render('index', {
         pageTitle,
         appString,
-        publicPath,
         preloadedState,
         cssChunks,
         scripts,

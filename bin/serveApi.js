@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
 const http = require('http');
-const config = require('@config');
+const { apiPort } = require('@config/properties');
 const { error, info } = require('@utils');
 
 module.exports = function serveApi(app) {
   // running api server based on the config
   const server = http.createServer(app);
-  const apiPort = config.get('apiPort');
 
   server.listen(apiPort);
 

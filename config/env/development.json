@@ -1,6 +1,0 @@
-{
-  "port": 3000,
-  "apiPort": 3001,
-  "baseURL": "http://localhost:3000",
-  "proxyBaseURL": "http://localhost:3001"
-}
