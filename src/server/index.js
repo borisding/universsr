@@ -15,10 +15,12 @@ import App from '@client/App';
 async function prefetchBranchData(store, pathname) {
   try {
     const branch = await matchRoutes(routes, pathname);
-    const promises = await branch.map(({ route, match }) => {
-      return match && match.isExact && route && route.loadData
-        ? store.dispatch(route.loadData())
-        : Promise.resolve(null);
+    const promises = await branch.map(async ({ route, match }) => {
+      if (match && match.isExact && route && route.loadData) {
+        return await store.dispatch(route.loadData(match));
+      }
+
+      return Promise.resolve(null);
     });
 
     return Promise.all(promises);
