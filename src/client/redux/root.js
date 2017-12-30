@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
+import isNode from 'detect-node';
 import todos from './todos/reducers';
 
-const isClient = (state = false, action) =>
-  (state = typeof window !== 'undefined');
+const isClient = (state = false, action) => (state = isNode !== true);
 
 const isFetching = (state = false, action) =>
   (state = action.type === 'READY_ACTION' && !!action.options.isGet);

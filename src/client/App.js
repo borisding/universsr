@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import isNode from 'detect-node';
 import { Provider } from 'react-redux';
 import { BrowserRouter, StaticRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import routes from './routes';
 
-const App = ({ store, isServer = false, location, context }) => {
+const App = ({ store, location, context }) => {
   return (
     <Provider store={store}>
-      {isServer ? (
+      {isNode ? (
         <StaticRouter location={location} context={context}>
           {renderRoutes(routes)}
         </StaticRouter>
@@ -21,7 +22,6 @@ const App = ({ store, isServer = false, location, context }) => {
 
 App.propTypes = {
   store: PropTypes.object.isRequired,
-  isServer: PropTypes.bool,
   location: PropTypes.string,
   context: PropTypes.object
 };

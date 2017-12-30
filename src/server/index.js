@@ -41,12 +41,7 @@ export default function serverRenderer({ clientStats }) {
       await prefetchBranchData(store, req.url);
 
       const appString = renderToString(
-        <App
-          store={store}
-          isServer={true}
-          location={req.url}
-          context={context}
-        />
+        <App store={store} location={req.url} context={context} />
       );
 
       const pageTitle = DocumentTitle.rewind();
