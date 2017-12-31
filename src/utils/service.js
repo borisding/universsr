@@ -47,15 +47,15 @@ class Service {
   }
 
   getBaseURL() {
-    const apiPath = `/api/${apiVersion}`;
+    const api = `/api/${apiVersion}`;
 
     // use it if request base URL is explicitly defined (eg: domain name)
     if (requestBaseURL.trim()) {
-      return `${requestBaseURL}/${apiPath}`;
+      return `${requestBaseURL}${api}`;
     }
 
     // else, construct base URL based on platform
-    return isNode ? `${protocol}://${host}:${port}${apiPath}` : apiPath;
+    return isNode ? `${protocol}://${host}:${port}${api}` : api;
   }
 
   // request config ref: https://github.com/axios/axios#request-config
