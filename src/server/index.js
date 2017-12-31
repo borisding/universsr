@@ -11,15 +11,13 @@ import routes from '@client/routes';
 import App from '@client/App';
 
 // preload data for matched route
-async function prefetchBranchData(store, pathname) {
+function prefetchBranchData(store, pathname) {
   try {
-    const branch = await matchRoutes(routes, pathname);
-    const promises = await branch.map(async ({ route, match }) => {
-      if (match && match.isExact && route && route.loadData) {
-        return await store.dispatch(route.loadData(match));
-      }
-
-      return Promise.resolve(null);
+    const branch = matchRoutes(routes, pathname);
+    const promises = branch.map(({ route, match }) => {
+      return match && match.isExact && route && route.loadData
+        ? store.dispatch(route.loadData(match))
+        : Promise.resolve(null);
     });
 
     return Promise.all(promises);
@@ -31,40 +29,40 @@ async function prefetchBranchData(store, pathname) {
 // export default server renderer and receiving stats
 // also, should allow it to be mounted as middleware for production usage
 export default function serverRenderer({ clientStats }) {
-  return async (req, res, next) => {
+  return (req, res, next) => {
     try {
       const initial = {};
       const context = initial;
       const nonce = res.locals.nonce;
       const store = storeFactory(initial);
 
-      await prefetchBranchData(store, req.url);
+      prefetchBranchData(store, req.url).then(() => {
+        const appString = renderToString(
+          <App store={store} location={req.url} context={context} />
+        );
 
-      const appString = renderToString(
-        <App store={store} location={req.url} context={context} />
-      );
+        const pageTitle = DocumentTitle.rewind();
+        const { scripts, styles, cssHashRaw } = flushChunks(clientStats, {
+          chunkNames: flushChunkNames()
+        });
 
-      const pageTitle = DocumentTitle.rewind();
-      const { scripts, styles, cssHashRaw } = flushChunks(clientStats, {
-        chunkNames: flushChunkNames()
-      });
+        const preloadedState = serialize(store.getState(), { isJSON: true });
+        const cssChunks = serialize(cssHashRaw, { isJSON: true });
+        const { statusCode, redirectUrl } = context;
 
-      const preloadedState = serialize(store.getState(), { isJSON: true });
-      const cssChunks = serialize(cssHashRaw, { isJSON: true });
-      const { statusCode, redirectUrl } = context;
+        if ([301, 302].includes(statusCode) && redirectUrl) {
+          return res.redirect(statusCode, redirectUrl);
+        }
 
-      if ([301, 302].includes(statusCode) && redirectUrl) {
-        return res.redirect(statusCode, redirectUrl);
-      }
-
-      res.status(statusCode || 200).render('index', {
-        pageTitle,
-        appString,
-        preloadedState,
-        cssChunks,
-        scripts,
-        styles,
-        nonce
+        res.status(statusCode || 200).render('index', {
+          pageTitle,
+          appString,
+          preloadedState,
+          cssChunks,
+          scripts,
+          styles,
+          nonce
+        });
       });
     } catch (err) {
       internalServer(err, req, res, next);
