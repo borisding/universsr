@@ -15,8 +15,10 @@ class TodosPage extends Component {
   };
 
   componentDidMount() {
-    if (this.props.todos.length === 0) {
-      return this.props.actions.fetchTodos();
+    const { isFetching, todos, actions } = this.props;
+
+    if (!isFetching && todos.length === 0) {
+      return actions.fetchTodos();
     }
   }
 
@@ -38,7 +40,7 @@ class TodosPage extends Component {
 
 export default withRouter(
   connect(
-    state => ({ todos: state.todos }),
+    state => ({ isFetching: state.isFetching, todos: state.todos }),
     dispatch => ({ actions: bindActionCreators(todoActions, dispatch) })
   )(TodosPage)
 );

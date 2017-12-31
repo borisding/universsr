@@ -23,6 +23,7 @@ const variables = getenv.multi({
   apiPort: ['API_PORT', 5050, 'int'],
   apiVersion: ['API_VERSION', 'v1', 'string'],
 
+  requestBaseURL: ['REQUEST_BASEURL', '', 'string'],
   requestTimeout: ['REQUEST_TIMEOUT', 5000, 'int'],
   minDelay: ['MIN_DELAY', 0, 'int'],
   secretKey: ['SECRET_KEY', 'this.is.default.secret.key', 'string']

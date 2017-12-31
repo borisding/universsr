@@ -7,6 +7,7 @@ const {
   host,
   port,
   apiVersion,
+  requestBaseURL,
   requestTimeout
 } = require('@config/properties');
 const {
@@ -23,6 +24,10 @@ class Service {
     delete: 'delete'
   };
 
+  static create(axiosConfig = {}) {
+    return new Service(axiosConfig);
+  }
+
   constructor(axiosConfig) {
     if (typeof axiosConfig !== 'object') {
       throw new TypeError(
@@ -30,14 +35,10 @@ class Service {
       );
     }
 
-    const baseURL = isNode
-      ? `${protocol}://${host}:${port}/api/${apiVersion}`
-      : `/api/${apiVersion}`;
-
     this.axios = axios.create(
       extend(
         {
-          baseURL,
+          baseURL: this.getBaseURL(),
           timeout: requestTimeout
         },
         axiosConfig
@@ -45,8 +46,16 @@ class Service {
     );
   }
 
-  static create(axiosConfig = {}) {
-    return new Service(axiosConfig);
+  getBaseURL() {
+    const apiPath = `/api/${apiVersion}`;
+
+    // use it if request base URL is explicitly defined (eg: domain name)
+    if (requestBaseURL.trim()) {
+      return `${requestBaseURL}/${apiPath}`;
+    }
+
+    // else, construct base URL based on platform
+    return isNode ? `${protocol}://${host}:${port}${apiPath}` : apiPath;
   }
 
   // request config ref: https://github.com/axios/axios#request-config
