@@ -14,8 +14,8 @@ module.exports = function webpackCompiler(app) {
   // mount respective webpack middlewares for Express
   app.use(
     webpackDevMiddleware(compiler, {
+      logLevel: 'silent',
       hot: true,
-      noInfo: true,
       serverSideRender: true,
       publicPath: webpackClient.output.publicPath,
       watchOptions: {

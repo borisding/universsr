@@ -24,11 +24,11 @@ module.exports = function commonConfig(target) {
       return [
         {
           test: /\.jsx?$/,
-          exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
               babelrc: false,
+              compact: false,
               presets: [
                 ['env', { modules: isClient ? false : 'commonjs' }],
                 'react',

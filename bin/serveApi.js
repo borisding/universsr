@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-const http = require('http');
-const { apiPort } = require('@config/properties');
-const { error, info } = require('@utils');
+import http from 'http';
+import { apiPort } from '@config/properties';
+import { print } from '@utils';
 
-module.exports = function serveApi(app) {
+export default function serveApi(app) {
   // running api server based on the config
   const server = http.createServer(app);
 
@@ -14,7 +14,7 @@ module.exports = function serveApi(app) {
   server.on('listening', () => {
     const address = server.address();
 
-    info('API Server is up! Listening: %s', 0, [
+    print.info('API Server is up! Listening: %s', 0, [
       'port' in address ? address.port : address
     ]);
   });
@@ -23,10 +23,10 @@ module.exports = function serveApi(app) {
   server.on('error', err => {
     switch (err.code) {
       case 'EACCES':
-        error('Not enough privileges to run API server.', -1);
+        print.error('Not enough privileges to run API server.', -1);
         break;
       case 'EADDRINUSE':
-        error('%s is already in use.', -1, [apiPort]);
+        print.error('%s is already in use.', -1, [apiPort]);
         break;
       default:
         throw err;
@@ -34,6 +34,6 @@ module.exports = function serveApi(app) {
   });
 
   process.on('unhandledRejection', err => {
-    error(err.stack, -1);
+    print.error(err.stack, -1);
   });
-};
+}

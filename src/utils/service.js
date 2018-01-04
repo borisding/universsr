@@ -1,29 +1,29 @@
-const axios = require('axios');
-const extend = require('extend');
-const isNode = require('detect-node');
-const { ready } = require('redux-ready-wrapper');
-const {
+import axios from 'axios';
+import extend from 'extend';
+import isNode from 'detect-node';
+import { ready } from 'redux-ready-wrapper';
+import {
   protocol,
   host,
   port,
   apiVersion,
   requestBaseURL,
   requestTimeout
-} = require('@config/properties');
-const {
+} from '@config/properties';
+import {
   errorCreator,
   infoCreator,
   successCreator
-} = require('@redux/middlewares/service-alert');
+} from '@redux/middlewares/service-alert';
 
-class Service {
-  static methods = {
-    get: 'get',
-    post: 'post',
-    put: 'put',
-    delete: 'delete'
-  };
+const methods = {
+  get: 'get',
+  post: 'post',
+  put: 'put',
+  delete: 'delete'
+};
 
+export default class Service {
   static create(axiosConfig = {}) {
     return new Service(axiosConfig);
   }
@@ -86,7 +86,7 @@ class Service {
 
     if (dispatchReady) {
       return ready(dispatch => makeRequest(dispatch), {
-        isGet: method === Service.methods.get
+        isGet: method === methods.get
       });
     }
 
@@ -102,25 +102,25 @@ class Service {
   }
 
   get(url, config, callback) {
-    return this.request(Service.methods.get, url, config, callback);
+    return this.request(methods.get, url, config, callback);
   }
 
   post(url, config, callback) {
-    return this.request(Service.methods.post, url, config, callback);
+    return this.request(methods.post, url, config, callback);
   }
 
   put(url, config, callback) {
-    return this.request(Service.methods.put, url, config, callback);
+    return this.request(methods.put, url, config, callback);
   }
 
   delete(url, config, callback) {
-    return this.request(Service.methods.delete, url, config, callback);
+    return this.request(methods.delete, url, config, callback);
   }
 }
 
 // create default service instance and interceptors
 // interceptors ref: https://github.com/axios/axios#interceptors
-const service = Service.create();
+export const service = Service.create();
 
 service.interceptRequest(
   config => {
@@ -137,6 +137,3 @@ service.interceptResponse(
   },
   err => Promise.reject(err)
 );
-
-module.exports = service;
-module.exports.Service = Service;

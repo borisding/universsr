@@ -1,10 +1,5 @@
-const httpProxy = require('http-proxy');
-const {
-  apiProtocol,
-  apiHost,
-  apiPort,
-  apiVersion
-} = require('@config/properties');
+import httpProxy from 'http-proxy';
+import { apiProtocol, apiHost, apiPort, apiVersion } from '@config/properties';
 
 const proxy = httpProxy.createProxyServer({
   target: `${apiProtocol}://${apiHost}:${apiPort}/api/${apiVersion}`
@@ -26,6 +21,6 @@ proxy.on('error', (err, req, res) => {
   res.end(JSON.stringify({ error: 'proxy_error', reason: err.message }));
 });
 
-module.exports = {
+export default {
   proxyWeb
 };

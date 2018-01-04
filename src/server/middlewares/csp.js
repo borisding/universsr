@@ -1,4 +1,4 @@
-const uuidv4 = require('uuid/v4');
+import uuidv4 from 'uuid/v4';
 
 const nonce = () => (req, res, next) => {
   res.locals.nonce = uuidv4();
@@ -13,4 +13,7 @@ const mount = helmet =>
     }
   });
 
-module.exports = { nonce, mount };
+export default {
+  nonce,
+  mount
+};

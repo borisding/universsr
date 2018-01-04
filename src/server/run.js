@@ -1,10 +1,10 @@
-const isDev = require('isdev');
-const favicon = require('serve-favicon');
-const serve = require('@bin/serve');
-const syspath = require('@config/syspath');
-const { error } = require('@utils');
+import isDev from 'isdev';
+import favicon from 'serve-favicon';
+import serve from '@bin/serve';
+import syspath from '@config/syspath';
+import { print } from '@utils';
 
-module.exports = async function run(app) {
+export default async function run(app) {
   try {
     if (isDev) {
       const errorHandler = require('errorhandler');
@@ -25,6 +25,6 @@ module.exports = async function run(app) {
 
     serve(app);
   } catch (err) {
-    error(err.stack, -1);
+    print.error(err.stack, -1);
   }
-};
+}

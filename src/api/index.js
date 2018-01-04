@@ -1,12 +1,12 @@
-const isDev = require('isdev');
-const express = require('express');
-const hpp = require('hpp');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const serveApi = require('@bin/serveApi');
-const { secretKey, apiVersion } = require('@config/properties');
-const { logger } = require('@server/middlewares');
-const routers = require('./routers');
+import isDev from 'isdev';
+import express from 'express';
+import hpp from 'hpp';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import serveApi from '@bin/serveApi';
+import { secretKey, apiVersion } from '@config/properties';
+import { logger } from '@server/middlewares';
+import routers from './routers';
 
 const app = express();
 
@@ -24,4 +24,4 @@ app
 
 serveApi(app);
 
-module.exports = app;
+export default app;

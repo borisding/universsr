@@ -1,6 +1,6 @@
 import uuidv4 from 'uuid/v4';
 import { wrap } from 'redux-ready-wrapper';
-import service from '@utils/service';
+import { service } from '@utils';
 import * as types from './types';
 
 // make api request for existing todos and dispatch

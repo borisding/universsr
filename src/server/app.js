@@ -1,13 +1,12 @@
-const isDev = require('isdev');
-const express = require('express');
-const helmet = require('helmet');
-const cookieParser = require('cookie-parser');
-const compression = require('compression');
-const syspath = require('@config/syspath');
-const { error, info } = require('@utils');
-const { secretKey, apiVersion } = require('@config/properties');
-const { csp, proxy } = require('./middlewares');
-const run = require('./run');
+import isDev from 'isdev';
+import express from 'express';
+import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
+import compression from 'compression';
+import syspath from '@config/syspath';
+import { secretKey, apiVersion } from '@config/properties';
+import { csp, proxy } from './middlewares';
+import run from './run';
 
 const app = express();
 

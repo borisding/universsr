@@ -1,9 +1,3 @@
-const csp = require('./csp');
-const logger = require('./logger');
-const proxy = require('./proxy');
-
-module.exports = {
-  csp,
-  logger,
-  proxy
-};
+export { default as csp } from './csp';
+export { default as logger } from './logger';
+export { default as proxy } from './proxy';

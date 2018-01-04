@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const syspath = require('@config/syspath');
@@ -92,14 +93,13 @@ const clientConfig = {
             filename: `${syspath.public}/index.ejs`,
             minify: { collapseWhitespace: true, removeComments: true }
           }),
-          new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
-            comments: false,
+          new UglifyJSPlugin({
             sourceMap: true,
-            minimize: true,
-            output: { comments: false },
-            mangle: { screw_ie8: true },
-            compress: { screw_ie8: true, warnings: false }
+            uglifyOptions: {
+              ie8: false,
+              compress: true,
+              ecma: 8
+            }
           }),
           new webpack.HashedModuleIdsPlugin(),
           new StatsPlugin('stats.json'),

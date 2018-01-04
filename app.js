@@ -1,5 +1,8 @@
-// enable module aliases for app `require`
+// esm standard, which enables `import` for node
+require = require('@std/esm')(module);
+
+// enable module aliases for App `import` modules
 require('module-alias/register');
 
-// node server app entry
-require('./src/server/app');
+// entry for App
+module.exports = require('./src/server/app').default;

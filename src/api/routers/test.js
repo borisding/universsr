@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
 
-testRouter = express.Router();
+const testRouter = express.Router();
+
 testRouter.get('/test', (req, res) => {
   res.json({ message: 'Hi! I am just a test data.' });
 });
 
-module.exports = testRouter;
+export default testRouter;

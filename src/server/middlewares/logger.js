@@ -1,9 +1,9 @@
-const fs = require('fs');
-const isDev = require('isdev');
-const morgan = require('morgan');
-const syspath = require('@config/syspath');
+import fs from 'fs';
+import isDev from 'isdev';
+import morgan from 'morgan';
+import syspath from '@config/syspath';
 
-module.exports = logger = () => {
+const logger = () => {
   if (isDev) {
     return morgan('dev');
   }
@@ -15,3 +15,5 @@ module.exports = logger = () => {
     skip: (req, res) => res.statusCode < 400
   });
 };
+
+export default logger;

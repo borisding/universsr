@@ -1,11 +1,11 @@
-const express = require('express');
-const todos = require('@resources/fixtures/todos');
+import express from 'express';
+import todos from '@resources/fixtures/todos';
 
 // records should be reading from db for real world app
 // can add more http verbs request for complete CRUD
-todosRouter = express.Router();
+const todosRouter = express.Router();
 todosRouter.get('/todos', (req, res) => {
   res.json(todos);
 });
 
-module.exports = todosRouter;
+export default todosRouter;

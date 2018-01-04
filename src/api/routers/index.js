@@ -1,4 +1,4 @@
-const todosRouter = require('./todos');
-const testRouter = require('./test');
+import todosRouter from './todos';
+import testRouter from './test';
 
-module.exports = [todosRouter, testRouter];
+export default [todosRouter, testRouter];

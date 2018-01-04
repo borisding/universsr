@@ -6,7 +6,6 @@ const slash = require('slash');
 const dotenv = require('dotenv');
 const getenv = require('getenv');
 const syspath = require('@config/syspath');
-const { error, info } = require('@utils');
 
 // load environment variable config `.env`;
 dotenv.config({ path: `${syspath.config}/.env` });
@@ -39,13 +38,15 @@ function writeConfig() {
 
     fs.writeFileSync(`${syspath.config}/${configFilename}`, properties, 'utf8');
 
-    info('Config file [%s] was written in location [%s]!', 0, [
+    console.info(
+      'Config file [%s] was written in location [%s]!',
       configFilename,
       slash(syspath.config)
-    ]);
+    );
   } catch (err) {
-    error('Failed to write config file [%s]', -1, [configFilename]);
-    error(err);
+    console.error('Failed to write config file [%s]', configFilename);
+    console.error(err);
+    process.exit(-1);
   }
 }
 

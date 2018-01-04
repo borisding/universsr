@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-const http = require('http');
-const { port } = require('@config/properties');
-const { error, info } = require('@utils');
+import http from 'http';
+import { port } from '@config/properties';
+import { print } from '@utils';
 
-module.exports = function serve(app) {
+export default function serve(app) {
   // running server based on the config
   const server = http.createServer(app);
 
@@ -14,7 +14,7 @@ module.exports = function serve(app) {
   server.on('listening', () => {
     const address = server.address();
 
-    info('App Server is up! Listening: %s', 0, [
+    print.info('App Server is up! Listening: %s', 0, [
       'port' in address ? address.port : address
     ]);
   });
@@ -23,10 +23,10 @@ module.exports = function serve(app) {
   server.on('error', err => {
     switch (err.code) {
       case 'EACCES':
-        error('Not enough privileges to run server.', -1);
+        print.error('Not enough privileges to run server.', -1);
         break;
       case 'EADDRINUSE':
-        error('%s is already in use.', -1, [port]);
+        print.error('%s is already in use.', -1, [port]);
         break;
       default:
         throw err;
@@ -34,6 +34,6 @@ module.exports = function serve(app) {
   });
 
   process.on('unhandledRejection', err => {
-    error(err.stack, -1);
+    print.error(err.stack, -1);
   });
-};
+}
