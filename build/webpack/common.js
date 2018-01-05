@@ -43,7 +43,6 @@ module.exports = function commonConfig(target) {
                 '@babel/preset-stage-2'
               ],
               plugins: [
-                '@babel/plugin-proposal-async-generator-functions',
                 'universal-import',
                 [
                   'react-css-modules',
