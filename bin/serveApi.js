@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import 'make-promises-safe';
 import http from 'http';
 import { apiPort } from '@config/properties';
 import { print } from '@utils';
@@ -31,9 +32,5 @@ export default function serveApi(app) {
       default:
         throw err;
     }
-  });
-
-  process.on('unhandledRejection', err => {
-    print.error(err.stack, -1);
   });
 }
