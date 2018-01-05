@@ -14,7 +14,7 @@ module.exports = function commonConfig(target) {
   return {
     devtool,
     publicPath,
-    polyfill: 'babel-polyfill',
+    polyfill: '@babel/polyfill',
     context: syspath.src,
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
@@ -30,9 +30,18 @@ module.exports = function commonConfig(target) {
               babelrc: false,
               compact: false,
               presets: [
-                ['env', { modules: isClient ? false : 'commonjs' }],
-                'react',
-                'stage-2'
+                [
+                  '@babel/preset-env',
+                  {
+                    target: { node: 'current' },
+                    modules: isClient ? false : 'commonjs',
+                    debug: !!isDev,
+                    loose: true,
+                    useBuiltIns: false
+                  }
+                ],
+                '@babel/preset-react',
+                '@babel/preset-stage-2'
               ],
               plugins: [
                 'universal-import',
