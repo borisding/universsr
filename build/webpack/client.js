@@ -28,7 +28,7 @@ const clientConfig = {
   resolve: commonConfig.resolve,
   entry: {
     main: [
-      commonConfig.polyfill,
+      '@babel/polyfill',
       ...(isDev
         ? [
             'react-hot-loader/patch',

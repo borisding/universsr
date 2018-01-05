@@ -22,7 +22,7 @@ const serverConfig = {
   context: commonConfig.context,
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
-  entry: [commonConfig.polyfill, './server/index.js'],
+  entry: ['regenerator-runtime/runtime', './server/index.js'],
   output: {
     path: `${syspath.src}/server`,
     libraryTarget: 'commonjs2',

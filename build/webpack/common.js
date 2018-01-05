@@ -14,7 +14,6 @@ module.exports = function commonConfig(target) {
   return {
     devtool,
     publicPath,
-    polyfill: '@babel/polyfill',
     context: syspath.src,
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
@@ -44,6 +43,7 @@ module.exports = function commonConfig(target) {
                 '@babel/preset-stage-2'
               ],
               plugins: [
+                '@babel/plugin-proposal-async-generator-functions',
                 'universal-import',
                 [
                   'react-css-modules',
