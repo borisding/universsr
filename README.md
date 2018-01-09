@@ -37,7 +37,7 @@ npm start
 or, for development
 
 ```
-npm run start:dev
+npm run dev
 ```
 
 iii) for test, run
