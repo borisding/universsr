@@ -18,9 +18,9 @@
 
 ## Quick Start
 
-* Node version: >=8.3.0
-
 i) Installation
+
+* Node version: >=8.3.0
 
 ```
 git clone https://github.com/borisding/universsr.git my-project
@@ -28,29 +28,35 @@ git clone https://github.com/borisding/universsr.git my-project
 cd my-project && npm install
 ```
 
-ii) for production, run
+* Alternatively, you may also use [`universsr-installer`](https://github.com/borisding/universsr-installer) that utilizes GitHub repository for installation.
+
+ii) Running app,
+
+* Copy example environment variables to `config`:
 
 ```
-npm start
+cp config/.env.example config/.env
 ```
 
-or, for development
+> You may change environment variables to serve your app. Avoid using the same port for both development and production.
+
+* For **development**:
 
 ```
 npm run dev
 ```
 
-iii) for test, run
+* For **production**:
 
 ```
-npm test
+# run `start` script if built files are ready in `public`
+npm start
+
+# else, run `build` script before starting
+npm run build && npm start
 ```
 
-iv) for JS and style linting, run
-
-```
-npm run lint
-```
+* Please check _package.json_ file for other available scripts.
 
 ## License
 
