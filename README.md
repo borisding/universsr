@@ -28,7 +28,7 @@ git clone https://github.com/borisding/universsr.git my-project
 cd my-project && npm install
 ```
 
-* Alternatively, you may also use [`universsr-installer`](https://github.com/borisding/universsr-installer) that utilizes GitHub repository for installation.
+> Alternatively, you may also use [`universsr-installer`](https://github.com/borisding/universsr-installer) that utilizes GitHub repository for installation.
 
 ii) Running app,
 
