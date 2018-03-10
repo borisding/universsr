@@ -9,7 +9,7 @@ export default function serve(app) {
   // running server based on the config
   const server = http.createServer(app);
 
-  server.listen(port);
+  server.listen(port || 5000);
 
   // server on listening event
   server.on('listening', () => {

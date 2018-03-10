@@ -34,7 +34,7 @@ module.exports = function commonConfig(target) {
                   {
                     target: { node: 'current' },
                     modules: isClient ? false : 'commonjs',
-                    debug: !!isDev,
+                    debug: false,
                     loose: true,
                     useBuiltIns: false
                   }

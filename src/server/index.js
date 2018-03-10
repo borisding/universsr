@@ -11,16 +11,19 @@ import routes from '@client/routes';
 import App from '@client/App';
 
 // preload data for matched route
-async function prefetchBranchData(store, url) {
+function prefetchBranchData(store, url) {
   try {
     const branch = matchRoutes(routes, url);
     const promises = branch.map(({ route, match }) => {
-      return match && match.isExact && route && route.loadData
-        ? store.dispatch(route.loadData(match))
-        : Promise.resolve(null);
+      const data =
+        match && match.isExact && route && route.loadData
+          ? store.dispatch(route.loadData(match))
+          : null;
+
+      return Promise.resolve(data);
     });
 
-    return await Promise.all(promises);
+    return Promise.all(promises);
   } catch (err) {
     throw new Error(err);
   }
@@ -36,17 +39,16 @@ export default function serverRenderer({ clientStats }) {
       const nonce = res.locals.nonce;
 
       await prefetchBranchData(store, req.url);
-      const appString = await renderToString(
+
+      const appString = renderToString(
         <App store={store} location={req.url} context={context} />
       );
 
-      const pageTitle = DocumentTitle.rewind();
-      const chunkOptions = { chunkNames: flushChunkNames() };
-      const { scripts, styles, cssHashRaw } = flushChunks(
-        clientStats,
-        chunkOptions
-      );
+      const { scripts, styles, cssHashRaw } = flushChunks(clientStats, {
+        chunkNames: flushChunkNames()
+      });
 
+      const pageTitle = DocumentTitle.rewind();
       const preloadedState = serialize(store.getState(), { isJSON: true });
       const cssChunks = serialize(cssHashRaw, { isJSON: true });
       const { statusCode = 200, redirectUrl } = context;
