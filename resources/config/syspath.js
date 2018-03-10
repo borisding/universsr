@@ -5,9 +5,9 @@ module.exports = {
   root,
   bin: `${root}/bin`,
   build: `${root}/build`,
-  config: `${root}/config`,
   resources: `${root}/resources`,
+  config: `${root}/resources/config`,
+  logs: `${root}/resources/logs`,
   public: `${root}/public`,
-  src: `${root}/src`,
-  logs: `${root}/logs`
+  src: `${root}/src`
 };

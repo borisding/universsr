@@ -35,7 +35,7 @@ ii) Running app,
 * Copy example environment variables to `config`:
 
 ```
-cp config/.env.example config/.env
+cp resources/config/.env.example resources/config/.env
 ```
 
 > You may change environment variables to serve your app. Avoid using the same port for both development and production.

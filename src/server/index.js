@@ -15,10 +15,11 @@ function prefetchBranchData(store, url) {
   try {
     const branch = matchRoutes(routes, url);
     const promises = branch.map(({ route, match }) => {
-      const data =
-        match && match.isExact && route && route.loadData
-          ? store.dispatch(route.loadData(match))
-          : null;
+      let data = null;
+
+      if (match && match.isExact && route && route.loadData) {
+        data = store.dispatch(route.loadData(match));
+      }
 
       return Promise.resolve(data);
     });
@@ -57,7 +58,7 @@ export default function serverRenderer({ clientStats }) {
         return res.redirect(statusCode, redirectUrl);
       }
 
-      res.status(statusCode).render('index', {
+      return res.status(statusCode).render('index', {
         pageTitle,
         appString,
         preloadedState,
