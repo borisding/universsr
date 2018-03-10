@@ -61,6 +61,7 @@
     "classnames": "^2.2.5",
     "compression": "^1.7.2",
     "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
     "detect-node": "^2.0.3",
     "dotenv": "^5.0.1",
     "ejs": "^2.5.7",

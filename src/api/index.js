@@ -1,5 +1,6 @@
 import isDev from 'isdev';
 import express from 'express';
+import cors from 'cors';
 import hpp from 'hpp';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
@@ -16,6 +17,7 @@ app
   .set('json spaces', 2)
   .disable('x-powered-by')
   .use(logger())
+  .use(cors())
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true, limit: '10mb' }))
   .use(hpp()) // after parsed body
