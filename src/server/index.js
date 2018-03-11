@@ -5,23 +5,29 @@ import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
 import { flushChunkNames } from 'react-universal-component/server';
 import { renderToString } from 'react-dom/server';
-import { matchRoutes } from 'react-router-config';
+import { matchRoutes, renderRoutes } from 'react-router-config';
+import { StaticRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import storeFactory from '@redux/store';
 import routes from '@client/routes';
-import App from '@client/App';
 
 // preload data for matched route
 function prefetchBranchData(store, url) {
   try {
     const branch = matchRoutes(routes, url);
     const promises = branch.map(({ route, match }) => {
-      let data = null;
+      const { loadData } = route;
+      const { dispatch } = store;
 
-      if (match && match.isExact && route && route.loadData) {
-        data = store.dispatch(route.loadData(match));
+      if (match && match.isExact && loadData) {
+        if (Array.isArray(loadData)) {
+          return Promise.all(loadData.map(action => dispatch(action(match))));
+        }
+
+        return dispatch(loadData(match));
       }
 
-      return Promise.resolve(data);
+      return Promise.resolve(null);
     });
 
     return Promise.all(promises);
@@ -42,14 +48,18 @@ export default function serverRenderer({ clientStats }) {
       await prefetchBranchData(store, req.url);
 
       const appString = renderToString(
-        <App store={store} location={req.url} context={context} />
+        <Provider store={store}>
+          <StaticRouter location={req.url} context={context}>
+            {renderRoutes(routes)}
+          </StaticRouter>
+        </Provider>
       );
 
+      const pageTitle = DocumentTitle.rewind();
       const { scripts, styles, cssHashRaw } = flushChunks(clientStats, {
         chunkNames: flushChunkNames()
       });
 
-      const pageTitle = DocumentTitle.rewind();
       const preloadedState = serialize(store.getState(), { isJSON: true });
       const cssChunks = serialize(cssHashRaw, { isJSON: true });
       const { statusCode = 200, redirectUrl } = context;
