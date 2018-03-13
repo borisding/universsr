@@ -49,11 +49,7 @@ npm run dev
 * For **production**:
 
 ```
-# run `start` script if built files are ready in `public`
 npm start
-
-# else, run `build` script before starting
-npm run build && npm start
 ```
 
 * Please check _package.json_ file for other available scripts.

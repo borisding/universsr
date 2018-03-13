@@ -1,7 +1,6 @@
 import axios from 'axios';
 import extend from 'extend';
 import isNode from 'detect-node';
-import { ready } from 'redux-ready-wrapper';
 import {
   protocol,
   host,
@@ -10,11 +9,6 @@ import {
   requestBaseURL,
   requestTimeout
 } from '@config/properties';
-import {
-  errorCreator,
-  infoCreator,
-  successCreator
-} from '@redux/middlewares/service-alert';
 
 const methods = {
   get: 'get',
@@ -59,38 +53,12 @@ export default class Service {
   }
 
   // request config ref: https://github.com/axios/axios#request-config
-  request(method, url, config, callback = data => data) {
-    const {
-      type,
-      dispatchReady = true,
-      error = {},
-      info = {},
-      success = {},
-      ...restConfig
-    } = config;
-
-    const makeRequest = async dispatch => {
-      try {
-        const res = await this.axios.request({ method, url, ...restConfig });
-        const action = await dispatch({ type, payload: callback(res.data) });
-
-        info.message && dispatch(infoCreator(info));
-        success.message && dispatch(successCreator(success));
-
-        return action;
-      } catch (err) {
-        error.message && (err = error);
-        dispatch(errorCreator(err));
-      }
-    };
-
-    if (dispatchReady) {
-      return ready(dispatch => makeRequest(dispatch), {
-        isGet: method === methods.get
-      });
+  async request(method, url, config) {
+    try {
+      return await this.axios.request({ method, url, ...config });
+    } catch (err) {
+      throw new Error(err);
     }
-
-    return ({ dispatch }) => makeRequest(dispatch);
   }
 
   interceptRequest(resolve, reject) {
@@ -101,20 +69,20 @@ export default class Service {
     return this.axios.interceptors.response.use(resolve, reject);
   }
 
-  get(url, config, callback) {
-    return this.request(methods.get, url, config, callback);
+  get(url, config) {
+    return this.request(methods.get, url, config);
   }
 
-  post(url, config, callback) {
-    return this.request(methods.post, url, config, callback);
+  post(url, config) {
+    return this.request(methods.post, url, config);
   }
 
-  put(url, config, callback) {
-    return this.request(methods.put, url, config, callback);
+  put(url, config) {
+    return this.request(methods.put, url, config);
   }
 
-  delete(url, config, callback) {
-    return this.request(methods.delete, url, config, callback);
+  delete(url, config) {
+    return this.request(methods.delete, url, config);
   }
 }
 

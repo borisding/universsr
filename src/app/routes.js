@@ -1,8 +1,8 @@
 import universal from 'react-universal-component';
-import HomePage from './modules/home';
-import { Layout, NotFound } from './modules/base';
 import { Loader } from '@common/components';
-import { fetchTodos } from '@redux/todos/actions';
+import HomePage from '@modules/home';
+import { Layout, NotFound } from '@modules/base';
+import { fetchTodos } from '@modules/todos/actions';
 import { minDelay } from '@config/properties';
 
 const options = {

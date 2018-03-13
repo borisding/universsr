@@ -35,7 +35,7 @@ const clientConfig = {
             'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
           ]
         : []),
-      './client/index.js'
+      './app/index.js'
     ],
     vendor: [
       'react',

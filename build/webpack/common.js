@@ -1,7 +1,6 @@
 const isDev = require('isdev');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
-const HeyWatcher = require('hey-watcher');
 const syspath = require('@config/syspath');
 const pkg = require('@root/package');
 
@@ -48,7 +47,7 @@ module.exports = function commonConfig(target) {
                   'react-css-modules',
                   {
                     exclude: 'node_modules',
-                    context: syspath.src,
+                    context: syspath.src, // must match with webpack's context
                     generateScopedName: cssScopedName,
                     filetypes: {
                       '.scss': {
@@ -157,7 +156,7 @@ module.exports = function commonConfig(target) {
             NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'development'
           }
         })
-      ].concat(isDev ? [new HeyWatcher()] : []);
+      ];
     }
   };
 };

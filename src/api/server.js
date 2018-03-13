@@ -6,12 +6,11 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import serveApi from '@bin/serveApi';
 import { secretKey, apiVersion } from '@config/properties';
-import { logger } from '@server/middlewares';
+import { logger } from '@middlewares/express';
 import routers from './routers';
 
 const app = express();
 
-// may add more middlewares based on the context
 app
   .set('etag', !isDev)
   .set('json spaces', 2)

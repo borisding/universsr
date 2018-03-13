@@ -5,4 +5,4 @@ require = require('@std/esm')(module);
 require('module-alias/register');
 
 // entry for App
-module.exports = require('./src/server/app').default;
+module.exports = require('./src/app/server').default;

@@ -5,7 +5,7 @@ import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { hydrate } from 'react-dom';
-import storeFactory from '@redux/store';
+import storeFactory from './store';
 import registerOffline from './offline';
 import routes from './routes';
 

@@ -22,11 +22,11 @@ const serverConfig = {
   context: commonConfig.context,
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
-  entry: ['regenerator-runtime/runtime', './server/index.js'],
+  entry: ['regenerator-runtime/runtime', './app/renderer.js'],
   output: {
-    path: `${syspath.src}/server`,
+    path: `${syspath.src}/app`,
     libraryTarget: 'commonjs2',
-    filename: 'index-built.js'
+    filename: 'renderer-built.js'
   },
   node: {
     __filename: false,

@@ -3,13 +3,13 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
-import { flushChunkNames } from 'react-universal-component/server';
 import { renderToString } from 'react-dom/server';
+import { flushChunkNames } from 'react-universal-component/server';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import storeFactory from '@redux/store';
-import routes from '@client/routes';
+import storeFactory from '@app/store';
+import routes from '@app/routes';
 
 // preload data for matched route
 function prefetchBranchData(store, url) {
@@ -20,11 +20,9 @@ function prefetchBranchData(store, url) {
       const { dispatch } = store;
 
       if (match && match.isExact && loadData) {
-        if (Array.isArray(loadData)) {
-          return Promise.all(loadData.map(action => dispatch(action(match))));
-        }
-
-        return dispatch(loadData(match));
+        return Array.isArray(loadData)
+          ? Promise.all(loadData.map(action => dispatch(action(match))))
+          : dispatch(loadData(match));
       }
 
       return Promise.resolve(null);
@@ -78,16 +76,11 @@ export default function serverRenderer({ clientStats }) {
         nonce
       });
     } catch (err) {
-      internalServer(err, req, res, next);
+      if (!isDev) {
+        return res.status(500).send('<h3>Sorry! Something went wrong.</h3>');
+      }
+
+      return next(err);
     }
   };
-}
-
-// caught internal server error handling
-function internalServer(err, req, res, next) {
-  if (!isDev) {
-    return res.status(500).send('<h3>Sorry! Something went wrong.</h3>');
-  }
-
-  return next(err);
 }

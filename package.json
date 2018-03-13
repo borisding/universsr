@@ -2,21 +2,20 @@
   "name": "universsr",
   "version": "1.0.0",
   "description": "Universal React + Redux, Express application boilerplate.",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "clean": "rimraf public config/properties.json src/**/*-built.*",
     "build:config": "node build/scripts/config.js",
-    "build": "npm-run-all clean build:config && cross-env NODE_ENV=production webpack --config build/index.js -p --progress --hide-modules",
+    "build": "npm-run-all clean build:config && cross-env NODE_ENV=production webpack --config build/index.js -p --progress",
     "prod:api": "cross-env NODE_ENV=production node api.js",
     "prod:app": "cross-env NODE_ENV=production node app.js",
-    "dev:api": "nodemon --ignore 'src/server/*' --ignore 'src/client/*' --exec node api.js",
-    "dev:app": "nodemon --ignore 'src/server/index.js' --ignore 'src/api/*' --ignore 'src/client/*' --exec node app.js",
-    "start": "run-p prod:api prod:app",
+    "dev:api": "nodemon --exec node api.js",
+    "dev:app": "cross-env NODE_ENV=development node app.js",
+    "start": "npm-run-all clean build && run-p prod:api prod:app",
     "dev": "npm-run-all clean build:config && run-p dev:api dev:app",
     "lint": "npm-run-all lint:js lint:style",
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
     "lint:js": "eslint . --fix",
-    "postinstall": "npm run build",
     "precommit": "lint-staged",
     "test": "npm run lint:js && cross-env NODE_ENV=test jest",
     "test:watch": "npm test -- --watch",
@@ -66,7 +65,7 @@
     "dotenv": "^5.0.1",
     "ejs": "^2.5.7",
     "errorhandler": "^1.5.0",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "extend": "^3.0.1",
     "getenv": "^0.7.0",
     "helmet": "^3.12.0",
@@ -118,12 +117,11 @@
     "enzyme": "^3.3.0",
     "eslint": "^4.18.2",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-jest": "^21.13.0",
+    "eslint-plugin-jest": "^21.14.0",
     "eslint-plugin-prettier": "^2.6.0",
     "extract-css-chunks-webpack-plugin": "^2.0.18",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
-    "hey-watcher": "^1.0.2",
     "html-webpack-plugin": "^3.0.6",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.0.6",
@@ -147,7 +145,7 @@
     "stylelint-config-sass-guidelines": "^5.0.0",
     "stylelint-order": "^0.8.1",
     "stylelint-scss": "^2.5.0",
-    "uglifyjs-webpack-plugin": "^1.2.2",
+    "uglifyjs-webpack-plugin": "^1.2.3",
     "url-loader": "^1.0.1",
     "webpack": "^3.11.0",
     "webpack-dev-middleware": "^2.0.6",
@@ -155,8 +153,10 @@
     "webpack-hot-server-middleware": "^0.4.0"
   },
   "nodemonConfig": {
+    "watch": [
+      "src/api/*"
+    ],
     "debug": true,
-    "verbose": false,
     "ext": "js jsx",
     "env": {
       "NODE_ENV": "development"
@@ -196,10 +196,10 @@
     "@config": "resources/config",
     "@utils": "src/utils",
     "@api": "src/api",
-    "@server": "src/server",
-    "@client": "src/client",
-    "@common": "src/client/common",
-    "@modules": "src/client/modules",
-    "@redux": "src/client/redux"
+    "@app": "src/app",
+    "@common": "src/app/common",
+    "@modules": "src/app/modules",
+    "@redux": "src/app/redux",
+    "@middlewares": "src/middlewares"
   }
 }
