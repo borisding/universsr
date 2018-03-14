@@ -26,9 +26,9 @@ app
   .use(`/api/${apiVersion}`, routers);
 
 const server = http.createServer(app);
+const API_PORT = process.env.API_PORT || apiPort;
 
-server.listen(process.env.API_PORT || apiPort);
-
+server.listen(API_PORT);
 server.on('listening', () => {
   const address = server.address();
 
@@ -43,7 +43,7 @@ server.on('error', err => {
       print.error('Not enough privileges to run API server.', -1);
       break;
     case 'EADDRINUSE':
-      print.error('%s is already in use.', -1, [apiPort]);
+      print.error('%s is already in use.', -1, [API_PORT]);
       break;
     default:
       throw err;

@@ -43,9 +43,9 @@ if (isDev) {
 }
 
 const server = http.createServer(app);
+const PORT = process.env.PORT || port;
 
-server.listen(process.env.PORT || port);
-
+server.listen(PORT);
 server.on('listening', () => {
   const address = server.address();
 
@@ -60,7 +60,7 @@ server.on('error', err => {
       print.error('Not enough privileges to run app server.', -1);
       break;
     case 'EADDRINUSE':
-      print.error('%s is already in use.', -1, [port]);
+      print.error('%s is already in use.', -1, [PORT]);
       break;
     default:
       throw err;
