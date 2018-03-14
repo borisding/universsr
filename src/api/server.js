@@ -1,12 +1,14 @@
-import isDev from 'isdev';
+import 'make-promises-safe';
 import express from 'express';
+import isDev from 'isdev';
+import http from 'http';
 import cors from 'cors';
 import hpp from 'hpp';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import serveApi from '@bin/serveApi';
-import { secretKey, apiVersion } from '@config/properties';
+import { secretKey, apiVersion, apiPort } from '@config/properties';
 import { logger } from '@middlewares/express';
+import { print } from '@utils';
 import routers from './routers';
 
 const app = express();
@@ -23,6 +25,28 @@ app
   .use(cookieParser(secretKey))
   .use(`/api/${apiVersion}`, routers);
 
-serveApi(app);
+const server = http.createServer(app);
+
+server.listen(apiPort || 5050);
+server.on('listening', () => {
+  const address = server.address();
+
+  print.info('API Server is up! Listening: %s', 0, [
+    'port' in address ? address.port : address
+  ]);
+});
+
+server.on('error', err => {
+  switch (err.code) {
+    case 'EACCES':
+      print.error('Not enough privileges to run API server.', -1);
+      break;
+    case 'EADDRINUSE':
+      print.error('%s is already in use.', -1, [apiPort]);
+      break;
+    default:
+      throw err;
+  }
+});
 
 export default app;
