@@ -27,7 +27,8 @@ app
 
 const server = http.createServer(app);
 
-server.listen(apiPort || 5050);
+server.listen(process.env.API_PORT || apiPort);
+
 server.on('listening', () => {
   const address = server.address();
 

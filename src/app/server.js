@@ -44,7 +44,8 @@ if (isDev) {
 
 const server = http.createServer(app);
 
-server.listen(port || 5000);
+server.listen(process.env.PORT || port);
+
 server.on('listening', () => {
   const address = server.address();
 

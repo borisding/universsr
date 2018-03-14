@@ -15,7 +15,7 @@ dotenv.config({ path: `${syspath.config}/.env` });
 const variables = getenv.multi({
   protocol: ['PROTOCOL', 'http', 'string'],
   host: ['HOST', 'localhost', 'string'],
-  port: ['PORT', 3000, 'int'],
+  port: ['PORT', 5000, 'int'],
 
   apiProtocol: ['API_PROTOCOL', 'http', 'string'],
   apiHost: ['API_HOST', 'localhost', 'string'],
