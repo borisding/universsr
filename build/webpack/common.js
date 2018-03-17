@@ -1,10 +1,9 @@
-const isDev = require('isdev');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const syspath = require('@config/syspath');
 const pkg = require('@root/package');
 
-module.exports = function commonConfig(target) {
+module.exports = function commonConfig(target, isDev) {
   const isClient = target === 'client';
   const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
   const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
@@ -63,7 +62,7 @@ module.exports = function commonConfig(target) {
         }
       ];
     },
-    cssModulesRule: (extractCssChunks = null) => {
+    cssModulesRule: (MiniCssExtractPlugin = null) => {
       const modules = true;
       const localIdentName = cssScopedName;
       const sourceMap = !!isDev;
@@ -73,30 +72,30 @@ module.exports = function commonConfig(target) {
           test: /\.s?css$/,
           exclude: /node_modules/,
           use:
-            isClient && extractCssChunks
-              ? extractCssChunks.extract({
-                  use: [
-                    {
-                      loader: 'css-loader',
-                      options: {
-                        modules,
-                        localIdentName,
-                        sourceMap
-                      }
-                    },
-                    {
-                      loader: 'sass-loader',
-                      options: { sourceMap }
-                    },
-                    {
-                      loader: 'postcss-loader',
-                      options: {
-                        sourceMap,
-                        plugins: () => [autoprefixer]
-                      }
+            isClient && MiniCssExtractPlugin
+              ? [
+                  MiniCssExtractPlugin.loader, // (note: HMR is not supported in plugin for now)
+                  {
+                    loader: 'css-loader',
+                    options: {
+                      modules,
+                      localIdentName,
+                      sourceMap,
+                      minimize: !isDev
                     }
-                  ]
-                })
+                  },
+                  {
+                    loader: 'sass-loader',
+                    options: { sourceMap }
+                  },
+                  {
+                    loader: 'postcss-loader',
+                    options: {
+                      sourceMap,
+                      plugins: () => [autoprefixer]
+                    }
+                  }
+                ]
               : [
                   {
                     loader: 'css-loader/locals',
@@ -110,8 +109,27 @@ module.exports = function commonConfig(target) {
         }
       ];
     },
-    globalStylesRule: (extractText = null) => {
-      const loaders = ['css-loader', 'sass-loader'];
+    globalStylesRule: (MiniCssExtractPlugin = null) => {
+      const sourceMap = !!isDev;
+      const loaders = [
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap,
+            minimize: !isDev
+          }
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            sourceMap
+          }
+        }
+      ];
+
+      if (isClient && MiniCssExtractPlugin.loader) {
+        loaders.unshift(MiniCssExtractPlugin.loader);
+      }
 
       return [
         {
@@ -119,10 +137,7 @@ module.exports = function commonConfig(target) {
           // specify package name to be imported as global style
           include: [/react-s-alert/],
           exclude: syspath.src,
-          use:
-            isClient && extractText
-              ? extractText.extract({ fallback: 'style-loader', use: loaders })
-              : loaders
+          use: loaders
         }
       ];
     },
@@ -146,16 +161,6 @@ module.exports = function commonConfig(target) {
           test: /\.(eot|ttf|woff2?)(\?.*)?$/i,
           use: loaders({ name: 'fonts/[name].[ext]' })
         }
-      ];
-    },
-    plugins: () => {
-      return [
-        new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.DefinePlugin({
-          'process.env': {
-            NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'development'
-          }
-        })
       ];
     }
   };

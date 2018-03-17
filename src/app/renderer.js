@@ -8,8 +8,8 @@ import { flushChunkNames } from 'react-universal-component/server';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import storeFactory from '@app/store';
-import routes from '@app/routes';
+import storeFactory from './store';
+import routes from './routes';
 
 // preload data for matched route
 function prefetchBranchData(store, url) {

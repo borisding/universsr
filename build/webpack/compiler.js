@@ -6,10 +6,11 @@ const webpackClient = require('./client');
 const webpackServer = require('./server');
 
 module.exports = function webpackCompiler(app) {
-  const compiler = webpack([webpackClient, webpackServer]);
+  const compiler = webpack([webpackClient(), webpackServer()]);
   const clientCompiler = compiler.compilers.find(
     compiler => compiler.name === 'client'
   );
+  const publicPath = clientCompiler.options.output.publicPath || '/';
 
   // mount respective webpack middlewares for Express
   app.use(
@@ -17,7 +18,7 @@ module.exports = function webpackCompiler(app) {
       logLevel: 'silent',
       hot: true,
       serverSideRender: true,
-      publicPath: webpackClient.output.publicPath,
+      publicPath,
       watchOptions: {
         aggregateTimeout: 500,
         ignored: /node_modules/,

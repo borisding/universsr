@@ -14,7 +14,7 @@
 * ESLint, Prettier and Stylelint for linting, formatting
 * Progressive Web App (PWA), SEO ready
 * Security - Express Helmet, HPP middlewares
-* Babel 7, Webpack 3, ES6/ES7
+* Babel 7, Webpack ~~3~~ **4**, ES6/ES7
 
 ## Quick Start
 
