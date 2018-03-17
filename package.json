@@ -1,12 +1,12 @@
 {
   "name": "universsr",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "description": "Universal React + Redux, Express application boilerplate.",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf public config/properties.json src/**/*-built.*",
     "build:config": "node build/scripts/config.js",
-    "build": "npm-run-all clean build:config && webpack --mode production --config build/index.js",
+    "build": "npm-run-all clean build:config && webpack --mode production --config build/index.js --hide-modules",
     "prod:api": "cross-env NODE_ENV=production node api.js",
     "prod:app": "cross-env NODE_ENV=production node app.js",
     "dev:api": "nodemon --exec node api.js",
@@ -105,6 +105,7 @@
     "@babel/preset-react": "^7.0.0-beta.42",
     "@babel/preset-stage-2": "^7.0.0-beta.42",
     "autoprefixer": "^8.1.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.2",
     "babel-jest": "^22.0.6",
     "babel-loader": "^8.0.0-beta.0",
