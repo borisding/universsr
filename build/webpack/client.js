@@ -87,7 +87,10 @@ module.exports = function clientConfig(env, args = {}) {
               filename: `${syspath.public}/index.ejs`,
               minify: { collapseWhitespace: true, removeComments: true }
             }),
-            new StatsPlugin('stats.json'),
+            new StatsPlugin('stats.json', {
+              chunkModules: true,
+              exclude: [/node_modules[\\\/]react/]
+            }),
             new OfflinePlugin({
               externals: ['/'],
               publicPath: commonConfig.publicPath,
