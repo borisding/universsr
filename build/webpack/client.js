@@ -62,8 +62,7 @@ module.exports = function clientConfig(env, args = {}) {
     plugins: [
       new MiniCssExtractPlugin({
         filename: isDev ? 'global.css' : 'global.[chunkhash].css',
-        chunkFilename: isDev ? '[name].css' : '[name].[chunkhash].css',
-        allChunks: true
+        chunkFilename: isDev ? '[name].css' : '[name].[chunkhash].css'
       }),
       new CopyWebpackPlugin([
         {
