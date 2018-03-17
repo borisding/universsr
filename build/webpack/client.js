@@ -20,6 +20,8 @@ module.exports = function clientConfig(env, args = {}) {
     context: commonConfig.context,
     devtool: commonConfig.devtool,
     resolve: commonConfig.resolve,
+    performance: { hints: false },
+    stats: { entrypoints: false, children: false },
     entry: {
       main: [
         '@babel/polyfill',
