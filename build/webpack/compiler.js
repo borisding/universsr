@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
-const webpackRuntime = require('../runtime');
+const webpackRuntime = require('./runtime');
 
 module.exports = function webpackCompiler(app) {
   const mode = 'development';

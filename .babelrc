@@ -8,7 +8,10 @@
     "test": {
       "plugins": [
         "dynamic-import-node",
-        ["babel-plugin-webpack-alias", { "config": "./build/runtime.js" }],
+        [
+          "babel-plugin-webpack-alias",
+          { "config": "./build/webpack/runtime.js" }
+        ],
         [
           "react-css-modules",
           {
