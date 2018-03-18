@@ -18,7 +18,7 @@ module.exports = function serverConfig(env, args = {}) {
     }, {});
 
   return {
-    mode: args.mode || 'development',
+    mode: args.mode || 'production',
     target: 'node',
     name: configName,
     externals: nodeExternals,

@@ -14,7 +14,7 @@ module.exports = function clientConfig(env, args = {}) {
   const jsFilename = isDev ? '[name].js' : '[name].[chunkhash].js';
 
   return {
-    mode: args.mode || 'development',
+    mode: args.mode || 'production',
     target: 'web',
     name: configName,
     context: commonConfig.context,

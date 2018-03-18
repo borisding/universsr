@@ -2,15 +2,20 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
-const webpackClient = require('./client');
-const webpackServer = require('./server');
+const webpackRuntime = require('../runtime');
 
 module.exports = function webpackCompiler(app) {
-  const compiler = webpack([webpackClient(), webpackServer()]);
+  const mode = 'development';
+  const clientConfig = webpackRuntime[0] || {};
+  const serverConfig = webpackRuntime[1] || {};
+
+  clientConfig.mode = mode;
+  serverConfig.mode = mode;
+
+  const compiler = webpack([clientConfig, serverConfig]);
   const clientCompiler = compiler.compilers.find(
     compiler => compiler.name === 'client'
   );
-  const publicPath = clientCompiler.options.output.publicPath || '/';
 
   // mount respective webpack middlewares for Express
   app.use(
@@ -18,7 +23,7 @@ module.exports = function webpackCompiler(app) {
       logLevel: 'silent',
       hot: true,
       serverSideRender: true,
-      publicPath,
+      publicPath: clientConfig.output.publicPath,
       watchOptions: {
         aggregateTimeout: 500,
         ignored: /node_modules/,
