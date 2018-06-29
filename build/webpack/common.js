@@ -30,15 +30,15 @@ module.exports = function commonConfig(target, isDev) {
                 [
                   '@babel/preset-env',
                   {
-                    target: { node: 'current' },
+                    targets: { node: 'current' },
                     modules: isClient ? false : 'commonjs',
                     debug: false,
                     loose: true,
                     useBuiltIns: false
                   }
                 ],
-                '@babel/preset-react',
-                '@babel/preset-stage-2'
+                ['@babel/preset-stage-2', { decoratorsLegacy: true }],
+                '@babel/preset-react'
               ],
               plugins: [
                 'universal-import',
