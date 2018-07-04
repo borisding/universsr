@@ -10,13 +10,6 @@ import {
   requestTimeout
 } from '@config/properties';
 
-const methods = {
-  get: 'get',
-  post: 'post',
-  put: 'put',
-  delete: 'delete'
-};
-
 export default class Service {
   static create(axiosConfig = {}) {
     return new Service(axiosConfig);
@@ -52,15 +45,6 @@ export default class Service {
     return isNode ? `${protocol}://${host}:${port}${api}` : api;
   }
 
-  // request config ref: https://github.com/axios/axios#request-config
-  async request(method, url, config) {
-    try {
-      return await this.axios.request({ method, url, ...config });
-    } catch (err) {
-      throw new Error(err);
-    }
-  }
-
   interceptRequest(resolve, reject) {
     return this.axios.interceptors.request.use(resolve, reject);
   }
@@ -70,19 +54,19 @@ export default class Service {
   }
 
   get(url, config) {
-    return this.request(methods.get, url, config);
+    return this.axios.get(url, config);
   }
 
   post(url, config) {
-    return this.request(methods.post, url, config);
+    return this.axios.post(url, config);
   }
 
   put(url, config) {
-    return this.request(methods.put, url, config);
+    return this.axios.put(url, config);
   }
 
   delete(url, config) {
-    return this.request(methods.delete, url, config);
+    return this.axios.delete(url, config);
   }
 }
 

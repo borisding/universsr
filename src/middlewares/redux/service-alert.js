@@ -21,7 +21,7 @@ export const successCreator = success => ({
 });
 
 export default () => store => next => action => {
-  const { type, payload = null } = action;
+  const { type, payload = {} } = action;
   let message = (payload && payload.message) || 'Unknown message.';
 
   switch (type) {
