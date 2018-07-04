@@ -103,5 +103,6 @@ service.interceptResponse(
     // we may do something here before returning response data
     return res;
   },
+  // may have global response's error dispatcher for redux
   err => Promise.reject(err)
 );

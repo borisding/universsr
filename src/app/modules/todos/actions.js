@@ -1,12 +1,12 @@
 import uuidv4 from 'uuid/v4';
-import { wrap, ready } from 'redux-ready-wrapper';
+import init from 'redux-thunk-init';
 import { errorCreator } from '@middlewares/redux';
 import { service } from '@utils';
 import * as types from './types';
 
 // make api request for existing todos and dispatch
 export const fetchTodos = () => {
-  return ready(dispatch =>
+  return init(dispatch =>
     service
       .get('/todos')
       .then(res => dispatch({ type: types.FETCH_TODO, payload: res.data }))
@@ -15,13 +15,15 @@ export const fetchTodos = () => {
 };
 
 // fake adding new todo without saving into db
-export const addTodo = input =>
-  wrap(dispatch =>
-    dispatch({
-      type: types.ADD_TODO,
-      payload: { id: uuidv4(), todo: input, done: false }
-    })
-  );
+export const addTodo = input => {
+  return dispatch =>
+    Promise.resolve(
+      dispatch({
+        type: types.ADD_TODO,
+        payload: { id: uuidv4(), todo: input, done: false }
+      })
+    );
+};
 
 // fake updating todo status without saving into db
 export const updateTodo = ({ value, checked }) => ({
