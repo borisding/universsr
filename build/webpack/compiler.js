@@ -2,12 +2,12 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
-const webpackRuntime = require('./runtime');
+const webpackConfig = require('./index');
 
 module.exports = function webpackCompiler(app) {
   const mode = 'development';
-  const clientConfig = webpackRuntime[0] || {};
-  const serverConfig = webpackRuntime[1] || {};
+  const clientConfig = webpackConfig[0] || {};
+  const serverConfig = webpackConfig[1] || {};
 
   clientConfig.mode = mode;
   serverConfig.mode = mode;

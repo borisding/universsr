@@ -13,6 +13,7 @@ module.exports = function commonConfig(target, isDev) {
     devtool,
     publicPath,
     context: syspath.src,
+    mode: process.env.NODE_ENV || 'production',
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
       alias: pkg._moduleAliases

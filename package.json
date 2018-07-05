@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf public config/properties.json src/**/*-built.*",
     "build:config": "node build/scripts/config.js",
-    "build": "npm-run-all clean build:config && webpack --mode production --config build/webpack --progress --hide-modules",
+    "build": "npm-run-all clean build:config && cross-env NODE_ENV=production webpack --config build/webpack --progress --hide-modules",
     "prod:api": "cross-env NODE_ENV=production node api.js",
     "prod:app": "cross-env NODE_ENV=production node app.js",
     "dev:api": "nodemon --exec node api.js",

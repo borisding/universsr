@@ -10,7 +10,7 @@
         "dynamic-import-node",
         [
           "babel-plugin-webpack-alias",
-          { "config": "./build/webpack/runtime.js" }
+          { "config": "./build/webpack/index.js" }
         ],
         [
           "react-css-modules",
