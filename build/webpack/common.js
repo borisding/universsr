@@ -1,5 +1,5 @@
-const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 const syspath = require('@config/syspath');
 const pkg = require('@root/package');
 
@@ -13,7 +13,7 @@ module.exports = function commonConfig(target, isDev) {
     devtool,
     publicPath,
     context: syspath.src,
-    mode: process.env.NODE_ENV || 'production',
+    mode: isDev ? 'development' : 'production',
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
       alias: pkg._moduleAliases
@@ -31,11 +31,7 @@ module.exports = function commonConfig(target, isDev) {
                 [
                   '@babel/preset-env',
                   {
-                    targets: { node: 'current' },
-                    modules: isClient ? false : 'commonjs',
-                    debug: false,
-                    loose: true,
-                    useBuiltIns: false
+                    modules: isClient ? false : 'commonjs'
                   }
                 ],
                 ['@babel/preset-stage-2', { decoratorsLegacy: true }],
@@ -63,7 +59,7 @@ module.exports = function commonConfig(target, isDev) {
         }
       ];
     },
-    cssModulesRule: (MiniCssExtractPlugin = null) => {
+    cssModulesRule: (ExtractCssChunks = null) => {
       const modules = true;
       const localIdentName = cssScopedName;
       const sourceMap = !!isDev;
@@ -72,65 +68,48 @@ module.exports = function commonConfig(target, isDev) {
         {
           test: /\.s?css$/,
           exclude: /node_modules/,
-          use:
-            isClient && MiniCssExtractPlugin
-              ? [
-                  MiniCssExtractPlugin.loader, // (note: HMR is not supported in plugin for now)
-                  {
-                    loader: 'css-loader',
-                    options: {
-                      modules,
-                      localIdentName,
-                      sourceMap,
-                      minimize: !isDev
-                    }
-                  },
-                  {
-                    loader: 'sass-loader',
-                    options: { sourceMap }
-                  },
-                  {
-                    loader: 'postcss-loader',
-                    options: {
-                      sourceMap,
-                      plugins: () => [autoprefixer]
-                    }
+          use: isClient
+            ? [
+                ExtractCssChunks.loader,
+                {
+                  loader: 'css-loader',
+                  options: {
+                    modules,
+                    localIdentName,
+                    sourceMap,
+                    importLoaders: 2
                   }
-                ]
-              : [
-                  {
-                    loader: 'css-loader/locals',
-                    options: {
-                      modules,
-                      localIdentName
-                    }
-                  },
-                  'sass-loader'
-                ]
+                },
+                {
+                  loader: 'postcss-loader',
+                  options: {
+                    sourceMap,
+                    plugins: () =>
+                      [autoprefixer].concat(
+                        !isDev ? [cssnano({ preset: 'default' })] : []
+                      )
+                  }
+                },
+                {
+                  loader: 'sass-loader',
+                  options: { sourceMap }
+                }
+              ]
+            : [
+                {
+                  loader: 'css-loader/locals',
+                  options: {
+                    modules,
+                    localIdentName
+                  }
+                },
+                'sass-loader'
+              ]
         }
       ];
     },
-    globalStylesRule: (MiniCssExtractPlugin = null) => {
+    globalStylesRule: (ExtractCssChunks = null) => {
       const sourceMap = !!isDev;
-      const loaders = [
-        {
-          loader: 'css-loader',
-          options: {
-            sourceMap,
-            minimize: !isDev
-          }
-        },
-        {
-          loader: 'sass-loader',
-          options: {
-            sourceMap
-          }
-        }
-      ];
-
-      if (isClient && MiniCssExtractPlugin.loader) {
-        loaders.unshift(MiniCssExtractPlugin.loader);
-      }
 
       return [
         {
@@ -138,7 +117,31 @@ module.exports = function commonConfig(target, isDev) {
           // specify package name to be imported as global style
           include: [/react-s-alert/],
           exclude: syspath.src,
-          use: loaders
+          use: (isClient ? [ExtractCssChunks.loader] : []).concat([
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap,
+                importLoaders: 2
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap,
+                plugins: () =>
+                  [autoprefixer].concat(
+                    !isDev ? [cssnano({ preset: 'default' })] : []
+                  )
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap
+              }
+            }
+          ])
         }
       ];
     },

@@ -1,7 +1,7 @@
 const isDev = require('isdev');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
@@ -30,35 +30,30 @@ module.exports = {
   output: {
     path: syspath.public,
     publicPath: commonConfig.publicPath,
-    filename: isDev ? '[name].js' : '[name].[chunkhash].js',
-    chunkFilename: isDev ? '[name].js' : '[name].[chunkhash].js'
+    filename: isDev ? '[name].js' : '[name].[contenthash:8].js',
+    chunkFilename: isDev ? '[id].js' : '[id].[contenthash:8].js'
   },
   optimization: {
+    runtimeChunk: {
+      name: 'bootstrap'
+    },
     splitChunks: {
-      chunks: 'all',
-      cacheGroups: {
-        common: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          minChunks: 2,
-          enforce: true,
-          reuseExistingChunk: true
-        }
-      }
+      chunks: 'initial'
     }
   },
   module: {
     rules: [
       ...commonConfig.babelRule(),
       ...commonConfig.fileRule(),
-      ...commonConfig.cssModulesRule(MiniCssExtractPlugin),
-      ...commonConfig.globalStylesRule(MiniCssExtractPlugin)
+      ...commonConfig.cssModulesRule(ExtractCssChunks),
+      ...commonConfig.globalStylesRule(ExtractCssChunks)
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: isDev ? '[name].css' : '[name].[chunkhash].css',
-      chunkFilename: isDev ? '[name].css' : '[name].[chunkhash].css'
+    new ExtractCssChunks({
+      hot: isDev,
+      filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
+      chunkFilename: isDev ? '[id].css' : '[id].[contenthash:8].css'
     }),
     new CopyWebpackPlugin([
       {
@@ -72,10 +67,7 @@ module.exports = {
     ])
   ].concat(
     isDev
-      ? [
-          new webpack.HotModuleReplacementPlugin(),
-          new webpack.NamedModulesPlugin()
-        ]
+      ? [new webpack.HotModuleReplacementPlugin()]
       : [
           // moved to public and with minification only
           new HtmlWebpackPlugin({
