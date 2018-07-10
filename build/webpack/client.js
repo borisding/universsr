@@ -3,8 +3,8 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const StatsPlugin = require('stats-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
+const { StatsWriterPlugin } = require('webpack-stats-plugin');
 const syspath = require('@config/syspath');
 const webpackCommon = require('./common');
 
@@ -76,9 +76,11 @@ module.exports = {
             filename: `${syspath.public}/index.ejs`,
             minify: { collapseWhitespace: true, removeComments: true }
           }),
-          new StatsPlugin('stats.json', {
-            chunkModules: true,
-            exclude: [/node_modules[\\\/]react/]
+          new StatsWriterPlugin({
+            fields: null,
+            transform(data) {
+              return JSON.stringify(data);
+            }
           }),
           new OfflinePlugin({
             externals: ['/'],
