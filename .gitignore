@@ -6,4 +6,4 @@ public
 *.log
 *.map
 *-built.js
-properties.json
+properties.*

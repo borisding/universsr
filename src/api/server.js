@@ -6,7 +6,7 @@ import cors from 'cors';
 import hpp from 'hpp';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import { secretKey, apiVersion, apiPort } from '@config/properties';
+import { SECRET_KEY, API_VERSION, API_PORT } from '@config/properties';
 import { logger } from '@middlewares/express';
 import { print } from '@utils';
 import routers from './routers';
@@ -22,13 +22,13 @@ app
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true, limit: '10mb' }))
   .use(hpp()) // after parsed body
-  .use(cookieParser(secretKey))
-  .use(`/api/${apiVersion}`, routers);
+  .use(cookieParser(SECRET_KEY))
+  .use(`/api/${API_VERSION}`, routers);
 
 const server = http.createServer(app);
-const API_PORT = process.env.API_PORT || apiPort;
+const serverPort = process.env.API_PORT || API_PORT;
 
-server.listen(API_PORT);
+server.listen(serverPort);
 server.on('listening', () => {
   const address = server.address();
 
@@ -43,7 +43,7 @@ server.on('error', err => {
       print.error('Not enough privileges to run API server.', -1);
       break;
     case 'EADDRINUSE':
-      print.error('%s is already in use.', -1, [API_PORT]);
+      print.error('%s is already in use.', -1, [serverPort]);
       break;
     default:
       throw err;

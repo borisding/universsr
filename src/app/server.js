@@ -7,7 +7,7 @@ import favicon from 'serve-favicon';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import syspath from '@config/syspath';
-import { secretKey, apiVersion, port } from '@config/properties';
+import { SECRET_KEY, API_VERSION, PORT } from '@config/properties';
 import { csp, proxy, logger } from '@middlewares/express';
 import { print } from '@utils';
 
@@ -21,9 +21,9 @@ app
   .use(csp.nonce())
   .use(csp.mount(helmet))
   .use(compression())
-  .use(cookieParser(secretKey))
+  .use(cookieParser(SECRET_KEY))
   .use(express.static(syspath.public))
-  .use(`/api/${apiVersion}`, proxy.proxyWeb);
+  .use(`/api/${API_VERSION}`, proxy.proxyWeb);
 
 if (isDev) {
   const errorHandler = require('errorhandler');
@@ -43,9 +43,9 @@ if (isDev) {
 }
 
 const server = http.createServer(app);
-const PORT = process.env.PORT || port;
+const serverPort = process.env.PORT || PORT;
 
-server.listen(PORT);
+server.listen(serverPort);
 server.on('listening', () => {
   const address = server.address();
 
@@ -60,7 +60,7 @@ server.on('error', err => {
       print.error('Not enough privileges to run app server.', -1);
       break;
     case 'EADDRINUSE':
-      print.error('%s is already in use.', -1, [PORT]);
+      print.error('%s is already in use.', -1, [serverPort]);
       break;
     default:
       throw err;

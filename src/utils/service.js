@@ -2,12 +2,12 @@ import axios from 'axios';
 import extend from 'extend';
 import isNode from 'detect-node';
 import {
-  protocol,
-  host,
-  port,
-  apiVersion,
-  requestBaseURL,
-  requestTimeout
+  PROTOCOL,
+  HOST,
+  PORT,
+  API_VERSION,
+  REQUEST_BASEURL,
+  REQUEST_TIMEOUT
 } from '@config/properties';
 
 export default class Service {
@@ -26,7 +26,7 @@ export default class Service {
       extend(
         {
           baseURL: this.getBaseURL(),
-          timeout: requestTimeout
+          timeout: REQUEST_TIMEOUT
         },
         axiosConfig
       )
@@ -34,15 +34,15 @@ export default class Service {
   }
 
   getBaseURL() {
-    const api = `/api/${apiVersion}`;
+    const api = `/api/${API_VERSION}`;
 
     // use it if request base URL is explicitly defined (eg: domain name)
-    if (requestBaseURL.trim()) {
-      return `${requestBaseURL}${api}`;
+    if (REQUEST_BASEURL.trim()) {
+      return `${REQUEST_BASEURL}${api}`;
     }
 
     // else, construct base URL based on platform
-    return isNode ? `${protocol}://${host}:${port}${api}` : api;
+    return isNode ? `${PROTOCOL}://${HOST}:${PORT}${api}` : api;
   }
 
   interceptRequest(resolve, reject) {

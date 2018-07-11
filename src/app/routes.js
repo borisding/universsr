@@ -3,10 +3,10 @@ import { Loader } from '@common/components';
 import HomePage from '@modules/home';
 import { Layout, NotFound } from '@modules/base';
 import { fetchTodos } from '@modules/todos/actions';
-import { minDelay } from '@config/properties';
+import { MIN_DELAY } from '@config/properties';
 
 const options = {
-  minDelay,
+  minDelay: MIN_DELAY,
   loading: Loader,
   error: NotFound
 };
