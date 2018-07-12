@@ -2,18 +2,13 @@
 require('module-alias/register');
 
 const fs = require('fs');
-const isDev = require('isDev');
 const slash = require('slash');
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
 const syspath = require('@config/syspath');
 
 // load environment variable config `.env`
-// `.env.example` is loaded for development
-const env = dotenv.config({
-  path: `${syspath.config}/.env${isDev && '.example'}`
-});
-
+const env = dotenv.config({ path: `${syspath.config}/.env` });
 const parsedEnv = dotenvExpand(env).parsed;
 const targetConfigFile = 'config.properties.json';
 
