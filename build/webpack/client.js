@@ -17,7 +17,7 @@ module.exports = {
   context: commonConfig.context,
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
-  stats: { entrypoints: false, children: false },
+  performance: { hints: false },
   entry: {
     main: [
       '@babel/polyfill',
