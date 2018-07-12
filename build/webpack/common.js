@@ -1,5 +1,4 @@
 const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
 const syspath = require('@config/syspath');
 const pkg = require('@root/package');
 
@@ -84,10 +83,7 @@ module.exports = function commonConfig(target, isDev) {
                   loader: 'postcss-loader',
                   options: {
                     sourceMap,
-                    plugins: () =>
-                      [autoprefixer].concat(
-                        !isDev ? [cssnano({ preset: 'default' })] : []
-                      )
+                    plugins: () => [autoprefixer]
                   }
                 },
                 {
@@ -129,10 +125,7 @@ module.exports = function commonConfig(target, isDev) {
               loader: 'postcss-loader',
               options: {
                 sourceMap,
-                plugins: () =>
-                  [autoprefixer].concat(
-                    !isDev ? [cssnano({ preset: 'default' })] : []
-                  )
+                plugins: () => [autoprefixer]
               }
             },
             {

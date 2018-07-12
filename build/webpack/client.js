@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { StatsWriterPlugin } = require('webpack-stats-plugin');
 const syspath = require('@config/syspath');
 const webpackCommon = require('./common');
@@ -69,6 +70,7 @@ module.exports = {
     isDev
       ? [new webpack.HotModuleReplacementPlugin()]
       : [
+          new OptimizeCssAssetsPlugin(),
           // moved to public and with minification only
           new HtmlWebpackPlugin({
             inject: false,
