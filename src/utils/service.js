@@ -8,7 +8,7 @@ import {
   API_VERSION,
   REQUEST_BASEURL,
   REQUEST_TIMEOUT
-} from '@config/properties';
+} from '@config';
 
 export default class Service {
   static create(axiosConfig = {}) {

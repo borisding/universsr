@@ -3,7 +3,7 @@ import { Loader } from '@common/components';
 import HomePage from '@modules/home';
 import { Layout, NotFound } from '@modules/base';
 import { fetchTodos } from '@modules/todos/actions';
-import { MIN_DELAY } from '@config/properties';
+import { MIN_DELAY } from '@config';
 
 const options = {
   minDelay: MIN_DELAY,

@@ -7,7 +7,7 @@ import favicon from 'serve-favicon';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import syspath from '@config/syspath';
-import { SECRET_KEY, API_VERSION, PORT } from '@config/properties';
+import { SECRET_KEY, API_VERSION, PORT } from '@config';
 import { csp, proxy, logger } from '@middlewares/express';
 import { print } from '@utils';
 

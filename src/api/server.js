@@ -6,7 +6,7 @@ import cors from 'cors';
 import hpp from 'hpp';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import { SECRET_KEY, API_VERSION, API_PORT } from '@config/properties';
+import { SECRET_KEY, API_VERSION, API_PORT } from '@config';
 import { logger } from '@middlewares/express';
 import { print } from '@utils';
 import routers from './routers';

@@ -1,6 +1,5 @@
-const root = require('app-root-path').path;
+const root = require('path').resolve(process.cwd());
 
-// export application root and related
 module.exports = {
   root,
   bin: `${root}/bin`,
