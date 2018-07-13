@@ -141,9 +141,9 @@ module.exports = function commonConfig(target, isDev) {
     fileRule: () => {
       const loaders = options => [
         {
-          loader: 'file-loader',
+          loader: 'url-loader',
           options: Object.assign(
-            { publicPath, emitFile: isClient === true },
+            { publicPath, limit: 10240, emitFile: isClient === true },
             options
           )
         }
