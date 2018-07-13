@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { serviceAlert } from '@middlewares/redux';
-import todos from '@modules/todos/reducers';
+import todos from '@pages/todos/reducers';
 
 const isClient = (state = false, action) => (state = isNode !== true);
 

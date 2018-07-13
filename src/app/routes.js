@@ -1,8 +1,8 @@
 import universal from 'react-universal-component';
 import { Loader } from '@common/components';
-import HomePage from '@modules/home';
-import { Layout, NotFound } from '@modules/base';
-import { fetchTodos } from '@modules/todos/actions';
+import HomePage from '@pages/home';
+import { Layout, NotFound } from '@pages/base';
+import { fetchTodos } from '@pages/todos/actions';
 import { MIN_DELAY } from '@config';
 
 const options = {
@@ -23,7 +23,7 @@ export const routes = [
     exact: true,
     menu: 'Todos',
     loadData: fetchTodos,
-    component: universal(import('./modules/todos'), options)
+    component: universal(import('./pages/todos'), options)
   },
   {
     path: '/*',

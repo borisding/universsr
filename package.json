@@ -197,7 +197,7 @@
     "@api": "src/api",
     "@app": "src/app",
     "@common": "src/app/common",
-    "@modules": "src/app/modules",
+    "@pages": "src/app/pages",
     "@redux": "src/app/redux",
     "@middlewares": "src/middlewares"
   }
