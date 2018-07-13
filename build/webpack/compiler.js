@@ -13,6 +13,7 @@ module.exports = function webpackCompiler(app) {
   app.use(
     webpackDevMiddleware(compiler, {
       publicPath: clientConfig.output.publicPath,
+      headers: { 'Access-Control-Allow-Origin': '*' },
       serverSideRender: true,
       logLevel: 'silent',
       watchOptions: {

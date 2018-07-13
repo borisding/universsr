@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "config": "node build/scripts/config.js",
-    "clean": "rimraf public config/properties.json src/**/*-built.*",
+    "clean": "rimraf public resources/config/*.json src/**/*-built.*",
     "build": "npm-run-all clean config && cross-env NODE_ENV=production webpack --config build/webpack --progress --hide-modules",
     "prod:app": "cross-env NODE_ENV=production node app.js",
     "prod:api": "cross-env NODE_ENV=production node api.js",
@@ -90,7 +90,6 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "redux-thunk-init": "^1.0.3",
-    "regenerator-runtime": "^0.12.0",
     "rimraf": "^2.6.2",
     "serialize-javascript": "^1.5.0",
     "serve-favicon": "^2.5.0",
