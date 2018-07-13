@@ -21,25 +21,32 @@ module.exports = {
   performance: { hints: false },
   entry: {
     main: [
-      '@babel/polyfill',
       ...(isDev
         ? ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000']
         : []),
+      '@babel/polyfill',
       './app/index.js'
     ]
   },
   output: {
     path: syspath.public,
     publicPath: commonConfig.publicPath,
-    filename: isDev ? '[name].js' : '[name].[contenthash:8].js',
-    chunkFilename: isDev ? '[id].js' : '[id].[contenthash:8].js'
+    filename: isDev ? '[name].js' : '[name].[contenthash].js',
+    chunkFilename: isDev ? '[id].js' : '[id].[contenthash].js'
   },
   optimization: {
     runtimeChunk: {
       name: 'bootstrap'
     },
     splitChunks: {
-      chunks: 'initial'
+      chunks: 'initial',
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          minChunks: 2
+        }
+      }
     }
   },
   module: {
@@ -53,8 +60,8 @@ module.exports = {
   plugins: [
     new ExtractCssChunks({
       hot: isDev,
-      filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
-      chunkFilename: isDev ? '[id].css' : '[id].[contenthash:8].css'
+      filename: isDev ? '[name].css' : '[name].[contenthash].css',
+      chunkFilename: isDev ? '[id].css' : '[id].[contenthash].css'
     }),
     new CopyWebpackPlugin([
       {
