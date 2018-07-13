@@ -33,7 +33,10 @@ module.exports = function commonConfig(target, isDev) {
                     modules: isClient ? false : 'commonjs'
                   }
                 ],
-                ['@babel/preset-stage-2', { decoratorsLegacy: true }],
+                [
+                  '@babel/preset-stage-0',
+                  { decoratorsLegacy: true, pipelineProposal: 'minimal' }
+                ],
                 '@babel/preset-react'
               ],
               plugins: [

@@ -22,7 +22,7 @@ module.exports = {
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
   externals: nodeExternals,
-  entry: ['@babel/polyfill', './app/renderer.js'],
+  entry: ['regenerator-runtime/runtime', './app/renderer.js'],
   output: {
     path: `${syspath.src}/app`,
     libraryTarget: 'commonjs2',
