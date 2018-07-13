@@ -17,7 +17,6 @@
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
     "lint:js": "eslint . --fix",
     "precommit": "lint-staged",
-    "postinstall": "npm run build",
     "test": "npm run lint:js && cross-env NODE_ENV=test jest",
     "test:watch": "npm test -- --watch",
     "test:coverage": "rimraf coverage && npm test -- --coverage"
