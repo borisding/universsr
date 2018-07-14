@@ -5,7 +5,7 @@ import cors from 'cors';
 import hpp from 'hpp';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import config from '@config';
+import config, { DEV } from '@config';
 import { logger } from '@middlewares/express';
 import { print } from '@utils';
 import routers from './routers';
@@ -13,7 +13,7 @@ import routers from './routers';
 const app = express();
 
 app
-  .set('etag', !config['DEV'])
+  .set('etag', !DEV)
   .set('json spaces', 2)
   .disable('x-powered-by')
   .use(logger())
