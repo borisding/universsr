@@ -1,8 +1,10 @@
 import httpProxy from 'http-proxy';
-import { API_PROTOCOL, API_HOST, API_PORT, API_VERSION } from '@config';
+import config from '@config';
 
 const proxy = httpProxy.createProxyServer({
-  target: `${API_PROTOCOL}://${API_HOST}:${API_PORT}/api/${API_VERSION}`
+  target:
+    `${config['API_PROTOCOL']}://${config['API_HOST']}:${config['API_PORT']}` +
+    `/api/${config['API_VERSION']}`
 });
 
 const proxyWeb = (req, res) => {

@@ -1,10 +1,10 @@
-import isDev from 'isdev';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { hydrate } from 'react-dom';
+import { DEV } from '@config';
 import storeFactory from './store';
 import registerOffline from './offline';
 import routes from './routes';
@@ -25,7 +25,7 @@ const render = AppRoutes => {
 
 render(routes);
 
-if (!isDev) {
+if (!DEV) {
   registerOffline();
 }
 

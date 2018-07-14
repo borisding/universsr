@@ -1,15 +1,14 @@
 import fs from 'fs';
-import isDev from 'isdev';
 import morgan from 'morgan';
-import syspath from '@config/syspath';
+import { DEV, SYSPATH } from '@config';
 
 const logger = () => {
-  if (isDev) {
+  if (DEV) {
     return morgan('dev');
   }
 
   return morgan('combined', {
-    stream: fs.createWriteStream(`${syspath.logs}/access.log`, {
+    stream: fs.createWriteStream(`${SYSPATH['logs']}/access.log`, {
       flags: 'a'
     }),
     skip: (req, res) => res.statusCode < 400

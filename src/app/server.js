@@ -1,49 +1,47 @@
 import 'make-promises-safe';
 import express from 'express';
-import isDev from 'isdev';
 import http from 'http';
 import helmet from 'helmet';
 import favicon from 'serve-favicon';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
-import syspath from '@config/syspath';
-import { SECRET_KEY, API_VERSION, PORT } from '@config';
+import config, { DEV, SYSPATH } from '@config';
 import { csp, proxy, logger } from '@middlewares/express';
 import { print } from '@utils';
 
 const app = express();
 
 app
-  .set('etag', !isDev)
+  .set('etag', !DEV)
   .set('view engine', 'ejs')
   .use(logger())
   .use(helmet())
   .use(csp.nonce())
   .use(csp.mount(helmet))
   .use(compression())
-  .use(cookieParser(SECRET_KEY))
-  .use(express.static(syspath.public))
-  .use(`/api/${API_VERSION}`, proxy.proxyWeb);
+  .use(cookieParser(config['SECRET_KEY']))
+  .use(express.static(SYSPATH['public']))
+  .use(`/api/${config['API_VERSION']}`, proxy.proxyWeb);
 
-if (isDev) {
+if (DEV) {
   const errorHandler = require('errorhandler');
   const webpackCompiler = require('@build/webpack/compiler');
 
   webpackCompiler(app);
 
-  app.set('views', `${syspath.resources}/views`);
+  app.set('views', `${SYSPATH['resources']}/views`);
   app.use(errorHandler());
 } else {
   const clientStats = require('@public/stats.json');
   const serverRenderer = require('@app/renderer-built').default;
 
-  app.set('views', syspath.public);
-  app.use(favicon(`${syspath.public}/icons/favicon.png`));
+  app.set('views', SYSPATH['public']);
+  app.use(favicon(`${SYSPATH['public']}/icons/favicon.png`));
   app.use(serverRenderer({ clientStats }));
 }
 
 const server = http.createServer(app);
-const serverPort = process.env.PORT || PORT;
+const serverPort = process.env.PORT || config['PORT'];
 
 server.listen(serverPort);
 server.on('listening', () => {

@@ -1,4 +1,3 @@
-import isDev from 'isdev';
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import serialize from 'serialize-javascript';
@@ -8,6 +7,7 @@ import { flushChunkNames } from 'react-universal-component/server';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { DEV } from '@config';
 import storeFactory from './store';
 import routes from './routes';
 
@@ -23,9 +23,9 @@ function prefetchBranchData(store, url) {
         return Array.isArray(loadData)
           ? Promise.all(loadData.map(action => dispatch(action(match))))
           : dispatch(loadData(match));
+      } else {
+        return Promise.resolve(null);
       }
-
-      return Promise.resolve(null);
     });
 
     return Promise.all(promises);
@@ -54,9 +54,11 @@ export default function serverRenderer({ clientStats }) {
       );
 
       const pageTitle = DocumentTitle.rewind();
-      const { scripts, styles, cssHashRaw } = flushChunks(clientStats, {
-        chunkNames: flushChunkNames()
-      });
+      const chunksOptions = { chunkNames: flushChunkNames() };
+      const { scripts, styles, cssHashRaw } = flushChunks(
+        clientStats,
+        chunksOptions
+      );
 
       const preloadedState = serialize(store.getState(), { isJSON: true });
       const cssChunks = serialize(cssHashRaw, { isJSON: true });
@@ -76,7 +78,7 @@ export default function serverRenderer({ clientStats }) {
         nonce
       });
     } catch (err) {
-      if (!isDev) {
+      if (!DEV) {
         return res.status(500).send('<h3>Sorry! Something went wrong.</h3>');
       }
 

@@ -1,5 +1,5 @@
-import isDev from 'isdev';
 import Alert from 'react-s-alert';
+import { DEV } from '@config';
 
 const REQUEST_ERROR = 'REQUEST_ERROR';
 const REQUEST_INFO = 'REQUEST_INFO';
@@ -26,7 +26,7 @@ export default () => store => next => action => {
 
   switch (type) {
     case REQUEST_ERROR:
-      if (!isDev && payload.response && payload.response.status >= 500) {
+      if (!DEV && payload.response && payload.response.status >= 500) {
         message = 'Sorry! Request failure. Please try again later.';
       } else if (payload.code === 'ECONNABORTED') {
         message = 'Request Timeout! Please try again.';

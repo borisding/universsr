@@ -1,12 +1,11 @@
-import isDev from 'isdev';
-import isNode from 'detect-node';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { DEV, NODE } from '@config';
 import { serviceAlert } from '@middlewares/redux';
 import todos from '@pages/todos/reducers';
 
-const isClient = (state = false, action) => (state = isNode !== true);
+const isClient = (state = false, action) => (state = NODE !== true);
 
 const isFetching = (state = false, action) =>
   (state =
@@ -23,7 +22,7 @@ export const rootReducer = combineReducers({
 export default function storeFactory(preloadedState) {
   const middlewares = [thunk, serviceAlert()];
 
-  if (isDev) {
+  if (DEV) {
     middlewares.push(
       createLogger({
         duration: true
