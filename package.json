@@ -60,7 +60,6 @@
     "cors": "^2.8.4",
     "detect-node": "^2.0.3",
     "dotenv": "^6.0.0",
-    "dotenv-expand": "^4.2.0",
     "dotenv-parse-variables": "^0.2.0",
     "ejs": "^2.6.1",
     "errorhandler": "^1.5.0",

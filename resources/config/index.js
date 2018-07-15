@@ -1,7 +1,7 @@
 // default config entry file with respective configuration values
 // this entry is going to be used in `src` across app and api
 
-// export built config.properties.json for universal usage
+// export built config properties for universal usage
 module.exports = require('./config-properties.json');
 
 // export named `SYSPATH` as part of config
