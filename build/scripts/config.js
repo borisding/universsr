@@ -7,8 +7,14 @@ const dotenv = require('dotenv');
 const dotenvParseVariables = require('dotenv-parse-variables');
 const syspath = require('@config/syspath');
 
+let pathToEnv = `${syspath.config}/.env`;
+// using .env.example file instead if .env does not exist
+if (!fs.existsSync(pathToEnv)) {
+  pathToEnv = pathToEnv + '.example';
+}
+
 // load environment variable config `.env`
-const env = dotenv.config({ path: `${syspath.config}/.env` });
+const env = dotenv.config({ path: pathToEnv });
 const parsedEnv = dotenvParseVariables(env.parsed);
 const targetConfigFile = 'config-properties.json';
 
