@@ -1,7 +1,7 @@
 import universal from 'react-universal-component';
-import { Loader } from '@common/components';
+import { Loader, NotFound } from '@common/components';
 import HomePage from '@pages/home';
-import { Layout, NotFound } from '@pages/base';
+import { Layout } from '@pages/base';
 import { fetchTodos } from '@pages/todos/actions';
 import config from '@config';
 
