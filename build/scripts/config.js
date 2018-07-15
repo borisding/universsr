@@ -4,13 +4,13 @@ require('module-alias/register');
 const fs = require('fs');
 const slash = require('slash');
 const dotenv = require('dotenv');
-const dotenvExpand = require('dotenv-expand');
+const dotenvParseVariables = require('dotenv-parse-variables');
 const syspath = require('@config/syspath');
 
 // load environment variable config `.env`
 const env = dotenv.config({ path: `${syspath.config}/.env` });
-const parsedEnv = dotenvExpand(env).parsed;
-const targetConfigFile = 'config.properties.json';
+const parsedEnv = dotenvParseVariables(env.parsed);
+const targetConfigFile = 'config-properties.json';
 
 // writing parsed environment variables into targeted config filename
 // which will be used as universal configuration properties

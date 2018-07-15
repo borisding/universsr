@@ -44,7 +44,7 @@ When environment values are changed, we can run the following script to load new
 npm run config
 ```
 
-After script is executed, it will also create `config.properties.json` for universal configuration usage in application, which is exported in config's `index.js`
+After script is executed, it will also create `config-properties.json` for universal configuration usage in application, which is exported in config's `index.js`
 
 iii) Running app
 

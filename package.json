@@ -61,6 +61,7 @@
     "detect-node": "^2.0.3",
     "dotenv": "^6.0.0",
     "dotenv-expand": "^4.2.0",
+    "dotenv-parse-variables": "^0.2.0",
     "ejs": "^2.6.1",
     "errorhandler": "^1.5.0",
     "esm": "^3.0.69",
@@ -175,7 +176,7 @@
       "jsx"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|properties)$": "<rootDir>/resources/mocks/file-mock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/mocks/file-mock.js",
       "\\.(css|scss)$": "<rootDir>/resources/mocks/style-mock.js"
     },
     "testEnvironment": "node",
