@@ -3,7 +3,6 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import hpp from 'hpp';
-import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import config, { DEV } from '@config';
 import { logger } from '@middlewares/express';
@@ -18,8 +17,8 @@ app
   .disable('x-powered-by')
   .use(logger())
   .use(cors())
-  .use(bodyParser.json())
-  .use(bodyParser.urlencoded({ extended: true, limit: '10mb' }))
+  .use(express.json())
+  .use(express.urlencoded({ extended: true, limit: '10mb' }))
   .use(hpp()) // after parsed body
   .use(cookieParser(config['SECRET_KEY']))
   .use(`/api/${config['API_VERSION']}`, routers);

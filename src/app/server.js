@@ -3,7 +3,6 @@ import express from 'express';
 import http from 'http';
 import helmet from 'helmet';
 import favicon from 'serve-favicon';
-import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import config, { DEV, SYSPATH } from '@config';
 import { csp, proxy, logger } from '@middlewares/express';
@@ -19,7 +18,6 @@ app
   .use(csp.nonce())
   .use(csp.mount(helmet))
   .use(compression())
-  .use(cookieParser(config['SECRET_KEY']))
   .use(express.static(SYSPATH['public']))
   .use(`/api/${config['API_VERSION']}`, proxy.proxyWeb);
 
