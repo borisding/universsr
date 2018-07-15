@@ -1,5 +1,5 @@
 // default config entry file with respective configuration values
-// this entry is going to be use in `src` across app and api
+// this entry is going to be used in `src` across app and api
 
 // export built config.properties.json for universal usage
 module.exports = require('./config.properties');

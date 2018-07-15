@@ -2,6 +2,5 @@
   "name": "universsr",
   "description": "Universal React + Redux, Express application boilerplate.",
   "repository": "https://github.com/borisding/universsr",
-  "logo": "http://node-js-sample.herokuapp.com/node.svg",
   "keywords": ["universsr", "universal", "ssr", "express", "react", "redux", "react-redux"]
 }
