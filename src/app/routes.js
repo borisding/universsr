@@ -7,8 +7,7 @@ import config from '@config';
 
 const options = {
   minDelay: config['MIN_DELAY'],
-  loading: Loader,
-  error: NotFound
+  loading: Loader
 };
 
 export const routes = [
