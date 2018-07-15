@@ -162,16 +162,6 @@ module.exports = function commonConfig(target, isDev) {
           use: loaders({ name: 'fonts/[name].[ext]' })
         }
       ];
-    },
-    //https://github.com/webpack/webpack/issues/6572
-    jsonToJsRule: () => {
-      return [
-        {
-          type: 'javascript/auto', // <= Set the module.type explicitly
-          test: /\.properties\.json$/, // Maybe better to use a different extname (e.g /\.config\.json$/)
-          use: [{ loader: 'json-loader' }]
-        }
-      ];
     }
   };
 };

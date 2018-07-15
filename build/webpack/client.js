@@ -53,7 +53,6 @@ module.exports = {
     rules: [
       ...commonConfig.babelRule(),
       ...commonConfig.fileRule(),
-      ...commonConfig.jsonToJsRule(),
       ...commonConfig.cssModulesRule(ExtractCssChunks),
       ...commonConfig.globalStylesRule(ExtractCssChunks)
     ]
