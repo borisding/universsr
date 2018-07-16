@@ -18,6 +18,27 @@ module.exports = function commonConfig(target, isDev) {
       alias: pkg._moduleAliases
     },
     babelRule: () => {
+      const plugins = [
+        'universal-import',
+        [
+          'react-css-modules',
+          {
+            exclude: 'node_modules',
+            context: syspath.src, // must match with webpack's context
+            generateScopedName: cssScopedName,
+            filetypes: {
+              '.scss': {
+                syntax: 'postcss-scss',
+                plugins: ['postcss-nested']
+              }
+            }
+          }
+        ]
+      ];
+
+      if (isClient && isDev) plugins.push('react-hot-loader/babel');
+      if (!isDev) plugins.push('transform-react-remove-prop-types');
+
       return [
         {
           test: /\.jsx?$/,
@@ -39,23 +60,7 @@ module.exports = function commonConfig(target, isDev) {
                 ],
                 '@babel/preset-react'
               ],
-              plugins: [
-                'universal-import',
-                [
-                  'react-css-modules',
-                  {
-                    exclude: 'node_modules',
-                    context: syspath.src, // must match with webpack's context
-                    generateScopedName: cssScopedName,
-                    filetypes: {
-                      '.scss': {
-                        syntax: 'postcss-scss',
-                        plugins: ['postcss-nested']
-                      }
-                    }
-                  }
-                ]
-              ].concat(isClient && isDev ? ['react-hot-loader/babel'] : [])
+              plugins
             }
           }
         }
