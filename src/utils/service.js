@@ -34,7 +34,7 @@ export default class Service {
     }
 
     // else, construct base URL based on platform
-    return !!NODE
+    return NODE
       ? `${config['PROTOCOL']}://${config['HOST']}:${config['PORT']}${api}`
       : api;
   }

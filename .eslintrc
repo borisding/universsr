@@ -1,8 +1,13 @@
 {
   "root": true,
-  "extends": ["prettier"],
   "parser": "babel-eslint",
+  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier", "prettier/react"],
   "plugins": ["prettier", "jest"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "env": {
     "browser": true,
     "node": true,
@@ -10,6 +15,11 @@
     "jest": true
   },
   "rules": {
-     "prettier/prettier": ["error", { "singleQuote": true }]
+    "global-require": 0,
+    "no-global-assign": 0,
+    "no-console": 0,
+    "react/prop-types": 0,
+    "react/display-name": 0,
+    "prettier/prettier": ["error", { "singleQuote": true }]
   }
 }

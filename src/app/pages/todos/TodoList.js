@@ -11,7 +11,8 @@ export default class TodoList extends Component {
         todo: PropTypes.string.isRequired,
         done: PropTypes.bool.isRequired
       })
-    ).isRequired
+    ).isRequired,
+    updateTodo: PropTypes.func.isRequired
   };
 
   isTruthy(value) {

@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { combineReducers, createStore, applyMiddleware } from 'redux';

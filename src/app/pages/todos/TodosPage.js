@@ -11,7 +11,8 @@ import * as todoActions from './actions';
 class TodosPage extends Component {
   static propTypes = {
     todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-    actions: PropTypes.objectOf(PropTypes.func).isRequired
+    actions: PropTypes.objectOf(PropTypes.func).isRequired,
+    isFetching: PropTypes.bool.isRequired
   };
 
   componentDidMount() {

@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */
 import Alert from 'react-s-alert';
 import { DEV } from '@config';
 
