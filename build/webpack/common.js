@@ -18,6 +18,17 @@ module.exports = function commonConfig(target, isDev) {
       alias: pkg._moduleAliases
     },
     babelRule: () => {
+      // babel presets
+      const presets = [
+        ['@babel/preset-env', { modules: isClient ? false : 'commonjs' }],
+        [
+          '@babel/preset-stage-0',
+          { decoratorsLegacy: true, pipelineProposal: 'minimal' }
+        ],
+        '@babel/preset-react'
+      ];
+
+      // babel plugins
       const plugins = [
         'universal-import',
         [
@@ -47,19 +58,7 @@ module.exports = function commonConfig(target, isDev) {
             options: {
               babelrc: false,
               compact: false,
-              presets: [
-                [
-                  '@babel/preset-env',
-                  {
-                    modules: isClient ? false : 'commonjs'
-                  }
-                ],
-                [
-                  '@babel/preset-stage-0',
-                  { decoratorsLegacy: true, pipelineProposal: 'minimal' }
-                ],
-                '@babel/preset-react'
-              ],
+              presets,
               plugins
             }
           }
