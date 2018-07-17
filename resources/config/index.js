@@ -3,7 +3,8 @@
 
 const configProperties = require('./config-properties.json');
 
-// assigned when one of the following is not defined in '.env' file
+// assigned with `process.env` or fallback to default port value
+// when one of the following is not defined in '.env' file
 if (!configProperties.PORT) {
   configProperties.PORT = +process.env.PORT || 3000;
 }
