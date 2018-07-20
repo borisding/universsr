@@ -39,14 +39,7 @@ module.exports = {
       name: 'bootstrap'
     },
     splitChunks: {
-      chunks: 'initial',
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          minChunks: 2
-        }
-      }
+      chunks: 'initial'
     }
   },
   module: {

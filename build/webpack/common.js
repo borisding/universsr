@@ -65,6 +65,9 @@ module.exports = function commonConfig(target, isDev) {
         }
       ];
     },
+    // this is for us to import local CSS from `src`
+    // by assigning CSS class names to `styleName` property
+    // `babel-plugin-react-css-modules` plugin will take care of it and do the matching
     cssModulesRule: (ExtractCssChunks = null) => {
       const modules = true;
       const localIdentName = cssScopedName;
@@ -111,6 +114,11 @@ module.exports = function commonConfig(target, isDev) {
         }
       ];
     },
+    // this is for us to import styles as a global from `node_modules`
+    // to use global style, we assign CSS class names to `className` property instead
+    // so that we can distinguish it as a global style from `styleName` property
+    // we need to specify the vendor package's name in `include` option
+    // eg: `/react-s-alert|bulma/` when we import react sAlert and bulma CSS as global styles
     globalStylesRule: (ExtractCssChunks = null) => {
       const sourceMap = !!isDev;
 
