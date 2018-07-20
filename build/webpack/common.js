@@ -34,7 +34,7 @@ module.exports = function commonConfig(target, isDev) {
         [
           'react-css-modules',
           {
-            exclude: 'node_modules',
+            exclude: 'global.s?css', // need to exclude the defined global CSS file
             context: syspath.src, // must match with webpack's context
             generateScopedName: cssScopedName,
             filetypes: {
@@ -65,8 +65,8 @@ module.exports = function commonConfig(target, isDev) {
         }
       ];
     },
-    // this is for us to import local CSS from `src`
-    // by assigning CSS class names to `styleName` property
+    // this is for us to import local CSS modules from `src`, except global CSS file
+    // Note: CSS class names are assigned to `styleName` property where
     // `babel-plugin-react-css-modules` plugin will take care of it and do the matching
     cssModulesRule: (ExtractCssChunks = null) => {
       const modules = true;
@@ -76,7 +76,7 @@ module.exports = function commonConfig(target, isDev) {
       return [
         {
           test: /\.s?css$/,
-          exclude: /node_modules/,
+          exclude: /global\.s?css/,
           use: isClient
             ? [
                 ExtractCssChunks.loader,
@@ -114,20 +114,14 @@ module.exports = function commonConfig(target, isDev) {
         }
       ];
     },
-    // this is for us to import styles as a global from `node_modules`
-    // to use global style, we assign CSS class names to `className` property instead
-    // so that we can distinguish it as a global style from `styleName` property
-    // we need to specify the vendor package's name in `include` option
-    // eg: `/react-s-alert|bulma/` when we import react sAlert and bulma CSS as global styles
+    // this is for us to use global styles imported in `global.css` or `global.scss` file
+    // Note: we assign global CSS class names to `className` property instead of `styleName`
     globalStylesRule: (ExtractCssChunks = null) => {
       const sourceMap = !!isDev;
 
       return [
         {
-          test: /\.s?css$/,
-          // specify package name to be imported as global style
-          include: [/react-s-alert/],
-          exclude: syspath.src,
+          test: /global\.s?css$/,
           use: (isClient ? [ExtractCssChunks.loader] : []).concat([
             {
               loader: 'css-loader',
