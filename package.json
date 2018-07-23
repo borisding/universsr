@@ -182,10 +182,8 @@
       "\\.(css|scss)$": "<rootDir>/resources/mocks/style-mock.js"
     },
     "testEnvironment": "node",
-    "testRegex": ".*.spec\\.js$",
-    "testPathIgnorePatterns": [
-      "<rootDir>/node_modules/"
-    ]
+    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$",
+    "testPathIgnorePatterns": ["<rootDir>/node_modules/"]
   },
   "_moduleAliases": {
     "@root": ".",
