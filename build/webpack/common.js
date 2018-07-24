@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const syspath = require('@config/syspath');
 const pkg = require('@root/package');
@@ -168,6 +169,15 @@ module.exports = function commonConfig(target, isDev) {
           use: loaders({ name: 'fonts/[name].[ext]' })
         }
       ];
-    }
+    },
+    // common webpack plugins to be used in both client and server
+    plugins: () => [
+      // this is to replace context which refers require with expression warning
+      // we restrict files matching to the `src` directory for the following context
+      new webpack.ContextReplacementPlugin(
+        /babel-plugin-universal-import|react-universal-component/,
+        syspath.src
+      )
+    ]
   };
 };
