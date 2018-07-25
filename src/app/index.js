@@ -9,7 +9,7 @@ import storeFactory from './store';
 import registerOffline from './offline';
 import routes from './routes';
 
-const preloadedState = window.__PRELOADED_STATE__;
+const preloadedState = window.__UNIVERSSR_PRELOADED_STATE__;
 const store = storeFactory(preloadedState);
 
 const render = AppRoutes => {

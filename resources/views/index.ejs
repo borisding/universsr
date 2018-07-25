@@ -15,7 +15,7 @@
   <body>
     <noscript><p>Please enable JavaScript to get the full experience for the app.</p></noscript>
     <div id="root"><%- appString -%></div>
-    <script nonce="<%= nonce %>">window.__PRELOADED_STATE__ = <%- preloadedState -%></script>
+    <script nonce="<%= nonce %>">window.__UNIVERSSR_PRELOADED_STATE__ = <%- preloadedState -%></script>
     <script nonce="<%= nonce %>">window.__CSS_CHUNKS__ = <%- cssChunks -%></script>
     <% scripts.forEach(function(script) { %>
     <script nonce="<%= nonce %>" defer src="/<%= script %>"></script>
