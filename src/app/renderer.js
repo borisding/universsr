@@ -55,13 +55,9 @@ export default function serverRenderer({ clientStats }) {
 
       const pageTitle = DocumentTitle.rewind();
       const chunksOptions = { chunkNames: flushChunkNames() };
-      const { scripts, styles, cssHashRaw } = flushChunks(
-        clientStats,
-        chunksOptions
-      );
+      const { js, styles } = flushChunks(clientStats, chunksOptions);
 
       const preloadedState = serialize(store.getState(), { isJSON: true });
-      const cssChunks = serialize(cssHashRaw, { isJSON: true });
       const { statusCode = 200, redirectUrl } = context;
 
       if ([301, 302].includes(statusCode) && redirectUrl) {
@@ -72,8 +68,7 @@ export default function serverRenderer({ clientStats }) {
         pageTitle,
         appString,
         preloadedState,
-        cssChunks,
-        scripts,
+        js,
         styles,
         nonce
       });
