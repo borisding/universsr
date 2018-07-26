@@ -20,7 +20,7 @@ export default class ErrorBoundary extends Component {
     }
 
     return (
-      <div>
+      <React.Fragment>
         <h3>Sorry! An error occured while rendering page.</h3>
         {DEV && (
           <pre>
@@ -29,7 +29,7 @@ export default class ErrorBoundary extends Component {
             {this.state.errorInfo.componentStack}
           </pre>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

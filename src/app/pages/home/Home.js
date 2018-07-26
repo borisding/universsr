@@ -5,7 +5,7 @@ import './styles/Home.scss';
 
 export default () => {
   return (
-    <div>
+    <React.Fragment>
       <div styleName="logo">
         <img src={logo} alt="React Redux Boilerplate" />
       </div>
@@ -27,6 +27,6 @@ export default () => {
         {' or, go to '}
         <a href="https://github.com/borisding/universsr">GitHub repository</a>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
