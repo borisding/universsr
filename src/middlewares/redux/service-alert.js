@@ -2,9 +2,9 @@
 import Alert from 'react-s-alert';
 import { DEV } from '@config';
 
-const REQUEST_ERROR = 'REQUEST_ERROR';
-const REQUEST_INFO = 'REQUEST_INFO';
-const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
+export const REQUEST_ERROR = 'REQUEST_ERROR';
+export const REQUEST_INFO = 'REQUEST_INFO';
+export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 
 export const errorCreator = error => ({
   type: REQUEST_ERROR,
