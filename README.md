@@ -18,7 +18,7 @@
 
 i) Installation
 
-- Node version: >= v6.0.0
+- Node version: >= v8.0.0
 
 ```
 git clone https://github.com/borisding/universsr.git my-project
