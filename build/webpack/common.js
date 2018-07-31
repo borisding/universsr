@@ -22,16 +22,16 @@ module.exports = function commonConfig(target, isDev) {
       // babel presets
       const presets = [
         ['@babel/preset-env', { modules: isClient ? false : 'commonjs' }],
-        [
-          '@babel/preset-stage-0',
-          { decoratorsLegacy: true, pipelineProposal: 'minimal' }
-        ],
         '@babel/preset-react'
       ];
 
       // babel plugins
+      // read more on babel's stage presets blog post:
+      // https://babeljs.io/blog/2018/07/27/removing-babels-stage-presets
       const plugins = [
         'universal-import',
+        '@babel/plugin-syntax-dynamic-import',
+        '@babel/plugin-proposal-class-properties',
         [
           'react-css-modules',
           {
