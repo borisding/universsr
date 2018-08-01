@@ -20,7 +20,7 @@ export const rootReducer = combineReducers({
   todos
 });
 
-export default function storeFactory(preloadedState) {
+export default function storeFactory(preloadedState = {}) {
   const middlewares = [thunk, serviceAlert()];
 
   if (DEV) {

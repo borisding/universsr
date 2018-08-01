@@ -23,9 +23,9 @@ function prefetchBranchData(store, url) {
         return Array.isArray(loadData)
           ? Promise.all(loadData.map(action => dispatch(action(match))))
           : dispatch(loadData(match));
-      } else {
-        return Promise.resolve(null);
       }
+
+      return Promise.resolve(null);
     });
 
     return Promise.all(promises);
@@ -40,7 +40,7 @@ export default function serverRenderer({ clientStats }) {
   return async (req, res, next) => {
     try {
       const context = {};
-      const store = storeFactory({});
+      const store = storeFactory();
       const nonce = res.locals.nonce;
 
       await prefetchBranchData(store, req.url);
