@@ -76,7 +76,7 @@
     "make-promises-safe": "^1.1.0",
     "module-alias": "^2.1.0",
     "morgan": "^1.9.0",
-    "nock": "^9.4.3",
+    "nock": "^9.4.4",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-document-title": "^2.0.3",
