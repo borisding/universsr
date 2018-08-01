@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Alert from 'react-s-alert';
 import logo from '@assets/images/logo.png'; // example of import assets image
 import './styles/Home.scss';
 
 export default () => {
   return (
-    <React.Fragment>
+    <Fragment>
       <div styleName="logo">
         <img src={logo} alt="React Redux Boilerplate" />
       </div>
@@ -27,6 +27,6 @@ export default () => {
         {' or, go to '}
         <a href="https://github.com/borisding/universsr">GitHub repository</a>
       </div>
-    </React.Fragment>
+    </Fragment>
   );
 };

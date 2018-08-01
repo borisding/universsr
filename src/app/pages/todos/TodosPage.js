@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -11,16 +11,11 @@ import * as todoActions from './actions';
 class TodosPage extends Component {
   static propTypes = {
     todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-    actions: PropTypes.objectOf(PropTypes.func).isRequired,
-    isFetching: PropTypes.bool.isRequired
+    actions: PropTypes.objectOf(PropTypes.func).isRequired
   };
 
   componentDidMount() {
-    const { isFetching, todos, actions } = this.props;
-
-    if (!isFetching && todos.length === 0) {
-      return actions.fetchTodos();
-    }
+    this.props.actions.prefetchTodos();
   }
 
   render() {
@@ -28,12 +23,12 @@ class TodosPage extends Component {
 
     return (
       <PageTitle title="Todos">
-        <div>
+        <Fragment>
           <h3>Todos Demo</h3>
           <TodoForm addTodo={actions.addTodo} />
           <hr />
           <TodoList updateTodo={actions.updateTodo} todos={todos} />
-        </div>
+        </Fragment>
       </PageTitle>
     );
   }
@@ -41,7 +36,7 @@ class TodosPage extends Component {
 
 export default withRouter(
   connect(
-    state => ({ isFetching: state.isFetching, todos: state.todos }),
+    state => ({ todos: state.todos }),
     dispatch => ({ actions: bindActionCreators(todoActions, dispatch) })
   )(TodosPage)
 );

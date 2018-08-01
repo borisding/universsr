@@ -11,12 +11,14 @@ const endpoint = '/todos';
 const mockStore = configureMockStore([thunk]);
 
 describe('fetching todos data', () => {
-  const response = [{ id: 'todo-id', todo: 'New Todo', done: false }];
+  const response = [{ id: 'todo-id2', todo: 'New Todo', done: false }];
   const errorMessage = 'Request failed with status code 404';
   let fetchMock, store;
 
   beforeEach(() => {
-    store = mockStore({ todos: [] });
+    store = mockStore({
+      todos: [{ id: 'todo-id1', todo: 'Current Todo', done: true }]
+    });
     fetchMock = nock(host).get(endpoint);
   });
 
@@ -44,5 +46,12 @@ describe('fetching todos data', () => {
       expect(store.getActions()[1].payload.message).toEqual(errorMessage);
       done();
     });
+  });
+
+  test('no action is dispatched if there is populated todos in store', done => {
+    store.dispatch(actions.prefetchTodos());
+    const action = store.getActions()[0];
+    expect(action).toBeUndefined();
+    done();
   });
 });

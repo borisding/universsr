@@ -2,7 +2,7 @@ import universal from 'react-universal-component';
 import { Loader, NotFound } from '@common/components';
 import HomePage from '@pages/home';
 import { Layout } from '@pages/base';
-import { fetchTodos } from '@pages/todos/actions';
+import { prefetchTodos } from '@pages/todos/actions';
 import config from '@config';
 
 const options = {
@@ -21,7 +21,7 @@ export const routes = [
     path: '/todos',
     exact: true,
     menu: 'Todos',
-    loadData: fetchTodos,
+    loadData: prefetchTodos,
     component: universal(import('./pages/todos'), options)
   },
   {

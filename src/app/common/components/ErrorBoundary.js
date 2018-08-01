@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { DEV } from '@config';
 
 export default class ErrorBoundary extends Component {
@@ -20,7 +20,7 @@ export default class ErrorBoundary extends Component {
     }
 
     return (
-      <React.Fragment>
+      <Fragment>
         <h3>Sorry! An error occured while rendering page.</h3>
         {DEV && (
           <pre>
@@ -29,7 +29,7 @@ export default class ErrorBoundary extends Component {
             {this.state.errorInfo.componentStack}
           </pre>
         )}
-      </React.Fragment>
+      </Fragment>
     );
   }
 }
