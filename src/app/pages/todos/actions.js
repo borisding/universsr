@@ -15,12 +15,15 @@ export const fetchTodos = () =>
 
 // pre-fetch todos when there is no populated todos in store
 export const prefetchTodos = () => (dispatch, getState) => {
-  const state = getState();
+  const { isFetching, todos } = getState();
 
-  if (state.todos.length) {
-    return state;
+  // simply exit pre-fetching if in fetching mode
+  // or, todos is already populated
+  if (isFetching || todos.length > 0) {
+    return null;
   }
 
+  // else, just proceed to fetching new todos list
   return dispatch(fetchTodos());
 };
 
