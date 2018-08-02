@@ -41,7 +41,6 @@ export default function serverRenderer({ clientStats }) {
     try {
       const context = {};
       const store = storeFactory();
-      const nonce = res.locals.nonce;
 
       await prefetchBranchData(store, req.url);
 
@@ -55,10 +54,11 @@ export default function serverRenderer({ clientStats }) {
 
       const pageTitle = DocumentTitle.rewind();
       const chunksOptions = { chunkNames: flushChunkNames() };
-      const { js, styles } = flushChunks(clientStats, chunksOptions);
+      const { scripts, stylesheets } = flushChunks(clientStats, chunksOptions);
 
       const preloadedState = serialize(store.getState(), { isJSON: true });
       const { statusCode = 200, redirectUrl } = context;
+      const { nonce } = res.locals;
 
       if ([301, 302].includes(statusCode) && redirectUrl) {
         return res.redirect(statusCode, redirectUrl);
@@ -68,8 +68,8 @@ export default function serverRenderer({ clientStats }) {
         pageTitle,
         appString,
         preloadedState,
-        js,
-        styles,
+        stylesheets,
+        scripts,
         nonce
       });
     } catch (err) {
