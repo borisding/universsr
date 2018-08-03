@@ -1,2 +1,2 @@
-// entry for API
-require = require('./esm')('./src/api/server');
+// expose api server with esm loader
+require = require('./esm')('./bin/api');

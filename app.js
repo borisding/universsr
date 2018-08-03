@@ -1,2 +1,2 @@
-// entry for App
-require = require('./esm')('./src/app/server');
+// expose app server with esm loader
+require = require('./esm')('./bin/app');

@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+import 'make-promises-safe';
+import http from 'http';
+import app from '@app';
+import config from '@config';
+import { print } from '@utils';
+
+const server = http.createServer(app);
+const serverPort = process.env.PORT || config['PORT'];
+
+server.listen(serverPort);
+server.on('listening', () => {
+  const address = server.address();
+
+  print.info('App Server is up! Listening PORT: %s', 0, [
+    'port' in address ? address.port : address
+  ]);
+});
+
+server.on('error', err => {
+  switch (err.code) {
+    case 'EACCES':
+      print.error('Not enough privileges to run app server.', -1);
+      break;
+    case 'EADDRINUSE':
+      print.error('%s is already in use.', -1, [serverPort]);
+      break;
+    default:
+      throw err;
+  }
+});

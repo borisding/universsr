@@ -1,37 +1,38 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { AppContainer } from 'react-hot-loader';
-import { BrowserRouter } from 'react-router-dom';
-import { renderRoutes } from 'react-router-config';
-import { hydrate } from 'react-dom';
-import { DEV } from '@config';
-import storeFactory from './store';
-import registerOffline from './offline';
-import routes from './routes';
+import express from 'express';
+import helmet from 'helmet';
+import favicon from 'serve-favicon';
+import compression from 'compression';
+import config, { DEV, SYSPATH } from '@config';
+import { csp, proxy, logger } from '@middlewares/express';
 
-const preloadedState = window.__UNIVERSSR_PRELOADED_STATE__;
-const store = storeFactory(preloadedState);
+const app = express();
 
-const render = AppRoutes => {
-  hydrate(
-    <AppContainer warnings={false}>
-      <Provider store={store}>
-        <BrowserRouter>{renderRoutes(AppRoutes)}</BrowserRouter>
-      </Provider>
-    </AppContainer>,
-    document.getElementById('root')
-  );
-};
+app
+  .set('etag', !DEV)
+  .set('view engine', 'ejs')
+  .use(logger())
+  .use(helmet())
+  .use(csp.nonce())
+  .use(csp.mount(helmet))
+  .use(compression())
+  .use(express.static(SYSPATH['public']))
+  .use(`/api/${config['API_VERSION']}`, proxy.proxyWeb);
 
-render(routes);
+if (DEV) {
+  const errorHandler = require('errorhandler');
+  const webpackCompiler = require('@build/webpack/compiler');
 
-if (!DEV) {
-  registerOffline();
+  webpackCompiler(app);
+
+  app.set('views', `${SYSPATH['resources']}/views`);
+  app.use(errorHandler());
+} else {
+  const clientStats = require('@public/stats.json');
+  const serverRenderer = require('@app/renderer-built').default;
+
+  app.set('views', SYSPATH['public']);
+  app.use(favicon(`${SYSPATH['public']}/icons/favicon.png`));
+  app.use(serverRenderer({ clientStats }));
 }
 
-if (module.hot) {
-  module.hot.accept('./routes', () => {
-    const nextAppRoutes = require('./routes').default;
-    render(nextAppRoutes);
-  });
-}
+export default app;
