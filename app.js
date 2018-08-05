@@ -1,2 +1,2 @@
 // expose app server with esm loader
-require = require('./esm')('./bin/app');
+require = require('./esm')('./bin/universsr-app');
