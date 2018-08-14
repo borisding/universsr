@@ -14,6 +14,11 @@
     "es6": true,
     "jest": true
   },
+  "settings": {
+    "react": {
+      "version": "16.4.0"
+    }
+  },
   "rules": {
     "global-require": 0,
     "no-global-assign": 0,
