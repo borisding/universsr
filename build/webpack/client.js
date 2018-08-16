@@ -18,16 +18,15 @@ module.exports = {
   context: commonConfig.context,
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
-  performance: { hints: false },
-  entry: {
-    main: [
-      ...(isDev
-        ? ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000']
-        : []),
-      '@babel/polyfill',
-      './app/container.js'
-    ]
-  },
+  entry: [
+    ...(isDev
+      ? [
+          'eventsource-polyfill', // used for IE's hot reloading
+          'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
+        ]
+      : []),
+    './app/container.js'
+  ],
   output: {
     path: syspath.public,
     publicPath: commonConfig.publicPath,

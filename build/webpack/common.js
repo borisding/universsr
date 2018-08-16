@@ -29,6 +29,7 @@ module.exports = function commonConfig(target, isDev) {
       // read more on babel's stage presets blog post:
       // https://babeljs.io/blog/2018/07/27/removing-babels-stage-presets
       const plugins = [
+        'react-hot-loader/babel',
         'universal-import',
         '@babel/plugin-syntax-dynamic-import',
         '@babel/plugin-proposal-class-properties',
@@ -46,10 +47,7 @@ module.exports = function commonConfig(target, isDev) {
             }
           }
         ]
-      ];
-
-      if (isClient && isDev) plugins.push('react-hot-loader/babel');
-      if (!isDev) plugins.push('transform-react-remove-prop-types');
+      ].concat(!isDev ? ['transform-react-remove-prop-types'] : []);
 
       return [
         {
@@ -153,7 +151,12 @@ module.exports = function commonConfig(target, isDev) {
         {
           loader: 'url-loader',
           options: Object.assign(
-            { publicPath, limit: 10240, emitFile: isClient === true },
+            {
+              publicPath,
+              fallback: 'file-loader',
+              limit: 10240,
+              emitFile: !!isClient
+            },
             options
           )
         }

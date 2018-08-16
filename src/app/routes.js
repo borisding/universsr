@@ -1,3 +1,4 @@
+import '@babel/polyfill'; // place polyfill here to resolve order issue in IE11
 import universal from 'react-universal-component';
 import { Loader, NotFound } from '@common/components';
 import HomePage from '@pages/home';

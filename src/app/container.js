@@ -14,7 +14,7 @@ const store = storeFactory(preloadedState);
 
 const render = AppRoutes => {
   hydrate(
-    <AppContainer warnings={false}>
+    <AppContainer>
       <Provider store={store}>
         <BrowserRouter>{renderRoutes(AppRoutes)}</BrowserRouter>
       </Provider>
