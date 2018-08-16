@@ -19,15 +19,21 @@ module.exports = function commonConfig(target, isDev) {
       alias: pkg._moduleAliases
     },
     babelRule: () => {
-      // babel presets
+      // babel presets and options
       const presets = [
-        ['@babel/preset-env', { modules: isClient ? false : 'commonjs' }],
+        [
+          '@babel/preset-env',
+          {
+            modules: isClient ? false : 'commonjs',
+            useBuiltIns: 'entry'
+          }
+        ],
         '@babel/preset-react'
       ];
 
       // babel plugins
       // read more on babel's stage presets blog post:
-      // https://babeljs.io/blog/2018/07/27/removing-babels-stage-presets
+      // @see: https://babeljs.io/blog/2018/07/27/removing-babels-stage-presets
       const plugins = [
         'react-hot-loader/babel',
         'universal-import',
