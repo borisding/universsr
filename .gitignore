@@ -1,7 +1,7 @@
 coverage
 node_modules
 public
-.env
+#.env
 .DS_Store
 *.log
 *.map
