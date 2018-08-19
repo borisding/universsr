@@ -3,7 +3,7 @@ import cors from 'cors';
 import hpp from 'hpp';
 import cookieParser from 'cookie-parser';
 import config, { DEV } from '@config';
-import { logger } from '@middlewares/express';
+import { logger, errorHandler } from '@middlewares/express';
 import routers from './routers';
 
 const api = express();
@@ -19,5 +19,8 @@ api
   .use(hpp()) // after parsed body
   .use(cookieParser(config['SECRET_KEY']))
   .use(`/api/${config['API_VERSION']}`, routers);
+
+// mount error handler middleware last
+api.use(errorHandler({ json: true }));
 
 export default api;

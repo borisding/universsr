@@ -7,7 +7,6 @@ import { flushChunkNames } from 'react-universal-component/server';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { DEV } from '@config';
 import storeFactory from './store';
 import routes from './routes';
 
@@ -30,7 +29,7 @@ function prefetchBranchData(store, url) {
 
     return Promise.all(promises);
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 }
 
@@ -64,7 +63,8 @@ export default function serverRenderer({ clientStats }) {
         return res.redirect(statusCode, redirectUrl);
       }
 
-      return res.status(statusCode).render('index', {
+      res.status(statusCode);
+      res.render('index', {
         pageTitle,
         appString,
         preloadedState,
@@ -73,11 +73,7 @@ export default function serverRenderer({ clientStats }) {
         nonce
       });
     } catch (err) {
-      if (!DEV) {
-        return res.status(500).send('<h3>Sorry! Something went wrong.</h3>');
-      }
-
-      return next(err);
+      next(new Error(err));
     }
   };
 }

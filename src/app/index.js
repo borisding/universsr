@@ -3,7 +3,7 @@ import helmet from 'helmet';
 import favicon from 'serve-favicon';
 import compression from 'compression';
 import config, { DEV, SYSPATH } from '@config';
-import { csp, proxy, logger } from '@middlewares/express';
+import { csp, proxy, logger, errorHandler } from '@middlewares/express';
 
 const app = express();
 
@@ -19,13 +19,8 @@ app
   .use(`/api/${config['API_VERSION']}`, proxy.proxyWeb);
 
 if (DEV) {
-  const errorHandler = require('errorhandler');
-  const webpackCompiler = require('@build/webpack/compiler');
-
-  webpackCompiler(app);
-
+  require('@build/webpack/compiler')(app);
   app.set('views', `${SYSPATH['resources']}/views`);
-  app.use(errorHandler());
 } else {
   const clientStats = require('@public/stats.json');
   const serverRenderer = require('@app/renderer-built').default;
@@ -34,5 +29,8 @@ if (DEV) {
   app.use(favicon(`${SYSPATH['public']}/icons/favicon.png`));
   app.use(serverRenderer({ clientStats }));
 }
+
+// mount error handler middleware last
+app.use(errorHandler());
 
 export default app;
