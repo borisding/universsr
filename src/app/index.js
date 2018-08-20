@@ -11,7 +11,7 @@ app
   .set('etag', !DEV)
   .set('view engine', 'ejs')
   .set('views', [SYSPATH['public'], `${SYSPATH['resources']}/views`])
-  .use(logger())
+  .use(logger.http())
   .use(helmet())
   .use(csp.nonce())
   .use(csp.mount(helmet))

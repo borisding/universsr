@@ -12,7 +12,7 @@ api
   .set('etag', !DEV)
   .set('json spaces', 2)
   .disable('x-powered-by')
-  .use(logger())
+  .use(logger.http())
   .use(cors())
   .use(express.json())
   .use(express.urlencoded({ extended: true, limit: '10mb' }))
