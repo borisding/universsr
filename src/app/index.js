@@ -10,6 +10,7 @@ const app = express();
 app
   .set('etag', !DEV)
   .set('view engine', 'ejs')
+  .set('views', [SYSPATH['public'], `${SYSPATH['resources']}/views`])
   .use(logger())
   .use(helmet())
   .use(csp.nonce())
@@ -20,12 +21,10 @@ app
 
 if (DEV) {
   require('@build/webpack/compiler')(app);
-  app.set('views', `${SYSPATH['resources']}/views`);
 } else {
   const clientStats = require('@public/stats.json');
   const serverRenderer = require('@app/renderer-built').default;
 
-  app.set('views', SYSPATH['public']);
   app.use(favicon(`${SYSPATH['public']}/icons/favicon.png`));
   app.use(serverRenderer({ clientStats }));
 }
