@@ -7,7 +7,7 @@
     "config": "node build/scripts/config.js",
     "clean": "rimraf public resources/config/*.json src/**/*-built.*",
     "build": "npm-run-all clean config && cross-env NODE_ENV=production webpack --config build/webpack --progress",
-    "build:analyze": "npm-run-all clean config && cross-env NODE_ENV=production ANALYZE_MODE=enabled webpack --config build/webpack --progress",
+    "build:analyze": "cross-env ANALYZE_MODE=enabled npm run build",
     "dev:app": "cross-env NODE_ENV=development node app.js",
     "dev:api": "nodemon --exec node api.js",
     "dev": "npm-run-all clean config && run-p dev:api dev:app",
