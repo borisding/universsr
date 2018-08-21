@@ -1,6 +1,6 @@
 ## universsr [![Build Status](https://travis-ci.org/borisding/universsr.svg?branch=master)](https://travis-ci.org/borisding/universsr)
 
-- Universal React + Redux, Express application starter boilerplate.
+Universal React + Redux, Express application starter boilerplate.
 
 ## Feature Highlights
 
@@ -57,7 +57,10 @@ npm run dev
 - For **production**:
 
 ```
-npm run build && npm start
+npm run build # or,
+npm run build:analyze # to analyze built bundles
+
+npm start
 ```
 
 - Both scripts will run config script as mentioned above.

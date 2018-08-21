@@ -5,11 +5,13 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { StatsWriterPlugin } = require('webpack-stats-plugin');
 const syspath = require('@config/syspath');
 const webpackCommon = require('./common');
 
 const commonConfig = webpackCommon('client', isDev);
+const isAnalyze = process.env.ANALYZE_MODE === 'enabled';
 
 module.exports = {
   target: 'web',
@@ -96,6 +98,12 @@ module.exports = {
             relativePaths: false, // to allow using publicPath
             ServiceWorker: { events: true }, // use ServiceWorker for offline usage
             AppCache: false // disable for AppCache
+          }),
+          // for more webpack bundle analyzer options,
+          // @see: https://github.com/webpack-contrib/webpack-bundle-analyzer#options-for-plugin
+          new BundleAnalyzerPlugin({
+            analyzerMode: isAnalyze ? 'server' : 'disabled',
+            openAnalyzer: isAnalyze
           })
         ]
   )
