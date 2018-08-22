@@ -24,7 +24,7 @@ logger.exception = err => {
 
   const fsStream = fsStreamWriter('exception.log');
 
-  fsStream.write(new Date().toString());
+  fsStream.write(new Date().toISOString());
   fsStream.write('\r\n');
 
   fsStream.write(err.stack);

@@ -59,12 +59,13 @@ export default function serverRenderer({ clientStats }) {
       const { statusCode = 200, redirectUrl } = context;
       const { nonce } = res.locals;
 
+      // make page redirection when expected `statusCode` and `redirectUrl`
+      // props are provided in `HttpStatus` component
       if ([301, 302].includes(statusCode) && redirectUrl) {
         return res.redirect(statusCode, redirectUrl);
       }
 
-      res.status(statusCode);
-      res.render('index', {
+      return res.status(statusCode).render('index', {
         pageTitle,
         appString,
         preloadedState,
