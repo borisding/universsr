@@ -1,20 +1,22 @@
 import chalk from 'chalk';
 
-export default {
-  error: (message, code, substitution = []) => {
-    console.error(chalk.red(`${message}\n`), ...substitution);
+const print = {
+  error: (message, code) => {
+    console.error(chalk.red(`${message}\n`));
     code && process.exit(code);
   },
-  info: (message, code, substitution = []) => {
-    console.info(chalk.cyanBright(`${message}\n`), ...substitution);
+  info: (message, code) => {
+    console.info(chalk.cyanBright(`${message}\n`));
     code && process.exit(code);
   },
-  warn: (message, code, substitution = []) => {
-    console.warn(chalk.yellow(`${message}\n`), ...substitution);
+  warn: (message, code) => {
+    console.warn(chalk.yellow(`${message}\n`));
     code && process.exit(code);
   },
-  success: (message, code, substitution = []) => {
-    console.log(chalk.green(`${message}\n`), ...substitution);
+  success: (message, code) => {
+    console.log(chalk.green(`${message}\n`));
     code && process.exit(code);
   }
 };
+
+export default print;

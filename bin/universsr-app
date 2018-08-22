@@ -12,20 +12,16 @@ const serverPort = process.env.PORT || config['PORT'];
 server.listen(serverPort);
 
 server.on('listening', () => {
-  const address = server.address();
-
-  print.info('App Server is up! Listening PORT: %s', 0, [
-    'port' in address ? address.port : address
-  ]);
+  print.info(`App Server is up! Listening PORT: ${serverPort}`);
 });
 
 server.on('error', err => {
   switch (err.code) {
     case 'EACCES':
-      print.error('Not enough privileges to run app server.', -1);
+      print.error('Not enough privileges to run app server.', 1);
       break;
     case 'EADDRINUSE':
-      print.error('%s is already in use.', -1, [serverPort]);
+      print.error(`${serverPort} is already in use.`, 1);
       break;
     default:
       throw err;
@@ -33,5 +29,5 @@ server.on('error', err => {
 });
 
 process.on('SIGINT', () => {
-  process.exit();
+  process.exit(0);
 });
