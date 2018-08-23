@@ -1,4 +1,3 @@
-/* eslint no-unused-vars: 0 */
 import Alert from 'react-s-alert';
 import { DEV } from '@config';
 
@@ -21,6 +20,7 @@ export const successCreator = success => ({
   payload: success
 });
 
+// eslint-disable-next-line no-unused-vars
 export default () => store => next => action => {
   const { type, payload = {} } = action;
   let message = (payload && payload.message) || 'Unknown message.';
@@ -28,7 +28,10 @@ export default () => store => next => action => {
   switch (type) {
     case REQUEST_ERROR:
       if (!DEV && payload.response && payload.response.status >= 500) {
-        message = 'Sorry! Request failure. Please try again later.';
+        // get production error message churned by error handler middleware, if any
+        // or we just show the default production error message to end user instead
+        const { error } = payload.response.data || {};
+        message = error || 'Sorry! Request failure. Please try again later.';
       } else if (payload.code === 'ECONNABORTED') {
         message = 'Request Timeout! Please try again.';
       }

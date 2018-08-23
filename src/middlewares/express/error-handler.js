@@ -3,7 +3,7 @@ import { logger } from '@middlewares/express';
 
 // custom error handler for the app/api
 // only include error stack in development mode
-/* eslint no-unused-vars: 0 */
+// eslint-disable-next-line no-unused-vars
 const errorHandler = ({ json = false } = {}) => (err, req, res, next) => {
   const code = err.statusCode || 500;
   const stack = DEV ? err.stack : null;
