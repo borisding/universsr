@@ -58,6 +58,7 @@ module.exports = function commonConfig(target, isDev) {
       return [
         {
           test: /\.jsx?$/,
+          exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
