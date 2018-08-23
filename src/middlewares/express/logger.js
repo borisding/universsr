@@ -2,35 +2,34 @@ import fs from 'fs';
 import morgan from 'morgan';
 import { DEV, SYSPATH } from '@config';
 
-const logger = {};
+const logger = {
+  // http access logger for both app and api
+  // we skip anything that is less than status code 400 for `production`
+  http() {
+    if (DEV) return morgan('dev');
 
-// http access logger for both app and api
-// we skip anything that is less than status code 400 for `production`
-logger.http = () => {
-  if (DEV) return morgan('dev');
+    return morgan('combined', {
+      stream: fsStreamWriter('access.log'),
+      skip: (req, res) => res.statusCode < 400
+    });
+  },
+  // exception logger for both app and api
+  // display stack trace in terminal for `development`
+  // or, simply write stack trace into `exception` log file for `production`
+  exception(err) {
+    if (!err.stack) return;
+    if (DEV) return console.error(err.stack);
 
-  return morgan('combined', {
-    stream: fsStreamWriter('access.log'),
-    skip: (req, res) => res.statusCode < 400
-  });
-};
+    const fsStream = fsStreamWriter('exception.log');
 
-// exception logger for both app and api
-// display stack trace in terminal for `development`
-// or, simply write stack trace into `exception` log file for `production`
-logger.exception = err => {
-  if (!err.stack) return;
-  if (DEV) return console.error(err.stack);
+    fsStream.write(new Date().toISOString());
+    fsStream.write('\r\n');
 
-  const fsStream = fsStreamWriter('exception.log');
+    fsStream.write(err.stack);
+    fsStream.write('\r\n');
 
-  fsStream.write(new Date().toISOString());
-  fsStream.write('\r\n');
-
-  fsStream.write(err.stack);
-  fsStream.write('\r\n');
-
-  fsStream.end();
+    fsStream.end();
+  }
 };
 
 const fsStreamWriter = filename => {
