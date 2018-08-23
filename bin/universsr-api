@@ -12,7 +12,7 @@ const serverPort = process.env.API_PORT || config['API_PORT'];
 server.listen(serverPort);
 
 server.on('listening', () => {
-  print.info(`API Server is up! Listening PORT: ${serverPort}`);
+  print.info(`API server is listening PORT: ${serverPort}`);
 });
 
 server.on('error', err => {

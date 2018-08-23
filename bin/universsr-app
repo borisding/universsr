@@ -3,7 +3,7 @@
 import 'make-promises-safe';
 import http from 'http';
 import app from '@app';
-import config from '@config';
+import config, { DEV } from '@config';
 import { print } from '@utils';
 
 const server = http.createServer(app);
@@ -12,7 +12,8 @@ const serverPort = process.env.PORT || config['PORT'];
 server.listen(serverPort);
 
 server.on('listening', () => {
-  print.info(`App Server is up! Listening PORT: ${serverPort}`);
+  print.info(`App server is listening PORT: ${serverPort}`);
+  DEV && print.success(`App is started at: http://localhost:${serverPort}`);
 });
 
 server.on('error', err => {
