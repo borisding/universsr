@@ -1,17 +1,15 @@
 import uuidv4 from 'uuid/v4';
 import init from 'redux-thunk-init';
-import { errorCreator } from '@middlewares/redux';
 import { service } from '@utils';
 import * as types from './types';
 
-// make api request for existing todos and dispatch
+// async/await example of making todo api request with `init` wrapper
+// error will be handled by `redux-thunk-init` addon
 export const fetchTodos = () =>
-  init(dispatch =>
-    service
-      .get('/todos')
-      .then(res => dispatch({ type: types.FETCH_TODO, payload: res.data }))
-      .catch(err => dispatch(errorCreator(err)))
-  );
+  init(async dispatch => {
+    const res = await service.get('/todos');
+    dispatch({ type: types.FETCH_TODO, payload: res.data });
+  });
 
 // pre-fetch todos when there is no populated todos in store
 export const prefetchTodos = () => (dispatch, getState) => {

@@ -5,17 +5,17 @@ export const REQUEST_ERROR = 'REQUEST_ERROR';
 export const REQUEST_INFO = 'REQUEST_INFO';
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 
-export const errorCreator = error => ({
+export const errorActionCreator = error => ({
   type: REQUEST_ERROR,
   payload: error
 });
 
-export const infoCreator = info => ({
+export const infoActionCreator = info => ({
   type: REQUEST_INFO,
   payload: info
 });
 
-export const successCreator = success => ({
+export const successActionCreator = success => ({
   type: REQUEST_SUCCESS,
   payload: success
 });

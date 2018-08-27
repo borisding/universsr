@@ -1,6 +1,6 @@
 export {
   default as serviceAlert,
-  errorCreator,
-  infoCreator,
-  successCreator
+  errorActionCreator,
+  infoActionCreator,
+  successActionCreator
 } from './service-alert';

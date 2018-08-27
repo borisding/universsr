@@ -3,12 +3,17 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 import * as actions from '../actions';
 import * as types from '../types';
-import { REQUEST_ERROR } from '@middlewares/redux/service-alert';
+import {
+  REQUEST_ERROR,
+  errorActionCreator
+} from '@middlewares/redux/service-alert';
 
 const host = 'http://localhost:3000/api/v1';
 const endpoint = '/todos';
 
-const mockStore = configureMockStore([thunk]);
+const mockStore = configureMockStore([
+  thunk.withExtraArgument({ errorActionCreator })
+]);
 
 describe('fetching todos data', () => {
   const response = [{ id: 'todo-id2', todo: 'New Todo', done: false }];
@@ -38,14 +43,13 @@ describe('fetching todos data', () => {
     });
   });
 
-  test('creates `REQUEST_ERROR` when failed to fetch todos', done => {
+  test('creates `REQUEST_ERROR` when failed to fetch todos', async done => {
     fetchMock.replyWithError(errorMessage);
 
-    store.dispatch(actions.fetchTodos()).then(() => {
-      expect(store.getActions()[1].type).toEqual(REQUEST_ERROR);
-      expect(store.getActions()[1].payload.message).toEqual(errorMessage);
-      done();
-    });
+    await store.dispatch(actions.fetchTodos());
+    expect(store.getActions()[1].type).toEqual(REQUEST_ERROR);
+    expect(store.getActions()[1].payload.message).toEqual(errorMessage);
+    done();
   });
 
   test('no action is dispatched if there is populated todos in store', done => {

@@ -1,34 +1,19 @@
-/* eslint no-unused-vars: 0 */
-import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
-import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { DEV, NODE } from '@config';
-import { serviceAlert } from '@middlewares/redux';
-import todos from '@pages/todos/reducers';
-
-const isClient = (state = false, action) => (state = NODE !== true);
-
-const isFetching = (state = false, action) =>
-  (state =
-    action.type === 'INIT_FULFILLED' &&
-    action.meta &&
-    action.meta.isFetching !== false);
-
-export const rootReducer = combineReducers({
-  isClient,
-  isFetching,
-  todos
-});
+import thunk from 'redux-thunk';
+import { DEV } from '@config';
+import { errorActionCreator, serviceAlert } from '@middlewares/redux';
+import rootReducer from './root';
 
 export default function storeFactory(preloadedState = {}) {
-  const middlewares = [thunk, serviceAlert()];
+  const middlewares = [
+    // register global error action creator for `init` wrapper usage
+    thunk.withExtraArgument({ errorActionCreator }),
+    serviceAlert()
+  ];
 
   if (DEV) {
-    middlewares.push(
-      createLogger({
-        duration: true
-      })
-    );
+    middlewares.push(createLogger({ duration: true }));
   }
 
   const store = createStore(
