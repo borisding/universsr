@@ -37,6 +37,7 @@ module.exports = function commonConfig(target, isDev) {
       const plugins = [
         'react-hot-loader/babel',
         'universal-import',
+        '@babel/plugin-transform-strict-mode',
         '@babel/plugin-syntax-dynamic-import',
         '@babel/plugin-proposal-class-properties',
         [
