@@ -1,21 +1,22 @@
-import chalk from 'chalk';
+import colors from 'colors';
 
+// simple print colorful consoles util for universal usage
 const print = {
   error(message, code) {
-    console.error(chalk.red(`${message}\n`));
-    code && process.exit(code);
+    console.error(colors.red(`${message}\n`));
+    code && process && process.exit(code);
   },
   info(message, code) {
-    console.info(chalk.cyanBright(`${message}\n`));
-    code && process.exit(code);
+    console.info(colors.cyan(`${message}\n`));
+    code && process && process.exit(code);
   },
   warn(message, code) {
-    console.warn(chalk.yellow(`${message}\n`));
-    code && process.exit(code);
+    console.warn(colors.yellow(`${message}\n`));
+    code && process && process.exit(code);
   },
   success(message, code) {
-    console.log(chalk.green(`${message}\n`));
-    code && process.exit(code);
+    console.log(colors.green(`${message}\n`));
+    code && process && process.exit(code);
   }
 };
 
