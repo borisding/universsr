@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -23,12 +23,10 @@ class TodosPage extends Component {
 
     return (
       <PageTitle title="Todos">
-        <Fragment>
-          <h3>Todos Demo</h3>
-          <TodoForm addTodo={actions.addTodo} />
-          <hr />
-          <TodoList updateTodo={actions.updateTodo} todos={todos} />
-        </Fragment>
+        <h3>Todos Demo</h3>
+        <TodoForm addTodo={actions.addTodo} />
+        <hr />
+        <TodoList updateTodo={actions.updateTodo} todos={todos} />
       </PageTitle>
     );
   }
