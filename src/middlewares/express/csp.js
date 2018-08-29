@@ -5,7 +5,7 @@ const nonce = () => (req, res, next) => {
   return next();
 };
 
-// helmet nonces ref: https://helmetjs.github.io/docs/csp/
+// @see: https://helmetjs.github.io/docs/csp/
 const mount = helmet =>
   helmet.contentSecurityPolicy({
     directives: {

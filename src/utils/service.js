@@ -65,7 +65,7 @@ export default class Service {
 }
 
 // create default service instance and interceptors
-// interceptors ref: https://github.com/axios/axios#interceptors
+// @see: https://github.com/axios/axios#interceptors
 export const service = Service.create();
 
 service.interceptRequest(
@@ -81,6 +81,7 @@ service.interceptResponse(
     // we may do something here before returning response data
     return res;
   },
-  // may have global response's error dispatcher for redux
+  // we may do something with response error
+  // say, when user authentication failure occured
   err => Promise.reject(err)
 );

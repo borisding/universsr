@@ -31,8 +31,7 @@ module.exports = function commonConfig(target, isDev) {
         '@babel/preset-react'
       ];
 
-      // babel plugins
-      // read more on babel's stage presets blog post:
+      // babel plugins, read more on babel's stage presets blog post:
       // @see: https://babeljs.io/blog/2018/07/27/removing-babels-stage-presets
       const plugins = [
         'react-hot-loader/babel',

@@ -1,7 +1,7 @@
-// https://github.com/expressjs/csurf
 import csurf from 'csurf';
 
 // config for CSRF, (default: cookie)
+// @see: https://github.com/expressjs/csurf
 // usage: app.use(csrf())
 const csrf = () => csurf({ cookie: true });
 
