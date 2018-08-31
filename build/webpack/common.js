@@ -64,6 +64,7 @@ module.exports = function commonConfig(target, isDev) {
             options: {
               babelrc: false,
               compact: false,
+              cacheDirectory: !!isDev,
               presets,
               plugins
             }

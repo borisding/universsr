@@ -5,8 +5,8 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const StatsWebpackPlugin = require('stats-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const { StatsWriterPlugin } = require('webpack-stats-plugin');
 const syspath = require('@config/syspath');
 const webpackCommon = require('./common');
 
@@ -20,6 +20,12 @@ module.exports = {
   context: commonConfig.context,
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
+  // for more about performance hints
+  // @see: https://webpack.js.org/configuration/performance/#performance
+  performance: {
+    maxEntrypointSize: 400000,
+    maxAssetSize: 400000
+  },
   entry: [
     ...(isDev
       ? [
@@ -72,6 +78,7 @@ module.exports = {
     isDev
       ? [new webpack.HotModuleReplacementPlugin()]
       : [
+          new StatsWebpackPlugin('stats.json'),
           new OptimizeCssAssetsPlugin(),
           // moved to public and with minification only
           new HtmlWebpackPlugin({
@@ -85,12 +92,6 @@ module.exports = {
             template: `!!raw-loader!${syspath.resources}/views/500.ejs`,
             filename: `${syspath.public}/500.ejs`,
             minify: { collapseWhitespace: true, removeComments: true }
-          }),
-          new StatsWriterPlugin({
-            fields: null,
-            transform(data) {
-              return JSON.stringify(data);
-            }
           }),
           new OfflinePlugin({
             externals: ['/'],

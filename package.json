@@ -145,6 +145,7 @@
     "redux-mock-store": "^1.5.3",
     "regenerator-runtime": "^0.12.1",
     "sass-loader": "^7.1.0",
+    "stats-webpack-plugin": "^0.7.0",
     "style-loader": "^0.23.0",
     "stylelint": "^9.5.0",
     "stylelint-config-sass-guidelines": "^5.0.0",
@@ -156,8 +157,7 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-middleware": "^3.2.0",
     "webpack-hot-middleware": "^2.22.3",
-    "webpack-hot-server-middleware": "^0.5.0",
-    "webpack-stats-plugin": "^0.2.1"
+    "webpack-hot-server-middleware": "^0.5.0"
   },
   "nodemonConfig": {
     "watch": [
