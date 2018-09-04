@@ -1,13 +1,17 @@
-<h1 align="center">universsr<h1>
-<div align="center">
+<h1 align="center">universsr</h1>
+
+
+<p align="center">
 <a href="https://github.com/borisding/universsr"><img src="https://img.shields.io/github/release/borisding/universsr.svg" alt="Release Version"></a>
 <a href="https://travis-ci.org/borisding/universsr"><img src="https://travis-ci.org/borisding/universsr.svg?branch=master" alt="Travis CI Build"></a>
 <a href="https://david-dm.org/borisding/universsr"><img src="https://david-dm.org/borisding/universsr/status.svg" alt="Dependencies"></a>
 <a href="https://david-dm.org/borisding/universsr?type=dev"><img src="https://david-dm.org/borisding/universsr/dev-status.svg" alt="Dev Dependencies"></a>
 <a href="https://raw.githubusercontent.com/borisding/universsr/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Dev Dependencies"></a>
-</div>
+</p>
 
-## Introduction
+<br/>
+
+## Intro
 
 In short, **universsr** is a server-rendered React app starter boilerplate for universal JavaScript web development.
 It is also using Redux library for application state management and the back-end is powered by Node.js Express web framework.
@@ -17,7 +21,7 @@ It is also using Redux library for application state management and the back-end
 P/S: If you're still new with the concept of Server-Side Rendering (SSR) front-end framework, then [this](https://medium.freecodecamp.org/demystifying-reacts-server-side-render-de335d408fe4) and [this](https://cdb.reacttraining.com/universal-javascript-4761051b7ae9) are worth reading.
 
 
-## Feature Highlights
+## Features
 
 🗸 Server-rendered `react` 16 and powered by `express` framework.<br/>
 🗸 Predictable state management and server-side's initial state with `redux` library.<br/>
@@ -27,7 +31,7 @@ P/S: If you're still new with the concept of Server-Side Rendering (SSR) front-e
 🗸 Webpack’s Hot Module Replacement (HMR) and `react-hot-loader` for both client & server.<br/>
 🗸 Using `react-universal-component` for simultaneous SSR and code splitting.<br/>
 🗸 Enforce convention and avoid errors with code linter and formatter. (`eslint`, `prettier`, `stylelint`)<br/>
-🗸 Enforce security good practices with Express `helmet` and `hpp` middlewares.<br/>
+🗸 Implement security good practices with Express `helmet` and `hpp` middlewares.<br/>
 🗸 Combination of Babel and `webpack` enables writing next generation JavaScript and code optimization.<br/>
 🗸 Using `webpack-bundle-analyzer` to visualize size of webpack output files.<br/>
 🗸 Using `jest` and `enzyme` testing utilities for React components.<br/>
@@ -47,7 +51,7 @@ Before you proceed, please make sure your machine has met the following requirem
 
 Then, clone the git repository into your new project folder and install required dependencies by running the command below:
 
-```
+```bash
 # cloning git repository into `my-project` folder
 git clone --depth=1 https://github.com/borisding/universsr.git my-project
 
@@ -61,7 +65,7 @@ ii) App configuration
 
 Copy example environment variables to `config`:
 
-```
+```bash
 cp resources/config/.env.example resources/config/.env
 ```
 
@@ -69,7 +73,7 @@ cp resources/config/.env.example resources/config/.env
 
 When environment values are changed, we can run the following script to load new changes into `process.env`:
 
-```
+```bash
 npm run config
 ```
 
@@ -79,13 +83,13 @@ iii) Running app
 
 - For **development**:
 
-```
+```bash
 npm run dev
 ```
 
 - For **production**:
 
-```
+```bash
 npm run build # or,
 npm run build:analyze # to analyze built bundles
 
@@ -93,7 +97,7 @@ npm start
 ```
 
 - For **testing**:
-```
+```bash
 # run config script when `config-properties.json` is not available
 npm run config
 
@@ -103,7 +107,7 @@ npm test
 - Both scripts will run config script as mentioned above.
 - Please check `package.json` file for other available scripts.
 
-[👉 READING MORE](https://github.com/borisding/universsr/tree/master/resources/GUIDE.md)
+👉 [READING MORE](https://github.com/borisding/universsr/tree/master/resources/GUIDE.md)
 
 ## Changelog
 All notable changes made to the project will be documented on [release page](https://github.com/borisding/universsr/releases).
@@ -112,4 +116,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## License
 
-MIT
+[MIT](https://raw.githubusercontent.com/borisding/universsr/master/LICENSE)
