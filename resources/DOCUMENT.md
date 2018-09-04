@@ -1,9 +1,21 @@
 ## Folder Structure
 (TODO)
 
-## Project Configuration
+## App Configuration
+- All configuration related should be placed in `config` folder, which is under the `resources` directory.
 
-(TODO)
+- This starter relies on `dotenv` package to load environment variables from `.env` into Node's `process.env`. You should always define new environment variables in `.env`. By default, this starter comes with an example `.env.example` required for the app usage.
+
+- When there are updates in `.env` file, we can run `config` script to load the changes into `process.env`. The NPM script will also generate `config-properties.json` file based on the defined environment variables. So, we should not amend any config properties to the `config-properties.json` directly, which should always be synced with `.env`
+
+- To use the config properties in application, we can import the config entry file (`index.js`), which is cosisted of environment variables, system paths, etc. This is handy and to make sure everything is centralized for the usage of both server and client side.
+
+```js
+import config from '@config';
+```
+
+> You should never commit `.env` file to version control. Please [check out](https://www.npmjs.com/package/dotenv#faq) the FAQ section on `dotenv` page for more details.
+
 
 ## NPM Scripts
 - The following are available scripts in the project to perform respective tasks;

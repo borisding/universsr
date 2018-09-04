@@ -9,7 +9,6 @@
 <a href="https://raw.githubusercontent.com/borisding/universsr/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Dev Dependencies"></a>
 </p>
 
-<br/>
 
 ## Intro
 
@@ -18,25 +17,25 @@ It is also using Redux library for application state management and the back-end
 
 > The name - "universsr" is combination of _universal_ and _SSR_ acronym.
 
-P/S: If you're still new with the concept of Server-Side Rendering (SSR) front-end framework, then [this](https://medium.freecodecamp.org/demystifying-reacts-server-side-render-de335d408fe4) and [this](https://cdb.reacttraining.com/universal-javascript-4761051b7ae9) are worth reading.
+P/S: If you're still new with the concept of Server-Side Rendering (SSR) front-end framework, then [this article](https://medium.freecodecamp.org/demystifying-reacts-server-side-render-de335d408fe4) is worth reading.
 
 
 ## Features
 
-🗸 Server-rendered `react` 16 and powered by `express` framework.<br/>
-🗸 Predictable state management and server-side's initial state with `redux` library.<br/>
-🗸 Static route configuration with `react-router-config`.<br/>
-🗸 Sass as extension of CSS and PostCSS for transforming styles with JS plugins.<br/>
-🗸 Automatic mapping of CSS modules via `babel-plugin-react-css-modules`.<br/>
-🗸 Webpack’s Hot Module Replacement (HMR) and `react-hot-loader` for both client & server.<br/>
-🗸 Using `react-universal-component` for simultaneous SSR and code splitting.<br/>
-🗸 Enforce convention and avoid errors with code linter and formatter. (`eslint`, `prettier`, `stylelint`)<br/>
-🗸 Implement security good practices with Express `helmet` and `hpp` middlewares.<br/>
-🗸 Combination of Babel and `webpack` enables writing next generation JavaScript and code optimization.<br/>
-🗸 Using `webpack-bundle-analyzer` to visualize size of webpack output files.<br/>
-🗸 Using `jest` and `enzyme` testing utilities for React components.<br/>
-🗸 Progressive Web App (PWA) with webpack's `offline-plugin` and SEO ready.<br/>
-🗸 Build API with node `http-proxy` integration.
+-  Server-rendered `react` 16 and powered by `express` framework.
+-  Predictable state management and server-side's initial state with `redux` library.
+-  Static route configuration with `react-router-config`.
+-  Sass as extension of CSS and PostCSS for transforming styles with JS plugins.
+-  Automatic mapping of CSS modules via `babel-plugin-react-css-modules`.
+-  Webpack’s Hot Module Replacement (HMR) and `react-hot-loader` for both client & server.
+-  Using `react-universal-component` for simultaneous SSR and code splitting.
+-  Enforce convention and avoid errors with code linter and formatter. (`eslint`, `prettier`, `stylelint`)
+-  Implement security good practices with Express `helmet` and `hpp` middlewares.
+-  Combination of Babel and `webpack` enables writing next generation JavaScript and code optimization.
+-  Using `webpack-bundle-analyzer` to visualize size of webpack output files.
+-  Using `jest` and `enzyme` testing utilities for React components.
+-  Progressive Web App (PWA) with webpack's `offline-plugin` and SEO ready.
+-  Build API with node `http-proxy` integration.
 
 ## Quick Start
 
@@ -107,7 +106,10 @@ npm test
 - Both scripts will run config script as mentioned above.
 - Please check `package.json` file for other available scripts.
 
-👉 [READING MORE](https://github.com/borisding/universsr/tree/master/resources/GUIDE.md)
+<br/>
+<p align="center">
+👉 <a href="https://github.com/borisding/universsr/tree/master/resources/DOCUMENT.md">CLICK HERE FOR MORE ABOUT THIS STARTER</a> 👈
+</p>
 
 ## Changelog
 All notable changes made to the project will be documented on [release page](https://github.com/borisding/universsr/releases).
