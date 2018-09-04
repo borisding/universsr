@@ -1,48 +1,38 @@
-<h2 align="center">**universsr**</h2>
+<h1 align="center">universsr<h1>
 <div align="center">
-[![Build Status][release]][release-url]
-[![Build Status][builds]][builds-url]
-[![dependencies Status][deps]][deps-url]
-[![devDependencies Status][deps-dev]][deps-dev-url]
-[![MIT licensed][licenses]][licenses-url]
+<a href="https://github.com/borisding/universsr"><img src="https://img.shields.io/github/release/borisding/universsr.svg" alt="Release Version"></a>
+<a href="https://travis-ci.org/borisding/universsr"><img src="https://travis-ci.org/borisding/universsr.svg?branch=master" alt="Travis CI Build"></a>
+<a href="https://david-dm.org/borisding/universsr"><img src="https://david-dm.org/borisding/universsr/status.svg" alt="Dependencies"></a>
+<a href="https://david-dm.org/borisding/universsr?type=dev"><img src="https://david-dm.org/borisding/universsr/dev-status.svg" alt="Dev Dependencies"></a>
+<a href="https://raw.githubusercontent.com/borisding/universsr/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Dev Dependencies"></a>
 </div>
-
-[release]: https://img.shields.io/github/release/borisding/universsr.svg
-[release-url]: https://github.com/borisding/universsr
-[builds]: https://travis-ci.org/borisding/universsr.svg?branch=master
-[builds-url]: https://travis-ci.org/borisding/universsr
-[deps]: https://david-dm.org/borisding/universsr/status.svg
-[deps-url]: https://david-dm.org/borisding/universsr
-[deps-dev]: https://david-dm.org/borisding/universsr/dev-status.svg
-[deps-dev-url]: https://david-dm.org/borisding/universsr?type=dev
-[licenses]: https://img.shields.io/badge/license-MIT-blue.svg
-[licenses-url]: https://raw.githubusercontent.com/borisding/universsr/master/LICENSE
 
 ## Introduction
 
-In short, **universsr** is a server-rendered React app starter for universal JavaScript web development.
+In short, **universsr** is a server-rendered React app starter boilerplate for universal JavaScript web development.
 It is also using Redux library for application state management and the back-end is powered by Node.js Express web framework.
 
 > The name - "universsr" is combination of _universal_ and _SSR_ acronym.
 
 P/S: If you're still new with the concept of Server-Side Rendering (SSR) front-end framework, then [this](https://medium.freecodecamp.org/demystifying-reacts-server-side-render-de335d408fe4) and [this](https://cdb.reacttraining.com/universal-javascript-4761051b7ae9) are worth reading.
 
+
 ## Feature Highlights
 
-- [x] Server-rendered React 16 and powered by Express framework.
-- [x] Predictable state management and server-side's initial state with Redux library.
-- [x] Static route configuration with React Router Config.
-- [x] Sass as extension of CSS and PostCSS for transforming styles with JS plugins.
-- [x] Automatic mapping of CSS modules via React CSS Modules babel plugin.
-- [x] Webpack’s Hot Module Replacement (HMR) and React Hot Reloading for both client & server.
-- [x] React Universal Component for simultaneous SSR and code splitting.
-- [x] Enforce convention and avoid errors with code linter and formatter. (ESLint, Prettier, Stylelint)
-- [x] Enforce security good practices with Express Helmet and HPP middlewares.
-- [x] Combination of Babel and webpack enables writing next generation JavaScript and code optimization.
-- [x] Webpack bundle analyzer to visualize size of webpack output files.
-- [x] Jest and Enzyme testing utilities for React components.
-- [x] Progressive Web App (PWA) with webpack's offline plugin and SEO ready.
-- [x] Build API with node http proxy integration.
+🗸 Server-rendered `react` 16 and powered by `express` framework.<br/>
+🗸 Predictable state management and server-side's initial state with `redux` library.<br/>
+🗸 Static route configuration with `react-router-config`.<br/>
+🗸 Sass as extension of CSS and PostCSS for transforming styles with JS plugins.<br/>
+🗸 Automatic mapping of CSS modules via `babel-plugin-react-css-modules`.<br/>
+🗸 Webpack’s Hot Module Replacement (HMR) and `react-hot-loader` for both client & server.<br/>
+🗸 Using `react-universal-component` for simultaneous SSR and code splitting.<br/>
+🗸 Enforce convention and avoid errors with code linter and formatter. (`eslint`, `prettier`, `stylelint`)<br/>
+🗸 Enforce security good practices with Express `helmet` and `hpp` middlewares.<br/>
+🗸 Combination of Babel and `webpack` enables writing next generation JavaScript and code optimization.<br/>
+🗸 Using `webpack-bundle-analyzer` to visualize size of webpack output files.<br/>
+🗸 Using `jest` and `enzyme` testing utilities for React components.<br/>
+🗸 Progressive Web App (PWA) with webpack's `offline-plugin` and SEO ready.<br/>
+🗸 Build API with node `http-proxy` integration.
 
 ## Quick Start
 
@@ -58,16 +48,16 @@ Before you proceed, please make sure your machine has met the following requirem
 Then, clone the git repository into your new project folder and install required dependencies by running the command below:
 
 ```
-## cloning git repository into `my-project` folder
+# cloning git repository into `my-project` folder
 git clone --depth=1 https://github.com/borisding/universsr.git my-project
 
-## install project dependencies
+# install project dependencies
 cd my-project && npm install
 ```
 
 > Alternatively, you may also use [`universsr-installer`](https://github.com/borisding/universsr-installer) that utilizes GitHub repository for project installation.
 
-ii) Configuration
+ii) App configuration
 
 Copy example environment variables to `config`:
 
@@ -102,20 +92,23 @@ npm run build:analyze # to analyze built bundles
 npm start
 ```
 
+- For **testing**:
+```
+# run config script when `config-properties.json` is not available
+npm run config
+
+npm test
+```
+
 - Both scripts will run config script as mentioned above.
 - Please check `package.json` file for other available scripts.
 
-## Deployment
+[👉 READING MORE](https://github.com/borisding/universsr/tree/master/resources/GUIDE.md)
 
-Deploying to production on [Heroku](https://www.heroku.com/):
+## Changelog
+All notable changes made to the project will be documented on [release page](https://github.com/borisding/universsr/releases).
 
-1.  Remove or comment out `PORT` variable from `.env` file (remember to remove `.env` from `.gitignore`)
-2.  Login with your credentials via command: `heroku login`
-3.  Create your app: `heroku create <your app name>`
-4.  Commit local changes and push to Heroku: `git push heroku master`
-5.  To visit deployed app: `heroku open`
-
-> Node.js now installs `devDependencies` [by default](https://devcenter.heroku.com/changelog-items/1376) on Heroku.
+This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## License
 
