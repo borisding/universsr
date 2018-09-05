@@ -22,7 +22,7 @@
 | `@pages` | The `pages` subdirectory within `app` |
 
 
-- Amendments can be done under `_moduleAliases` in `package.json`. The aliases are used for both webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolve-alias) and `module-alias` package
+- Amendments can be done under `_moduleAliases` in `package.json`. The aliases are used for both webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolve-alias) and `module-alias` package.
 
 ## NPM Scripts
 - The following are available scripts in the project to perform respective tasks;
@@ -35,7 +35,7 @@
 |`build`| Clean previous built files and build production ready files to be served. This will run `config` script as well.|
 |`build:analyze`|Same with `build` script, except it comes with webpack bundle analyzer to visualize size of the output files. |
 |`postinstall`|Run after packages installed - which triggers `build` script in our context. Useful for production deployment, eg: deployment on heroku|
-|`dev:app`|Start running app server in development environment (React changes is monitored by `webpack-hot-server-middleware` on server-side).|
+|`dev:app`|Start running app server in development environment (React changes are monitored by `webpack-hot-server-middleware` on server-side).|
 |`dev:api`|Start running api server in development environment (started with `nodemon` for monitoring api changes).|
 |`dev`|Clean existing built files before running BOTH app and api servers in development environment.|
 |`start:app`|Start running app server in production environment.|
@@ -69,8 +69,35 @@ import config from '@config';
 (TODO)
 
 
-## ESM and Webpack Bundling
-(TODO)
+## Babel, Webpack and ESM Loader
+- This stater is using Babel 7 to transpile ES2015 and beyond syntax. Also, webpack 4 is used for module bundling workflow. All webpack configuration can be found in `webpack` under `build` directory.
+
+- It is not uncommon to have two different bundles for universal app where one for client and another for server:
+
+Client entry:
+```js
+...
+entry: [
+    ...
+    './app/container.js'
+],
+...
+```
+- The app `container.js` is bundled to render DOM on the client side.
+
+Server entry:
+```js
+entry: [
+    ... 
+    './app/renderer.js'
+],
+```
+
+- The main responsibility of `renderer.js` is built for server rendering React element to HTML string and sending it down to the initial request. Besides, the Redux's initial state will be done in this server renderer as well (which will be sent down and assigned to `__UNIVERSSR_PRELOADED_STATE__` global variable for client side hydration).
+
+- The server renderer (which is also Express middleware) will be used in conjunction with `webpack-hot-server-middleware` for ensuring the bundle is with the latest compilation without restarting the server over and over again.
+
+- We are not transpiling all server-side code since Node.js has already [supported](https://node.green/) most of the ES2015 syntax. `esm` package is used for `import` and `export` in those non-transpiled code. This keeps syntax consistent and also spares room for future ES Module transition in Node.
 
 ## Middlewares and Utilities
 (TODO)
