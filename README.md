@@ -3,10 +3,10 @@
 
 <p align="center">
 <a href="https://github.com/borisding/universsr"><img src="https://img.shields.io/github/release/borisding/universsr.svg" alt="Release Version"></a>
+<a href="https://raw.githubusercontent.com/borisding/universsr/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
 <a href="https://travis-ci.org/borisding/universsr"><img src="https://travis-ci.org/borisding/universsr.svg?branch=master" alt="Travis CI Build"></a>
 <a href="https://david-dm.org/borisding/universsr"><img src="https://david-dm.org/borisding/universsr/status.svg" alt="Dependencies"></a>
 <a href="https://david-dm.org/borisding/universsr?type=dev"><img src="https://david-dm.org/borisding/universsr/dev-status.svg" alt="Dev Dependencies"></a>
-<a href="https://raw.githubusercontent.com/borisding/universsr/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Dev Dependencies"></a>
 </p>
 
 
@@ -96,6 +96,7 @@ npm start
 ```
 
 - For **testing**:
+
 ```bash
 # run config script when `config-properties.json` is not available
 npm run config
@@ -103,12 +104,9 @@ npm run config
 npm test
 ```
 
-- Both scripts will run config script as mentioned above.
-- Please check `package.json` file for other available scripts.
-
 <br/>
 <p align="center">
-👉 <a href="https://github.com/borisding/universsr/tree/master/resources/DOCUMENT.md">CLICK HERE FOR MORE ABOUT THIS STARTER</a> 👈
+👉 <a href="https://github.com/borisding/universsr/tree/master/resources/DOCUMENT.md">READ MORE ABOUT THIS STARTER</a> 👈
 </p>
 
 ## Changelog

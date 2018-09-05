@@ -205,7 +205,6 @@
     "@app": "src/app",
     "@common": "src/app/common",
     "@pages": "src/app/pages",
-    "@redux": "src/app/redux",
     "@middlewares": "src/middlewares"
   }
 }
