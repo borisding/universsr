@@ -106,7 +106,7 @@ npm test
 
 <br/>
 <p align="center">
-👉 <a href="https://github.com/borisding/universsr/tree/master/resources/DOCUMENT.md">READ MORE ABOUT THIS STARTER</a> 👈
+👉 <a href="https://github.com/borisding/universsr/tree/master/resources/USERGUIDE.md">READ MORE ABOUT THIS STARTER</a> 👈
 </p>
 
 ## Changelog

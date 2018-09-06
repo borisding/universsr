@@ -50,13 +50,13 @@
 |`test:coverage`|Running test with coverage report output.|
 
 ## App Configuration
-- All configuration related should be placed in `config` folder, which is under the `resources` directory.
+- All configuration related should be placed in `config` folder, which is under the `resources` directory. By default, this starter comes with an example `.env.example` required for the app usage. Please rename the file to `.env` to serve your actual app configuration.
 
-- This starter relies on `dotenv` package to load environment variables from `.env` into Node's `process.env`. You should always define new environment variables in `.env`. By default, this starter comes with an example `.env.example` required for the app usage.
+- This starter relies on `dotenv` package to load environment variables from `.env` into Node's `process.env`. You should always define new environment variables in `.env`.
 
-- When there are updates in `.env` file, we can run `config` script to load the changes into `process.env`. The NPM script will also generate `config-properties.json` file based on the defined environment variables. So, we should not amend any config properties to the `config-properties.json` directly, which should always be synced with `.env`
+- When there are changes in `.env` file, we can run `config` script to load the changes into `process.env`. The NPM script will also generate `config-properties.json` file based on the defined environment variables. We should not amend directly any of the config properties, which should always be synced with `.env`
 
-- To use the config properties in application, we can import the config entry file (`index.js`), which is cosisted of environment variables, system paths, etc. This is handy and to make sure everything is centralized for the usage of both server and client side.
+- To use the config properties in application, we can import the config `index.js` entry, which is cosisted of "exported" environment variables, system paths, etc. This is handy and to make sure everything is centralized for the usage of both server and client side.
 
 ```js
 import config from '@config';
@@ -65,9 +65,80 @@ import config from '@config';
 > You should never commit `.env` file to version control. Please [check out](https://www.npmjs.com/package/dotenv#faq) the FAQ section on `dotenv` page for more details.
 
 
-## Styles and CSS Modules
-(TODO)
+## CSS, SCSS and CSS Modules
+There are two main types of config for styles to work in this starter. Both are using [PostCSS](https://github.com/postcss/postcss) for post-processing CSS via JS plugins:
 
+**Global CSS/SCSS**
+
+- By default, the config of global styles rule `globalStylesRule` in `./build/webpack/common.js` recognizes `global.css` or `global.scss` file, which supposed to use CSS `@import` for external CSS stylesheets. (eg: [Bootstrap](https://getbootstrap.com/) or [Bulma](https://bulma.io/) CSS).
+
+- Once we have global stylesheet ready, we can import it in the root component, which is `Layout` component in our context. The following is an example of using Bulma CSS framework for global usage:
+
+a) Install Bulma package
+```js
+npm install bulma
+```
+
+b) CSS `@import` Bulma CSS in `global.css`
+```css
+@import '~bulma/css/bulma.css';
+```
+> `~ ` above refers to the `node_modules` of current project.
+
+c) Import `global.css` in `Layout` root component
+```js
+...
+import '@common/styles/global.css';
+...
+```
+d) Lastly, apply Bulma styles in React component. For instance, the message component
+```js
+<article className="message">
+    <div className="message-header">
+        <p>Hello World</p>
+        <button className="delete" aria-label="delete" />
+    </div>
+    <div className="message-body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta
+        nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida
+        purus diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac
+        <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et
+        sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna
+        a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+    </div>
+</article>
+```
+> If you are using Bulma, can consider [Bloomer](https://bloomer.js.org/) - a set of React components for Bulma.
+
+> If you got `@import is non-standard behaviour` warning message in `global.scss` when using `@import` in SCSS file, please read on the [discussion](https://github.com/sass/node-sass/issues/2362) here (TL;DR).
+
+
+**CSS Modules**
+- This starter also enables [CSS Modules](https://github.com/css-modules/css-modules) implementation apart from allowing to use global CSS as mentioned. It utilizes `babel-plugin-react-css-modules` instead of `react-css-modules` hook to transform `styleName` to `className` using compile time.
+
+- This allows us to distinguish the usage in between global CSS and CSS Modules, as well as better performance via babel plugin. Please check out [more details here](https://github.com/gajus/babel-plugin-react-css-modules)  on how it works and the differences.
+
+- The config of CSS Modules rule `cssModulesRule` can be found in `./build/webpack/common.js`.
+
+- It's straightforward to apply CSS Modules:
+
+a) Define your CSS selector
+```css
+.my-selector {
+    /* your CSS properties here */
+}
+```
+
+b) Assign CSS selector to `styleName` attribute in React component
+```js
+// assumed you have already imported stylesheet in component
+
+...
+<div styleName="my-selector">Just an example</div>
+...
+```
+You may check out the current TODO demo in this starter on the usage.
 
 ## Babel, Webpack and ESM Loader
 - This stater is using Babel 7 to transpile ES2015 and beyond syntax. Also, webpack 4 is used for module bundling workflow. All webpack configuration can be found in `webpack` under `build` directory.
