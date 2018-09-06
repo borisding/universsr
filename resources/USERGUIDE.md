@@ -1,5 +1,52 @@
 ## Folder Structure
-(TODO)
+Below is a tree view of project folder structure in this starter, along with the short descriptions:
+
+```
+|-- 
+    |-- .babelrc                   # default babel configuration object
+    |-- .eslintrc                  # eslint configuration object
+    |-- .stylelintrc               # stylelint configuration object
+    |-- api.js                     # api entry
+    |-- app.js                     # app entry
+    |-- esm.js                     # ESM loader and module alias hook
+        ...                            
+    |-- bin                        # node server files of app/api
+    |-- build                      # parent directory of scripts/webpack
+    |   |-- scripts                # build scripts for tooling purposes
+    |   |-- webpack                # webpack config for both client & server
+    |-- resources                  # parent directory of resources (config/views/logs, etc)
+    |   |-- assets                 # parent directory of all assets
+    |   |   |-- manifest.json      # manifest JSON file for web app
+    |   |   |-- icons              # source files of icon
+    |   |   |-- images             # source files of image
+    |   |-- config                 # app level configuration (.env/syspath, etc)
+    |   |-- fixtures               # fixture data for development
+    |   |-- logs                   # log files of the app
+    |   |-- mocks                  # file & style mocks for jest
+    |   |-- views                  # source files of view template
+    |-- src                        # parent directory of both api & app source code
+        |-- api                    # parent directory of api source code
+        |   |-- routers            # respective Express routes for API
+        |-- app                    # parent directory of app source code
+        |   |-- container.js       # app container as webpack's client entry
+        |   |-- index.js           # app server index entry file
+        |   |-- offline.js         # offline plugin registration
+        |   |-- renderer.js        # server renderer for app string & initial state
+        |   |-- root.js            # root reducer creation for the app
+        |   |-- routes.js          # static React routes configuration
+        |   |-- store.js           # redux middleware registration & store factory
+        |   |-- common             # reusable React components & styles
+        |   |   |-- components     # reusable React components for common usage
+        |   |   |-- styles         # reusable CSS/SCSS for the app
+        |   |-- pages              # page components based on "modules"
+        |       |-- base           # base components for page layout (root component/styles/tests, etc)
+        |       |-- home           # `Home` page related (components/reducers/styles/tests, etc)
+        |       |-- todos          # `Todos` demo page related (components/reducers/styles/tests, etc)
+        |-- middlewares            # all middlewares used for the app
+        |   |-- express            # middlewares for Express framework
+        |   |-- redux              # middlewares for Redux library
+        |-- utils                  # utilities used for both client & server
+```
 
 ## Aliases for Modules
 - There are some aliases in this starter can be used to `import` or `require` targeted modules instead of using relative paths.
