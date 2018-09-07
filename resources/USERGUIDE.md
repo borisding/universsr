@@ -1,5 +1,5 @@
-## Folder Structure
-Below is a tree view of project folder structure in this starter, along with the short descriptions:
+## Directory Structure
+- Below is a tree view of project folder structure in this starter, along with the short descriptions:
 
 ```
 |-- 
@@ -14,6 +14,7 @@ Below is a tree view of project folder structure in this starter, along with the
     |-- build                      # parent directory of scripts/webpack
     |   |-- scripts                # build scripts for tooling purposes
     |   |-- webpack                # webpack config for both client & server
+    |-- public                     # production built assets (icons/images/views, etc) 
     |-- resources                  # parent directory of resources (config/views/logs, etc)
     |   |-- assets                 # parent directory of all assets
     |   |   |-- manifest.json      # manifest JSON file for web app
@@ -31,6 +32,7 @@ Below is a tree view of project folder structure in this starter, along with the
         |   |-- container.js       # app container as webpack's client entry
         |   |-- index.js           # app server index entry file
         |   |-- offline.js         # offline plugin registration
+        |   |-- renderer-built.js  # built from `renderer.js` source for production
         |   |-- renderer.js        # server renderer for app string & initial state
         |   |-- root.js            # root reducer creation for the app
         |   |-- routes.js          # static React routes configuration
@@ -96,8 +98,8 @@ Below is a tree view of project folder structure in this starter, along with the
 |`test:watch`|Running test with watch mode turned on.|
 |`test:coverage`|Running test with coverage report output.|
 
-## App Configuration
-- All configuration related should be placed in `config` folder, which is under the `resources` directory. By default, this starter comes with an example `.env.example` required for the app usage. Please rename the file to `.env` to serve your actual app configuration.
+## Project Configuration
+- Project configuration should be placed in `config` folder, which is under the `resources` directory. By default, this starter comes with an example `.env.example` required for the app usage. Please rename the file to `.env` to serve your actual app configuration.
 
 - This starter relies on `dotenv` package to load environment variables from `.env` into Node's `process.env`. You should always define new environment variables in `.env`.
 
@@ -113,7 +115,7 @@ import config from '@config';
 
 
 ## CSS, SCSS and CSS Modules
-There are two main types of config for styles to work in this starter. Both are using [PostCSS](https://github.com/postcss/postcss) for post-processing CSS via JS plugins:
+- There are two main types of config for styles to work in this starter. Both are using [PostCSS](https://github.com/postcss/postcss) for post-processing CSS via JS plugins:
 
 **Global CSS/SCSS**
 
@@ -185,7 +187,7 @@ b) Assign CSS selector to `styleName` attribute in React component
 <div styleName="my-selector">Just an example</div>
 ...
 ```
-You may check out the current TODO demo in this starter on the usage.
+- You may check out the current TODO demo in this starter on the usage.
 
 ## Babel, Webpack and ESM Loader
 - This stater is using Babel 7 to transpile ES2015 and beyond syntax. Also, webpack 4 is used for module bundling workflow. All webpack configuration can be found in `webpack` under `build` directory.
@@ -217,8 +219,145 @@ entry: [
 
 - We are not transpiling all server-side code since Node.js has already [supported](https://node.green/) most of the ES2015 syntax. `esm` package is used for `import` and `export` in those non-transpiled code. This keeps syntax consistent and also spares room for future ES Module transition in Node.
 
-## Middlewares and Utilities
-(TODO)
+## Express & Redux Middlewares
+- There are two categories of middleware in this starter:
+
+**Express Middlewares**
+
+- Several custom Express middlewares are provided and located in `./src/middlewares/express` directory. Middlewares are being shared between app and api. The usage and description are as follows:
+
+> How to use Express middleware, please check out [Using Middleware](https://expressjs.com/en/guide/using-middleware.html) documentation.
+
+a) `csp.js` - A wrapper of Helmet's Content Security Policy [(CSP) middleware](https://helmetjs.github.io/docs/csp/).
+
+```js
+// mount by invoking `nonce` method to generate nonce token for csp
+app.use(csp.nonce());
+
+// then followed by `mount` method by passing `helmet` to it
+app.use(csp.mount(helmet));
+```
+
+b) `csrf.js` - A wrapper of [`csurf` middleware](https://github.com/expressjs/csurf) for Cross-Site Request Forgery (CSRF) prevention.
+
+```js
+// mount csrf, default to using cookie for storing
+app.use(csrf(/* can provide options here */));
+
+// make `csrfToken` accessible in view templates
+app.use(csrf.toLocal())
+```
+
+c) `error-handler.js` - A custom middleware for handling thrown exception errors in both development and production environments.
+```js
+// mount the middleware last
+app.use(errorHandler());
+
+// JSON format will be returned when `req.xhr` is available  
+// or, `json` property with `true` value is passed as option
+app.use(errorHandler({ json: true }));
+```
+
+d) `logger.js` - A small custom logger which utilizes `morgan` middleware for http request logging and `fs.createWriteStream` for writing exception logs, respectively.
+
+```js
+// logs all http requests in development
+// skip any status code lesser than 400 in production
+app.use(logger.http());
+
+// logs thrown exception errors
+// used in `error-handler.js` middleware
+logger.exception(err);
+```
+
+e) `proxy.js` - A wrapper of [`node-http-proxy`](https://github.com/nodejitsu/node-http-proxy) for the app. 
+
+```js
+// mount the `proxy.proxyWeb` at the API path as middleware function
+// any requests made to `/api/v1` will be proxied
+app.use('/api/v1', proxy.proxyWeb);
+```
+**Redux Middlewares**
+
+- By default, this starter comes with a custom Redux middleware - `service-alert.js` which resides in `./src/middlewares/redux` directory.
+
+- `service-alert.js` is used in conjunction with `react-s-alert` package for alerting info/warning/success messages in application, based on the dispatched action types.
+
+- Apart from the middleware itself, it's also exporting 3 action creators (`errorActionCreator`/`infoActionCreator`/`successActionCreator`) for creating alert action to be dispatched based on the context.
+
+- Example of using middleware:
+```js
+import { serviceAlert } from '@middlewares/redux';
+
+// mount the redux's service alert middleware
+const middlewares = [serviceAlert, nextMiddleware, anotherMiddleware];
+const store = createStore(applyMiddleware(...middlewares));
+```
+
+- Example of using action creator of `service-alert.js` in `fetch`:
+
+```js
+...
+import { errorActionCreator } from '@middlewares/redux';
+
+function myAsyncAction() {
+    return dispatch => {
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            // data fetched and given in json format
+            // process and dispatch for success action
+        })
+        .catch(err => {
+            // we dispatch error action by passing `err` to `errorActionCreator`
+            // this will alert the error message once 
+            // the error action is dispatched and 
+            // fulfilled in the service alert middleware
+            dispatch(errorActionCreator(err));
+        });
+    };
+}
+...
+```
+
+
+## App Utilities
+- This starter provides `print.js` and `service.js` utils that are placed in `./src/utils` directory for the usage of both client & server side.
+
+- `print.js` is a simple util for console logging message with color, based on the log types. eg:
+
+-  `print.[error|info|warn|success](message, code)`, example:
+```js
+import { print } from '@utils';
+
+// on client side (the browser)
+print.error('This is error on client side.');
+
+// on server side (the node)
+// which will print error message 
+// and exit the process with provided error code
+print.error('This is error on server side and exit with error code', -1);
+```
+
+- `service.js` is a class wrapper for [`axios`](https://github.com/axios/axios) library, which is responsible for universal http client, example:
+
+```js
+...
+import { ServiceClass, service } from '@utils';
+
+// http request based on the http verbs
+service.get(url, config);
+service.post(url, config);
+service.put(url, config);
+service.delete(url, config);
+
+// create new service instance
+const newService = ServiceClass.create({/* provide axios config here */});
+
+// service request/response interceptors
+newService.interceptRequest(resolve, reject);
+newService.interceptResponse(resolve, reject);
+```
 
 ## Deployment
 
