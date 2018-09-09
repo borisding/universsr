@@ -1,6 +1,6 @@
-<h1 align="center">universsr</h1>
+<h1>universsr</h1>
 
-<p align="center">
+<p>
 <a href="https://github.com/borisding/universsr"><img src="https://img.shields.io/github/release/borisding/universsr.svg" alt="Release Version"></a>
 <a href="https://raw.githubusercontent.com/borisding/universsr/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
 <a href="https://travis-ci.org/borisding/universsr"><img src="https://travis-ci.org/borisding/universsr.svg?branch=master" alt="Travis CI Build"></a>
@@ -8,9 +8,15 @@
 <a href="https://david-dm.org/borisding/universsr?type=dev"><img src="https://david-dm.org/borisding/universsr/dev-status.svg" alt="Dev Dependencies"></a>
 </p>
 
+In short, **universsr** is a server-rendered React app starter boilerplate for universal JavaScript web development.
+It is also using Redux library for application state management and the back-end is powered by Node.js Express web framework.
+
+> The name - "universsr" is combination of _universal_ and _SSR_ acronym.
+
+P/S: If you're still new with the concept of Server-Side Rendering (SSR) front-end framework, then [this article](https://medium.freecodecamp.org/demystifying-reacts-server-side-render-de335d408fe4) is worth reading.
+
 ## Table of Contents
 
-- [About](#about)
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Directory Structure](#directory-structure)
@@ -26,17 +32,6 @@
 - [Deployment](#deployment)
 - [Changelog](#changelog)
 - [License](#license)
-
-## About
-
-In short, **universsr** is a server-rendered React app starter boilerplate for universal JavaScript web development.
-It is also using Redux library for application state management and the back-end is powered by Node.js Express web framework.
-
-> The name - "universsr" is combination of _universal_ and _SSR_ acronym.
-
-P/S: If you're still new with the concept of Server-Side Rendering (SSR) front-end framework, then [this article](https://medium.freecodecamp.org/demystifying-reacts-server-side-render-de335d408fe4) is worth reading.
-
-**[Back to top](#table-of-contents)**
 
 ## Features
 
