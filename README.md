@@ -16,11 +16,11 @@
 - [Directory Structure](#directory-structure)
 - [Aliases for Modules](#aliases-for-modules)
 - [NPM Scripts](#npm-scripts)
-- [Project Configuration & Utilities](#project-configuration-&-utilities)
-- [App & API Routes](#app-&-api-routes)
+- [Project Configuration and Utilities](#project-configuration-and-utilities)
+- [App and API Routes](#app-and-api-routes)
 - [CSS, SCSS and CSS Modules](#css-scss-and-css-modules)
 - [Babel, Webpack and ESM Loader](#babel-webpack-and-esm-loader)
-- [Express & Redux Middlewares](#express-&-redux-middlewares)
+- [Express and Redux Middlewares](#express-and-redux-middlewares)
 - [Lint Checks and Formatting](#lint-checks-and-formatting)
 - [Unit Testing](#unit-testing)
 - [Deployment](#deployment)
@@ -234,7 +234,7 @@ npm test
 
 **[Back to top](#table-of-contents)**
 
-## Project Configuration & Utilities
+## Project Configuration and Utilities
 
 **Configuration**
 
@@ -294,7 +294,7 @@ newService.interceptResponse(resolve, reject);
 
 **[Back to top](#table-of-contents)**
 
-## App & API Routes
+## App and API Routes
 
 - React routes can be found and defined in `.src/app/routes.js`, which is static route configuration helper provided by [`react-router-config`](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config) package to work for React Router.
 
@@ -440,7 +440,7 @@ entry: [
 
 **[Back to top](#table-of-contents)**
 
-## Express & Redux Middlewares
+## Express and Redux Middlewares
 
 - There are two categories of middleware in this starter:
 
