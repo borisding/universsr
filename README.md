@@ -599,6 +599,8 @@ if (module.hot) {
 
 - Since HMR is assuring the latest bundle on client side, we also adopt `webpack-hot-server-middleware` to assure bundle changes also get reflected on the fly for server-side, without requiring a server restart.
 
+- Besides JavaScript, this starter also uses [`extract-css-chunks-webpack-plugin`](https://github.com/faceyspacey/extract-css-chunks-webpack-plugin) in order to achieve HMR for changes made in CSS files/chunks, without going through full page reloading.
+
 **[Back to top](#table-of-contents)**
 
 ## Lint Checks and Formatting
