@@ -27,6 +27,8 @@ P/S: If you're still new with the concept of Server-Side Rendering (SSR) front-e
 - [CSS, SCSS and CSS Modules](#css-scss-and-css-modules)
 - [Babel, Webpack and ESM Loader](#babel-webpack-and-esm-loader)
 - [Express and Redux Middlewares](#express-and-redux-middlewares)
+- [State Management with Redux](#state-management-with-redux)
+- [Nodemon, HMR and React Hot Reloading](#nodemon-hmr-and-react-hot-reloading)
 - [Lint Checks and Formatting](#lint-checks-and-formatting)
 - [Unit Testing](#unit-testing)
 - [Deployment](#deployment)
@@ -37,7 +39,7 @@ P/S: If you're still new with the concept of Server-Side Rendering (SSR) front-e
 
 - Server-rendered `react` 16 and powered by `express` framework.
 - Predictable state management and server-side's initial state with `redux` library.
-- Static route configuration with `react-router-config`.
+- Static route configuration with `react-router-config` for React Router.
 - Sass as extension of CSS and PostCSS for transforming styles with JS plugins.
 - Automatic mapping of CSS modules via `babel-plugin-react-css-modules`.
 - Webpack’s Hot Module Replacement (HMR) and `react-hot-loader` for both client & server.
@@ -46,9 +48,9 @@ P/S: If you're still new with the concept of Server-Side Rendering (SSR) front-e
 - Implement security good practices with Express `helmet` and `hpp` middlewares.
 - Combination of Babel and `webpack` enables writing next generation JavaScript and code optimization.
 - Using `webpack-bundle-analyzer` to visualize size of webpack output files.
-- Using `jest` and `enzyme` testing utilities for React components.
+- Delightful testing with `jest` framework and `enzyme` testing utilities for React components.
 - Progressive Web App (PWA) with webpack's `offline-plugin` and SEO ready.
-- Build API with node `http-proxy` integration.
+- Build API with Node `http-proxy` integration.
 
 **[Back to top](#table-of-contents)**
 
@@ -91,7 +93,7 @@ When environment values are changed, we can run the following script to load new
 npm run config
 ```
 
-After script is executed, it will also create `config-properties.json` for universal configuration usage in application, which is exported in config's `index.js`
+After script is executed, it will also create `config-properties.json` for universal configuration usage in application.
 
 iii) Running app
 
@@ -123,7 +125,7 @@ npm test
 
 ## Directory Structure
 
-- Below is a tree view of project folder structure in this starter, along with the short descriptions:
+- Below is a tree view of project folder structure in this starter along with the short descriptions, respectively:
 
 ```
 |--
@@ -134,7 +136,7 @@ npm test
     |-- app.js                     # app entry
     |-- esm.js                     # ESM loader and module alias hook
         ...
-    |-- bin                        # node server files of app/api
+    |-- bin                        # node server files of app and api
     |-- build                      # parent directory of scripts/webpack
     |   |-- scripts                # build scripts for tooling purposes
     |   |-- webpack                # webpack config for both client & server
@@ -174,6 +176,8 @@ npm test
         |-- utils                  # utilities used for both client & server
 ```
 
+- This project structure is organized by having feature-first approach in mind. Thus, for any new features (the page), try to keep it as feature-based folder in `./src/app/pages`. Things in common such as common styles or components can be kept in `./src/app/common` directory.
+
 **[Back to top](#table-of-contents)**
 
 ## Aliases for Modules
@@ -186,7 +190,7 @@ npm test
 | `@root`        | The project's root directory                 |
 | `@bin`         | The project's `bin` directory                |
 | `@build`       | The project's `build` directory              |
-| `@public`      | The project's `public` directory             |
+| `@public`      | The project's built `public` directory in production|
 | `@resources`   | The project's `resources` directory          |
 | `@assets`      | The `assets` subdirectory within `resources` |
 | `@config`      | The `config` subdirectory within `resources` |
@@ -197,7 +201,7 @@ npm test
 | `@common`      | The `common` subdirectory within `app`       |
 | `@pages`       | The `pages` subdirectory within `app`        |
 
-- Amendments can be done under `_moduleAliases` in `package.json`. The aliases are used for both webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolve-alias) and `module-alias` package.
+- Changes can be made under `_moduleAliases` property in `package.json`. The aliases are used for both webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolve-alias) and `module-alias` package.
 
 **[Back to top](#table-of-contents)**
 
@@ -233,13 +237,13 @@ npm test
 
 **Configuration**
 
-- Project configuration should be placed in `config` folder, which is under the `resources` directory. By default, this starter comes with an example `.env.example` required for the app usage. Please rename the file to `.env` to serve your actual app configuration.
+- Project configuration should be placed in `./resources/config` directory. By default, this starter comes with an example `.env.example` required for the app usage. Please rename the file to `.env` to serve your actual app configuration.
 
 - This starter relies on `dotenv` package to load environment variables from `.env` into Node's `process.env`. You should always define new environment variables in `.env`.
 
-- When there are changes in `.env` file, we can run `config` script to load the changes into `process.env`. The NPM script will also generate `config-properties.json` file based on the defined environment variables. We should not amend directly any of the config properties, which should always be synced with `.env`
+- When there are changes in `.env` file, we can run `config` script to load changes into `process.env`. The NPM script will also generate `config-properties.json` based on the defined environment variables. We should not amend directly any of the config properties, which supposed be synced with `.env`
 
-- To use the config properties in application, we can import the config `index.js` entry, which is cosisted of "exported" environment variables, system paths, etc. This is handy and to make sure everything is centralized for the usage of both server and client side.
+- To use the config properties, we can import the config's `index.js`, which is cosisted of "exported" environment variables, system paths, etc. This is handy and to make sure everything is centralized for the usage of both server and client side.
 
 ```js
 import config from "@config";
@@ -296,6 +300,8 @@ newService.interceptResponse(resolve, reject);
 - You will find out [`react-universal-component`](https://github.com/faceyspacey/react-universal-component) is also being used in page routes for code splitting purpose. For instance, the `todos` demo as use case in this starter.
 
 ```js
+// in `routes.js`
+
 ...
 {
     path: '/todos',
@@ -308,6 +314,28 @@ newService.interceptResponse(resolve, reject);
 ```
 
 - `loadData` property in route is action function, (could be in array for multiple actions) which will be used for preloading initial data on server-side when particular route is matched and fulfilled. `menu` is just another property to serve menu's label or name.
+
+```js
+// in `renderer.js`
+
+...
+const branch = matchRoutes(routes, url);
+const promises = branch.map(({ route, match }) => {
+    const { loadData } = route;
+    const { dispatch } = store;
+
+    if (match && match.isExact && loadData) {
+    return Array.isArray(loadData)
+        ? Promise.all(loadData.map(action => dispatch(action(match))))
+        : dispatch(loadData(match));
+    }
+
+    return Promise.resolve(null);
+});
+
+return Promise.all(promises);
+...
+```
 
 - For API, we define modular routes by using `express.Router` class and keep it as individual file in `./src/api/routers` directory. Please refer to `todos.js` as example.
 
@@ -329,7 +357,7 @@ a) Install Bulma package
 npm install bulma
 ```
 
-b) CSS `@import` Bulma CSS in `global.css`
+b) `@import` Bulma CSS in `global.css`
 
 ```css
 @import "~bulma/css/bulma.css";
@@ -350,15 +378,11 @@ d) Lastly, apply Bulma styles in React component. For instance, the message comp
 ```js
 <article className="message">
   <div className="message-header">
-    <p>Hello World</p>
+    <p>Hello!</p>
     <button className="delete" aria-label="delete" />
   </div>
   <div className="message-body">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla.
-    Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac
-    <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula,
-    id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+    Thanks for using universsr starter boilerplate.
   </div>
 </article>
 ```
@@ -402,6 +426,8 @@ b) Assign CSS selector to `styleName` attribute in React component
 ## Babel, Webpack and ESM Loader
 
 - This stater is using Babel 7 to transpile ES2015 and beyond syntax. Also, webpack 4 is used for module bundling workflow. All webpack configuration can be found in `./build/webpack`.
+
+> Please note that stage presets (@babel/preset-stage-0, etc) [have been removed](https://babeljs.io/blog/2018/07/27/removing-babels-stage-presets) in Babel 7. Be sure new babel plugins are only installed based on your needs, if any.
 
 - It is not uncommon to have two different bundles for universal app where one for client and another for server:
 
@@ -471,7 +497,7 @@ c) `error-handler.js` - A custom middleware for handling thrown exception errors
 // mount the middleware last
 app.use(errorHandler());
 
-// JSON format will be returned when `req.xhr` is available
+// JSON format will be returned when `req.xhr` is detected
 // or, `json` property with `true` value is passed as option
 app.use(errorHandler({ json: true }));
 ```
@@ -510,7 +536,7 @@ app.use("/api/v1", proxy.proxyWeb);
 import { serviceAlert } from "@middlewares/redux";
 
 // mount the redux's service alert middleware
-const middlewares = [serviceAlert, nextMiddleware, anotherMiddleware];
+const middlewares = [serviceAlert, nextMiddleware];
 const store = createStore(applyMiddleware(...middlewares));
 ```
 
@@ -542,11 +568,44 @@ function myAsyncAction() {
 
 **[Back to top](#table-of-contents)**
 
+## State Management with Redux
+- Since this starter adheres feature-first architecture, we keep the redux related, such as `actions.js`/`reducers.js`/`types.js` within feature directory that resides in `./src/app/pages`. You are free to tweak and move around those files within the folder. [`Re-ducks`](https://github.com/alexnm/re-ducks) modular approach may interest you.
+
+- Besides, this starter also comes with [`redux-thunk`](https://github.com/reduxjs/redux-thunk) and [`redux-thunk-init`](https://github.com/borisding/redux-thunk-init) (optional)  packages for handling asynchronous dispatch. The latter is basically a wrapper of redux-thunk to handle initial dispatch before subsequent dispatches, upon your creativity.
+
+
+- By default, we decide initial fetch - `isFetching` property in state based on the `INIT_FULFILLED` action and `meta` object, without using typical `BEGIN/SUCCESS/FAILURE` actions approach. If you are not comfortable with that, feel free to fallback by using typical triplet actions as mentioned without using the wrapper.
+
+- Redux's middleware registration and store creation can be found in `./src/app/store.js`. The app's state object is produced in `./src/app/root.js` via the `combineReducers` helper function.
+
+**[Back to top](#table-of-contents)**
+
+## Nodemon, HMR and React Hot Reloading
+- When developing Node application, we usually need to restart server whenever changes are made to files. This starter uses [Nodemon](https://github.com/remy/nodemon) to auto-restart API server by watching over the file changes made in the detected directory.
+
+- For React app, `webpack-dev-middleware` - the express-style middleware and `webpack-hot-middleware` are used to work with webpack in order to achieve hot module replacement in development environment. Most of the time, we have state in components that need to be retained, so `react-hot-loader` is also used to assure state is carried over when module get updated without losing it.
+
+```js
+// in `container.js`
+...
+if (module.hot) {
+  module.hot.accept('./routes', () => {
+    const nextAppRoutes = require('./routes').default;
+    render(nextAppRoutes);
+  });
+}
+...
+```
+
+- Since HMR is assuring the latest bundle on client side, we also adopt `webpack-hot-server-middleware` to assure bundle changes also get reflected on the fly for server-side, without requiring a server restart.
+
+**[Back to top](#table-of-contents)**
+
 ## Lint Checks and Formatting
 
 - As you may have expected, this starter is using [ESLint](https://eslint.org/) for JavaScript and React components lint checks, as well as using [stylelint](https://stylelint.io/) to enforce conventions in SCSS based on configured rules.
 
-- By default, there are several rules have already been defined in `.eslintrc`. Feel free to add or remove any new rules based on your project's context. For styles, you may define rules in `.stylelintrc`, which is extending `stylelint-config-sass-guidelines`, by default.
+- There are several rules have already been defined in `.eslintrc`. Feel free to add or remove any rules based on your project's context. For styles, you may define rules in `.stylelintrc`, which is extending `stylelint-config-sass-guidelines`, by default.
 
 - Besides, this starter is also using ESLint plugins to work with [Prettier](https://prettier.io/) for opinionated code styles and formatting.
 
@@ -554,9 +613,9 @@ function myAsyncAction() {
 
 ## Unit Testing
 
-- By default, this starter comes with [Jest](https://jestjs.io/) JavaScript testing framework and [Enzyme](http://airbnb.io/enzyme/) testing utility for React.
+- This starter comes with [Jest](https://jestjs.io/) JavaScript testing framework and [Enzyme](http://airbnb.io/enzyme/) testing utility for React components.
 
-- This starter is designed to encourage developer to create each `tests` folder along with modules (pages). Jest will look up respective `tests` directories which has test files end in either `.spec.jsx?` or `.test.jsx?`. (Please check out `jest` section in `package.json` for configuration.)
+- We keep each `tests` folders along with its own page to align with feature-first project structure. Jest will look up respective `tests` directories which has test files end in either `.spec.jsx?` or `.test.jsx?` for execution. (Please check out `jest` section in `package.json` for configuration.)
 
 - Please read on [NPM scripts](#npm-scripts) section to learn more about running test scripts.
 
@@ -564,7 +623,7 @@ function myAsyncAction() {
 
 ## Deployment
 
-Deploying to production on [Heroku](https://www.heroku.com/):
+The following are steps to deploy app to production on [Heroku](https://www.heroku.com/):
 
 1.  Remove or comment out `PORT` variable from `.env` file (remember to remove `.env` from `.gitignore`)
 2.  Login with your credentials via command: `heroku login`
