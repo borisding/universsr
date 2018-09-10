@@ -10,7 +10,7 @@ const app = express();
 app
   .set('etag', !DEV)
   .set('view engine', 'ejs')
-  .set('views', [SYSPATH['public'], `${SYSPATH['resources']}/views`])
+  .set('views', [`${SYSPATH['public']}/views`, `${SYSPATH['resources']}/views`])
   .use(logger.http())
   .use(helmet())
   .use(csp.nonce())

@@ -84,13 +84,13 @@ module.exports = {
           new HtmlWebpackPlugin({
             inject: false,
             template: `!!raw-loader!${syspath.resources}/views/index.ejs`,
-            filename: `${syspath.public}/index.ejs`,
+            filename: `${syspath.public}/views/index.ejs`,
             minify: { collapseWhitespace: true, removeComments: true }
           }),
           new HtmlWebpackPlugin({
             inject: false,
             template: `!!raw-loader!${syspath.resources}/views/500.ejs`,
-            filename: `${syspath.public}/500.ejs`,
+            filename: `${syspath.public}/views/500.ejs`,
             minify: { collapseWhitespace: true, removeComments: true }
           }),
           new OfflinePlugin({
