@@ -17,7 +17,6 @@ const Layout = props => {
 
 export default withRouter(
   connect(state => ({
-    isClient: state.isClient,
-    isFetching: state.isFetching
+    isClient: state.isClient
   }))(Layout)
 );

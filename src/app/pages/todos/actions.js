@@ -1,23 +1,32 @@
 import uuidv4 from 'uuid/v4';
-import init from 'redux-thunk-init';
 import { service } from '@utils';
 import * as types from './types';
 
-// async/await example of making todo api request with `init` wrapper
-// error will be handled by `redux-thunk-init` addon
-export const fetchTodos = () =>
-  init(async dispatch => {
-    const res = await service.get('/todos');
-    dispatch({ type: types.FETCH_TODO, payload: res.data });
-  });
+// async/await example of making todo api request
+export const fetchTodos = () => {
+  return async (dispatch, getState, { errorActionCreator }) => {
+    try {
+      await dispatch({ type: types.FETCH_TODO_BEGIN });
+      const res = await service.get('/todos');
+
+      return dispatch({
+        type: types.FETCH_TODO_SUCCESS,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({ type: types.FETCH_TODO_FAILURE });
+      dispatch(errorActionCreator(err));
+    }
+  };
+};
 
 // pre-fetch todos when there is no populated todos in store
 export const prefetchTodos = () => (dispatch, getState) => {
-  const { isFetching, todos } = getState();
+  const { isFetching, isFetched } = getState().todos;
 
-  // simply exit pre-fetching if in fetching mode
-  // or, todos is already populated
-  if (isFetching || todos.length > 0) {
+  // no action when it's fetching toods
+  // or, todos is already fetched
+  if (isFetching || isFetched) {
     return null;
   }
 

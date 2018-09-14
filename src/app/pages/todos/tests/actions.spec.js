@@ -22,7 +22,11 @@ describe('fetching todos data', () => {
 
   beforeEach(() => {
     store = mockStore({
-      todos: [{ id: 'todo-id1', todo: 'Current Todo', done: true }]
+      todos: {
+        isFetching: false,
+        isFetched: false,
+        data: [{ id: 'todo-id1', todo: 'Current Todo', done: true }]
+      }
     });
     fetchMock = nock(host).get(endpoint);
   });
@@ -31,12 +35,15 @@ describe('fetching todos data', () => {
     nock.cleanAll();
   });
 
-  test('creates `FETCH_TODO` when fetching todos has been done', done => {
+  test('creates `FETCH_TODO_SUCCESS` when fetching todos has been done', done => {
     fetchMock.reply(200, response);
 
     store.dispatch(actions.fetchTodos()).then(() => {
-      expect(store.getActions()[1]).toEqual({
-        type: types.FETCH_TODO,
+      const act = store.getActions();
+
+      expect(act[0]).toEqual({ type: types.FETCH_TODO_BEGIN });
+      expect(act[1]).toEqual({
+        type: types.FETCH_TODO_SUCCESS,
         payload: response
       });
       done();
@@ -45,14 +52,30 @@ describe('fetching todos data', () => {
 
   test('creates `REQUEST_ERROR` when failed to fetch todos', async done => {
     fetchMock.replyWithError(errorMessage);
-
     await store.dispatch(actions.fetchTodos());
-    expect(store.getActions()[1].type).toEqual(REQUEST_ERROR);
-    expect(store.getActions()[1].payload.message).toEqual(errorMessage);
+    const act = store.getActions();
+
+    expect(act[0]).toEqual({ type: types.FETCH_TODO_BEGIN });
+    expect(act[1]).toEqual({ type: types.FETCH_TODO_FAILURE });
+    expect(act[2].type).toEqual(REQUEST_ERROR);
+    expect(act[2].payload.message).toEqual(errorMessage);
     done();
   });
 
-  test('no action is dispatched if there is populated todos in store', done => {
+  test('no action is dispatched if it is still fetching.', done => {
+    store = mockStore({
+      todos: { isFetching: true, isFetched: false, data: [] }
+    });
+    store.dispatch(actions.prefetchTodos());
+    const action = store.getActions()[0];
+    expect(action).toBeUndefined();
+    done();
+  });
+
+  test('no action is dispatched if todos is already fetched.', done => {
+    store = mockStore({
+      todos: { isFetching: false, isFetched: true, data: [] }
+    });
     store.dispatch(actions.prefetchTodos());
     const action = store.getActions()[0];
     expect(action).toBeUndefined();
