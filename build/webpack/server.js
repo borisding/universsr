@@ -42,8 +42,5 @@ module.exports = {
       ...commonConfig.globalStylesRule()
     ]
   },
-  plugins: [
-    ...commonConfig.plugins(),
-    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
-  ]
+  plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })]
 };

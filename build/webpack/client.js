@@ -58,7 +58,6 @@ module.exports = {
     ]
   },
   plugins: [
-    ...commonConfig.plugins(),
     new ExtractCssChunks({
       hot: isDev,
       filename: isDev ? '[name].css' : '[name].[contenthash].css',
