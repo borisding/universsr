@@ -24,7 +24,7 @@ export const fetchTodos = () => {
 export const prefetchTodos = () => (dispatch, getState) => {
   const { isFetching, isFetched } = getState().todos;
 
-  // no action when it's fetching toods
+  // no action when it's fetching todos
   // or, todos is already fetched
   if (isFetching || isFetched) {
     return null;

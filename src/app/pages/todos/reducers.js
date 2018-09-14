@@ -3,13 +3,7 @@ import * as types from './types';
 const initialState = {
   isFetching: false,
   isFetched: false,
-  data: [
-    {
-      id: 'example-todo-id-0',
-      todo: 'Current Todo',
-      done: false
-    }
-  ]
+  data: []
 };
 
 const updateTodo = (state, action) =>
