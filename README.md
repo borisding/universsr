@@ -185,21 +185,21 @@ npm test
 - There are some aliases in this starter can be used to `import` or `require` targeted modules instead of using relative paths.
 - Here is a list of available aliases and description:
 
-| Alias          | Description                                  |
-| -------------- | -------------------------------------------- |
-| `@root`        | The project's root directory                 |
-| `@bin`         | The project's `bin` directory                |
-| `@build`       | The project's `build` directory              |
-| `@public`      | The project's built `public` directory in production|
-| `@resources`   | The project's `resources` directory          |
-| `@assets`      | The `assets` subdirectory within `resources` |
-| `@config`      | The `config` subdirectory within `resources` |
-| `@middlewares` | The `middlewares` subdirectory within `src`  |
-| `@utils`       | The `utils` subdirectory within `src`        |
-| `@api`         | The `api` subdirectory within `src`          |
-| `@app`         | The `app` subdirectory within `src`          |
-| `@common`      | The `common` subdirectory within `app`       |
-| `@pages`       | The `pages` subdirectory within `app`        |
+| Alias          | Description                                          |
+| -------------- | ---------------------------------------------------- |
+| `@root`        | The project's root directory                         |
+| `@bin`         | The project's `bin` directory                        |
+| `@build`       | The project's `build` directory                      |
+| `@public`      | The project's built `public` directory in production |
+| `@resources`   | The project's `resources` directory                  |
+| `@assets`      | The `assets` subdirectory within `resources`         |
+| `@config`      | The `config` subdirectory within `resources`         |
+| `@middlewares` | The `middlewares` subdirectory within `src`          |
+| `@utils`       | The `utils` subdirectory within `src`                |
+| `@api`         | The `api` subdirectory within `src`                  |
+| `@app`         | The `app` subdirectory within `src`                  |
+| `@common`      | The `common` subdirectory within `app`               |
+| `@pages`       | The `pages` subdirectory within `app`                |
 
 - Changes can be made under `_moduleAliases` property in `package.json`. The aliases are used for both webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolve-alias) and `module-alias` package.
 
@@ -381,9 +381,7 @@ d) Lastly, apply Bulma styles in React component. For instance, the message comp
     <p>Hello!</p>
     <button className="delete" aria-label="delete" />
   </div>
-  <div className="message-body">
-    Thanks for using universsr starter boilerplate.
-  </div>
+  <div className="message-body">Thanks for using universsr starter boilerplate.</div>
 </article>
 ```
 
@@ -569,6 +567,7 @@ function myAsyncAction() {
 **[Back to top](#table-of-contents)**
 
 ## State Management with Redux
+
 - Since this starter adheres feature-first architecture, we keep the redux related, such as `actions.js`/`reducers.js`/`types.js` within feature directory that resides in `./src/app/pages`. You are free to tweak and move around those files within the folder. [`Re-ducks`](https://github.com/alexnm/re-ducks) modular approach may interest you.
 
 - Besides, this starter also comes with [`redux-thunk`](https://github.com/reduxjs/redux-thunk) as default package for handling asynchronous dispatch. Please check out `Todos` demo page on the todos' redux state management and async action dispatches.
@@ -595,6 +594,7 @@ const middlewares = [
 **[Back to top](#table-of-contents)**
 
 ## Nodemon, HMR and React Hot Reloading
+
 - When developing Node application, we usually need to restart server whenever changes are made to files. This starter uses [Nodemon](https://github.com/remy/nodemon) to auto-restart API server by watching over the file changes made in the detected directory.
 
 - For React app, `webpack-dev-middleware` - the express-style middleware and `webpack-hot-middleware` are used to work with webpack in order to achieve hot module replacement in development environment. Most of the time, we have state in components that need to be retained, so `react-hot-loader` is also used to assure state is carried over when module get updated without losing it.
@@ -639,15 +639,9 @@ if (module.hot) {
 
 ## Deployment
 
-The following are steps to deploy app to production on [Heroku](https://www.heroku.com/):
+- To deploy app to production on [Heroku](https://www.heroku.com/), you just remove or comment out `PORT` variable from `.env` file (remember to remove `.env` from `.gitignore`)
 
-1.  Remove or comment out `PORT` variable from `.env` file (remember to remove `.env` from `.gitignore`)
-2.  Login with your credentials via command: `heroku login`
-3.  Create your app: `heroku create <your app name>`
-4.  Commit local changes and push to Heroku: `git push heroku master`
-5.  To visit deployed app: `heroku open`
-
-> Node.js now installs `devDependencies` [by default](https://devcenter.heroku.com/changelog-items/1376) on Heroku.
+- For deployment steps, please check out [this guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs) and the [build behavior](https://devcenter.heroku.com/articles/nodejs-support#build-behavior) on Heroku.
 
 **[Back to top](#table-of-contents)**
 
