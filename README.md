@@ -571,12 +571,26 @@ function myAsyncAction() {
 ## State Management with Redux
 - Since this starter adheres feature-first architecture, we keep the redux related, such as `actions.js`/`reducers.js`/`types.js` within feature directory that resides in `./src/app/pages`. You are free to tweak and move around those files within the folder. [`Re-ducks`](https://github.com/alexnm/re-ducks) modular approach may interest you.
 
-- Besides, this starter also comes with [`redux-thunk`](https://github.com/reduxjs/redux-thunk) and [`redux-thunk-init`](https://github.com/borisding/redux-thunk-init) (optional)  packages for handling asynchronous dispatch. The latter is basically a wrapper of redux-thunk to handle initial dispatch before subsequent dispatches, upon your creativity.
-
-
-- By default, we decide initial fetch - `isFetching` property in state based on the `INIT_FULFILLED` action and `meta` object, without using typical `BEGIN/SUCCESS/FAILURE` actions approach. If you are not comfortable with that, feel free to fallback by using typical triplet actions as mentioned without using the wrapper.
+- Besides, this starter also comes with [`redux-thunk`](https://github.com/reduxjs/redux-thunk) as default package for handling asynchronous dispatch. Please check out `Todos` demo page on the todos' redux state management and async action dispatches.
 
 - Redux's middleware registration and store creation can be found in `./src/app/store.js`. The app's state object is produced in `./src/app/root.js` via the `combineReducers` helper function.
+
+```js
+// in `store.js`
+...
+const middlewares = [
+    // register serivce action creators for dispatch
+    // so it's accessible in respective thunk wrappers
+    thunk.withExtraArgument({
+        errorActionCreator,
+        infoActionCreator,
+        successActionCreator
+    })
+    ...
+];
+```
+
+- The service alert action creators are assigned to thunk's extra arguments so that it's accessible in thunk function, without importing action creators over and over again for usage.
 
 **[Back to top](#table-of-contents)**
 
