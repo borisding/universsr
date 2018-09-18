@@ -19,7 +19,7 @@
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
     "lint:js": "eslint . --fix",
     "precommit": "lint-staged",
-    "test": "npm run lint:js && cross-env NODE_ENV=test jest",
+    "test": "npm run lint:js && cross-env NODE_ENV=test jest --detectOpenHandles",
     "test:watch": "npm test -- --watch",
     "test:coverage": "rimraf coverage && npm test -- --coverage"
   },

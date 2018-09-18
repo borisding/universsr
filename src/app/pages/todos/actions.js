@@ -27,7 +27,7 @@ export const prefetchTodos = () => (dispatch, getState) => {
   // no action when it's fetching todos
   // or, todos is already fetched
   if (isFetching || isFetched) {
-    return null;
+    return Promise.resolve(true);
   }
 
   // else, just proceed to fetching new todos list

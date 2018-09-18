@@ -66,19 +66,23 @@ describe('fetching todos data', () => {
     store = mockStore({
       todos: { isFetching: true, isFetched: false, data: [] }
     });
-    store.dispatch(actions.prefetchTodos());
-    const action = store.getActions()[0];
-    expect(action).toBeUndefined();
-    done();
+
+    store.dispatch(actions.prefetchTodos()).then(() => {
+      const action = store.getActions()[0];
+      expect(action).toBeUndefined();
+      done();
+    });
   });
 
   test('no action is dispatched if todos is already fetched.', done => {
     store = mockStore({
       todos: { isFetching: false, isFetched: true, data: [] }
     });
-    store.dispatch(actions.prefetchTodos());
-    const action = store.getActions()[0];
-    expect(action).toBeUndefined();
-    done();
+
+    store.dispatch(actions.prefetchTodos()).then(() => {
+      const action = store.getActions()[0];
+      expect(action).toBeUndefined();
+      done();
+    });
   });
 });
