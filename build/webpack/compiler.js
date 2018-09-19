@@ -15,7 +15,7 @@ module.exports = function webpackCompiler(app) {
       publicPath: clientConfig.output.publicPath,
       headers: { 'Access-Control-Allow-Origin': '*' },
       serverSideRender: true,
-      logLevel: 'silent',
+      logLevel: 'warn',
       watchOptions: {
         aggregateTimeout: 500,
         ignored: /node_modules/,
