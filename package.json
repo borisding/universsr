@@ -1,6 +1,6 @@
 {
   "name": "universsr",
-  "version": "2.0.4",
+  "version": "2.1.4",
   "description": "Universal React + Redux, Express application starter boilerplate.",
   "main": "app.js",
   "scripts": {
@@ -153,7 +153,7 @@
     "url-loader": "^1.1.1",
     "webpack": "^4.19.1",
     "webpack-bundle-analyzer": "^3.0.2",
-    "webpack-cli": "^3.1.0",
+    "webpack-cli": "^3.1.1",
     "webpack-dev-middleware": "^3.3.0",
     "webpack-hot-middleware": "^2.24.2",
     "webpack-hot-server-middleware": "^0.5.0"
