@@ -3,7 +3,7 @@ import helmet from 'helmet';
 import favicon from 'serve-favicon';
 import compression from 'compression';
 import config, { DEV, SYSPATH } from '@config';
-import { csp, proxy, logger, errorHandler } from '@middlewares/express';
+import { proxy, logger, errorHandler } from '@middlewares/express';
 
 const app = express();
 
@@ -13,8 +13,6 @@ app
   .set('views', [`${SYSPATH['public']}/views`, `${SYSPATH['resources']}/views`])
   .use(logger.http())
   .use(helmet())
-  .use(csp.nonce())
-  .use(csp.mount(helmet))
   .use(compression())
   .use(express.static(SYSPATH['public']))
   .use(`/api/${config['API_VERSION']}`, proxy.proxyWeb);

@@ -53,11 +53,10 @@ export default function serverRenderer({ clientStats }) {
 
       const pageTitle = DocumentTitle.rewind();
       const chunksOptions = { chunkNames: flushChunkNames() };
-      const { scripts, stylesheets } = flushChunks(clientStats, chunksOptions);
+      const { js, styles } = flushChunks(clientStats, chunksOptions);
 
       const preloadedState = serialize(store.getState(), { isJSON: true });
       const { statusCode = 200, redirectUrl } = context;
-      const { nonce } = res.locals;
 
       // make page redirection when expected `statusCode` and `redirectUrl`
       // props are provided in `HttpStatus` component
@@ -69,9 +68,8 @@ export default function serverRenderer({ clientStats }) {
         pageTitle,
         appString,
         preloadedState,
-        stylesheets,
-        scripts,
-        nonce
+        styles,
+        js
       });
     } catch (err) {
       next(new Error(err));
