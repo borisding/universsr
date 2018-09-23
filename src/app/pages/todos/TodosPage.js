@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { PageTitle, Loader } from '@common/components';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
@@ -44,9 +43,7 @@ class TodosPage extends Component {
   }
 }
 
-export default withRouter(
-  connect(
-    state => ({ todos: state.todos.data, isFetching: state.todos.isFetching }),
-    dispatch => ({ actions: bindActionCreators(todoActions, dispatch) })
-  )(TodosPage)
-);
+export default connect(
+  state => ({ todos: state.todos.data, isFetching: state.todos.isFetching }),
+  dispatch => ({ actions: bindActionCreators(todoActions, dispatch) })
+)(TodosPage);
