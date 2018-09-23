@@ -3,7 +3,7 @@ import csurf from 'csurf';
 // config for CSRF, (default: cookie)
 // @see: https://github.com/expressjs/csurf
 // usage: app.use(csrf())
-const csrf = () => csurf({ cookie: true });
+const csrf = (options = { cookie: true }) => csurf(options);
 
 // make `csrfToken` accessible in view templates, conveniently
 // usage: app.use(csrf.toLocal()), should come after csrf() is mounted
