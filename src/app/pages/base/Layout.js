@@ -1,4 +1,5 @@
 import React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { hot } from 'react-hot-loader';
 import { withRouter } from 'react-router-dom';
@@ -16,11 +17,10 @@ const Layout = props => {
   );
 };
 
-const withRouterConnect = withRouter(
-  connect(state => ({
-    isClient: state.isClient
-  }))(Layout)
-);
+const withComposedConnector = compose(
+  withRouter,
+  connect(state => ({ isClient: state.isClient }))
+)(Layout);
 
 // mark as hot exported
-export default hot(module)(withRouterConnect);
+export default hot(module)(withComposedConnector);
