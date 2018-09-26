@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StatsWebpackPlugin = require('stats-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const syspath = require('@config/syspath');
 const webpackCommon = require('./common');
@@ -42,11 +43,14 @@ module.exports = {
     chunkFilename: isDev ? '[id].js' : '[id].[contenthash].js'
   },
   optimization: {
+    // can provide uglify-js options for more controls
+    // @see: https://webpack.js.org/plugins/uglifyjs-webpack-plugin/
+    minimizer: [new UglifyJsPlugin()],
     runtimeChunk: {
       name: 'bootstrap'
     },
     splitChunks: {
-      chunks: 'initial'
+      chunks: 'all' // all types of chunks
     }
   },
   module: {
