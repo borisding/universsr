@@ -1,6 +1,6 @@
 {
   "name": "universsr",
-  "version": "2.1.4",
+  "version": "2.2.4",
   "description": "Universal React + Redux, Express application starter boilerplate.",
   "main": "app.js",
   "scripts": {
