@@ -1,28 +1,19 @@
-import universal from 'react-universal-component';
-import { Loader, NotFound } from '@common/components';
-import HomePage from '@pages/home';
-import { Layout } from '@pages/base';
+import Layout, { NotFound, Home, Todos } from '@pages';
 import { prefetchTodos } from '@pages/todos/actions';
-import config from '@config';
-
-const options = {
-  minDelay: config['MIN_DELAY'],
-  loading: Loader
-};
 
 export const routes = [
   {
     path: '/',
     exact: true,
     menu: 'Home',
-    component: HomePage
+    component: Home
   },
   {
     path: '/todos',
     exact: true,
     menu: 'Todos',
     loadData: prefetchTodos,
-    component: universal(import('./pages/todos'), options)
+    component: Todos
   },
   {
     path: '/*',

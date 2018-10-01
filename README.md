@@ -129,51 +129,54 @@ npm test
 
 ```
 |--
-    |-- .babelrc                   # default babel configuration object
-    |-- .eslintrc                  # eslint configuration object
-    |-- .stylelintrc               # stylelint configuration object
-    |-- api.js                     # api entry
-    |-- app.js                     # app entry
-    |-- esm.js                     # ESM loader and module alias hook
+    |-- .babelrc                        # default babel configuration object
+    |-- .eslintrc                       # eslint configuration object
+    |-- .stylelintrc                    # stylelint configuration object
+    |-- api.js                          # api entry
+    |-- app.js                          # app entry
+    |-- esm.js                          # ESM loader and module alias hook
         ...
-    |-- bin                        # node server files of app and api
-    |-- build                      # parent directory of scripts/webpack
-    |   |-- scripts                # build scripts for tooling purposes
-    |   |-- webpack                # webpack config for both client & server
-    |-- public                     # production built assets (icons/images/views, etc)
-    |-- resources                  # parent directory of resources (config/views/logs, etc)
-    |   |-- assets                 # parent directory of all assets
-    |   |   |-- manifest.json      # manifest JSON file for web app
-    |   |   |-- icons              # source files of icon
-    |   |   |-- images             # source files of image
-    |   |-- config                 # app level configuration (.env/syspath, etc)
-    |   |-- fixtures               # fixture data for development
-    |   |-- logs                   # log files of the app
-    |   |-- mocks                  # file & style mocks for jest
-    |   |-- views                  # source files of view template
-    |-- src                        # parent directory of both api & app source code
-        |-- api                    # parent directory of api source code
-        |   |-- routers            # respective Express routes for API
-        |-- app                    # parent directory of app source code
-        |   |-- container.js       # app container as webpack's client entry
-        |   |-- index.js           # app server index entry file
-        |   |-- offline.js         # offline plugin registration
-        |   |-- renderer-built.js  # built from `renderer.js` source for production
-        |   |-- renderer.js        # server renderer for app string & initial state
-        |   |-- root.js            # root reducer creation for the app
-        |   |-- routes.js          # static React routes configuration
-        |   |-- store.js           # redux middleware registration & store factory
-        |   |-- common             # reusable React components & styles
-        |   |   |-- components     # reusable React components for common usage
-        |   |   |-- styles         # reusable CSS/SCSS for the app
-        |   |-- pages              # page components based on "modules"
-        |       |-- base           # base components for page layout (root component/styles/tests, etc)
-        |       |-- home           # `Home` page related (components/reducers/styles/tests, etc)
-        |       |-- todos          # `Todos` demo page related (components/reducers/styles/tests, etc)
-        |-- middlewares            # all middlewares used for the app
-        |   |-- express            # middlewares for Express framework
-        |   |-- redux              # middlewares for Redux library
-        |-- utils                  # utilities used for both client & server
+    |-- bin                             # node server files of app and api
+    |-- build                           # parent directory of scripts/webpack
+    |   |-- scripts                     # build scripts for tooling purposes
+    |   |-- webpack                     # webpack config for both client & server
+    |-- public                          # production built assets (icons/images/views, etc)
+    |-- resources                       # parent directory of resources (config/views/logs, etc)
+    |   |-- assets                      # parent directory of all assets
+    |   |   |-- manifest.json           # manifest JSON file for web app
+    |   |   |-- icons                   # source files of icon
+    |   |   |-- images                  # source files of image
+    |   |-- config                      # app level configuration (.env/syspath, etc)
+    |   |-- fixtures                    # fixture data for development
+    |   |-- logs                        # log files of the app
+    |   |-- mocks                       # file & style mocks for jest
+    |   |-- views                       # source files of view template
+    |-- src                             # parent directory of both api & app source code
+        |-- api                         # parent directory of api source code
+        |   |-- routers                 # respective Express routes for API
+        |-- app                         # parent directory of app source code
+        |   |-- container.js            # app container as webpack's client entry
+        |   |-- index.js                # app server index entry file
+        |   |-- offline.js              # offline plugin registration
+        |   |-- renderer-built.js       # built from `renderer.js` source for production
+        |   |-- renderer.js             # server renderer for app string & initial state
+        |   |-- root.js                 # root reducer creation for the app
+        |   |-- routes.js               # static React routes configuration
+        |   |-- store.js                # redux middleware registration & store factory
+        |   |-- common                  # reusable React components & styles
+        |   |   |-- components          # reusable React components for common usage
+        |   |   |-- styles              # reusable CSS/SCSS for the app
+        |   |-- pages                   # page components based on "modules"
+        |       |-- home                # `Home` page related (components/reducers/styles/tests, etc)
+        |       |-- layout              # root component for page layout (root component/styles/tests, etc)
+        |       |-- notfound            # not found component for page (component/styles/tests, etc)
+        |       |-- todos               # `Todos` demo page related (components/reducers/styles/tests, etc)
+        |       |-- index.js            # respective exported page components from entry
+        |       |-- load-component.js   # dynamic import React components
+        |-- middlewares                 # all middlewares used for the app
+        |   |-- express                 # middlewares for Express framework
+        |   |-- redux                   # middlewares for Redux library
+        |-- utils                       # utilities used for both client & server
 ```
 
 - This project structure is organized by having feature-first approach in mind. Thus, for any new features (the page), try to keep it as feature-based folder in `./src/app/pages`. Things in common such as common styles or components can be kept in `./src/app/common` directory.
@@ -297,21 +300,7 @@ newService.interceptResponse(resolve, reject);
 
 - React routes can be found and defined in `.src/app/routes.js`, which is static route configuration helper provided by [`react-router-config`](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config) package to work for React Router.
 
-- You will find out [`react-universal-component`](https://github.com/faceyspacey/react-universal-component) is also being used in page routes for code splitting purpose. For instance, the `todos` demo as use case in this starter.
-
-```js
-// in `routes.js`
-
-...
-{
-    path: '/todos',
-    exact: true,
-    menu: 'Todos',
-    loadData: prefetchTodos,
-    component: universal(import('./pages/todos'), options)
-},
-...
-```
+- You will find out [`react-universal-component`](https://github.com/faceyspacey/react-universal-component) is also being used for code splitting purpose. `load-component.js` is util file for serving that purpose.
 
 - `loadData` property in route is action function, (could be in array for multiple actions) which will be used for preloading initial data on server-side when particular route is matched and fulfilled. `menu` is just another property to serve menu's label or name.
 
@@ -349,7 +338,7 @@ return Promise.all(promises);
 
 - By default, the config of global styles rule `globalStylesRule` in `./build/webpack/common.js` recognizes `global.css` or `global.scss` file, which supposed to use CSS `@import` for external CSS stylesheets. (eg: [Bootstrap](https://getbootstrap.com/) or [Bulma](https://bulma.io/) CSS).
 
-- Once we have global stylesheet ready, we can import it in the root component, which is `Layout` component in our context. The following is an example of using Bulma CSS framework for global usage:
+- Once we have global stylesheet ready, we can import it in the root component, which is layout component in our context. The following is an example of using Bulma CSS framework for global usage:
 
 a) Install Bulma package
 
@@ -365,7 +354,7 @@ b) `@import` Bulma CSS in `global.css`
 
 > `~` above refers to the `node_modules` of current project.
 
-c) Import `global.css` in `Layout` root component
+c) Import `global.css` in `index.js` from `layout` folder
 
 ```js
 ...
