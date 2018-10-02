@@ -36,5 +36,8 @@ module.exports = function webpackCompiler(app) {
   );
 
   // server hot updates must be placed after client hot reload
-  app.use(webpackHotServerMiddleware(compiler));
+  // workaround to keep entry point name short to avoid
+  // `TypeError: serverRenderer is not a function` error
+  // @see: https://github.com/faceyspacey/react-universal-component/issues/132#issuecomment-409345250
+  app.use(webpackHotServerMiddleware(compiler, { chunkName: 'm' }));
 };
