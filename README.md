@@ -298,9 +298,38 @@ newService.interceptResponse(resolve, reject);
 
 ## App and API Routes
 
-- React routes can be found and defined in `.src/app/routes.js`, which is static route configuration helper provided by [`react-router-config`](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config) package to work for React Router.
+- React routes can be found and defined in `.src/app/routes.js`, which is static route configuration helper provided by [`react-router-config`](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config) package to work for React Router, eg:
 
-- You will find out [`react-universal-component`](https://github.com/faceyspacey/react-universal-component) is also being used for code splitting purpose. `load-component.js` is util file for serving that purpose.
+```js
+// in `routes.js`
+
+...
+{
+    path: '/',
+    exact: true,
+    menu: 'Home',
+    component: Home // `Home` component that can be loaded via `loadComponent` util
+}
+...
+```
+
+- You will find out [`react-universal-component`](https://github.com/faceyspacey/react-universal-component) is also being used for code splitting purpose. `load-component.js` is util file for serving that purpose:
+
+```js
+...
+
+// example of dynamic import by mapping the folder name
+export const Home = loadComponent('home');
+
+// example of defining `foo` chunk name through
+// webpack's magic comment for home component
+// by passing function as argument which returns `import`
+export const Home = loadComponent(() =>
+  import(/* webpackChunkName: "foo" */ './home')
+);
+
+...
+```
 
 - `loadData` property in route is action function, (could be in array for multiple actions) which will be used for preloading initial data on server-side when particular route is matched and fulfilled. `menu` is just another property to serve menu's label or name.
 
