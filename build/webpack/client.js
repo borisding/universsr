@@ -63,7 +63,8 @@ module.exports = {
   },
   plugins: [
     new ExtractCssChunks({
-      hot: isDev,
+      hot: !!isDev,
+      cssModules: true,
       filename: isDev ? '[name].css' : '[name].[contenthash].css',
       chunkFilename: isDev ? '[id].css' : '[id].[contenthash].css'
     }),
