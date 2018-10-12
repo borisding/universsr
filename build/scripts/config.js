@@ -1,13 +1,11 @@
-// enable module aliases for config `require`
-require('module-alias/register');
-
-const fs = require('fs');
-const slash = require('slash');
-const dotenv = require('dotenv');
-const dotenvParseVariables = require('dotenv-parse-variables');
-const syspath = require('@config/syspath');
+import fs from 'fs';
+import slash from 'slash';
+import dotenv from 'dotenv';
+import dotenvParseVariables from 'dotenv-parse-variables';
+import syspath from '../../config/syspath';
 
 let pathToEnv = `${syspath.config}/.env`;
+
 // using .env.example file instead if .env does not exist
 if (!fs.existsSync(pathToEnv)) {
   pathToEnv = pathToEnv + '.example';
@@ -16,17 +14,17 @@ if (!fs.existsSync(pathToEnv)) {
 // load environment variable config `.env`
 const env = dotenv.config({ path: pathToEnv });
 const parsedEnv = dotenvParseVariables(env.parsed);
-const targetConfigFile = 'config-properties.json';
+const targetConfigFile = 'env-properties.json';
 
 // writing parsed environment variables into targeted config filename
 // which will be used as universal configuration properties
-function writeConfigProperties() {
+const writeEnvProperties = () => {
   try {
-    const configProperties = JSON.stringify(parsedEnv, null, 2);
+    const envProperties = JSON.stringify(parsedEnv, null, 2);
 
     fs.writeFileSync(
       `${syspath.config}/${targetConfigFile}`,
-      configProperties,
+      envProperties,
       'utf8'
     );
 
@@ -40,6 +38,6 @@ function writeConfigProperties() {
     console.error(err);
     process.exit(-1);
   }
-}
+};
 
-writeConfigProperties();
+writeEnvProperties();

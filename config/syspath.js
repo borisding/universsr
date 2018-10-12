@@ -5,7 +5,7 @@ module.exports = {
   bin: `${root}/bin`,
   build: `${root}/build`,
   resources: `${root}/resources`,
-  config: `${root}/resources/config`,
+  config: `${root}/config`,
   logs: `${root}/resources/logs`,
   public: `${root}/public`,
   src: `${root}/src`
