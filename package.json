@@ -23,15 +23,10 @@
     "test:watch": "npm test -- --watch",
     "test:coverage": "rimraf coverage && npm test -- --coverage"
   },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "npm run lint:js",
-      "git add"
-    ],
-    "*.scss": [
-      "npm run lint:style",
-      "git add"
-    ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   },
   "verbose": true,
   "engines": {
