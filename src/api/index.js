@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import hpp from 'hpp';
 import cookieParser from 'cookie-parser';
-import config, { DEV } from '@config';
+import { ENV, DEV } from '@config';
 import { logger, errorHandler } from '@middlewares/express';
 import routers from './routers';
 
@@ -17,8 +17,8 @@ api
   .use(express.json())
   .use(express.urlencoded({ extended: true, limit: '10mb' }))
   .use(hpp()) // after parsed body
-  .use(cookieParser(config['SECRET_KEY']))
-  .use(`/api/${config['API_VERSION']}`, routers);
+  .use(cookieParser(ENV['SECRET_KEY']))
+  .use(`/api/${ENV['API_VERSION']}`, routers);
 
 // mount error handler middleware last
 api.use(errorHandler({ json: true }));

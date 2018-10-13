@@ -8,7 +8,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StatsWebpackPlugin = require('stats-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const syspath = require('@config/syspath');
+const SYSPATH = require('@config/syspath');
 const webpackCommon = require('./common');
 
 const commonConfig = webpackCommon('client', isDev);
@@ -37,7 +37,7 @@ module.exports = {
     './app/container.js'
   ],
   output: {
-    path: syspath.public,
+    path: SYSPATH['PUBLIC'],
     publicPath: commonConfig.publicPath,
     filename: isDev ? '[name].js' : '[name].[contenthash].js',
     chunkFilename: isDev ? '[id].js' : '[id].[contenthash].js'
@@ -70,12 +70,12 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
-        from: `${syspath.resources}/assets/manifest.json`,
-        to: syspath.public
+        from: `${SYSPATH['RESOURCES']}/assets/manifest.json`,
+        to: SYSPATH['PUBLIC']
       },
       {
-        from: `${syspath.resources}/assets/icons`,
-        to: `${syspath.public}/icons`
+        from: `${SYSPATH['RESOURCES']}/assets/icons`,
+        to: `${SYSPATH['PUBLIC']}/icons`
       }
     ])
   ].concat(
@@ -86,14 +86,14 @@ module.exports = {
           // moved to public and with minification only
           new HtmlWebpackPlugin({
             inject: false,
-            template: `!!raw-loader!${syspath.resources}/views/index.ejs`,
-            filename: `${syspath.public}/views/index.ejs`,
+            template: `!!raw-loader!${SYSPATH['RESOURCES']}/views/index.ejs`,
+            filename: `${SYSPATH['PUBLIC']}/views/index.ejs`,
             minify: { collapseWhitespace: true, removeComments: true }
           }),
           new HtmlWebpackPlugin({
             inject: false,
-            template: `!!raw-loader!${syspath.resources}/views/500.ejs`,
-            filename: `${syspath.public}/views/500.ejs`,
+            template: `!!raw-loader!${SYSPATH['RESOURCES']}/views/500.ejs`,
+            filename: `${SYSPATH['PUBLIC']}/views/500.ejs`,
             minify: { collapseWhitespace: true, removeComments: true }
           }),
           new OfflinePlugin({

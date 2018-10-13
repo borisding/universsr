@@ -1,5 +1,5 @@
 const autoprefixer = require('autoprefixer');
-const syspath = require('@config/syspath');
+const SYSPATH = require('@config/syspath');
 const pkg = require('@root/package');
 
 module.exports = function commonConfig(target, isDev) {
@@ -11,7 +11,7 @@ module.exports = function commonConfig(target, isDev) {
   return {
     devtool,
     publicPath,
-    context: syspath.src,
+    context: SYSPATH['SRC'],
     mode: isDev ? 'development' : 'production',
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
@@ -42,7 +42,7 @@ module.exports = function commonConfig(target, isDev) {
           'react-css-modules',
           {
             exclude: 'global.s?css', // need to exclude the defined global CSS file
-            context: syspath.src, // must match with webpack's context
+            context: SYSPATH['SRC'], // must match with webpack's context
             generateScopedName: cssScopedName,
             filetypes: {
               '.scss': {

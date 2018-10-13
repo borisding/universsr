@@ -3,11 +3,11 @@
 import 'make-promises-safe';
 import http from 'http';
 import api from '@api';
-import config from '@config';
+import { ENV } from '@config';
 import { print } from '@utils';
 
 const server = http.createServer(api);
-const serverPort = process.env.API_PORT || config['API_PORT'];
+const serverPort = process.env.API_PORT || ENV['API_PORT'];
 
 server.listen(serverPort);
 

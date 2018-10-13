@@ -33,7 +33,7 @@ const logger = {
 };
 
 const fsStreamWriter = filename => {
-  return fs.createWriteStream(`${SYSPATH['logs']}/${filename}`, { flags: 'a' });
+  return fs.createWriteStream(`${SYSPATH['LOGS']}/${filename}`, { flags: 'a' });
 };
 
 export default logger;

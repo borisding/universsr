@@ -1,6 +1,6 @@
 import axios from 'axios';
 import extend from 'extend';
-import config, { NODE } from '@config';
+import { ENV, NODE } from '@config';
 
 export default class Service {
   static create(axiosConfig = {}) {
@@ -18,7 +18,7 @@ export default class Service {
       extend(
         {
           baseURL: this.getBaseURL(),
-          timeout: config['REQUEST_TIMEOUT']
+          timeout: ENV['REQUEST_TIMEOUT']
         },
         axiosConfig
       )
@@ -26,16 +26,16 @@ export default class Service {
   }
 
   getBaseURL() {
-    const api = `/api/${config['API_VERSION']}`;
+    const api = `/api/${ENV['API_VERSION']}`;
 
     // use it if request base URL is explicitly defined (eg: domain name)
-    if (config['REQUEST_BASEURL'].trim()) {
-      return `${config['REQUEST_BASEURL']}${api}`;
+    if (ENV['REQUEST_BASEURL'].trim()) {
+      return `${ENV['REQUEST_BASEURL']}${api}`;
     }
 
     // else, construct base URL based on platform
     return NODE
-      ? `${config['PROTOCOL']}://${config['HOST']}:${config['PORT']}${api}`
+      ? `${ENV['PROTOCOL']}://${ENV['HOST']}:${ENV['PORT']}${api}`
       : api;
   }
 

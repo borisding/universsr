@@ -14,7 +14,7 @@ if (!envProperties.API_PORT) {
 }
 
 // export built environment properties for universal usage
-module.exports = envProperties;
+module.exports.ENV = envProperties;
 
 // export named `SYSPATH` as part of config
 module.exports.SYSPATH = require('./syspath');
