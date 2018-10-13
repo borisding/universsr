@@ -1,5 +1,5 @@
 import Layout, { NotFound, Home, Todos } from '@pages';
-import { prefetchTodos } from '@pages/todos/actions';
+import { prefetchTodos } from '@pages/Todos/actions';
 
 export const routes = [
   {

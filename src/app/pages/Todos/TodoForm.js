@@ -17,28 +17,25 @@ export default class TodoForm extends Component {
   constructor() {
     super();
     this.state = initialState;
-    this.handleChange = this.handleChange.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(evt) {
+  handleChange = evt => {
     this.setState({
       todoInput: evt.target.value,
       isInvalid: initialState.isInvalid
     });
-  }
+  };
 
-  handleBlur(evt) {
+  handleBlur = evt => {
     if (this.state.isInvalid) {
       this.setState({
         todoInput: evt.target.value,
         isInvalid: !this.state.isInvalid
       });
     }
-  }
+  };
 
-  handleSubmit(evt) {
+  handleSubmit = evt => {
     evt.preventDefault();
     const { todoInput } = this.state;
 
@@ -52,7 +49,7 @@ export default class TodoForm extends Component {
     return this.props
       .addTodo(todoInput)
       .then(() => this.setState(initialState));
-  }
+  };
 
   render() {
     const { todoInput, isInvalid } = this.state;

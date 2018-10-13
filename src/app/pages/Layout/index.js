@@ -9,7 +9,7 @@ import { renderRoutes } from 'react-router-config';
 import { routes } from '@app/routes';
 import { ErrorBoundary } from '@common/components';
 import '@common/styles/global.css';
-import { active } from './styles/Layout.scss';
+import { active } from './styles.scss';
 
 const renderHeader = () => {
   return (

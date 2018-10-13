@@ -17,7 +17,7 @@ class Todos extends Component {
     this.props.actions.prefetchTodos();
   }
 
-  renderTodos() {
+  renderTodos = () => {
     const { isFetching, actions, todos } = this.props;
 
     if (isFetching) {
@@ -31,7 +31,7 @@ class Todos extends Component {
         <TodoList todos={todos} updateTodo={actions.updateTodo} />
       </Fragment>
     );
-  }
+  };
 
   render() {
     return (
