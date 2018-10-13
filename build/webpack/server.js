@@ -28,7 +28,7 @@ module.exports = {
   output: {
     path: `${SYSPATH['SRC']}/app`,
     libraryTarget: 'commonjs2',
-    filename: 'renderer-built.js'
+    filename: 'rendererBuilt.js'
   },
   node: {
     __filename: false,

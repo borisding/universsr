@@ -1,4 +1,4 @@
-import loadComponent from './load-component';
+import loadComponent from './loadComponent';
 
 // define and export targeted async components
 export const Home = loadComponent('home');

@@ -6,7 +6,7 @@ import * as types from '../types';
 import {
   REQUEST_ERROR,
   errorActionCreator
-} from '@middlewares/redux/service-alert';
+} from '@middlewares/redux/serviceAlert';
 
 const host = 'http://localhost:3000/api/v1';
 const endpoint = '/todos';

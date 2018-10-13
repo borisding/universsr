@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "config": "node -r esm build/scripts/config.js",
-    "clean": "rimraf public config/*.json src/**/*-built.*",
+    "clean": "rimraf public config/*.json src/**/*Built.*",
     "build": "npm-run-all clean config && cross-env NODE_ENV=production webpack --config build/webpack --progress --hide-modules",
     "build:analyze": "cross-env ANALYZE_MODE=enabled npm run build",
     "postinstall": "npm run build",
@@ -177,8 +177,8 @@
       "jsx"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/mocks/file-mock.js",
-      "\\.(css|scss)$": "<rootDir>/resources/mocks/style-mock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/mocks/fileMock.js",
+      "\\.(css|scss)$": "<rootDir>/resources/mocks/styleMock.js"
     },
     "testEnvironment": "node",
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$",

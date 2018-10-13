@@ -3,4 +3,4 @@ export {
   errorActionCreator,
   infoActionCreator,
   successActionCreator
-} from './service-alert';
+} from './serviceAlert';
