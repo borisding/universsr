@@ -5,5 +5,5 @@ public
 .DS_Store
 *.log
 *.map
-*Built.js
+build/renderer.*
 *-properties.*

@@ -25,9 +25,9 @@ export default {
   externals: nodeExternals,
   entry: { m: ['regenerator-runtime/runtime', './app/renderer.js'] },
   output: {
-    path: `${SYSPATH['SRC']}/app`,
+    path: SYSPATH['BUILD'],
     libraryTarget: 'commonjs2',
-    filename: 'rendererBuilt.js'
+    filename: 'renderer.js'
   },
   node: {
     __filename: false,
