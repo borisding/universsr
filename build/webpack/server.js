@@ -1,13 +1,12 @@
-const fs = require('fs');
-const isDev = require('isdev');
-const webpack = require('webpack');
-const SYSPATH = require('@config/syspath');
-const webpackCommon = require('./common');
+import fs from 'fs';
+import webpack from 'webpack';
+import SYSPATH from '@config/syspath';
+import webpackCommon from './common';
 
-const commonConfig = webpackCommon('server', isDev);
+const commonConfig = webpackCommon('server');
 
 // custom externals for node
-const externalRegExp = /\.bin|react-universal-component|require-universal-module|webpack-flush-chunks/;
+const externalRegExp = /\.bin|react-universal-component|webpack-flush-chunks/;
 const nodeExternals = fs
   .readdirSync(`${SYSPATH['ROOT']}/node_modules`)
   .filter(x => !externalRegExp.test(x))
@@ -16,7 +15,7 @@ const nodeExternals = fs
     return externals;
   }, {});
 
-module.exports = {
+export default {
   target: 'node',
   name: 'server',
   mode: commonConfig.mode,

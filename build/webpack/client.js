@@ -1,20 +1,20 @@
-const isDev = require('isdev');
-const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OfflinePlugin = require('offline-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const StatsWebpackPlugin = require('stats-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const SYSPATH = require('@config/syspath');
-const webpackCommon = require('./common');
+import webpack from 'webpack';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import ExtractCssChunks from 'extract-css-chunks-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import OfflinePlugin from 'offline-plugin';
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import StatsWebpackPlugin from 'stats-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import DEV from 'isdev';
+import SYSPATH from '@config/syspath';
+import webpackCommon from './common';
 
-const commonConfig = webpackCommon('client', isDev);
+const commonConfig = webpackCommon('client');
 const isAnalyze = process.env.ANALYZE_MODE === 'enabled';
 
-module.exports = {
+export default {
   target: 'web',
   name: 'client',
   mode: commonConfig.mode,
@@ -28,7 +28,7 @@ module.exports = {
     maxAssetSize: 400000
   },
   entry: [
-    ...(isDev
+    ...(DEV
       ? [
           'eventsource-polyfill', // used for IE's hot reloading
           'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
@@ -39,8 +39,8 @@ module.exports = {
   output: {
     path: SYSPATH['PUBLIC'],
     publicPath: commonConfig.publicPath,
-    filename: isDev ? '[name].js' : '[name].[contenthash].js',
-    chunkFilename: isDev ? '[id].js' : '[id].[contenthash].js'
+    filename: DEV ? '[name].js' : '[name].[contenthash].js',
+    chunkFilename: DEV ? '[id].js' : '[id].[contenthash].js'
   },
   optimization: {
     // can provide uglify-js options for more controls
@@ -63,10 +63,10 @@ module.exports = {
   },
   plugins: [
     new ExtractCssChunks({
-      hot: !!isDev,
+      hot: !!DEV,
       cssModules: true,
-      filename: isDev ? '[name].css' : '[name].[contenthash].css',
-      chunkFilename: isDev ? '[id].css' : '[id].[contenthash].css'
+      filename: DEV ? '[name].css' : '[name].[contenthash].css',
+      chunkFilename: DEV ? '[id].css' : '[id].[contenthash].css'
     }),
     new CopyWebpackPlugin([
       {
@@ -79,7 +79,7 @@ module.exports = {
       }
     ])
   ].concat(
-    isDev
+    DEV
       ? [new webpack.HotModuleReplacementPlugin()]
       : [
           new StatsWebpackPlugin('stats.json'),

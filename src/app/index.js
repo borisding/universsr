@@ -2,16 +2,17 @@ import express from 'express';
 import helmet from 'helmet';
 import favicon from 'serve-favicon';
 import compression from 'compression';
-import { ENV, DEV, SYSPATH } from '@config';
+import { DEV, ENV, SYSPATH } from '@config';
 import { proxy, logger, errorHandler } from '@middlewares/express';
 
 const app = express();
-const views = [`${SYSPATH['PUBLIC']}/views`, `${SYSPATH['RESOURCES']}/views`];
 
 app
-  .set('etag', !DEV)
   .set('view engine', 'ejs')
-  .set('views', views);
+  .set('views', [
+    `${SYSPATH['PUBLIC']}/views`,
+    `${SYSPATH['RESOURCES']}/views`
+  ]);
 
 app
   .use(logger.http())
@@ -20,12 +21,14 @@ app
   .use(express.static(SYSPATH['PUBLIC']))
   .use(`/api/${ENV['API_VERSION']}`, proxy.proxyWeb);
 
+// use webpack compiler for development
+// otherwise, use built server renderer instead
 if (DEV) {
-  require('@build/webpack/compiler')(app);
+  const webpackCompiler = require('@build/webpack/compiler').default;
+  webpackCompiler(app);
 } else {
-  const clientStats = require('@public/stats.json');
+  const clientStats = require('@public/stats');
   const serverRenderer = require('@app/rendererBuilt').default;
-
   app.use(favicon(`${SYSPATH['PUBLIC']}/icons/favicon.png`));
   app.use(serverRenderer({ clientStats }));
 }

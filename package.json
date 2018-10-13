@@ -6,7 +6,8 @@
   "scripts": {
     "config": "node -r esm build/scripts/config.js",
     "clean": "rimraf public config/*.json src/**/*Built.*",
-    "build": "npm-run-all clean config && cross-env NODE_ENV=production webpack --config build/webpack --progress --hide-modules",
+    "webpack": "webpack --progress --hide-modules --config build/webpack/config.babel.js",
+    "build": "cross-env NODE_ENV=production npm-run-all clean config webpack",
     "build:analyze": "cross-env ANALYZE_MODE=enabled npm run build",
     "postinstall": "npm run build",
     "dev:app": "cross-env NODE_ENV=development node app.js",

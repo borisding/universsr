@@ -1,59 +1,24 @@
-const autoprefixer = require('autoprefixer');
-const SYSPATH = require('@config/syspath');
-const pkg = require('@root/package');
+import autoprefixer from 'autoprefixer';
+import DEV from 'isdev';
+import SYSPATH from '@config/syspath';
+import pkg from '@root/package';
 
-module.exports = function commonConfig(target, isDev) {
+export default function commonConfig(target) {
   const isClient = target === 'client';
-  const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
-  const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
+  const devtool = DEV ? 'cheap-module-inline-source-map' : 'source-map';
+  const cssScopedName = DEV ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
   const publicPath = '/';
 
   return {
     devtool,
     publicPath,
     context: SYSPATH['SRC'],
-    mode: isDev ? 'development' : 'production',
+    mode: DEV ? 'development' : 'production',
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
       alias: pkg._moduleAliases
     },
     babelRule: () => {
-      // babel presets and options
-      const presets = [
-        [
-          '@babel/preset-env',
-          {
-            modules: isClient ? false : 'commonjs',
-            useBuiltIns: 'entry'
-          }
-        ],
-        '@babel/preset-react'
-      ];
-
-      // babel plugins, read more on babel's stage presets blog post:
-      // @see: https://babeljs.io/blog/2018/07/27/removing-babels-stage-presets
-      const plugins = [
-        'react-hot-loader/babel',
-        'universal-import',
-        '@babel/plugin-transform-strict-mode',
-        '@babel/plugin-syntax-dynamic-import',
-        '@babel/plugin-proposal-class-properties',
-        [
-          'react-css-modules',
-          {
-            exclude: 'global.s?css', // need to exclude the defined global CSS file
-            context: SYSPATH['SRC'], // must match with webpack's context
-            generateScopedName: cssScopedName,
-            filetypes: {
-              '.scss': {
-                syntax: 'postcss-scss',
-                plugins: ['postcss-nested']
-              }
-            }
-          }
-        ]
-      ].concat(!isDev ? ['transform-react-remove-prop-types'] : []);
-
       return [
         {
           test: /\.jsx?$/,
@@ -63,9 +28,46 @@ module.exports = function commonConfig(target, isDev) {
             options: {
               babelrc: false,
               compact: false,
-              cacheDirectory: !!isDev,
-              presets,
-              plugins
+              cacheDirectory: !!DEV,
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    modules: isClient ? false : 'commonjs',
+                    useBuiltIns: 'entry'
+                  }
+                ],
+                '@babel/preset-react'
+              ],
+              // babel plugins, read more on babel's stage presets blog post:
+              // @see: https://babeljs.io/blog/2018/07/27/removing-babels-stage-presets
+              plugins: [
+                'react-hot-loader/babel',
+                'universal-import',
+                '@babel/plugin-transform-strict-mode',
+                '@babel/plugin-syntax-dynamic-import',
+                '@babel/plugin-proposal-class-properties',
+                [
+                  'react-css-modules',
+                  {
+                    exclude: 'global.s?css', // need to exclude the defined global CSS file
+                    context: SYSPATH['SRC'], // must match with webpack's context
+                    generateScopedName: cssScopedName,
+                    filetypes: {
+                      '.scss': {
+                        syntax: 'postcss-scss',
+                        plugins: ['postcss-nested']
+                      }
+                    }
+                  }
+                ]
+              ],
+              // environment specific
+              env: {
+                production: {
+                  plugins: ['transform-react-remove-prop-types']
+                }
+              }
             }
           }
         }
@@ -77,7 +79,7 @@ module.exports = function commonConfig(target, isDev) {
     cssModulesRule: (ExtractCssChunks = null) => {
       const modules = true;
       const localIdentName = cssScopedName;
-      const sourceMap = !!isDev;
+      const sourceMap = !!DEV;
 
       return [
         {
@@ -123,7 +125,7 @@ module.exports = function commonConfig(target, isDev) {
     // this is for us to use global styles imported in `global.css` or `global.scss` file
     // Note: we assign global CSS class names to `className` property instead of `styleName`
     globalStylesRule: (ExtractCssChunks = null) => {
-      const sourceMap = !!isDev;
+      const sourceMap = !!DEV;
 
       return [
         {
@@ -181,4 +183,4 @@ module.exports = function commonConfig(target, isDev) {
       ];
     }
   };
-};
+}
