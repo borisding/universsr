@@ -1,20 +1,20 @@
-import webpack from 'webpack';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import ExtractCssChunks from 'extract-css-chunks-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import OfflinePlugin from 'offline-plugin';
-import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import StatsWebpackPlugin from 'stats-webpack-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import DEV from 'isdev';
-import SYSPATH from '@config/syspath';
-import webpackCommon from './common';
+const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const StatsWebpackPlugin = require('stats-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const DEV = require('isdev');
+const SYSPATH = require('@config/syspath');
+const webpackCommon = require('./common');
 
 const commonConfig = webpackCommon('client');
 const isAnalyze = process.env.ANALYZE_MODE === 'enabled';
 
-export default {
+module.exports = {
   target: 'web',
   name: 'client',
   mode: commonConfig.mode,

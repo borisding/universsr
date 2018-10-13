@@ -1,9 +1,9 @@
-import autoprefixer from 'autoprefixer';
-import DEV from 'isdev';
-import SYSPATH from '@config/syspath';
-import pkg from '@root/package';
+const autoprefixer = require('autoprefixer');
+const DEV = require('isdev');
+const SYSPATH = require('@config/syspath');
+const pkg = require('@root/package');
 
-export default function commonConfig(target) {
+module.exports = function commonConfig(target) {
   const isClient = target === 'client';
   const devtool = DEV ? 'cheap-module-inline-source-map' : 'source-map';
   const cssScopedName = DEV ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
@@ -183,4 +183,4 @@ export default function commonConfig(target) {
       ];
     }
   };
-}
+};

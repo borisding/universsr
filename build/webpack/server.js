@@ -1,7 +1,7 @@
-import fs from 'fs';
-import webpack from 'webpack';
-import SYSPATH from '@config/syspath';
-import webpackCommon from './common';
+const fs = require('fs');
+const webpack = require('webpack');
+const SYSPATH = require('@config/syspath');
+const webpackCommon = require('./common');
 
 const commonConfig = webpackCommon('server');
 
@@ -15,7 +15,7 @@ const nodeExternals = fs
     return externals;
   }, {});
 
-export default {
+module.exports = {
   target: 'node',
   name: 'server',
   mode: commonConfig.mode,

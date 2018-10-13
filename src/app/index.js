@@ -24,8 +24,7 @@ app
 // use webpack compiler for development
 // otherwise, use built server renderer instead
 if (DEV) {
-  const webpackCompiler = require('@build/webpack/compiler').default;
-  webpackCompiler(app);
+  require('@build/webpack/compiler')(app);
 } else {
   const clientStats = require('@public/stats');
   const serverRenderer = require('@build/renderer').default;

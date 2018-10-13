@@ -1,10 +1,10 @@
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackHotServerMiddleware from 'webpack-hot-server-middleware';
-import webpackConfig from './config.babel';
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
+const webpackConfig = require('./config');
 
-export default function webpackCompiler(app) {
+module.exports = function webpackCompiler(app) {
   const clientConfig = webpackConfig[0] || {};
   const serverConfig = webpackConfig[1] || {};
   const compiler = webpack([clientConfig, serverConfig]);
@@ -40,4 +40,4 @@ export default function webpackCompiler(app) {
   // `TypeError: serverRenderer is not a function` error
   // @see: https://github.com/faceyspacey/react-universal-component/issues/132#issuecomment-409345250
   app.use(webpackHotServerMiddleware(compiler, { chunkName: 'm' }));
-}
+};

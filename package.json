@@ -4,9 +4,9 @@
   "description": "Universal React + Redux, Express application starter kit.",
   "main": "app.js",
   "scripts": {
-    "config": "node -r esm build/scripts/config.js",
+    "config": "node build/scripts/config.js",
     "clean": "rimraf public config/*.json build/renderer.*",
-    "webpack": "webpack --progress --hide-modules --config build/webpack/config.babel.js",
+    "webpack": "webpack --progress --hide-modules --config build/webpack/config.js",
     "build": "cross-env NODE_ENV=production npm-run-all clean config webpack",
     "build:analyze": "cross-env ANALYZE_MODE=enabled npm run build",
     "postinstall": "npm run build",
@@ -101,7 +101,6 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "@babel/register": "^7.0.0",
     "autoprefixer": "^9.1.5",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
@@ -180,6 +179,9 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/mocks/fileMock.js",
       "\\.(css|scss)$": "<rootDir>/resources/mocks/styleMock.js"
+    },
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
     },
     "testEnvironment": "node",
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$",
