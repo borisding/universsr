@@ -1,6 +1,7 @@
 import express from 'express';
 import helmet from 'helmet';
 import favicon from 'serve-favicon';
+import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import { DEV, ENV, SYSPATH } from '@config';
 import { proxy, logger, errorHandler } from '@middlewares/express';
@@ -17,6 +18,7 @@ app
 app
   .use(logger.http())
   .use(helmet())
+  .use(cookieParser())
   .use(compression())
   .use(express.static(SYSPATH['PUBLIC']))
   .use(`/api/${ENV['API_VERSION']}`, proxy.proxyWeb);
@@ -28,6 +30,7 @@ if (DEV) {
 } else {
   const clientStats = require('@public/stats');
   const serverRenderer = require('@build/renderer').default;
+
   app.use(favicon(`${SYSPATH['PUBLIC']}/icons/favicon.png`));
   app.use(serverRenderer({ clientStats }));
 }

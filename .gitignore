@@ -7,3 +7,4 @@ public
 *.map
 build/renderer.*
 *-properties.*
+sessions
