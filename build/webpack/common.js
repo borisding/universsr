@@ -18,7 +18,7 @@ module.exports = function commonConfig(target) {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
       alias: pkg._moduleAliases
     },
-    babelRule: () => {
+    babelRule() {
       return [
         {
           test: /\.jsx?$/,
@@ -76,7 +76,7 @@ module.exports = function commonConfig(target) {
     // this is for us to import local CSS modules from `src`, except global CSS file
     // Note: CSS class names are assigned to `styleName` property where
     // `babel-plugin-react-css-modules` plugin will take care of it and do the matching
-    cssModulesRule: (ExtractCssChunks = null) => {
+    cssModulesRule(ExtractCssChunks = null) {
       const modules = true;
       const localIdentName = cssScopedName;
       const sourceMap = !!DEV;
@@ -124,7 +124,7 @@ module.exports = function commonConfig(target) {
     },
     // this is for us to use global styles imported in `global.css` or `global.scss` file
     // Note: we assign global CSS class names to `className` property instead of `styleName`
-    globalStylesRule: (ExtractCssChunks = null) => {
+    globalStylesRule(ExtractCssChunks = null) {
       const sourceMap = !!DEV;
 
       return [
@@ -155,7 +155,7 @@ module.exports = function commonConfig(target) {
         }
       ];
     },
-    fileRule: () => {
+    fileRule() {
       const loaders = options => [
         {
           loader: 'url-loader',
