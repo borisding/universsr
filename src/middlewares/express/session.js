@@ -4,8 +4,7 @@ import connectRedis from 'connect-redis';
 import connectFile from 'session-file-store';
 import { ENV } from '@config';
 
-const FileStore = connectFile(expressSession);
-const RedisStore = connectRedis(expressSession);
+const maxAge = 24 * 60 * 60 * 1000; // 1 day
 
 // default options for express-session middleware
 // @see: https://github.com/expressjs/session#sessionoptions
@@ -13,7 +12,7 @@ const sessionOptions = {
   resave: false,
   saveUninitialized: false,
   secret: ENV['SECRET_KEY'],
-  cookie: { maxAge: 24 * 60 * 60 * 1000 }
+  cookie: { maxAge }
 };
 
 const session = {
@@ -21,17 +20,25 @@ const session = {
   cookie(options = {}) {
     return cookieSession({
       secret: ENV['SECRET_KEY'],
+      maxAge,
       ...options
     });
   },
+
   // @see: https://github.com/valery-barysok/session-file-store#options
   file(options = {}) {
+    const FileStore = connectFile(expressSession);
+
     return expressSession({
       store: new FileStore({ ...options }),
       ...sessionOptions
     });
   },
+
+  // @see: https://github.com/tj/connect-redis#options
   redis(options = {}) {
+    const RedisStore = connectRedis(expressSession);
+
     return expressSession({
       store: new RedisStore({ ...options }),
       ...sessionOptions

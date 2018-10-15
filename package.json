@@ -65,7 +65,6 @@
     "esm": "^3.0.84",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
-    "extend": "^3.0.2",
     "helmet": "^3.14.0",
     "hpp": "^0.2.2",
     "http-proxy": "^1.17.0",

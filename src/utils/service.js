@@ -1,5 +1,5 @@
 import axios from 'axios';
-import extend from 'extend';
+import { isObject } from '@utils';
 import { ENV, NODE } from '@config';
 
 export default class Service {
@@ -8,21 +8,17 @@ export default class Service {
   }
 
   constructor(axiosConfig) {
-    if (typeof axiosConfig !== 'object') {
+    if (!isObject(axiosConfig)) {
       throw new TypeError(
         'Invalid axios config. Expecting object data type to be provided.'
       );
     }
 
-    this.axios = axios.create(
-      extend(
-        {
-          baseURL: this.getBaseURL(),
-          timeout: ENV['REQUEST_TIMEOUT']
-        },
-        axiosConfig
-      )
-    );
+    this.axios = axios.create({
+      baseURL: this.getBaseURL(),
+      timeout: ENV['REQUEST_TIMEOUT'],
+      ...axiosConfig
+    });
   }
 
   getBaseURL() {
@@ -70,7 +66,12 @@ export const service = Service.create();
 
 service.interceptRequest(
   config => {
-    // we may do something here before request is sent
+    // set the cookie header for server
+    if (NODE && service.req && service.req.header) {
+      config.headers.Cookie = service.req.header('cookie') || '';
+      service.req = null;
+    }
+
     return config;
   },
   err => Promise.reject(err)

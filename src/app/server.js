@@ -7,21 +7,22 @@ import { flushChunkNames } from 'react-universal-component/server';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { service } from '@utils';
 import storeFactory from './store';
 import routes from './routes';
 
 // preload data for matched route
-function prefetchBranchData(store, url) {
+function prefetchBranchData(store, req) {
   try {
-    const branch = matchRoutes(routes, url);
+    const branch = matchRoutes(routes, req.url);
     const promises = branch.map(({ route, match }) => {
       const { loadData } = route;
       const { dispatch } = store;
 
       if (match && match.isExact && loadData) {
         return Array.isArray(loadData)
-          ? Promise.all(loadData.map(action => dispatch(action(match))))
-          : dispatch(loadData(match));
+          ? Promise.all(loadData.map(action => dispatch(action(match, req))))
+          : dispatch(loadData(match, req));
       }
 
       return Promise.resolve(null);
@@ -38,10 +39,13 @@ function prefetchBranchData(store, url) {
 export default function serverRenderer({ clientStats }) {
   return async (req, res, next) => {
     try {
+      // assign request object to default service instance
+      if (req && req.cookies) service.req = req;
+
       const context = {};
       const store = storeFactory();
 
-      await prefetchBranchData(store, req.url);
+      await prefetchBranchData(store, req);
 
       const appString = renderToString(
         <Provider store={store}>
