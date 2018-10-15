@@ -29,7 +29,7 @@ if (DEV) {
   require('@build/webpack/compiler')(app);
 } else {
   const clientStats = require('@public/stats');
-  const serverRenderer = require('@build/renderer').default;
+  const serverRenderer = require('@build/serverRenderer').default;
 
   app.use(favicon(`${SYSPATH['PUBLIC']}/icons/favicon.png`));
   app.use(serverRenderer({ clientStats }));

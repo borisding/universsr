@@ -34,7 +34,7 @@ module.exports = {
           'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
         ]
       : []),
-    './app/container.js'
+    './app/client.js'
   ],
   output: {
     path: SYSPATH['PUBLIC'],
