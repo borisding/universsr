@@ -10,8 +10,8 @@ import './styles/Root.scss';
 const Root = props => {
   return (
     <div styleName="container">
-      {<Header {...props} />}
-      {<Body {...props} />}
+      <Header {...props} />
+      <Body {...props} />
     </div>
   );
 };
