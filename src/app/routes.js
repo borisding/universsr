@@ -1,4 +1,4 @@
-import Layout, { NotFound, Home, Todos } from '@pages';
+import Root, { NotFound, Home, Todos } from '@pages';
 import { prefetchTodos } from '@pages/Todos/actions';
 
 export const routes = [
@@ -23,7 +23,7 @@ export const routes = [
 
 export default [
   {
-    component: Layout,
+    component: Root,
     routes
   }
 ];

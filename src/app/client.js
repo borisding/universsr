@@ -32,7 +32,6 @@ if (!DEV) {
 
 if (module.hot) {
   module.hot.accept('./routes', () => {
-    const nextAppRoutes = require('./routes').default;
-    render(nextAppRoutes);
+    render(routes);
   });
 }

@@ -11,7 +11,7 @@ const Home = () => (
     </div>
     <p styleName="lead">
       <span>
-        universsr is <strong>universal</strong> React-Redux boilerplate.
+        universsr is <strong>universal</strong> React-Redux starter kit.
       </span>
     </p>
     <div>

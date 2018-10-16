@@ -1,39 +1,5 @@
 @import '@common/styles/variables';
 
-html,
-#root {
-  min-height: 100%;
-  position: relative;
-}
-
-body {
-  background-color: #fafbfc;
-  font: $base-font-size $font-stack;
-  margin-top: $header-height;
-}
-
-body > .container {
-  padding: ($base-padding * 3) $base-padding;
-}
-
-.container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-}
-
-ol,
-ul {
-  margin: 0;
-  padding: 0;
-}
-
-hr {
-  background: $color-border;
-  border: 0;
-  height: 1px;
-}
-
 header {
   background-color: lighten($color-black, 10%);
   color: $color-white;
@@ -79,9 +45,4 @@ header {
   li > a:hover {
     @extend %active;
   }
-}
-
-.content {
-  flex: 1 100%;
-  padding: $base-padding;
 }
