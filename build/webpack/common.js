@@ -34,7 +34,7 @@ module.exports = function commonConfig(target) {
                   '@babel/preset-env',
                   {
                     modules: isClient ? false : 'commonjs',
-                    useBuiltIns: 'entry'
+                    useBuiltIns: 'usage'
                   }
                 ],
                 '@babel/preset-react'
