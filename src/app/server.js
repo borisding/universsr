@@ -5,7 +5,7 @@ import flushChunks from 'webpack-flush-chunks';
 import { renderToString } from 'react-dom/server';
 import { flushChunkNames } from 'react-universal-component/server';
 import { matchRoutes, renderRoutes } from 'react-router-config';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { service } from '@utils';
 import storeFactory from './store';
@@ -20,9 +20,13 @@ function prefetchBranchData(store, req) {
       const { dispatch } = store;
 
       if (match && match.isExact && loadData) {
-        return Array.isArray(loadData)
-          ? Promise.all(loadData.map(action => dispatch(action(match, req))))
-          : dispatch(loadData(match, req));
+        if (Array.isArray(loadData)) {
+          return Promise.all(
+            loadData.map(action => dispatch(action(match, req)))
+          );
+        } else {
+          return dispatch(loadData(match, req));
+        }
       }
 
       return Promise.resolve(null);
@@ -40,25 +44,25 @@ export default function serverRenderer({ clientStats }) {
   return async (req, res, next) => {
     try {
       // assign request object to default service instance
-      if (req && req.cookies) service.req = req;
+      if (req && req.cookies) {
+        service.req = req;
+      }
 
       const context = {};
       const store = storeFactory();
-
       await prefetchBranchData(store, req);
 
       const appString = renderToString(
         <Provider store={store}>
-          <StaticRouter location={req.url} context={context}>
+          <Router location={req.url} context={context}>
             {renderRoutes(routes)}
-          </StaticRouter>
+          </Router>
         </Provider>
       );
 
       const pageTitle = DocumentTitle.rewind();
       const chunksOptions = { chunkNames: flushChunkNames() };
       const { js, styles } = flushChunks(clientStats, chunksOptions);
-
       const preloadedState = serialize(store.getState(), { isJSON: true });
       const { statusCode = 200, redirectUrl } = context;
 

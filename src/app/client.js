@@ -2,7 +2,7 @@ import '@babel/polyfill';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { hydrate } from 'react-dom';
 import { DEV } from '@config';
@@ -13,11 +13,11 @@ import routes from './routes';
 const preloadedState = window.__UNIVERSSR_PRELOADED_STATE__;
 const store = storeFactory(preloadedState);
 
-const render = AppRoutes => {
+const render = routes => {
   hydrate(
     <AppContainer>
       <Provider store={store}>
-        <BrowserRouter>{renderRoutes(AppRoutes)}</BrowserRouter>
+        <Router>{renderRoutes(routes)}</Router>
       </Provider>
     </AppContainer>,
     document.getElementById('root')
