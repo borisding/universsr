@@ -1,3 +1,4 @@
+import extend from 'extend';
 import cookieSession from 'cookie-session';
 import expressSession from 'express-session';
 import connectRedis from 'connect-redis';
@@ -18,31 +19,43 @@ const sessionOptions = {
 const session = {
   // @see: https://github.com/expressjs/cookie-session#cookiesessionoptions
   cookie(options = {}) {
-    return cookieSession({
-      secret: ENV['SECRET_KEY'],
-      maxAge,
-      ...options
-    });
+    return cookieSession(
+      extend(
+        {
+          secret: ENV['SECRET_KEY'],
+          maxAge
+        },
+        options
+      )
+    );
   },
 
   // @see: https://github.com/valery-barysok/session-file-store#options
   file(options = {}) {
     const FileStore = connectFile(expressSession);
 
-    return expressSession({
-      store: new FileStore({ ...options }),
-      ...sessionOptions
-    });
+    return expressSession(
+      extend(
+        {
+          store: new FileStore(options)
+        },
+        sessionOptions
+      )
+    );
   },
 
   // @see: https://github.com/tj/connect-redis#options
   redis(options = {}) {
     const RedisStore = connectRedis(expressSession);
 
-    return expressSession({
-      store: new RedisStore({ ...options }),
-      ...sessionOptions
-    });
+    return expressSession(
+      extend(
+        {
+          store: new RedisStore(options)
+        },
+        sessionOptions
+      )
+    );
   }
 };
 
