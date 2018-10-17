@@ -3,18 +3,31 @@ import cors from 'cors';
 import hpp from 'hpp';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import sessionFileStore from 'session-file-store';
 import { ENV } from '@config';
-import { logger, session, errorHandler } from '@middlewares/express';
+import { logger, errorHandler } from '@middlewares/express';
 import routers from './routers';
 
 const api = express();
+
+// session configuration for file storage
+const FileStore = sessionFileStore(session);
+const fileSession = () =>
+  session({
+    store: new FileStore(),
+    resave: false,
+    saveUninitialized: false,
+    secret: ENV['SECRET_KEY'],
+    cookie: { maxAge: ENV['COOKIE_MAXAGE'] }
+  });
 
 api
   .use(logger.http())
   .use(helmet())
   .use(cors())
   .use(cookieParser())
-  .use(session.cookie())
+  .use(fileSession())
   .use(express.json())
   .use(express.urlencoded({ extended: true, limit: '10mb' }), hpp())
   .use(`/api/${ENV['API_VERSION']}`, routers);
