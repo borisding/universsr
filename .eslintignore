@@ -1,4 +1,0 @@
-coverage
-logs
-public/**/*.js
-build/serverRenderer.*

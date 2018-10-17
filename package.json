@@ -183,6 +183,55 @@
       }
     }
   },
+  "eslintConfig": {
+    "root": true,
+    "parser": "babel-eslint",
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "prettier",
+      "prettier/react"
+    ],
+    "plugins": [
+      "prettier",
+      "jest"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "settings": {
+      "react": {
+        "version": "16.4.0"
+      }
+    },
+    "rules": {
+      "global-require": 0,
+      "no-global-assign": 0,
+      "no-console": 0,
+      "react/prop-types": 0,
+      "react/display-name": 0,
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "coverage",
+    "logs",
+    "public/**/*.js",
+    "build/serverRenderer.*"
+  ],
   "stylelint": {
     "plugins": [
       "stylelint-scss"
