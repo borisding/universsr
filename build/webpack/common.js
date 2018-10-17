@@ -1,4 +1,3 @@
-const autoprefixer = require('autoprefixer');
 const DEV = require('isdev');
 const SYSPATH = require('@config/syspath');
 const pkg = require('@root/package');
@@ -99,10 +98,7 @@ module.exports = function commonConfig(target) {
                 },
                 {
                   loader: 'postcss-loader',
-                  options: {
-                    sourceMap,
-                    plugins: () => [autoprefixer]
-                  }
+                  options: { sourceMap }
                 },
                 {
                   loader: 'sass-loader',
@@ -140,16 +136,11 @@ module.exports = function commonConfig(target) {
             },
             {
               loader: 'postcss-loader',
-              options: {
-                sourceMap,
-                plugins: () => [autoprefixer]
-              }
+              options: { sourceMap }
             },
             {
               loader: 'sass-loader',
-              options: {
-                sourceMap
-              }
+              options: { sourceMap }
             }
           ])
         }
