@@ -48,6 +48,7 @@
   "author": "Boris Ding Poh Hing",
   "license": "MIT",
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "colors": "^1.3.2",
@@ -64,6 +65,7 @@
     "esm": "^3.0.84",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
+    "extend": "^3.0.2",
     "helmet": "^3.14.0",
     "hpp": "^0.2.2",
     "http-proxy": "^1.17.0",
@@ -79,8 +81,8 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
-    "react-router-config": "^4.4.0-beta.1",
-    "react-router-dom": "^4.4.0-beta.1",
+    "react-router-config": "^4.4.0-beta.4",
+    "react-router-dom": "^4.4.0-beta.4",
     "react-s-alert": "^1.4.1",
     "react-universal-component": "^3.0.3",
     "redux": "^4.0.1",
@@ -166,45 +168,6 @@
     "ext": "js jsx",
     "env": {
       "NODE_ENV": "development"
-    }
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ],
-    "plugins": [
-      "@babel/plugin-transform-strict-mode",
-      "@babel/plugin-syntax-dynamic-import",
-      "@babel/plugin-proposal-class-properties"
-    ],
-    "env": {
-      "test": {
-        "plugins": [
-          [
-            "babel-plugin-webpack-alias",
-            {
-              "config": "./build/webpack/config.js"
-            }
-          ],
-          [
-            "react-css-modules",
-            {
-              "context": "./src",
-              "exclude": "node_modules",
-              "generateScopedName": "[local]",
-              "filetypes": {
-                ".scss": {
-                  "syntax": "postcss-scss",
-                  "plugins": [
-                    "postcss-nested"
-                  ]
-                }
-              }
-            }
-          ]
-        ]
-      }
     }
   },
   "browserslist": [
