@@ -7,14 +7,12 @@ import Body from './Body';
 import '@common/styles/global.scss';
 import './styles/Root.scss';
 
-const Root = props => {
-  return (
-    <div styleName="container">
-      <Header {...props} />
-      <Body {...props} />
-    </div>
-  );
-};
+const Root = props => (
+  <div styleName="container">
+    <Header {...props} />
+    <Body {...props} />
+  </div>
+);
 
 export default compose(
   withRouter,
