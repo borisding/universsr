@@ -20,13 +20,7 @@ const session = {
   // @see: https://github.com/expressjs/cookie-session#cookiesessionoptions
   cookie(options = {}) {
     return cookieSession(
-      extend(
-        {
-          secret: ENV['SECRET_KEY'],
-          maxAge
-        },
-        options
-      )
+      extend({ secret: ENV['SECRET_KEY'], maxAge }, options)
     );
   },
 
@@ -35,12 +29,7 @@ const session = {
     const FileStore = connectFile(expressSession);
 
     return expressSession(
-      extend(
-        {
-          store: new FileStore(options)
-        },
-        sessionOptions
-      )
+      extend({ store: new FileStore(options) }, sessionOptions)
     );
   },
 
@@ -49,12 +38,7 @@ const session = {
     const RedisStore = connectRedis(expressSession);
 
     return expressSession(
-      extend(
-        {
-          store: new RedisStore(options)
-        },
-        sessionOptions
-      )
+      extend({ store: new RedisStore(options) }, sessionOptions)
     );
   }
 };
