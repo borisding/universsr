@@ -5,12 +5,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { hydrate } from 'react-dom';
 import { DEV } from '@config';
-import storeFactory from './store';
+import configureStore from './configureStore';
 import registerOffline from './offline';
 import routes from './routes';
 
 const preloadedState = window.__UNIVERSSR_PRELOADED_STATE__;
-const store = storeFactory(preloadedState);
+const store = configureStore(preloadedState);
 
 const render = routes => {
   hydrate(

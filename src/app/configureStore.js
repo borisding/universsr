@@ -8,9 +8,9 @@ import {
   successActionCreator,
   serviceAlert
 } from '@middlewares/redux';
-import rootReducer from './root';
+import rootReducer from './rootReducer';
 
-export default function storeFactory(preloadedState = {}) {
+export default function configureStore(preloadedState = {}) {
   const middlewares = [
     // register serivce action creators for dispatch
     // so it's accessible in respective thunk wrappers
@@ -33,8 +33,8 @@ export default function storeFactory(preloadedState = {}) {
   );
 
   if (module.hot) {
-    module.hot.accept('./store', () => {
-      const { nextRootReducer } = require('./store');
+    module.hot.accept('./rootReducer', () => {
+      const { nextRootReducer } = require('./rootReducer');
       store.replaceReducer(nextRootReducer);
     });
   }

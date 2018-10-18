@@ -8,7 +8,7 @@ import { matchRoutes, renderRoutes } from 'react-router-config';
 import { StaticRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ServiceClass } from '@utils';
-import storeFactory from './store';
+import configureStore from './configureStore';
 import routes from './routes';
 
 // preload data for matched route
@@ -50,7 +50,7 @@ export default function serverRenderer({ clientStats }) {
       }
 
       const context = {};
-      const store = storeFactory();
+      const store = configureStore();
       await prefetchBranchData(store, req);
 
       const appString = renderToString(
