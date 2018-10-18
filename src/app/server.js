@@ -8,7 +8,7 @@ import { matchRoutes, renderRoutes } from 'react-router-config';
 import { StaticRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ServiceClass } from '@utils';
-import configureStore from './configureStore';
+import configureStore from '@common/configureStore';
 import routes from './routes';
 
 // preload data for matched route
