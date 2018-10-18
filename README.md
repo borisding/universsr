@@ -115,7 +115,7 @@ npm test
 
 ## Directory Structure
 
-- Below is overview of project folder structure in this starter along with the short descriptions, respectively:
+Below is overview of project folder structure in this starter along with the short descriptions, respectively:
 
 ```
 |--
@@ -171,7 +171,7 @@ npm test
         |-- utils                       # utilities used for both client & server
 ```
 
-- This project structure is organized by having feature-first approach in mind. Thus, for any new features (the page), try to keep it as feature-based folder in `./src/app/pages`. Things in common such as common styles or components can be kept in `./src/app/common` directory.
+This project structure is organized by having feature-first approach in mind. Thus, for any new features (the page), try to keep it as feature-based folder in `./src/app/pages`. Things in common such as common styles or components can be kept in `./src/app/common` directory.
 
 **[Back to top](#table-of-contents)**
 
@@ -388,7 +388,7 @@ return Promise.all(promises);
 
 ## CSS, SCSS and CSS Modules
 
-- There are two main types of config for styles to work in this starter. Both are using [PostCSS](https://github.com/postcss/postcss) for post-processing CSS via JS plugins. (Note: PostCSS config can be found in `package.json` with `postcss` property.)
+There are two main types of config for styles to work in this starter. Both are using [PostCSS](https://github.com/postcss/postcss) for post-processing CSS via JS plugins. (Note: PostCSS config can be found in `package.json` with `postcss` property.)
 
 **Global CSS/SCSS**
 
@@ -617,9 +617,9 @@ function myAsyncAction() {
 
 **Session Management**
 
-- This starter comes with default file storage (`session-file-store`) for session management. Please refer to `index.js` file in `./src/api`.
+- This starter comes with default file storage (`session-file-store`) for session management. Please refer to `./src/api/index.js`.
 
-- Feel free to use other storage approach for session management. For instance, to store in Redis:
+- Feel free to use different storage for session management. For instance, storing sessions with Redis:
 
 ```js
 import session from 'express-session';
@@ -644,8 +644,6 @@ app.use(session({
 }));
 ...
 ```
-
-> The `req` object is assigned to default `service` instance when `req.cookies` exists so that cookie header is set for server to assure persistence (when reloading page). Be sure to apply the same when using `ServiceClass.create()` for new service instantiation.
 
 **Redux State Management**
 
