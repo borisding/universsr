@@ -149,15 +149,15 @@ Below is overview of project folder structure in this starter along with the sho
         |   |-- index.js                # api server index entry file
         |-- app                         # parent directory of app source code
         |   |-- client.js               # app rendering and webpack's client entry
-        |   |-- configureStore.js       # redux middleware registration & store creation
         |   |-- index.js                # app server index entry file
         |   |-- offline.js              # offline plugin registration and event handlers
-        |   |-- rootReducer.js          # root reducer creation for the app
         |   |-- routes.js               # static React routes configuration
         |   |-- server.js               # server renderer for app string & initial state
         |   |-- common                  # reusable React components & styles
         |   |   |-- components          # reusable React components for common usage
         |   |   |-- styles              # reusable CSS/SCSS for the app
+        |   |   |-- configureStore.js   # redux middleware registration & store creation
+        |   |   |-- rootReducer.js      # root reducer creation for the app
         |   |-- pages                   # page components based on "modules"
         |       |-- Home                # `Home` page related (index.js/styles/tests, etc)
         |       |-- NotFound            # NotFound component for page (index.js/styles/tests, etc)
@@ -651,7 +651,7 @@ app.use(session({
 
 - Besides, this starter also comes with [`redux-thunk`](https://github.com/reduxjs/redux-thunk) as default package for handling asynchronous dispatch. Please check out `Todos` demo page on the todos' redux state management and async action dispatches.
 
-- Redux's middleware registration and store creation can be found in `./src/app/configureStore.js`. The app's state object is produced in `./src/app/rootReducer.js` via the `combineReducers` helper function.
+- Redux's middleware registration and store creation can be found in `./src/app/common/configureStore.js`. The app's state object is produced in `./src/app/common/rootReducer.js` via the `combineReducers` helper function.
 
 ```js
 // in `configureStore.js`
