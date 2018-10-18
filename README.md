@@ -149,12 +149,12 @@ Below is overview of project folder structure in this starter along with the sho
         |   |-- index.js                # api server index entry file
         |-- app                         # parent directory of app source code
         |   |-- client.js               # app rendering and webpack's client entry
+        |   |-- configureStore.js       # redux middleware registration & store creation
         |   |-- index.js                # app server index entry file
         |   |-- offline.js              # offline plugin registration and event handlers
-        |   |-- root.js                 # root reducer creation for the app
+        |   |-- rootReducer.js          # root reducer creation for the app
         |   |-- routes.js               # static React routes configuration
         |   |-- server.js               # server renderer for app string & initial state
-        |   |-- store.js                # redux middleware registration & store creation
         |   |-- common                  # reusable React components & styles
         |   |   |-- components          # reusable React components for common usage
         |   |   |-- styles              # reusable CSS/SCSS for the app
@@ -188,7 +188,7 @@ This project structure is organized by having feature-first approach in mind. Th
 | `@public`      | The project's built `public` directory in production |
 | `@resources`   | The project's `resources` directory                  |
 | `@assets`      | The `assets` subdirectory within `resources`         |
-| `@config`      | The project's `config` directory         |
+| `@config`      | The project's `config` directory                     |
 | `@middlewares` | The `middlewares` subdirectory within `src`          |
 | `@utils`       | The `utils` subdirectory within `src`                |
 | `@api`         | The `api` subdirectory within `src`                  |
@@ -207,10 +207,10 @@ This project structure is organized by having feature-first approach in mind. Th
 
 | Script Name     | Description                                                                                                                             |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `config`        | Loads `.env` environment variables into `process.env`. Also, generate `env-properties.json` file for universal usage.                |
-| `clean`         | Remove `public` folder and respective built files.                                                                                                 |
-| `webpack`         | Running webpack build process.                                                                                                 |
-| `build`         | Remove previous built files and build production ready files to be served. This will also run `config` script.                        |
+| `config`        | Loads `.env` environment variables into `process.env`. Also, generate `env-properties.json` file for universal usage.                   |
+| `clean`         | Remove `public` folder and respective built files.                                                                                      |
+| `webpack`       | Running webpack build process.                                                                                                          |
+| `build`         | Remove previous built files and build production ready files to be served. This will also run `config` script.                          |
 | `build:analyze` | Same with `build` script, except it comes with webpack bundle analyzer to visualize size of the output files.                           |
 | `postinstall`   | Run after packages installed - which triggers `build` script in our context. Useful for production deployment, eg: deployment on heroku |
 | `dev:app`       | Start running app server in development environment (React changes are monitored by `webpack-hot-server-middleware` on server-side).    |
@@ -223,8 +223,8 @@ This project structure is organized by having feature-first approach in mind. Th
 | `lint:style`    | Perform lint checks for Sass style.                                                                                                     |
 | `lint:js`       | Perform lint checks for JS and React.                                                                                                   |
 | `test`          | Perform lint checks and then running tests.                                                                                             |
-| `test:watch`    | Running tests with watch mode turned on.                                                                                                 |
-| `test:coverage` | Running tests with coverage report output.                                                                                               |
+| `test:watch`    | Running tests with watch mode turned on.                                                                                                |
+| `test:coverage` | Running tests with coverage report output.                                                                                              |
 
 **[Back to top](#table-of-contents)**
 
@@ -250,7 +250,7 @@ npm run config
 import { ENV } from "@config";
 
 // print PORT value as configured in `.env`
-console.log(ENV['PORT'])
+console.log(ENV["PORT"]);
 ```
 
 > You should never commit `.env` file to version control. Please [check out](https://www.npmjs.com/package/dotenv#faq) the FAQ section on `dotenv` page for more details.
@@ -262,17 +262,17 @@ import { DEV, NODE, SYSPATH } from "@config";
 
 // check if we're in development environment
 if (DEV) {
-    console.log('We are in development environment.');
+  console.log("We are in development environment.");
 }
 
 // check if it is on server side, the Node
 if (NODE) {
-    console.log('This is on server side.');
+  console.log("This is on server side.");
 }
 
 // print absolute path of `public` directory
 // defined system paths can be found in `syspath.js`
-console.log(SYSPATH['PUBLIC']);
+console.log(SYSPATH["PUBLIC"]);
 ```
 
 **Utilities**
@@ -405,7 +405,7 @@ npm install bulma
 b) Include `bulma.sass` file in `global.scss`
 
 ```css
-@import '~bulma/bulma.sass';
+@import "~bulma/bulma.sass";
 ```
 
 > `~` above refers to the `node_modules` of current project.
@@ -651,10 +651,10 @@ app.use(session({
 
 - Besides, this starter also comes with [`redux-thunk`](https://github.com/reduxjs/redux-thunk) as default package for handling asynchronous dispatch. Please check out `Todos` demo page on the todos' redux state management and async action dispatches.
 
-- Redux's middleware registration and store creation can be found in `./src/app/store.js`. The app's state object is produced in `./src/app/root.js` via the `combineReducers` helper function.
+- Redux's middleware registration and store creation can be found in `./src/app/configureStore.js`. The app's state object is produced in `./src/app/rootReducer.js` via the `combineReducers` helper function.
 
 ```js
-// in `store.js`
+// in `configureStore.js`
 ...
 const middlewares = [
     // register serivce action creators for dispatch
