@@ -7,7 +7,7 @@ import { flushChunkNames } from 'react-universal-component/server';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import { StaticRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { service } from '@utils';
+import { ServiceClass } from '@utils';
 import storeFactory from './store';
 import routes from './routes';
 
@@ -43,9 +43,10 @@ function prefetchBranchData(store, req) {
 export default function serverRenderer({ clientStats }) {
   return async (req, res, next) => {
     try {
-      // assign request object to default service instance
+      // assign request object to service class via setter method
+      // so that we can add cookie header in service later for server
       if (req && req.cookies) {
-        service.req = req;
+        ServiceClass.req = req;
       }
 
       const context = {};

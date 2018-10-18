@@ -2,11 +2,9 @@ import axios from 'axios';
 import { isObject } from '@utils';
 import { ENV, NODE } from '@config';
 
-export default class Service {
-  static create(axiosConfig = {}) {
-    return new Service(axiosConfig);
-  }
+let _req = null;
 
+export default class Service {
   constructor(axiosConfig) {
     if (!isObject(axiosConfig)) {
       throw new TypeError(
@@ -19,6 +17,18 @@ export default class Service {
       timeout: ENV['REQUEST_TIMEOUT'],
       ...axiosConfig
     });
+  }
+
+  static create(axiosConfig = {}) {
+    return new Service(axiosConfig);
+  }
+
+  static get req() {
+    return _req;
+  }
+
+  static set req(value) {
+    _req = value;
   }
 
   getBaseURL() {
@@ -67,9 +77,9 @@ export const service = Service.create();
 service.interceptRequest(
   config => {
     // set the cookie header for server
-    if (NODE && service.req && service.req.header) {
-      config.headers.Cookie = service.req.header('cookie') || '';
-      service.req = null;
+    if (NODE && Service.req && Service.req.header) {
+      config.headers.Cookie = Service.req.header('cookie') || '';
+      Service.req = null;
     }
 
     return config;
