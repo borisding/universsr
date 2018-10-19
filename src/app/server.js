@@ -24,9 +24,9 @@ function prefetchBranchData(store, req) {
           return Promise.all(
             loadData.map(action => dispatch(action(match, req)))
           );
-        } else {
-          return dispatch(loadData(match, req));
         }
+
+        return dispatch(loadData(match, req));
       }
 
       return Promise.resolve(null);
