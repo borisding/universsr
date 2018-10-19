@@ -2,21 +2,22 @@ import axios from 'axios';
 import { isObject } from '@utils';
 import { ENV, NODE } from '@config';
 
-let _req = null;
+let req = null;
 
 export default class Service {
   constructor(axiosConfig) {
     if (!isObject(axiosConfig)) {
-      throw new TypeError(
-        'Invalid axios config. Expecting object data type to be provided.'
-      );
+      throw new TypeError('Expecting axios config is an object.');
     }
 
-    this.axios = axios.create({
+    this.axiosConfig = axiosConfig;
+    this.defaultConfig = {
       baseURL: this.getBaseURL(),
-      timeout: ENV['REQUEST_TIMEOUT'],
-      ...axiosConfig
-    });
+      timeout: ENV['REQUEST_TIMEOUT']
+    };
+    this.axios = axios.create(
+      Object.assign({}, this.defaultConfig, this.axiosConfig)
+    );
   }
 
   static create(axiosConfig = {}) {
@@ -24,11 +25,11 @@ export default class Service {
   }
 
   static get req() {
-    return _req;
+    return req;
   }
 
   static set req(value) {
-    _req = value;
+    req = value;
   }
 
   getBaseURL() {
@@ -39,10 +40,13 @@ export default class Service {
       return `${ENV['REQUEST_BASEURL']}${api}`;
     }
 
-    // else, construct base URL based on platform
-    return NODE
-      ? `${ENV['PROTOCOL']}://${ENV['HOST']}:${ENV['PORT']}${api}`
-      : api;
+    // else, construct base URL when is on server side
+    if (NODE) {
+      return `${ENV['PROTOCOL']}://${ENV['HOST']}:${ENV['PORT']}${api}`;
+    }
+
+    // or return as it is
+    return api;
   }
 
   interceptRequest(resolve, reject) {
