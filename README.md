@@ -358,27 +358,9 @@ export const Home = loadComponent(() =>
 
 ```js
 // in `server.js`
-
 ...
-const branch = matchRoutes(routes, req.url);
-const promises = branch.map(({ route, match }) => {
-    const { loadData } = route;
-    const { dispatch } = store;
 
-    if (match && match.isExact && loadData) {
-        if (Array.isArray(loadData)) {
-            return Promise.all(
-                loadData.map(action => dispatch(action(match, req)))
-            );
-        } else {
-            return dispatch(loadData(match, req));
-        }
-    }
-
-    return Promise.resolve(null);
-});
-
-return Promise.all(promises);
+return dispatch(loadData(match, req));
 ...
 ```
 
@@ -641,7 +623,7 @@ const middlewares = [
 ...
 ```
 
-- There are also common redux actions in `./src/app/common/actions.js`. Example, `requestError`/`requestInfo`/`requestSuccess` which are used for alert's action creation based on the status of http request made. Please refer to the example as shown in the above code snippet.
+- There are also common redux actions in `./src/app/common/actions.js`. Example, `requestError`/`requestInfo`/`requestSuccess` which are used for alert's action creation based on the status of http request made. Please refer to the usage example as shown in the above code snippet.
 
 
 **[Back to top](#table-of-contents)**
