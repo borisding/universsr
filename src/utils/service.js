@@ -7,14 +7,18 @@ let req = null;
 export default class Service {
   constructor(axiosConfig) {
     if (!isPlainObject(axiosConfig)) {
-      throw new TypeError('Expecting axios config is an object.');
+      throw new TypeError(
+        'Invalid data type of axios config. It must be a plain object.'
+      );
     }
 
     this.axiosConfig = axiosConfig;
+
     this.defaultConfig = {
       baseURL: this.getBaseURL(),
       timeout: ENV['REQUEST_TIMEOUT']
     };
+
     this.axios = axios.create(
       Object.assign({}, this.defaultConfig, this.axiosConfig)
     );
