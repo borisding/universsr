@@ -111,7 +111,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.19",
     "babel-plugin-universal-import": "^3.1.2",
     "babel-plugin-webpack-alias": "^2.1.2",
-    "copy-webpack-plugin": "^4.5.3",
+    "copy-webpack-plugin": "^4.5.4",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "enzyme": "^3.7.0",
