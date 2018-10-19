@@ -2,23 +2,15 @@ import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import { DEV } from '@config';
-import {
-  errorActionCreator,
-  infoActionCreator,
-  successActionCreator,
-  serviceAlert
-} from '@middlewares/redux';
+import { serviceAlert } from '@middlewares/redux';
+import { requestError, requestInfo, requestSuccess } from './actions';
 import rootReducer from './rootReducer';
 
 export default function configureStore(preloadedState = {}) {
   const middlewares = [
-    // register serivce action creators for dispatch
-    // so it's accessible in respective thunk wrappers
-    thunk.withExtraArgument({
-      errorActionCreator,
-      infoActionCreator,
-      successActionCreator
-    }),
+    // register request actions for dispatch
+    // so that it's accessible in respective thunk wrappers
+    thunk.withExtraArgument({ requestError, requestInfo, requestSuccess }),
     serviceAlert()
   ];
 

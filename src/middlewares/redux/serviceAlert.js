@@ -1,24 +1,6 @@
 import Alert from 'react-s-alert';
 import { DEV } from '@config';
-
-export const REQUEST_ERROR = 'REQUEST_ERROR';
-export const REQUEST_INFO = 'REQUEST_INFO';
-export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
-
-export const errorActionCreator = error => ({
-  type: REQUEST_ERROR,
-  payload: error
-});
-
-export const infoActionCreator = info => ({
-  type: REQUEST_INFO,
-  payload: info
-});
-
-export const successActionCreator = success => ({
-  type: REQUEST_SUCCESS,
-  payload: success
-});
+import { REQUEST_ERROR, REQUEST_INFO, REQUEST_SUCCESS } from '@common/types';
 
 // eslint-disable-next-line no-unused-vars
 export default () => store => next => action => {

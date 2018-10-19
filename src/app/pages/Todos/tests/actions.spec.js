@@ -3,16 +3,14 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 import * as actions from '../actions';
 import * as types from '../types';
-import {
-  REQUEST_ERROR,
-  errorActionCreator
-} from '@middlewares/redux/serviceAlert';
+import { REQUEST_ERROR } from '@common/types';
+import { requestError } from '@common/actions';
 
 const host = 'http://localhost:3000/api/v1';
 const endpoint = '/todos';
 
 const mockStore = configureMockStore([
-  thunk.withExtraArgument({ errorActionCreator })
+  thunk.withExtraArgument({ requestError })
 ]);
 
 describe('fetching todos data', () => {

@@ -4,7 +4,7 @@ import * as types from './types';
 
 // async/await example of making todo api request
 export const fetchTodos = () => {
-  return async (dispatch, getState, { errorActionCreator }) => {
+  return async (dispatch, getState, { requestError }) => {
     try {
       await dispatch({ type: types.FETCH_TODO_BEGIN });
       const res = await service.get('/todos');
@@ -15,7 +15,7 @@ export const fetchTodos = () => {
       });
     } catch (err) {
       dispatch({ type: types.FETCH_TODO_FAILURE });
-      dispatch(errorActionCreator(err));
+      dispatch(requestError(err));
     }
   };
 };
