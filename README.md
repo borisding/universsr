@@ -156,8 +156,10 @@ Below is overview of project folder structure in this starter along with the sho
         |   |-- common                  # reusable React components & styles
         |   |   |-- components          # reusable React components for common usage
         |   |   |-- styles              # reusable CSS/SCSS for the app
+        |   |   |-- actions.js          # common actions for the app
         |   |   |-- configureStore.js   # redux middleware registration & store creation
         |   |   |-- rootReducer.js      # root reducer creation for the app
+        |   |   |-- types.js            # common action types for the app
         |   |-- pages                   # page components based on "modules"
         |       |-- Home                # `Home` page related (index.js/styles/tests, etc)
         |       |-- NotFound            # NotFound component for page (index.js/styles/tests, etc)
@@ -573,8 +575,6 @@ app.use("/api/v1", proxy.proxyWeb);
 
 - `serviceAlert.js` is used in conjunction with `react-s-alert` package for flashing info/warning/success alert messages in application, based on the dispatched action types.
 
-- Apart from the middleware itself, it's also exporting 3 action creators (`errorActionCreator`/`infoActionCreator`/`successActionCreator`) for creating alert action to be dispatched based on the context.
-
 - Example of using middleware:
 
 ```js
@@ -583,32 +583,6 @@ import { serviceAlert } from "@middlewares/redux";
 // mount the redux's service alert middleware
 const middlewares = [serviceAlert, nextMiddleware];
 const store = createStore(applyMiddleware(...middlewares));
-```
-
-- Example of using action creator of `serviceAlert.js` in `fetch`:
-
-```js
-...
-import { errorActionCreator } from '@middlewares/redux';
-
-function myAsyncAction() {
-    return dispatch => {
-        fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            // data fetched and given in json format
-            // process and dispatch for success action
-        })
-        .catch(err => {
-            // we dispatch error action by passing `err` to `errorActionCreator`
-            // this will alert the error message once
-            // the error action is dispatched and
-            // fulfilled in the service alert middleware
-            dispatch(errorActionCreator(err));
-        });
-    };
-}
-...
 ```
 
 **[Back to top](#table-of-contents)**
@@ -656,19 +630,19 @@ app.use(session({
 ```js
 // in `configureStore.js`
 ...
+import { requestError, requestInfo, requestSuccess } from './actions';
+
 const middlewares = [
-    // register serivce action creators for dispatch
-    // so it's accessible in respective thunk wrappers
-    thunk.withExtraArgument({
-        errorActionCreator,
-        infoActionCreator,
-        successActionCreator
-    })
-    ...
+    // register request actions for dispatch
+    // so that it's accessible in respective thunk wrappers
+    thunk.withExtraArgument({ requestError, requestInfo, requestSuccess }),
+    serviceAlert()
 ];
+...
 ```
 
-- The service alert action creators are assigned to thunk's extra arguments so that it's accessible in thunk function, without importing action creators over and over again for usage.
+- There are also common redux actions in `./src/app/common/actions.js`. Example, `requestError`/`requestInfo`/`requestSuccess` which are used for alert's action creation based on the status of http request made. Please refer to the example as shown in the above code snippet.
+
 
 **[Back to top](#table-of-contents)**
 
