@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { isObject } from '@utils';
+import isPlainObject from 'is-plain-object';
 import { ENV, NODE } from '@config';
 
 let req = null;
 
 export default class Service {
   constructor(axiosConfig) {
-    if (!isObject(axiosConfig)) {
+    if (!isPlainObject(axiosConfig)) {
       throw new TypeError('Expecting axios config is an object.');
     }
 

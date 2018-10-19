@@ -66,6 +66,7 @@
     "hpp": "^0.2.2",
     "http-proxy": "^1.17.0",
     "husky": "^1.1.2",
+    "is-plain-object": "^2.0.4",
     "isdev": "^1.0.1",
     "lint-staged": "^7.3.0",
     "make-promises-safe": "^1.1.0",
