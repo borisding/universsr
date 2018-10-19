@@ -8,7 +8,7 @@
 <a href="https://david-dm.org/borisding/universsr?type=dev"><img src="https://david-dm.org/borisding/universsr/dev-status.svg" alt="Dev Dependencies"></a>
 </p>
 
-In short, **universsr** is a server-rendered React app starter boilerplate for universal JavaScript web development.
+In short, **universsr** is a server-rendered React app starter kit for universal JavaScript web development.
 It also uses Redux library for application state management and the back-end is powered by Node.js Express web framework.
 
 > ✨ The name - "universsr" is combination of _universal_ and _server-side rendering_ acronym.
@@ -430,7 +430,7 @@ d) Lastly, apply Bulma styles in React component. For instance, the message comp
     <p>Hello!</p>
     <button className="delete" aria-label="delete" />
   </div>
-  <div className="message-body">Thanks for using universsr starter boilerplate.</div>
+  <div className="message-body">Thanks for using universsr starter kit.</div>
 </article>
 ```
 
