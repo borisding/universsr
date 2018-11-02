@@ -21,7 +21,7 @@ proxy.on('error', (err, req, res) => {
     res.writeHead(500, { 'content-type': 'application/json' });
   }
 
-  res.end(JSON.stringify({ error: 'proxy_error', reason: err.message }));
+  res.end(JSON.stringify({ code: err.code || 500, error: err.message }));
 });
 
 export default {
