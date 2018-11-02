@@ -54,7 +54,6 @@
     "compression": "^1.7.3",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
-    "csurf": "^1.9.0",
     "detect-node": "^2.0.4",
     "dotenv": "^6.1.0",
     "dotenv-parse-variables": "^0.2.0",

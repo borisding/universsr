@@ -500,27 +500,7 @@ There are two categories of middleware in this starter:
 
 > How to use Express middleware, please check out [Using Middleware](https://expressjs.com/en/guide/using-middleware.html) documentation.
 
-a) `csp.js` - A wrapper of Helmet's Content Security Policy [(CSP) middleware](https://helmetjs.github.io/docs/csp/).
-
-```js
-// mount by invoking `nonce` method to generate nonce token for csp
-app.use(csp.nonce());
-
-// then followed by `mount` method by passing `helmet` to it
-app.use(csp.mount(helmet));
-```
-
-b) `csrf.js` - A wrapper of [`csurf` middleware](https://github.com/expressjs/csurf) for Cross-Site Request Forgery (CSRF) prevention.
-
-```js
-// mount csrf, default to using cookie for storing
-app.use(csrf(/* can provide options here */));
-
-// make `csrfToken` accessible in view templates
-app.use(csrf.toLocal());
-```
-
-c) `errorHandler.js` - A custom middleware for handling thrown exception errors in both development and production environments.
+a) `errorHandler.js` - A custom middleware for handling thrown exception errors in both development and production environments.
 
 ```js
 // mount the middleware last
@@ -531,7 +511,7 @@ app.use(errorHandler());
 app.use(errorHandler({ json: true }));
 ```
 
-d) `logger.js` - A small custom logger which utilizes `morgan` middleware for http request logging and `fs.createWriteStream` for writing exception logs, respectively.
+b) `logger.js` - A small custom logger which utilizes `morgan` middleware for http request logging and `fs.createWriteStream` for writing exception logs, respectively.
 
 ```js
 // logs all http requests in development
@@ -543,7 +523,7 @@ app.use(logger.http());
 logger.exception(err);
 ```
 
-e) `proxy.js` - A wrapper of [`node-http-proxy`](https://github.com/nodejitsu/node-http-proxy) for the app.
+c) `proxy.js` - A wrapper of [`node-http-proxy`](https://github.com/nodejitsu/node-http-proxy) for the app.
 
 ```js
 // mount the `proxy.proxyWeb` at the API path as middleware function
@@ -624,7 +604,6 @@ const middlewares = [
 ```
 
 - There are also common redux actions in `./src/app/common/actions.js`. Example, `requestError`/`requestInfo`/`requestSuccess` which are used for alert's action creation based on the status of http request made. Please refer to the usage example as shown in the above code snippet.
-
 
 **[Back to top](#table-of-contents)**
 
