@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import helmet from 'helmet';
 import favicon from 'serve-favicon';
 import cookieParser from 'cookie-parser';
@@ -18,6 +19,7 @@ app
 app
   .use(logger.http())
   .use(helmet())
+  .use(cors())
   .use(cookieParser())
   .use(compression())
   .use(express.static(SYSPATH['PUBLIC']))

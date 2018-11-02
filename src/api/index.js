@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors';
 import hpp from 'hpp';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
@@ -25,7 +24,6 @@ const fileSession = () =>
 api
   .use(logger.http())
   .use(helmet())
-  .use(cors())
   .use(cookieParser())
   .use(fileSession())
   .use(express.json())
