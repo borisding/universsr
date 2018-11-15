@@ -7,7 +7,7 @@ import { requestError, requestInfo, requestSuccess } from './actions';
 import rootReducer from './rootReducer';
 
 export default function configureStore(preloadedState = {}) {
-  const middlewares = [
+  let middlewares = [
     // register request actions for dispatch
     // so that it's accessible in respective thunk wrappers
     thunk.withExtraArgument({ requestError, requestInfo, requestSuccess }),
@@ -16,7 +16,7 @@ export default function configureStore(preloadedState = {}) {
 
   // only applicable for client side in development mode
   if (DEV && !NODE) {
-    middlewares.push(createLogger({ duration: true }));
+    middlewares = [...middlewares, createLogger({ duration: true })];
   }
 
   const store = createStore(
