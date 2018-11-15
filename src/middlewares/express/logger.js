@@ -31,22 +31,17 @@ if (DEV) {
   );
 }
 
+// winston writable stream for morgan
+winstonLogger.stream = {
+  write: message => {
+    winstonLogger.info(message);
+  }
+};
+
 const logger = {
-  // logging http request with winston writable stream for morgan
+  // logging http request with status code lesser than 400
   http() {
-    winstonLogger.stream = {
-      write: message => {
-        winstonLogger.info(message);
-      }
-    };
-
-    if (DEV) {
-      return morgan('short', {
-        stream: winstonLogger.stream
-      });
-    }
-
-    return morgan('combined', {
+    return morgan(DEV ? 'tiny' : 'combined', {
       stream: winstonLogger.stream,
       skip: (req, res) => res.statusCode < 400
     });
