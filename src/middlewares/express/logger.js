@@ -1,39 +1,60 @@
-import fs from 'fs';
 import morgan from 'morgan';
+import { format, transports, createLogger } from 'winston';
 import { DEV, SYSPATH } from '@config';
 
+const { combine, json, timestamp, label } = format;
+const winstonLogger = createLogger({
+  exitOnError: false,
+  transports: [
+    new transports.File({
+      level: 'info',
+      filename: `${SYSPATH['LOGS']}/access.log`
+    }),
+    new transports.File({
+      level: 'error',
+      filename: `${SYSPATH['LOGS']}/errors.log`,
+      format: combine(
+        label({ label: 'ERROR:' }),
+        timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        json()
+      )
+    })
+  ]
+});
+
+// add console only for development
+if (DEV) {
+  winstonLogger.add(
+    new transports.Console({
+      handleExceptions: true
+    })
+  );
+}
+
 const logger = {
-  // http access logger for both app and api
-  // we skip anything that is less than status code 400 for `production`
+  // logging http request with winston writable stream for morgan
   http() {
-    if (DEV) return morgan('dev');
+    winstonLogger.stream = {
+      write: message => {
+        winstonLogger.info(message);
+      }
+    };
+
+    if (DEV) {
+      return morgan('short', {
+        stream: winstonLogger.stream
+      });
+    }
 
     return morgan('combined', {
-      stream: fsStreamWriter('access.log'),
+      stream: winstonLogger.stream,
       skip: (req, res) => res.statusCode < 400
     });
   },
-  // exception logger for both app and api
-  // display stack trace in terminal for `development`
-  // or, simply write stack trace into `exception` log file for `production`
+  // logging thrown exception error with winston logger
   exception(err) {
-    if (!err.stack) return;
-    if (DEV) return console.error(err.stack);
-
-    const fsStream = fsStreamWriter('exception.log');
-
-    fsStream.write(new Date().toISOString());
-    fsStream.write('\r\n');
-
-    fsStream.write(err.stack);
-    fsStream.write('\r\n');
-
-    fsStream.end();
+    return winstonLogger.error(err);
   }
-};
-
-const fsStreamWriter = filename => {
-  return fs.createWriteStream(`${SYSPATH['LOGS']}/${filename}`, { flags: 'a' });
 };
 
 export default logger;

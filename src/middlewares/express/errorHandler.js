@@ -12,6 +12,9 @@ const errorHandler = ({ json = false } = {}) => (err, req, res, next) => {
 
   res.status(code);
 
+  // logs error stack
+  logger.exception(err.stack);
+
   // giving erros in JSON format if request made via Ajax or `json` key is true
   // otherwise, rendering 500 template with passed params
   if (req.xhr || !!json) {
@@ -19,8 +22,6 @@ const errorHandler = ({ json = false } = {}) => (err, req, res, next) => {
   } else {
     res.render('500', errorData);
   }
-
-  return logger.exception(err);
 };
 
 export default errorHandler;
