@@ -1,7 +1,7 @@
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
-import { DEV } from '@config';
+import { DEV, NODE } from '@config';
 import { serviceAlert } from '@middlewares/redux';
 import { requestError, requestInfo, requestSuccess } from './actions';
 import rootReducer from './rootReducer';
@@ -14,7 +14,8 @@ export default function configureStore(preloadedState = {}) {
     serviceAlert()
   ];
 
-  if (DEV) {
+  // only applicable for client side in development mode
+  if (DEV && !NODE) {
     middlewares.push(createLogger({ duration: true }));
   }
 
