@@ -511,7 +511,7 @@ app.use(errorHandler());
 app.use(errorHandler({ json: true }));
 ```
 
-b) `logger.js` - A small custom logger which utilizes `morgan` middleware for http request logging and `fs.createWriteStream` for writing exception logs, respectively.
+b) `logger.js` - A small custom logger middleware which utilizes `morgan` and `winston` for http request and exception logging, respectively.
 
 ```js
 // logs all http requests in development
@@ -519,7 +519,7 @@ b) `logger.js` - A small custom logger which utilizes `morgan` middleware for ht
 app.use(logger.http());
 
 // logs thrown exception errors
-// used in `error-handler.js` middleware
+// used in `errorHandler.js` middleware
 logger.exception(err);
 ```
 
