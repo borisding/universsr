@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import favicon from 'serve-favicon';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import { DEV, ENV, SYSPATH } from '@config';
@@ -32,8 +31,6 @@ if (DEV) {
 } else {
   const clientStats = require('@public/stats');
   const serverRenderer = require('@build/serverRenderer').default;
-
-  app.use(favicon(`${SYSPATH['PUBLIC']}/icons/favicon.png`));
   app.use(serverRenderer({ clientStats }));
 }
 
