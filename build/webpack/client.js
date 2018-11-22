@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StatsWebpackPlugin = require('stats-webpack-plugin');
@@ -84,19 +83,6 @@ module.exports = {
       ? [new webpack.HotModuleReplacementPlugin()]
       : [
           new StatsWebpackPlugin('stats.json'),
-          // moved to public and with minification only
-          new HtmlWebpackPlugin({
-            inject: false,
-            template: `!!raw-loader!${SYSPATH['RESOURCES']}/views/index.ejs`,
-            filename: `${SYSPATH['PUBLIC']}/views/index.ejs`,
-            minify: { collapseWhitespace: true, removeComments: true }
-          }),
-          new HtmlWebpackPlugin({
-            inject: false,
-            template: `!!raw-loader!${SYSPATH['RESOURCES']}/views/500.ejs`,
-            filename: `${SYSPATH['PUBLIC']}/views/500.ejs`,
-            minify: { collapseWhitespace: true, removeComments: true }
-          }),
           new OfflinePlugin({
             externals: ['/'],
             publicPath: commonConfig.publicPath,

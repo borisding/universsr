@@ -1,14 +1,17 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title';
+import Helmet from 'react-helmet';
 import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
 import { renderToString } from 'react-dom/server';
 import { flushChunkNames } from 'react-universal-component/server';
 import { matchRoutes, renderRoutes } from 'react-router-config';
+import { minify } from 'html-minifier';
 import { StaticRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ServiceClass } from '@utils';
+import { DEV } from '@config';
 import configureStore from '@common/configureStore';
+import createPage from './page';
 import routes from './routes';
 
 // preload data for matched route
@@ -38,6 +41,24 @@ function prefetchBranchData(store, req) {
   }
 }
 
+// creating page html content with passed elements
+function renderPageHtml(elements) {
+  let pageHtml = createPage(elements);
+
+  // minify page html for production, programmatically
+  if (!DEV) {
+    pageHtml = minify(pageHtml, {
+      minifyCSS: true,
+      minifyJS: true,
+      collapseWhitespace: true,
+      removeComments: true,
+      trimCustomFragments: true
+    });
+  }
+
+  return pageHtml;
+}
+
 // export default server renderer and receiving stats
 // also, should allow it to be mounted as middleware for production usage
 export default function serverRenderer({ clientStats }) {
@@ -53,7 +74,7 @@ export default function serverRenderer({ clientStats }) {
       const store = configureStore();
       await prefetchBranchData(store, req);
 
-      const appString = renderToString(
+      const renderedAppString = renderToString(
         <Provider store={store}>
           <Router location={req.url} context={context}>
             {renderRoutes(routes)}
@@ -61,25 +82,29 @@ export default function serverRenderer({ clientStats }) {
         </Provider>
       );
 
-      const pageTitle = DocumentTitle.rewind();
-      const chunksOptions = { chunkNames: flushChunkNames() };
-      const { js, styles } = flushChunks(clientStats, chunksOptions);
-      const preloadedState = serialize(store.getState(), { isJSON: true });
-      const { statusCode = 200, redirectUrl } = context;
-
       // make page redirection when expected `statusCode` and `redirectUrl`
       // props are provided in `HttpStatus` component
+      const { statusCode = 200, redirectUrl } = context;
+
       if ([301, 302].includes(statusCode) && redirectUrl) {
         return res.redirect(statusCode, redirectUrl);
       }
 
-      return res.status(statusCode).render('index', {
-        pageTitle,
-        appString,
-        preloadedState,
-        styles,
-        js
+      const helmet = Helmet.renderStatic();
+      const preloadedState = serialize(store.getState(), { isJSON: true });
+      const { js, styles } = flushChunks(clientStats, {
+        chunkNames: flushChunkNames()
       });
+
+      return res.status(statusCode).send(
+        renderPageHtml({
+          styles,
+          js,
+          renderedAppString,
+          preloadedState,
+          helmet
+        })
+      );
     } catch (err) {
       next(new Error(err));
     }

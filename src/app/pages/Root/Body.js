@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Alert from 'react-s-alert';
 import { renderRoutes } from 'react-router-config';
-import { ErrorBoundary } from '@common/components';
+import ErrorBoundary from './ErrorBoundary';
 import './styles/Body.scss';
 
 const Body = ({ route }) => (

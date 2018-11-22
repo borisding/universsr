@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { PageTitle, Loader } from '@common/components';
+import { Loader, PageContainer } from '@common/components';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 import * as todoActions from './actions';
@@ -25,20 +25,20 @@ class Todos extends Component {
     }
 
     return (
-      <Fragment>
+      <>
         <TodoForm addTodo={actions.addTodo} />
         <hr />
         <TodoList todos={todos} updateTodo={actions.updateTodo} />
-      </Fragment>
+      </>
     );
   };
 
   render() {
     return (
-      <PageTitle title="Todos">
+      <PageContainer title="Todos">
         <h3>Todos Demo</h3>
         {this.renderTodos()}
-      </PageTitle>
+      </PageContainer>
     );
   }
 }
