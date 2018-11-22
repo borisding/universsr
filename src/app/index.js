@@ -15,7 +15,8 @@ app
   .use(cookieParser())
   .use(compression())
   .use(express.static(SYSPATH['PUBLIC']))
-  .use(`/api/${ENV['API_VERSION']}`, proxy.proxyWeb);
+  .use(`/api/${ENV['API_VERSION']}`, proxy.proxyWeb)
+  .get('/favicon.ico', (req, res) => res.status(204)); // simply ignore
 
 // use webpack compiler for development
 // otherwise, use built server renderer instead
