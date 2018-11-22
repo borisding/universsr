@@ -9,13 +9,6 @@ import { proxy, logger, errorHandler } from '@middlewares/express';
 const app = express();
 
 app
-  .set('view engine', 'ejs')
-  .set('views', [
-    `${SYSPATH['PUBLIC']}/views`,
-    `${SYSPATH['RESOURCES']}/views`
-  ]);
-
-app
   .use(logger.http())
   .use(helmet())
   .use(cors())
