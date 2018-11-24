@@ -4,11 +4,10 @@ export default ({
   renderedAppString,
   preloadedState,
   helmet
-} = {}) => `<!DOCTYPE html>
+} = {}) => `<!doctype html>
     <html ${helmet.htmlAttributes.toString()}>
       <head>
         <meta charset="utf-8">
-        <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><![endif]-->
         ${helmet.meta.toString()}
         ${helmet.title.toString()}
         ${helmet.link.toString()}
