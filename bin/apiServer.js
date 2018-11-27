@@ -30,6 +30,8 @@ server.on('error', err => {
   }
 });
 
-process.on('SIGINT', () => {
-  process.exit(0);
+['SIGINT', 'SIGTERM'].forEach(signal => {
+  process.on(signal, () => {
+    server.close(() => process.exit(0));
+  });
 });
