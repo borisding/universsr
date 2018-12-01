@@ -37,7 +37,7 @@ const writeEnvProperties = () => {
   } catch (err) {
     console.error('Failed to write config file [%s]', targetConfigFile);
     console.error(err);
-    process.exit(-1);
+    process.exit(1);
   }
 };
 
