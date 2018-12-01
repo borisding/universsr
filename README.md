@@ -47,7 +47,8 @@ It also uses Redux library for application state management and the back-end is 
 - Combination of Babel and `webpack` enables writing next generation JavaScript and code optimization.
 - Using `webpack-bundle-analyzer` to visualize size of webpack output files.
 - Delightful testing with `jest` framework and `enzyme` testing utilities for React components.
-- Progressive Web App (PWA) with webpack's `offline-plugin` and SEO ready.
+- Progressive Web App (PWA) with webpack's `offline-plugin`.
+- SEO ready with `react-helmet` component to manage document head.
 - Build API with Node `http-proxy` integration.
 
 **[Back to top](#table-of-contents)**
@@ -133,15 +134,14 @@ Below is overview of project folder structure in this starter along with the sho
     |-- config                          # app level configuration (.env/syspath, etc)
     |-- logs                            # log files of the app
     |-- node_modules                    # installed dependencies of the app
-    |-- public                          # production built assets (icons/images/views, etc)
-    |-- resources                       # parent directory of resources (views/logs/fixtures, etc)
+    |-- public                          # production built assets (icons/images, etc)
+    |-- resources                       # parent directory of resources (logs/fixtures, etc)
     |   |-- assets                      # parent directory of all assets
     |   |   |-- manifest.json           # manifest JSON file for web app
     |   |   |-- icons                   # source files of icon
     |   |   |-- images                  # source files of image
     |   |-- fixtures                    # fixture data for development
     |   |-- mocks                       # file & style mocks for jest
-    |   |-- views                       # source files of view template
     |-- sessions                        # default directory for session file storage
     |-- src                             # parent directory of both api & app source code
         |-- api                         # parent directory of api source code
@@ -173,7 +173,7 @@ Below is overview of project folder structure in this starter along with the sho
         |-- utils                       # utilities used for both client & server
 ```
 
-This project structure is organized by having feature-first approach in mind. Thus, for any new features (the page), try to keep it as feature-based folder in `./src/app/pages`. Things in common such as common styles or components can be kept in `./src/app/common` directory.
+This project structure is organized by pages in mind. Any new pages should be created in `./src/app/pages`. Things in common such as common styles or components can be kept in `./src/app/common` directory.
 
 **[Back to top](#table-of-contents)**
 
