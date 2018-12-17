@@ -70,20 +70,11 @@ module.exports = function commonConfig(target) {
           loader: 'babel-loader',
           options: {
             babelrc: false,
-            compact: false,
             cacheDirectory: !!DEV,
             presets: [
-              [
-                '@babel/preset-env',
-                {
-                  modules: isClient ? false : 'commonjs',
-                  useBuiltIns: 'entry'
-                }
-              ],
+              ['@babel/preset-env', { useBuiltIns: 'entry' }],
               '@babel/preset-react'
             ],
-            // babel plugins, read more on babel's stage presets blog post:
-            // @see: https://babeljs.io/blog/2018/07/27/removing-babels-stage-presets
             plugins: [
               'react-hot-loader/babel',
               'universal-import',

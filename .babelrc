@@ -1,6 +1,6 @@
 {
   "presets": [
-    "@babel/preset-env",
+    ["@babel/preset-env", { "useBuiltIns": "entry" }],
     "@babel/preset-react"
   ],
   "plugins": [
@@ -26,9 +26,7 @@
             "filetypes": {
               ".scss": {
                 "syntax": "postcss-scss",
-                "plugins": [
-                  "postcss-nested"
-                ]
+                "plugins": ["postcss-nested"]
               }
             }
           }
