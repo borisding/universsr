@@ -35,10 +35,11 @@ module.exports = {
   },
   module: {
     rules: [
-      ...commonConfig.babelRule(),
-      ...commonConfig.fileRule(),
-      ...commonConfig.cssModulesRule(),
-      ...commonConfig.globalStylesRule()
+      commonConfig.getBabelRule(),
+      commonConfig.getImagesRule(),
+      commonConfig.getFontsRule(),
+      commonConfig.getCssModulesRule(),
+      commonConfig.getGlobalStylesRule()
     ]
   },
   plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })]

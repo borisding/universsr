@@ -55,10 +55,11 @@ module.exports = {
   },
   module: {
     rules: [
-      ...commonConfig.babelRule(),
-      ...commonConfig.fileRule(),
-      ...commonConfig.cssModulesRule(ExtractCssChunks),
-      ...commonConfig.globalStylesRule(ExtractCssChunks)
+      commonConfig.getBabelRule(),
+      commonConfig.getImagesRule(),
+      commonConfig.getFontsRule(),
+      commonConfig.getCssModulesRule(ExtractCssChunks),
+      commonConfig.getGlobalStylesRule(ExtractCssChunks)
     ]
   },
   plugins: [
