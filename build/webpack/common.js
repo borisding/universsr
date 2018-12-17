@@ -115,6 +115,7 @@ module.exports = function commonConfig(target) {
         exclude: /global\.s?css/,
         use: getStyleLoaders(ExtractCssChunks, {
           modules: true,
+          exportOnlyLocals: !isClient,
           localIdentName: cssScopedName
         })
       };
