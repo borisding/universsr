@@ -10,7 +10,7 @@ module.exports = function commonConfig(target) {
 
   // the style loaders for both css modules and global style
   const getStyleLoaders = (ExtractCssChunks, cssLoaderOptions = {}) => {
-    const sourceMap = !!DEV && !!isClient;
+    const sourceMap = DEV && isClient;
 
     return [
       ...(ExtractCssChunks ? [ExtractCssChunks.loader] : []),
