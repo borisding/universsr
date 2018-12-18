@@ -23,7 +23,7 @@ module.exports = {
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
   externals: nodeExternals,
-  entry: { m: ['regenerator-runtime/runtime', './app/server.js'] },
+  entry: ['regenerator-runtime/runtime', './app/server.js'],
   output: {
     path: SYSPATH['BUILD'],
     libraryTarget: 'commonjs2',
