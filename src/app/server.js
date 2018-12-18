@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import { ServiceClass } from '@utils';
 import { DEV } from '@config';
 import configureStore from '@common/configureStore';
-import createPage from './page';
+import createHtml from './html';
 import routes from './routes';
 
 // preload data for matched route
@@ -41,13 +41,13 @@ function prefetchBranchData(store, req) {
   }
 }
 
-// creating page html content with passed elements
-function renderPageHtml(elements) {
-  let pageHtml = createPage(elements);
+// creating html page with passed data as content
+function renderHtml(data) {
+  let html = createHtml(data);
 
-  // minify page html for production, programmatically
+  // minify html for production, programmatically
   if (!DEV) {
-    pageHtml = minify(pageHtml, {
+    html = minify(html, {
       minifyCSS: true,
       minifyJS: true,
       collapseWhitespace: true,
@@ -56,7 +56,7 @@ function renderPageHtml(elements) {
     });
   }
 
-  return pageHtml;
+  return html;
 }
 
 // export default server renderer and receiving stats
@@ -97,7 +97,7 @@ export default function serverRenderer({ clientStats }) {
       });
 
       return res.status(statusCode).send(
-        renderPageHtml({
+        renderHtml({
           styles,
           js,
           renderedAppString,
