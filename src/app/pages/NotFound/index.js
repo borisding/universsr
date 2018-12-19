@@ -1,7 +1,5 @@
 import asyncComponent from '@pages/asyncComponent';
 
-export const NotFound = asyncComponent(() =>
+export default asyncComponent(() =>
   import(/* webpackChunkName: 'not-found' */ './NotFound')
 );
-
-export default NotFound;

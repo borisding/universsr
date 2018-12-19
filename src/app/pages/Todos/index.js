@@ -1,7 +1,5 @@
 import asyncComponent from '@pages/asyncComponent';
 
-const Todos = asyncComponent(() =>
+export default asyncComponent(() =>
   import(/* webpackChunkName: 'todos' */ './Todos')
 );
-
-export default Todos;
