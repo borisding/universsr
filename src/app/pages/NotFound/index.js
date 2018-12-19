@@ -1,12 +1,7 @@
-import React from 'react';
-import { HttpStatus, PageContainer } from '@common/components';
+import loadComponent from '@pages/loadComponent';
 
-const NotFound = () => (
-  <PageContainer title="Not Found">
-    <HttpStatus statusCode={404}>
-      <h3>404 - Page Not Found.</h3>
-    </HttpStatus>
-  </PageContainer>
+export const NotFound = loadComponent(() =>
+  import(/* webpackChunkName: 'not-found' */ './NotFound')
 );
 
 export default NotFound;

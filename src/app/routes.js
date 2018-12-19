@@ -1,4 +1,5 @@
-import Root, { NotFound, Home, Todos } from '@pages';
+import Root from '@pages/Root';
+import * as pages from '@pages';
 import { prefetchTodos } from '@pages/Todos/actions';
 
 export const routes = [
@@ -6,18 +7,18 @@ export const routes = [
     path: '/',
     exact: true,
     menu: 'Home',
-    component: Home
+    component: pages.Home
   },
   {
     path: '/todos',
     exact: true,
     menu: 'Todos',
     loadData: prefetchTodos,
-    component: Todos
+    component: pages.Todos
   },
   {
     path: '/*',
-    component: NotFound
+    component: pages.NotFound
   }
 ];
 
