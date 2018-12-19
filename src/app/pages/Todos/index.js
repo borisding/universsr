@@ -1,6 +1,6 @@
-import loadComponent from '@pages/loadComponent';
+import asyncComponent from '@pages/asyncComponent';
 
-const Todos = loadComponent(() =>
+const Todos = asyncComponent(() =>
   import(/* webpackChunkName: 'todos' */ './Todos')
 );
 

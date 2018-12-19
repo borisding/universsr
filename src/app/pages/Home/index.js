@@ -1,6 +1,6 @@
-import loadComponent from '@pages/loadComponent';
+import asyncComponent from '@pages/asyncComponent';
 
-export const Home = loadComponent(() =>
+export const Home = asyncComponent(() =>
   import(/* webpackChunkName: 'home' */ './Home')
 );
 
