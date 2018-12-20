@@ -14,8 +14,8 @@ export default class TodoForm extends Component {
     addTodo: PropTypes.func.isRequired
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = initialState;
   }
 
@@ -46,9 +46,8 @@ export default class TodoForm extends Component {
       });
     }
 
-    return this.props
-      .addTodo(todoInput)
-      .then(() => this.setState(initialState));
+    this.props.addTodo(todoInput);
+    this.setState(initialState);
   };
 
   render() {

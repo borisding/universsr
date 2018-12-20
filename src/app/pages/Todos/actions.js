@@ -37,12 +37,10 @@ export const prefetchTodos = () => (dispatch, getState) => {
 // fake adding new todo without saving into db
 export const addTodo = input => {
   return dispatch =>
-    Promise.resolve(
-      dispatch({
-        type: types.ADD_TODO,
-        payload: { id: uuidv4(), todo: input, done: false }
-      })
-    );
+    dispatch({
+      type: types.ADD_TODO,
+      payload: { id: uuidv4(), todo: input, done: false }
+    });
 };
 
 // fake updating todo status without saving into db
