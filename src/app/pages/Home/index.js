@@ -1,5 +1,3 @@
-import asyncComponent from '@pages/asyncComponent';
+import lazy from '@pages/lazy';
 
-export default asyncComponent(() =>
-  import(/* webpackChunkName: 'home' */ './Home')
-);
+export default lazy(() => import(/* webpackChunkName: 'home' */ './Home'));

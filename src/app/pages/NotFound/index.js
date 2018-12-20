@@ -1,5 +1,5 @@
-import asyncComponent from '@pages/asyncComponent';
+import lazy from '@pages/lazy';
 
-export default asyncComponent(() =>
+export default lazy(() =>
   import(/* webpackChunkName: 'not-found' */ './NotFound')
 );
