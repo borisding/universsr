@@ -66,6 +66,7 @@ module.exports = {
     new ExtractCssChunks({
       hot: !!DEV,
       cssModules: true,
+      reloadAll: true,
       filename: DEV ? '[name].css' : '[name].[contenthash].css',
       chunkFilename: DEV ? '[id].css' : '[id].[contenthash].css'
     }),
