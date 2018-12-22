@@ -1,4 +1,4 @@
-import * as types from './types';
+import types from './types';
 
 export const requestError = data => ({
   type: types.REQUEST_ERROR,
@@ -14,3 +14,9 @@ export const requestSuccess = data => ({
   type: types.REQUEST_SUCCESS,
   payload: data
 });
+
+export default {
+  requestError,
+  requestInfo,
+  requestSuccess
+};

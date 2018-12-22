@@ -1,20 +1,16 @@
 import uuidv4 from 'uuid/v4';
 import { service } from '@utils';
-import * as types from './types';
+import types from './types';
 
 // async/await example of making todo api request
 export const fetchTodos = () => {
   return async (dispatch, getState, { requestError }) => {
     try {
-      await dispatch({ type: types.FETCH_TODO_BEGIN });
+      await dispatch({ type: types.TODOS_FETCH_BEGIN });
       const res = await service.get('/todos');
-
-      return dispatch({
-        type: types.FETCH_TODO_SUCCESS,
-        payload: res.data
-      });
+      dispatch({ type: types.TODOS_FETCH_SUCCESS, payload: res.data });
     } catch (err) {
-      dispatch({ type: types.FETCH_TODO_FAILURE });
+      dispatch({ type: types.TODOS_FETCH_FAILURE });
       dispatch(requestError(err));
     }
   };
@@ -22,11 +18,11 @@ export const fetchTodos = () => {
 
 // pre-fetch todos when there is no populated todos in store
 export const prefetchTodos = () => (dispatch, getState) => {
-  const { isFetching, isFetched } = getState().todos;
+  const { isFetching, isDone } = getState().todos;
 
   // no action when it's fetching todos
-  // or, todos is already fetched
-  if (isFetching || isFetched) {
+  // or, fetching todos is already done
+  if (isFetching || isDone) {
     return Promise.resolve(true);
   }
 
@@ -35,16 +31,21 @@ export const prefetchTodos = () => (dispatch, getState) => {
 };
 
 // fake adding new todo without saving into db
-export const addTodo = input => {
-  return dispatch =>
-    dispatch({
-      type: types.ADD_TODO,
-      payload: { id: uuidv4(), todo: input, done: false }
-    });
-};
+export const addTodo = input => dispatch =>
+  dispatch({
+    type: types.TODOS_ADD,
+    payload: { id: uuidv4(), todo: input, done: false }
+  });
 
 // fake updating todo status without saving into db
 export const updateTodo = ({ value, checked }) => ({
-  type: types.UPDATE_TODO,
+  type: types.TODOS_UPDATE,
   payload: { id: value, done: checked }
 });
+
+export default {
+  fetchTodos,
+  prefetchTodos,
+  addTodo,
+  updateTodo
+};

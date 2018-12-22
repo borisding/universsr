@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Loader, PageContainer } from '@common/components';
+import { todosActions } from '@redux/ducks/todos';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
-import * as todoActions from './actions';
 
-class Todos extends Component {
+export class Todos extends Component {
   static propTypes = {
     todos: PropTypes.arrayOf(PropTypes.object).isRequired,
     actions: PropTypes.objectOf(PropTypes.func).isRequired
@@ -45,5 +45,5 @@ class Todos extends Component {
 
 export default connect(
   state => ({ todos: state.todos.data, isFetching: state.todos.isFetching }),
-  dispatch => ({ actions: bindActionCreators(todoActions, dispatch) })
+  dispatch => ({ actions: bindActionCreators(todosActions, dispatch) })
 )(Todos);

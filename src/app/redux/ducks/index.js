@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { NODE } from '@config';
-import todos from '@pages/Todos/reducers';
+import todos from './todos';
 
 // eslint-disable-next-line no-unused-vars
 const isClient = (state = false, action) => (state = NODE !== true);

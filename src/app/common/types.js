@@ -1,3 +1,0 @@
-export const REQUEST_ERROR = 'REQUEST_ERROR';
-export const REQUEST_INFO = 'REQUEST_INFO';
-export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';

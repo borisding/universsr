@@ -1,15 +1,15 @@
 import thunk from 'redux-thunk';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { DEV } from '@config';
-import { serviceAlert } from '@middlewares/redux';
-import { requestError, requestInfo, requestSuccess } from './actions';
-import rootReducer from './rootReducer';
+import { serviceAlert } from './middlewares';
+import { requestActions } from './ducks/request';
+import rootReducer from './ducks';
 
 export default function configureStore(preloadedState = {}) {
   const middlewares = [
     // register request actions for dispatch
     // so that it's accessible in respective thunk wrappers
-    thunk.withExtraArgument({ requestError, requestInfo, requestSuccess }),
+    thunk.withExtraArgument({ ...requestActions }),
     serviceAlert()
   ];
 
@@ -31,8 +31,8 @@ export default function configureStore(preloadedState = {}) {
   const store = createStore(rootReducer, preloadedState, enhancer);
 
   if (module.hot) {
-    module.hot.accept('./rootReducer', () => {
-      const { nextRootReducer } = require('./rootReducer');
+    module.hot.accept('./ducks', () => {
+      const { nextRootReducer } = require('./ducks');
       store.replaceReducer(nextRootReducer);
     });
   }

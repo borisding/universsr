@@ -1,6 +1,6 @@
 import Alert from 'react-s-alert';
 import { DEV } from '@config';
-import { REQUEST_ERROR, REQUEST_INFO, REQUEST_SUCCESS } from '@common/types';
+import { requestTypes } from '@redux/ducks/request';
 
 // eslint-disable-next-line no-unused-vars
 export default () => store => next => action => {
@@ -8,7 +8,7 @@ export default () => store => next => action => {
   let message = (payload && payload.message) || 'Unknown message.';
 
   switch (type) {
-    case REQUEST_ERROR:
+    case requestTypes.REQUEST_ERROR:
       if (!DEV && payload.response && payload.response.status >= 500) {
         // get production error message churned by error handler middleware, if any
         // or we just show the default production error message to end user instead
@@ -20,10 +20,10 @@ export default () => store => next => action => {
 
       Alert.error(message);
       break;
-    case REQUEST_INFO:
+    case requestTypes.REQUEST_INFO:
       Alert.info(message);
       break;
-    case REQUEST_SUCCESS:
+    case requestTypes.REQUEST_SUCCESS:
       Alert.success(message);
       break;
     default:

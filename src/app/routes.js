@@ -1,6 +1,6 @@
 import Root from '@pages/Root';
 import * as pages from '@pages';
-import { prefetchTodos } from '@pages/Todos/actions';
+import { todosActions } from '@redux/ducks/todos';
 
 export const routes = [
   {
@@ -13,7 +13,7 @@ export const routes = [
     path: '/todos',
     exact: true,
     menu: 'Todos',
-    loadData: prefetchTodos,
+    loadData: todosActions.prefetchTodos,
     component: pages.Todos
   },
   {

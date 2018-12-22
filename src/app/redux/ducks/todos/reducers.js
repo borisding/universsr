@@ -1,8 +1,8 @@
-import * as types from './types';
+import types from './types';
 
 const initialState = {
   isFetching: false,
-  isFetched: false,
+  isDone: false,
   data: []
 };
 
@@ -15,28 +15,28 @@ const updateTodo = (state, action) =>
     return { ...record, done: action.payload.done };
   });
 
-export default (state = initialState, action) => {
+export default function reducers(state = initialState, action) {
   switch (action.type) {
-    case types.FETCH_TODO_BEGIN:
-      return Object.assign({}, state, { isFetching: true, isFetched: false });
+    case types.TODOS_FETCH_BEGIN:
+      return Object.assign({}, state, { isFetching: true, isDone: false });
 
-    case types.FETCH_TODO_FAILURE:
-      return Object.assign({}, state, { isFetching: false, isFetched: false });
+    case types.TODOS_FETCH_FAILURE:
+      return Object.assign({}, state, { isFetching: false, isDone: false });
 
-    case types.FETCH_TODO_SUCCESS:
+    case types.TODOS_FETCH_SUCCESS:
       return {
         isFetching: false,
-        isFetched: true,
+        isDone: true,
         data: [...state.data, ...action.payload]
       };
 
-    case types.ADD_TODO:
+    case types.TODOS_ADD:
       return { ...state, data: [...state.data, action.payload] };
 
-    case types.UPDATE_TODO:
+    case types.TODOS_UPDATE:
       return { ...state, data: [...updateTodo(state, action)] };
 
     default:
       return state;
   }
-};
+}
