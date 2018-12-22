@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import sessionFileStore from 'session-file-store';
 import { ENV } from '@config';
-import { logger, errorHandler } from '@middlewares/express';
+import { logger, errorHandler } from '@middlewares';
 import routers from './routers';
 
 const api = express();

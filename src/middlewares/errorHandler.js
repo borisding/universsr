@@ -1,5 +1,5 @@
 import { DEV } from '@config';
-import { logger } from '@middlewares/express';
+import { logger } from '@middlewares';
 
 // custom error handler for the app/api
 // only include error stack in development mode
