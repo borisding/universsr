@@ -1,5 +1,5 @@
+import logger from '@logger';
 import { DEV } from '@config';
-import { logger } from '@middlewares';
 
 // custom error handler for the app/api
 // only include error stack in development mode
@@ -13,7 +13,7 @@ const errorHandler = ({ json = false } = {}) => (err, req, res, next) => {
   res.status(code);
 
   // logs error stack
-  logger.exception(err.stack);
+  logger.error(err.stack);
 
   // giving erros in JSON format if request made via Ajax or `json` key is true
   // otherwise, rendering 500 template with passed params

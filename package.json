@@ -278,6 +278,7 @@
     "@common": "src/app/common",
     "@pages": "src/app/pages",
     "@redux": "src/app/redux",
+    "@logger": "src/logger",
     "@middlewares": "src/middlewares"
   }
 }

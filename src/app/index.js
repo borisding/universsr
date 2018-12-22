@@ -4,12 +4,12 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import { DEV, ENV, SYSPATH } from '@config';
-import { proxy, logger, errorHandler } from '@middlewares';
+import { proxy, httpLogger, errorHandler } from '@middlewares';
 
 const app = express();
 
 app
-  .use(logger.http())
+  .use(httpLogger())
   .use(helmet())
   .use(cors())
   .use(cookieParser())

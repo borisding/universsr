@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import sessionFileStore from 'session-file-store';
 import { ENV } from '@config';
-import { logger, errorHandler } from '@middlewares';
+import { httpLogger, errorHandler } from '@middlewares';
 import routers from './routers';
 
 const api = express();
@@ -22,7 +22,7 @@ const fileSession = () =>
   });
 
 api
-  .use(logger.http())
+  .use(httpLogger())
   .use(helmet())
   .use(cookieParser())
   .use(fileSession())
