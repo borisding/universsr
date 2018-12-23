@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import { todosActions } from '@redux/ducks/todos';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 
-export class Todos extends Component {
+export class Todos extends PureComponent {
   static propTypes = {
     todos: PropTypes.arrayOf(PropTypes.object).isRequired,
     actions: PropTypes.objectOf(PropTypes.func).isRequired
