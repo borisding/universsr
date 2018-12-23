@@ -152,7 +152,7 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "sessions/*"
+      "storage/sessions/*"
     ],
     "watch": [
       "src/api/*"
@@ -220,8 +220,7 @@
     }
   },
   "eslintIgnore": [
-    "coverage",
-    "logs",
+    "storage/**/*",
     "public/**/*.js",
     "src/app/serverRenderer.*"
   ],
@@ -247,6 +246,7 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
     ],
+    "coverageDirectory": "<rootDir>/storage/coverage",
     "moduleFileExtensions": [
       "js",
       "jsx"
@@ -270,6 +270,7 @@
     "@public": "public",
     "@resources": "resources",
     "@assets": "resources/assets",
+    "@storage": "storage",
     "@config": "config",
     "@utils": "src/utils",
     "@api": "src/api",
