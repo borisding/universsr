@@ -21,7 +21,7 @@
     "lint:js": "eslint . --fix",
     "test": "npm run lint:js && cross-env NODE_ENV=test jest --detectOpenHandles",
     "test:watch": "npm test -- --watch",
-    "test:coverage": "rimraf coverage && npm test -- --coverage"
+    "test:coverage": "rimraf storage/coverage && npm test -- --coverage"
   },
   "husky": {
     "hooks": {
@@ -244,7 +244,16 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
+      "src/api/**/*.{js,jsx}",
+      "src/app/common/**/*.{js,jsx}",
+      "src/app/layout/**/*.{js,jsx}",
+      "src/app/pages/**/*.{js,jsx}",
+      "src/app/redux/**/*.{js,jsx}",
+      "!src/api/**/index.{js,jsx}",
+      "!src/app/common/**/index.{js,jsx}",
+      "!src/app/layout/**/index.{js,jsx}",
+      "!src/app/pages/**/index.{js,jsx}",
+      "!src/app/redux/**/index.{js,jsx}"
     ],
     "coverageDirectory": "<rootDir>/storage/coverage",
     "moduleFileExtensions": [
