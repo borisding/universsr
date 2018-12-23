@@ -25,7 +25,7 @@ module.exports = {
   externals: nodeExternals,
   entry: ['regenerator-runtime/runtime', './app/server.js'],
   output: {
-    path: SYSPATH['BUILD'],
+    path: `${SYSPATH['SRC']}/app`,
     libraryTarget: 'commonjs2',
     filename: 'serverRenderer.js'
   },

@@ -1,8 +1,5 @@
 {
-  "presets": [
-    ["@babel/preset-env", { "useBuiltIns": "entry" }],
-    "@babel/preset-react"
-  ],
+  "presets": [["@babel/preset-env", { "useBuiltIns": "entry" }], "@babel/preset-react"],
   "plugins": [
     "@babel/plugin-transform-strict-mode",
     "@babel/plugin-syntax-dynamic-import",
@@ -14,7 +11,7 @@
         [
           "babel-plugin-webpack-alias",
           {
-            "config": "./build/webpack/config.js"
+            "config": "./resources/webpack/config.js"
           }
         ],
         [

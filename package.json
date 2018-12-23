@@ -4,9 +4,9 @@
   "description": "Universal React + Redux, Express application starter kit.",
   "main": "app.js",
   "scripts": {
-    "config": "node build/scripts/config.js",
-    "clean": "rimraf public build/serverRenderer.*",
-    "webpack": "webpack --progress --hide-modules --config build/webpack/config.js",
+    "config": "node resources/scripts/config.js",
+    "clean": "rimraf public src/app/serverRenderer.*",
+    "webpack": "webpack --progress --hide-modules --config resources/webpack/config.js",
     "build": "cross-env NODE_ENV=production npm-run-all clean config webpack",
     "build:analyze": "cross-env ANALYZE_MODE=enabled npm run build",
     "postinstall": "npm run build",
@@ -202,7 +202,7 @@
     },
     "settings": {
       "react": {
-        "version": "16.6.0"
+        "version": "16.7.0"
       }
     },
     "rules": {
@@ -223,7 +223,7 @@
     "coverage",
     "logs",
     "public/**/*.js",
-    "build/serverRenderer.*"
+    "src/app/serverRenderer.*"
   ],
   "stylelint": {
     "plugins": [
@@ -267,7 +267,6 @@
   "_moduleAliases": {
     "@root": ".",
     "@bin": "bin",
-    "@build": "build",
     "@public": "public",
     "@resources": "resources",
     "@assets": "resources/assets",
