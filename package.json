@@ -252,8 +252,8 @@
       "jsx"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/mocks/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/resources/mocks/styleMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/scripts/fileMock.js",
+      "\\.(css|scss)$": "<rootDir>/resources/scripts/styleMock.js"
     },
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
