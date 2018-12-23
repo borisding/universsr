@@ -7,9 +7,9 @@ import { HELMET } from '@config';
 import Header from './Header';
 import Body from './Body';
 import '@common/styles/global.scss';
-import './styles/Root.scss';
+import './styles/Layout.scss';
 
-const Root = props => (
+const Layout = props => (
   <div styleName="container">
     <Helmet {...HELMET} />
     <Header {...props} />
@@ -20,4 +20,4 @@ const Root = props => (
 export default compose(
   withRouter,
   connect(state => ({ isClient: state.isClient }))
-)(Root);
+)(Layout);

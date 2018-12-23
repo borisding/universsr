@@ -276,6 +276,7 @@
     "@api": "src/api",
     "@app": "src/app",
     "@common": "src/app/common",
+    "@layout": "src/app/layout",
     "@pages": "src/app/pages",
     "@redux": "src/app/redux",
     "@logger": "src/logger",
