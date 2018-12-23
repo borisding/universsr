@@ -1,5 +1,5 @@
 import universal from 'react-universal-component';
-import { Loader } from '@common/components';
+import { PageLoader } from '@layout';
 import { ENV } from '@config';
 
 // page util to lazy load targeted page component by accepting callback
@@ -12,6 +12,6 @@ export default function lazy(page) {
   // @see: https://github.com/faceyspacey/react-universal-component#api-and-options
   return universal(page(), {
     minDelay: ENV['MIN_DELAY'],
-    loading: Loader
+    loading: PageLoader
   });
 }

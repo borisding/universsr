@@ -1,11 +1,11 @@
 import React from 'react';
 import Alert from 'react-s-alert';
 import logo from '@assets/images/logo.png'; // example of import assets image
-import { PageContainer } from '@common/components';
+import { PageWrapper } from '@layout';
 import './styles.scss';
 
 const Home = () => (
-  <PageContainer title="Home">
+  <PageWrapper title="Home">
     <div styleName="logo">
       <img src={logo} alt="React Redux Boilerplate" />
     </div>
@@ -27,7 +27,7 @@ const Home = () => (
       {' or, go to '}
       <a href="https://github.com/borisding/universsr">GitHub repository</a>
     </div>
-  </PageContainer>
+  </PageWrapper>
 );
 
 export default Home;

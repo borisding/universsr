@@ -14,7 +14,7 @@ export const routes = [
     exact: true,
     menu: 'Todos',
     component: pages.Todos,
-    loadData: todosActions.prefetchTodos,
+    loadData: todosActions.prefetchTodos
   },
   {
     path: '/*',

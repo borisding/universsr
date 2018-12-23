@@ -1,10 +1,10 @@
 import React from 'react';
-import './styles/Loader.scss';
+import './styles/PageLoader.scss';
 
-const Loader = () => (
+const PageLoader = () => (
   <div styleName="loader-container">
     <span>Loading...</span>
   </div>
 );
 
-export default Loader;
+export default PageLoader;
