@@ -209,6 +209,12 @@
       "global-require": 0,
       "no-global-assign": 0,
       "no-console": 0,
+      "no-unused-vars": [
+        2,
+        {
+          "varsIgnorePattern": "styles"
+        }
+      ],
       "react/prop-types": 0,
       "react/display-name": 0,
       "prettier/prettier": [
