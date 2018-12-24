@@ -244,16 +244,11 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/api/**/*.{js,jsx}",
-      "src/app/common/**/*.{js,jsx}",
-      "src/app/layout/**/*.{js,jsx}",
-      "src/app/pages/**/*.{js,jsx}",
-      "src/app/redux/**/*.{js,jsx}",
-      "!src/api/**/index.{js,jsx}",
-      "!src/app/common/**/index.{js,jsx}",
-      "!src/app/layout/**/index.{js,jsx}",
-      "!src/app/pages/**/index.{js,jsx}",
-      "!src/app/redux/**/index.{js,jsx}"
+      "src/{api,app}/**/**/*.{js,jsx}",
+      "src/{utils,middlewares}/*.js",
+      "!src/{api,app}/**/**/index.{js,jsx}",
+      "!src/{utils,middlewares}/index.js",
+      "!src/app/serverRenderer.{js,map}"
     ],
     "coverageDirectory": "<rootDir>/storage/coverage",
     "moduleFileExtensions": [
