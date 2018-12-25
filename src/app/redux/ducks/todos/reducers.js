@@ -18,10 +18,10 @@ const updateTodo = (state, action) =>
 export default function reducers(state = initialState, action) {
   switch (action.type) {
     case types.TODOS_FETCH_BEGIN:
-      return Object.assign({}, state, { isFetching: true, isDone: false });
+      return { ...state, isFetching: true, isDone: false };
 
     case types.TODOS_FETCH_FAILURE:
-      return Object.assign({}, state, { isFetching: false, isDone: false });
+      return { ...state, isFetching: false, isDone: false };
 
     case types.TODOS_FETCH_SUCCESS:
       return {

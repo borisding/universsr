@@ -16,13 +16,7 @@ module.exports = function commonConfig(target) {
       ...(ExtractCssChunks ? [ExtractCssChunks.loader] : []),
       {
         loader: 'css-loader',
-        options: Object.assign(
-          {
-            sourceMap,
-            importLoaders: 2
-          },
-          cssLoaderOptions
-        )
+        options: { sourceMap, importLoaders: 2, ...cssLoaderOptions }
       },
       {
         loader: 'postcss-loader',
@@ -40,15 +34,13 @@ module.exports = function commonConfig(target) {
     return [
       {
         loader: 'url-loader',
-        options: Object.assign(
-          {
-            publicPath,
-            fallback: 'file-loader',
-            limit: 10240,
-            emitFile: !!isClient
-          },
-          options
-        )
+        options: {
+          fallback: 'file-loader',
+          publicPath,
+          limit: 10240,
+          emitFile: !!isClient,
+          ...options
+        }
       }
     ];
   };

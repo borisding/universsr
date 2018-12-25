@@ -19,9 +19,10 @@ export default class Service {
       timeout: ENV['REQUEST_TIMEOUT']
     };
 
-    this.axios = axios.create(
-      Object.assign({}, this.defaultConfig, this.axiosConfig)
-    );
+    this.axios = axios.create({
+      ...this.defaultConfig,
+      ...this.axiosConfig
+    });
   }
 
   static create(axiosConfig = {}) {
