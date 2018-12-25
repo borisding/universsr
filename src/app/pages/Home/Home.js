@@ -2,7 +2,7 @@ import React from 'react';
 import Alert from 'react-s-alert';
 import logo from '@assets/images/logo.png'; // example of import assets image
 import { PageWrapper } from '@layout';
-import './styles.scss';
+import './styles/Home.module.scss';
 
 const Home = () => (
   <PageWrapper title="Home">

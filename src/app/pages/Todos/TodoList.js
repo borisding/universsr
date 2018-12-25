@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox } from '@common/components';
-import './styles/TodoList.scss';
+import './styles/TodoList.module.scss';
 
 export default class TodoList extends Component {
   static propTypes = {

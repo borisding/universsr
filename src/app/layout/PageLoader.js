@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/PageLoader.scss';
+import './styles/PageLoader.module.scss';
 
 const PageLoader = () => (
   <div styleName="loader-container">

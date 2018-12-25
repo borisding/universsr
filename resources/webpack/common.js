@@ -59,7 +59,7 @@ module.exports = function commonConfig(target) {
     context: SYSPATH['SRC'],
     mode: DEV ? 'development' : 'production',
     resolve: {
-      extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
+      extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.sass'],
       alias: pkg._moduleAliases
     },
     getBabelRule() {
@@ -84,7 +84,7 @@ module.exports = function commonConfig(target) {
               [
                 'react-css-modules',
                 {
-                  exclude: 'global.s?css', // need to exclude the defined global CSS file
+                  exclude: 'global.(css|scss|sass)', // need to exclude the defined global CSS file
                   context: SYSPATH['SRC'], // must match with webpack's context
                   generateScopedName: cssScopedName,
                   filetypes: {
@@ -111,8 +111,8 @@ module.exports = function commonConfig(target) {
     // `babel-plugin-react-css-modules` plugin will take care of it and do the matching
     getCssModulesRule(ExtractCssChunks = null) {
       return {
-        test: /\.s?css$/,
-        exclude: /global\.s?css/,
+        test: /\.module\.(css|scss|sass)$/,
+        exclude: /global\.(css|scss|sass)/,
         use: getStyleLoaders(ExtractCssChunks, {
           modules: true,
           exportOnlyLocals: !isClient,
@@ -124,7 +124,7 @@ module.exports = function commonConfig(target) {
     // Note: we assign global CSS class names to `className` property instead of `styleName`
     getGlobalStylesRule(ExtractCssChunks = null) {
       return {
-        test: /global\.s?css$/,
+        test: /global\.(css|scss|sass)$/,
         use: getStyleLoaders(ExtractCssChunks)
       };
     },
