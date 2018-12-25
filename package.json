@@ -262,8 +262,8 @@
       "jsx"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/scripts/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/resources/scripts/styleMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/jest/fileMock.js",
+      "\\.(css|scss)$": "<rootDir>/resources/jest/styleMock.js",
       "^@common(.*)$": "<rootDir>/src/app/common$1"
     },
     "transform": {
