@@ -1,12 +1,12 @@
 require('module-alias/register');
 const dotenv = require('dotenv');
-const { DEV, SYSPATH } = require('@config');
+const { SYSPATH } = require('@config');
 
 let pathToEnv = `${SYSPATH['CONFIG']}/.env`;
 
-// using .env.example file instead when in `production` environment
-if (DEV) {
-  pathToEnv = pathToEnv + '.example';
+// using .env.local file instead when not in `production` environment
+if (process.env.NODE_ENV !== 'production') {
+  pathToEnv = pathToEnv + '.local';
 }
 
 const env = dotenv.config({ path: pathToEnv });
