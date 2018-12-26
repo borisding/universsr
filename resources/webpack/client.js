@@ -6,12 +6,21 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StatsWebpackPlugin = require('stats-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const DEV = require('isdev');
-const SYSPATH = require('@config/syspath');
+const { DEV, SYSPATH } = require('@config');
+const envResult = require('@resources/scripts/env');
 const webpackCommon = require('./common');
 
 const commonConfig = webpackCommon('client');
 const isAnalyze = process.env.ANALYZE_MODE === 'enabled';
+
+// Populate key/value based on parsed env result for define plugin
+// NOTE: We DON'T use destructuring from `process.env` object
+// this is to avoid expose any sensitive values when come to bundling
+// assignment should be based on `process.env.[ENV_NAME]` is used
+const defineEnvResult = Object.keys(envResult).reduce((result, key) => {
+  result[`process.env.${key}`] = JSON.stringify(envResult[key]);
+  return result;
+}, {});
 
 module.exports = {
   target: 'web',
@@ -63,6 +72,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin(defineEnvResult),
     new ExtractCssChunks({
       hot: !!DEV,
       cssModules: true,

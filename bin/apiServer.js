@@ -4,10 +4,9 @@ import 'make-promises-safe';
 import colors from 'colors';
 import http from 'http';
 import api from '@api';
-import { ENV } from '@config';
 
 const server = http.createServer(api);
-const serverPort = process.env.API_PORT || ENV['API_PORT'];
+const serverPort = process.env.API_PORT || 3030;
 
 server.listen(serverPort);
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import isPlainObject from 'is-plain-object';
-import { ENV, NODE } from '@config';
+import { NODE } from '@config';
 
 let req = null;
 
@@ -16,7 +16,7 @@ export default class Service {
 
     this.defaultConfig = {
       baseURL: this.getBaseURL(),
-      timeout: ENV['REQUEST_TIMEOUT']
+      timeout: process.env.REQUEST_TIMEOUT
     };
 
     this.axios = axios.create({
@@ -38,16 +38,16 @@ export default class Service {
   }
 
   getBaseURL() {
-    const api = `/api/${ENV['API_VERSION']}`;
+    const api = `/api/${process.env.API_VERSION}`;
 
     // use it if request base URL is explicitly defined (eg: domain name)
-    if (ENV['REQUEST_BASEURL'].trim()) {
-      return `${ENV['REQUEST_BASEURL']}${api}`;
+    if (process.env.REQUEST_BASEURL) {
+      return process.env.REQUEST_BASEURL + api;
     }
 
     // else, construct base URL when is on server side
     if (NODE) {
-      return `${ENV['PROTOCOL']}://${ENV['HOST']}:${ENV['PORT']}${api}`;
+      return `${process.env.PROTOCOL}://${process.env.PORT}${api}`;
     }
 
     // or return as it is

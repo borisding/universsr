@@ -1,5 +1,4 @@
-const DEV = require('isdev');
-const SYSPATH = require('@config/syspath');
+const { DEV, SYSPATH } = require('@config');
 const pkg = require('@root/package');
 
 module.exports = function commonConfig(target) {

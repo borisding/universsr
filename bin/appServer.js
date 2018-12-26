@@ -4,10 +4,10 @@ import 'make-promises-safe';
 import colors from 'colors';
 import http from 'http';
 import app from '@app';
-import { ENV, DEV } from '@config';
+import { DEV } from '@config';
 
 const server = http.createServer(app);
-const serverPort = process.env.PORT || ENV['PORT'];
+const serverPort = process.env.PORT || 3000;
 
 server.listen(serverPort);
 
