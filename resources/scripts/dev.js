@@ -1,35 +1,32 @@
 // first and foremost, specify NODE_ENV variable
 process.env.NODE_ENV = 'development';
-
 // clean files before proceeding
 require('./clean');
 // include env script to load targeted environment file
 require('./env');
 
+const colors = require('colors');
+const nodemon = require('nodemon');
 const { spawn } = require('child_process');
 const { SYSPATH } = require('../../config');
-const nodemon = require('nodemon');
 
 const argv = process.argv.slice(2)[0];
 const argvs = ['--app', '--api'];
 
 if (!argvs.includes(argv)) {
-  throw new Error(`Expected argument: ==> ${argvs}`);
+  console.log(colors.red(`Expected argument: ==> ${argvs}`));
+  process.exit(1);
 }
 
 // running app server
-function runApp() {
-  try {
-    spawn('node', [`${SYSPATH['ROOT']}/app.js`], { stdio: 'inherit' });
-    return true;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
-}
+const runDevApp = () => {
+  spawn('node', [`${SYSPATH['ROOT']}/app.js`], {
+    stdio: 'inherit'
+  });
+};
 
 // running api server
-function runApi() {
+const runDevApi = () => {
   try {
     nodemon({
       script: `${SYSPATH['ROOT']}/api.js`,
@@ -40,17 +37,16 @@ function runApi() {
     });
     // listening to restart event
     nodemon.on('restart', function(files) {
-      console.log('API server restarted due to: ', files);
+      console.log('API server restarted due to: ', colors.green(files));
     });
-    return true;
   } catch (error) {
-    console.log(error);
-    return false;
+    console.log(colors.red(error));
+    process.exit(1);
   }
-}
+};
 
-if (argv === '--app') {
-  runApp();
-} else if (argv === '--api') {
-  runApi();
+if (argv === argvs[0]) {
+  runDevApp();
+} else if (argv === argvs[1]) {
+  runDevApi();
 }
