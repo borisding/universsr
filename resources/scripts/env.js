@@ -1,26 +1,36 @@
-require('module-alias/register');
 const dotenv = require('dotenv');
-const { SYSPATH } = require('@config');
+const dotenvExpand = require('dotenv-expand');
+const { SYSPATH } = require('../../config');
+
+const NODE_ENV = process.env.NODE_ENV;
+if (!NODE_ENV) {
+  throw new Error(
+    '`NODE_ENV` environment variable was missing. Please specify it before running.'
+  );
+}
 
 let pathToEnv = `${SYSPATH['CONFIG']}/.env`;
-
-// using .env.local file instead when not in `production` environment
-if (process.env.NODE_ENV !== 'production') {
-  pathToEnv = pathToEnv + '.local';
+// using .env.[NODE_ENV] file instead when not in `production` environment
+if (NODE_ENV !== 'production') {
+  pathToEnv = `${pathToEnv}.${NODE_ENV}`;
 }
 
-const env = dotenv.config({ path: pathToEnv });
-const envResult = env.parsed;
+// expand existing environment variables with targeted .env file
+const result = dotenvExpand(dotenv.config({ path: pathToEnv }));
+const parsed = result.parsed;
 
-// override the ports if already assigned before
-// to assure it's always with the latest port values
-if (process.env.PORT && envResult.PORT) {
-  process.env.PORT = envResult.PORT;
-}
+function getCustomEnvData() {
+  // Populate key/value based on parsed env result for DefinePlugin
+  // NOTE: We DON'T use destructuring from `process.env` object
+  // this is to avoid expose any sensitive data when come to bundling
+  // assignment should be based on `process.env.[ENV_NAME]` is used
+  const stringified = Object.keys(parsed).reduce((result, key) => {
+    result[`process.env.${key}`] = JSON.stringify(parsed[key]);
+    return result;
+  }, {});
 
-if (process.env.API_PORT && envResult.API_PORT) {
-  process.env.API_PORT = envResult.API_PORT;
+  return { parsed, stringified };
 }
 
 // also export parsed result only for webpack's DefinePlugin usage
-module.exports = envResult;
+module.exports = getCustomEnvData;
