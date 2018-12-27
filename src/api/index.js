@@ -28,7 +28,8 @@ api
   .use(fileSession())
   .use(express.json())
   .use(express.urlencoded({ extended: true, limit: '10mb' }), hpp())
-  .use(`/api/${process.env.API_VERSION}`, routers);
+  .use(`/api/${process.env.API_VERSION}`, routers)
+  .get('/favicon.ico', (req, res) => res.status(204)); // simply ignore
 
 // mount error handler middleware last
 api.use(errorHandler({ json: true }));
