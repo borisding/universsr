@@ -6,7 +6,7 @@ import http from 'http';
 import api from '@api';
 
 const server = http.createServer(api);
-const serverPort = process.env.API_PORT || 3030;
+const serverPort = parseInt(process.env.API_PORT, 10) || 3030;
 
 server.listen(serverPort);
 

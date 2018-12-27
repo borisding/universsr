@@ -7,7 +7,7 @@ import app from '@app';
 import { DEV } from '@config';
 
 const server = http.createServer(app);
-const serverPort = process.env.PORT || 3000;
+const serverPort = parseInt(process.env.PORT, 10) || 3000;
 
 server.listen(serverPort);
 

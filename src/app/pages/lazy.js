@@ -10,7 +10,8 @@ export default function lazy(page) {
   // for universal api and options,
   // @see: https://github.com/faceyspacey/react-universal-component#api-and-options
   return universal(page(), {
-    minDelay: process.env.MIN_DELAY,
+    minDelay: parseInt(process.env.MIN_DELAY, 10),
+    loadingTransition: false,
     loading: PageLoader
   });
 }
