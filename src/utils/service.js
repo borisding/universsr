@@ -47,7 +47,9 @@ export default class Service {
 
     // else, construct base URL when is on server side
     if (NODE) {
-      return `${process.env.PROTOCOL}://${process.env.PORT}${api}`;
+      return `${process.env.PROTOCOL}://${process.env.HOST}:${
+        process.env.PORT
+      }${api}`;
     }
 
     // or return as it is
