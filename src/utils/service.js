@@ -16,7 +16,7 @@ export default class Service {
 
     this.defaultConfig = {
       baseURL: this.getBaseURL(),
-      timeout: process.env.REQUEST_TIMEOUT
+      timeout: parseInt(process.env.REQUEST_TIMEOUT, 10)
     };
 
     this.axios = axios.create({
@@ -43,17 +43,15 @@ export default class Service {
     // use it if request base URL is explicitly defined (eg: domain name)
     if (process.env.REQUEST_BASEURL) {
       return process.env.REQUEST_BASEURL + api;
-    }
-
-    // else, construct base URL when is on server side
-    if (NODE) {
+    } else if (NODE) {
+      // else, construct base URL when is on server side
       return `${process.env.PROTOCOL}://${process.env.HOST}:${
         process.env.PORT
       }${api}`;
+    } else {
+      // or return as it is
+      return api;
     }
-
-    // or return as it is
-    return api;
   }
 
   interceptRequest(resolve, reject) {
