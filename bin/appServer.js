@@ -38,6 +38,9 @@ server.on('error', err => {
 
 ['SIGINT', 'SIGTERM'].forEach(signal => {
   process.on(signal, () => {
-    server.close(() => process.exit(0));
+    server.close(() => {
+      console.log('App server closed!');
+      process.exit();
+    });
   });
 });
