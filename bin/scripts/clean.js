@@ -1,3 +1,5 @@
+'use strict';
+
 const rimraf = require('rimraf');
 const { SYSPATH } = require('../../config');
 

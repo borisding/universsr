@@ -7,7 +7,7 @@ const StatsWebpackPlugin = require('stats-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { DEV, SYSPATH } = require('@config');
-const getCustomEnvData = require('@resources/scripts/env');
+const getCustomEnv = require('@bin/scripts/env');
 const webpackCommon = require('./common');
 
 const commonConfig = webpackCommon('client');
@@ -63,7 +63,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin(getCustomEnvData().stringified),
+    new webpack.DefinePlugin(getCustomEnv().stringified),
     new ExtractCssChunks({
       hot: !!DEV,
       cssModules: true,

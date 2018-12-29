@@ -32,7 +32,6 @@ server.on('error', err => {
 ['SIGINT', 'SIGTERM'].forEach(signal => {
   process.on(signal, () => {
     server.close(() => {
-      console.log('API server closed!');
       process.exit();
     });
   });

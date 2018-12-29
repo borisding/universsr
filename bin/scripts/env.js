@@ -1,3 +1,5 @@
+'use strict';
+
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
 const { SYSPATH } = require('../../config');
@@ -19,7 +21,7 @@ if (NODE_ENV !== 'production') {
 const result = dotenvExpand(dotenv.config({ path: pathToEnv }));
 const parsed = result.parsed;
 
-function getCustomEnvData() {
+function getCustomEnv() {
   // Populate key/value based on parsed env result for DefinePlugin
   // NOTE: We DON'T use destructuring from `process.env` object
   // this is to avoid expose any sensitive data when come to bundling
@@ -33,4 +35,4 @@ function getCustomEnvData() {
 }
 
 // also export parsed result only for webpack's DefinePlugin usage
-module.exports = getCustomEnvData;
+module.exports = getCustomEnv;

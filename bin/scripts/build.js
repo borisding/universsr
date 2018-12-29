@@ -1,3 +1,5 @@
+'use strict';
+
 // first and foremost, specify NODE_ENV variable
 process.env.NODE_ENV = 'production';
 // enable analyze webpack bundles
@@ -15,7 +17,7 @@ require('./env');
 const colors = require('colors');
 const slash = require('slash');
 const webpack = require('webpack');
-const webpackConfig = require('../webpack/config');
+const webpackConfig = require('../../resources/webpack/config');
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 
 const clientConfig = webpackConfig[0];
