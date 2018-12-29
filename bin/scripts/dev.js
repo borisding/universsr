@@ -11,10 +11,10 @@ require('./env');
 
 const colors = require('colors');
 const nodemon = require('nodemon');
-const { spawn, isApi, isApp, checkAppOrApiArgumentsOnly } = require('./utils');
+const { spawn, isApi, isApp, checkOnlyAppOrApiAllowed } = require('./utils');
 const { SYSPATH } = require('../../config');
 
-checkAppOrApiArgumentsOnly();
+checkOnlyAppOrApiAllowed();
 
 // running app server
 const runDevApp = () => {

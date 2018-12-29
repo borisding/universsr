@@ -2,8 +2,9 @@
 
 // first and foremost, specify NODE_ENV variable
 process.env.NODE_ENV = 'production';
+
 // enable analyze webpack bundles
-const argv = process.argv.slice(2)[0];
+const argv = require('./utils').getScriptArguments()[0];
 if (argv === '--analyze') {
   process.env.ANALYZE_MODE = 'enabled';
 }
@@ -23,7 +24,7 @@ const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 const clientConfig = webpackConfig[0];
 const serverConfig = webpackConfig[1];
 
-const webpackBuild = () => {
+function webpackBuild() {
   return new Promise((resolve, reject) => {
     const compiler = webpack(webpackConfig);
     new SimpleProgressWebpackPlugin().apply(compiler);
@@ -36,7 +37,7 @@ const webpackBuild = () => {
       }
     });
   });
-};
+}
 
 webpackBuild()
   .then(() => {

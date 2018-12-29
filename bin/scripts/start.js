@@ -10,11 +10,11 @@ require('./env');
 const fs = require('fs');
 const colors = require('colors');
 const slash = require('slash');
-const { spawn, isApi, isApp, checkAppOrApiArgumentsOnly } = require('./utils');
+const { spawn, isApi, isApp, checkOnlyAppOrApiAllowed } = require('./utils');
 const { SYSPATH } = require('../../config');
 const webpackConfig = require('../../resources/webpack/config');
 
-checkAppOrApiArgumentsOnly();
+checkOnlyAppOrApiAllowed();
 
 // simply check both client and server build output dir/file does exist
 // before running app server for production environment

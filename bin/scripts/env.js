@@ -34,5 +34,5 @@ function getCustomEnv() {
   return { parsed, stringified };
 }
 
-// also export parsed result only for webpack's DefinePlugin usage
+// export custom parsed and stringified env variables
 module.exports = getCustomEnv;
