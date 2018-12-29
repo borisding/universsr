@@ -21,6 +21,11 @@
     "test:watch": "npm test -- --watch",
     "test:coverage": "rimraf storage/coverage && npm test -- --coverage"
   },
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "*.sass"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
