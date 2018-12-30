@@ -9,6 +9,20 @@ if (argv.indexOf('--analyze') !== -1) {
   process.env.ANALYZE_MODE = 'enabled';
 }
 
+const progressOptions = [
+  '--compact',
+  '--minimal',
+  '--expanded',
+  '--extended',
+  '--verbose'
+];
+// process argv is provided any
+const options = { format: progressOptions[0] }; // deafult is compact
+const progressArgv = argv.filter(option => progressOptions.includes(option));
+if (progressArgv.length > 0) {
+  options.format = progressArgv[0].substring(2, progressArgv[0].length);
+}
+
 require('make-promises-safe');
 // clean files before proceeding
 require('./clean');
@@ -27,7 +41,7 @@ const serverConfig = webpackConfig[1];
 function webpackBuild() {
   return new Promise((resolve, reject) => {
     const compiler = webpack(webpackConfig);
-    new SimpleProgressWebpackPlugin().apply(compiler);
+    new SimpleProgressWebpackPlugin(options).apply(compiler);
 
     compiler.run((error, stats) => {
       if (error && error.message) {
