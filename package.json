@@ -7,7 +7,7 @@
     "postinstall": "npm run build",
     "clean": "node bin/scripts/clean.js",
     "build": "node bin/scripts/build.js",
-    "build:analyze": "node bin/scripts/build.js --analyze",
+    "build:analyze": "npm run build -- --analyze",
     "dev:app": "node bin/scripts/dev.js --app",
     "dev:api": "node bin/scripts/dev.js --api",
     "start:app": "node bin/scripts/start.js --app",
