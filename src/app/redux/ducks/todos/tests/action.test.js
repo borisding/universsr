@@ -9,13 +9,13 @@ const host = 'http://localhost:3000/api/v1';
 const endpoint = '/todos';
 
 const mockStore = configureMockStore([
-  thunk.withExtraArgument({ requestError: requestActions.requestError })
+  thunk.withExtraArgument({ ...requestActions })
 ]);
 
 describe('fetching todos data', () => {
   const response = [{ id: 'todo-id2', todo: 'New Todo', done: false }];
   const errorMessage = 'Request failed with status code 404';
-  let fetchMock, store;
+  let store;
 
   beforeEach(() => {
     store = mockStore({
@@ -25,19 +25,19 @@ describe('fetching todos data', () => {
         data: [{ id: 'todo-id1', todo: 'Current Todo', done: true }]
       }
     });
-    fetchMock = nock(host).get(endpoint);
   });
 
   afterEach(() => {
     nock.cleanAll();
   });
 
-  test('creates `TODOS_FETCH_SUCCESS` when fetching todos is already done.', done => {
-    fetchMock.reply(200, response);
+  it('should dispatch `TODOS_FETCH_SUCCESS` action type when fetching todos is already done.', done => {
+    nock(host)
+      .get(endpoint)
+      .reply(200, response);
 
     store.dispatch(actions.fetchTodos()).then(() => {
       const act = store.getActions();
-
       expect(act[0]).toEqual({ type: types.TODOS_FETCH_BEGIN });
       expect(act[1]).toEqual({
         type: types.TODOS_FETCH_SUCCESS,
@@ -47,23 +47,23 @@ describe('fetching todos data', () => {
     });
   });
 
-  test('creates `REQUEST_ERROR` when failed to fetch todos.', async done => {
-    fetchMock.replyWithError(errorMessage);
-    await store.dispatch(actions.fetchTodos());
-    const act = store.getActions();
+  it('should dispatch `REQUEST_ERROR` action type when failed to fetch todos.', done => {
+    nock(host)
+      .get(endpoint)
+      .replyWithError(errorMessage);
 
-    expect(act[0]).toEqual({ type: types.TODOS_FETCH_BEGIN });
-    expect(act[1]).toEqual({ type: types.TODOS_FETCH_FAILURE });
-    expect(act[2].type).toEqual(requestTypes.REQUEST_ERROR);
-    expect(act[2].payload.message).toEqual(errorMessage);
-    done();
+    store.dispatch(actions.fetchTodos()).then(() => {
+      const act = store.getActions();
+      expect(act[0]).toEqual({ type: types.TODOS_FETCH_BEGIN });
+      expect(act[1]).toEqual({ type: types.TODOS_FETCH_FAILURE });
+      expect(act[2].type).toEqual(requestTypes.REQUEST_ERROR);
+      expect(act[2].payload.message).toEqual(errorMessage);
+      done();
+    });
   });
 
-  test('no action is dispatched if it is still fetching.', done => {
-    store = mockStore({
-      todos: { isFetching: true, isDone: false, data: [] }
-    });
-
+  it('should not fetch data when it is still fetching.', done => {
+    store = mockStore({ todos: { isFetching: true, isDone: false, data: [] } });
     store.dispatch(actions.prefetchTodos()).then(() => {
       const action = store.getActions()[0];
       expect(action).toBeUndefined();
@@ -71,11 +71,8 @@ describe('fetching todos data', () => {
     });
   });
 
-  test('no action is dispatched if fetching todos is already done.', done => {
-    store = mockStore({
-      todos: { isFetching: false, isDone: true, data: [] }
-    });
-
+  it('should not fetch data again when fetching todos is already done.', done => {
+    store = mockStore({ todos: { isFetching: false, isDone: true, data: [] } });
     store.dispatch(actions.prefetchTodos()).then(() => {
       const action = store.getActions()[0];
       expect(action).toBeUndefined();

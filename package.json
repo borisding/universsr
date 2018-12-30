@@ -14,12 +14,12 @@
     "start:api": "node bin/scripts/start.js --api",
     "dev": "run-p dev:api dev:app",
     "start": "run-p start:api start:app",
+    "test": "npm run lint && node bin/scripts/test.js --detectOpenHandles",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage",
     "lint": "npm-run-all lint:js lint:style",
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
-    "lint:js": "eslint . --fix",
-    "test": "npm run lint:js && cross-env NODE_ENV=test jest --detectOpenHandles",
-    "test:watch": "npm test -- --watch",
-    "test:coverage": "rimraf storage/coverage && npm test -- --coverage"
+    "lint:js": "eslint . --fix"
   },
   "sideEffects": [
     "*.css",
@@ -264,7 +264,8 @@
     "testEnvironment": "node",
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$",
     "testPathIgnorePatterns": [
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/",
+      "<rootDir>/bin/scripts/test.js"
     ]
   },
   "_moduleAliases": {
