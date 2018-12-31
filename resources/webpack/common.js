@@ -8,11 +8,13 @@ module.exports = function commonConfig(target) {
   const publicPath = '/';
 
   // the style loaders for both css modules and global style
-  const getStyleLoaders = (ExtractCssChunks, cssLoaderOptions = {}) => {
+  const getStyleLoaders = (MiniCssExtractPlugin, cssLoaderOptions = {}) => {
     const sourceMap = isDev && isClient;
 
     return [
-      ...(ExtractCssChunks ? [ExtractCssChunks.loader] : []),
+      ...(MiniCssExtractPlugin
+        ? ['css-hot-loader', MiniCssExtractPlugin.loader]
+        : []),
       {
         loader: 'css-loader',
         options: { sourceMap, importLoaders: 2, ...cssLoaderOptions }
@@ -100,11 +102,11 @@ module.exports = function commonConfig(target) {
     // this is for us to import local CSS modules from `src`, except global CSS file
     // Note: CSS class names are assigned to `styleName` property where
     // `babel-plugin-react-css-modules` plugin will take care of it and do the matching
-    getCssModulesRule(ExtractCssChunks = null) {
+    getCssModulesRule(MiniCssExtractPlugin = null) {
       return {
         test: /\.module\.(css|scss|sass)$/,
         exclude: /global\.(css|scss|sass)/,
-        use: getStyleLoaders(ExtractCssChunks, {
+        use: getStyleLoaders(MiniCssExtractPlugin, {
           modules: true,
           exportOnlyLocals: !isClient,
           localIdentName: cssScopedName
@@ -113,10 +115,10 @@ module.exports = function commonConfig(target) {
     },
     // this is for us to use global styles imported in `global.css` or `global.scss` file
     // Note: we assign global CSS class names to `className` property instead of `styleName`
-    getGlobalStylesRule(ExtractCssChunks = null) {
+    getGlobalStylesRule(MiniCssExtractPlugin = null) {
       return {
         test: /global\.(css|scss|sass)$/,
-        use: getStyleLoaders(ExtractCssChunks)
+        use: getStyleLoaders(MiniCssExtractPlugin)
       };
     },
     getImagesRule() {

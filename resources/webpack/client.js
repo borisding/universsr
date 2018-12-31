@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OfflinePlugin = require('offline-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StatsWebpackPlugin = require('stats-webpack-plugin');
@@ -59,16 +59,13 @@ module.exports = {
       commonConfig.getBabelRule(),
       commonConfig.getImagesRule(),
       commonConfig.getFontsRule(),
-      commonConfig.getCssModulesRule(ExtractCssChunks),
-      commonConfig.getGlobalStylesRule(ExtractCssChunks)
+      commonConfig.getCssModulesRule(MiniCssExtractPlugin),
+      commonConfig.getGlobalStylesRule(MiniCssExtractPlugin)
     ]
   },
   plugins: [
     new webpack.DefinePlugin(stringifiedEnv),
-    new ExtractCssChunks({
-      hot: !!isDev,
-      cssModules: true,
-      reloadAll: true,
+    new MiniCssExtractPlugin({
       filename: isDev ? '[name].css' : '[name].[contenthash].css',
       chunkFilename: isDev ? '[id].css' : '[id].[contenthash].css'
     }),
