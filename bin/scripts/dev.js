@@ -12,22 +12,22 @@ require('./env');
 const colors = require('colors');
 const nodemon = require('nodemon');
 const { spawn, isApi, isApp, checkOnlyAppOrApiAllowed } = require('./utils');
-const { SYSPATH } = require('../../config');
+const { syspath } = require('../../config');
 
 checkOnlyAppOrApiAllowed();
 
 // running app server
 const runDevApp = () => {
-  spawn(`${SYSPATH['ROOT']}/app.js`);
+  spawn(`${syspath.root}/app.js`);
 };
 
 // running api server
 const runDevApi = () => {
   try {
     nodemon({
-      script: `${SYSPATH['ROOT']}/api.js`,
-      watch: [`${SYSPATH['ROOT']}/src/api/*`],
-      ignore: [`${SYSPATH['ROOT']}/storage/sessions/*`],
+      script: `${syspath.root}/api.js`,
+      watch: [`${syspath.root}/src/api/*`],
+      ignore: [`${syspath.root}/storage/sessions/*`],
       ext: 'js',
       debug: true
     });

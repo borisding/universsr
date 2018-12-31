@@ -13,8 +13,8 @@ const argv = getArgv();
 // remove coverage folder if any
 if (argv.indexOf('--coverage') !== -1) {
   const rimraf = require('rimraf');
-  const { SYSPATH } = require('../../config');
-  rimraf.sync(`${SYSPATH['STORAGE']}/coverage`);
+  const { syspath } = require('../../config');
+  rimraf.sync(`${syspath.storage}/coverage`);
 }
 
 require('jest').run(argv);

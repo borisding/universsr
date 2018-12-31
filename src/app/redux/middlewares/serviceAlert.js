@@ -1,5 +1,5 @@
 import Alert from 'react-s-alert';
-import { DEV } from '@config';
+import { isDev } from '@config';
 import { requestTypes } from '@redux/ducks/request';
 
 // eslint-disable-next-line no-unused-vars
@@ -9,7 +9,7 @@ export default () => store => next => action => {
 
   switch (type) {
     case requestTypes.REQUEST_ERROR:
-      if (!DEV && payload.response && payload.response.status >= 500) {
+      if (!isDev && payload.response && payload.response.status >= 500) {
         // get production error message churned by error handler middleware, if any
         // or we just show the default production error message to end user instead
         const { error } = payload.response.data || {};

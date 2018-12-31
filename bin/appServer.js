@@ -4,7 +4,7 @@ import 'make-promises-safe';
 import colors from 'colors';
 import http from 'http';
 import app from '@app';
-import { DEV } from '@config';
+import { isDev } from '@config';
 
 const server = http.createServer(app);
 const serverPort = parseInt(process.env.PORT, 10) || 3000;
@@ -14,7 +14,7 @@ server.listen(serverPort);
 server.on('listening', () => {
   console.info(colors.cyan(`App server is listening PORT: ${serverPort}`));
 
-  if (DEV) {
+  if (isDev) {
     console.log(
       colors.green(`App is started at: http://localhost:${serverPort}`)
     );

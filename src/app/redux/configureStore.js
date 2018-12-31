@@ -1,6 +1,6 @@
 import thunk from 'redux-thunk';
 import { compose, createStore, applyMiddleware } from 'redux';
-import { DEV } from '@config';
+import { isDev } from '@config';
 import { serviceAlert } from './middlewares';
 import { requestActions } from './ducks/request';
 import rootReducer from './ducks';
@@ -16,13 +16,13 @@ export default function configureStore(preloadedState = {}) {
   // check if redux devtools extension compose available
   // apply for development environment only
   const withReduxDevtools =
-    DEV &&
+    isDev &&
     typeof window !== 'undefined' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+    window.__REDUX_isDevTOOLS_EXTENSION_COMPOSE__;
 
   // make compose enhancers
   const composeEnhancers = withReduxDevtools
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+    ? window.__REDUX_isDevTOOLS_EXTENSION_COMPOSE__({
         /* specify extension’s options, if any */
       })
     : compose;

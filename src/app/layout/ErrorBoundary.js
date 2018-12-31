@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DEV } from '@config';
+import { isDev } from '@config';
 
 export default class ErrorBoundary extends Component {
   constructor() {
@@ -22,7 +22,7 @@ export default class ErrorBoundary extends Component {
     return (
       <>
         <h3>Sorry! An error occured while rendering page.</h3>
-        {DEV && (
+        {isDev && (
           <pre>
             {this.state.error && this.state.error.toString()}
             <br />

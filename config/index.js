@@ -1,13 +1,13 @@
 module.exports = {
-  // export named `HELMET` as part of config
-  HELMET: require('./helmet'),
+  // export named `helmet` as part of config
+  helmet: require('./helmet'),
 
-  // export named `SYSPATH` as part of config
-  SYSPATH: require('./syspath'),
+  // export named `syspath` as part of config
+  syspath: require('./syspath'),
 
-  // export named `DEV` as part of config
-  DEV: require('isdev'),
+  // export named `isDev` as part of config
+  isDev: require('isdev'),
 
-  // export named `NODE` as part of config
-  NODE: require('detect-node')
+  // export named `isNode` as part of config
+  isNode: require('detect-node')
 };

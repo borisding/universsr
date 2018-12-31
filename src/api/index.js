@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import sessionFileStore from 'session-file-store';
-import { SYSPATH } from '@config';
+import { syspath } from '@config';
 import { httpLogger, errorHandler } from '@middlewares';
 import routers from './routers';
 
@@ -14,7 +14,7 @@ const api = express();
 const FileStore = sessionFileStore(session);
 const fileSession = () =>
   session({
-    store: new FileStore({ path: `${SYSPATH['STORAGE']}/sessions` }),
+    store: new FileStore({ path: `${syspath.storage}/sessions` }),
     resave: false,
     saveUninitialized: false,
     secret: process.env.SECRET_KEY,

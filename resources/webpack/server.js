@@ -1,6 +1,6 @@
 const fs = require('fs');
 const webpack = require('webpack');
-const { SYSPATH } = require('@config');
+const { syspath } = require('@config');
 const webpackCommon = require('./common');
 
 const commonConfig = webpackCommon('server');
@@ -8,7 +8,7 @@ const commonConfig = webpackCommon('server');
 // custom externals for node
 const externalRegExp = /\.bin|react-universal-component|webpack-flush-chunks/;
 const nodeExternals = fs
-  .readdirSync(`${SYSPATH['ROOT']}/node_modules`)
+  .readdirSync(`${syspath.root}/node_modules`)
   .filter(x => !externalRegExp.test(x))
   .reduce((externals, mod) => {
     externals[mod] = `commonjs ${mod}`;
@@ -25,7 +25,7 @@ module.exports = {
   externals: nodeExternals,
   entry: ['regenerator-runtime/runtime', './app/server.js'],
   output: {
-    path: `${SYSPATH['SRC']}/app`,
+    path: `${syspath.src}/app`,
     libraryTarget: 'commonjs2',
     filename: 'serverRenderer.js'
   },

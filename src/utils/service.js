@@ -1,6 +1,6 @@
 import axios from 'axios';
 import isPlainObject from 'is-plain-object';
-import { NODE } from '@config';
+import { isNode } from '@config';
 
 let req = null;
 
@@ -43,11 +43,13 @@ export default class Service {
     // use it if request base URL is explicitly defined (eg: domain name)
     if (process.env.REQUEST_BASEURL) {
       return process.env.REQUEST_BASEURL + api;
-    } else if (NODE) {
+    } else if (isNode) {
       // else, construct base URL when is on server side
-      return `${process.env.PROTOCOL}://${process.env.HOST}:${
-        process.env.PORT
-      }${api}`;
+      return (
+        `${process.env.PROTOCOL}://` +
+        `${process.env.HOST}:` +
+        `${process.env.PORT}${api}`
+      );
     } else {
       // or return as it is
       return api;
@@ -86,7 +88,7 @@ export const service = Service.create();
 service.interceptRequest(
   config => {
     // set the cookie header for server
-    if (NODE && Service.req && Service.req.header) {
+    if (isNode && Service.req && Service.req.header) {
       config.headers.Cookie = Service.req.header('cookie') || '';
       Service.req = null;
     }

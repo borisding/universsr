@@ -2,7 +2,7 @@
 
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
-const { SYSPATH } = require('../../config');
+const { syspath } = require('../../config');
 
 const NODE_ENV = process.env.NODE_ENV;
 if (!NODE_ENV) {
@@ -11,7 +11,7 @@ if (!NODE_ENV) {
   );
 }
 
-let pathToEnv = `${SYSPATH['CONFIG']}/.env`;
+let pathToEnv = `${syspath.config}/.env`;
 // using .env.[NODE_ENV] file instead when not in `production` environment
 if (NODE_ENV !== 'production') {
   pathToEnv = `${pathToEnv}.${NODE_ENV}`;

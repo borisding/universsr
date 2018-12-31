@@ -1,15 +1,15 @@
-const { DEV, SYSPATH } = require('@config');
+const { isDev, syspath } = require('@config');
 const pkg = require('@root/package');
 
 module.exports = function commonConfig(target) {
   const isClient = target === 'client';
-  const devtool = DEV ? 'cheap-module-inline-source-map' : 'source-map';
-  const cssScopedName = DEV ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
+  const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
+  const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
   const publicPath = '/';
 
   // the style loaders for both css modules and global style
   const getStyleLoaders = (ExtractCssChunks, cssLoaderOptions = {}) => {
-    const sourceMap = DEV && isClient;
+    const sourceMap = isDev && isClient;
 
     return [
       ...(ExtractCssChunks ? [ExtractCssChunks.loader] : []),
@@ -47,8 +47,8 @@ module.exports = function commonConfig(target) {
   return {
     devtool,
     publicPath,
-    context: SYSPATH['SRC'],
-    mode: DEV ? 'development' : 'production',
+    context: syspath.src,
+    mode: isDev ? 'development' : 'production',
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.sass'],
       alias: pkg._moduleAliases
@@ -61,7 +61,7 @@ module.exports = function commonConfig(target) {
           loader: 'babel-loader',
           options: {
             babelrc: false,
-            cacheDirectory: !!DEV,
+            cacheDirectory: !!isDev,
             presets: [
               ['@babel/preset-env', { useBuiltIns: 'entry' }],
               '@babel/preset-react'
@@ -76,7 +76,7 @@ module.exports = function commonConfig(target) {
                 'react-css-modules',
                 {
                   exclude: 'global.(css|scss|sass)', // need to exclude the defined global CSS file
-                  context: SYSPATH['SRC'], // must match with webpack's context
+                  context: syspath.src, // must match with webpack's context
                   generateScopedName: cssScopedName,
                   filetypes: {
                     '.scss': {

@@ -4,7 +4,7 @@ import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { hydrate } from 'react-dom';
-import { DEV } from '@config';
+import { isDev } from '@config';
 import configureStore from '@redux/configureStore';
 import registerOffline from './offline';
 import routes from './routes';
@@ -25,7 +25,7 @@ const render = routes => {
 
 render(routes);
 
-if (!DEV) {
+if (!isDev) {
   registerOffline();
 }
 

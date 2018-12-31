@@ -11,7 +11,7 @@ const fs = require('fs');
 const colors = require('colors');
 const slash = require('slash');
 const { spawn, isApi, isApp, checkOnlyAppOrApiAllowed } = require('./utils');
-const { SYSPATH } = require('../../config');
+const { syspath } = require('../../config');
 const webpackConfig = require('../../resources/webpack/config');
 
 checkOnlyAppOrApiAllowed();
@@ -42,7 +42,7 @@ if (isApp) {
 }
 
 if (isApp) {
-  spawn(`${SYSPATH['ROOT']}/app.js`);
+  spawn(`${syspath.root}/app.js`);
 } else if (isApi) {
-  spawn(`${SYSPATH['ROOT']}/api.js`);
+  spawn(`${syspath.root}/api.js`);
 }

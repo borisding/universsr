@@ -6,7 +6,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StatsWebpackPlugin = require('stats-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const { DEV, SYSPATH } = require('@config');
+const { isDev, syspath } = require('@config');
 const { getCustomEnv } = require('@bin/scripts/env');
 const webpackCommon = require('./common');
 
@@ -28,7 +28,7 @@ module.exports = {
     maxAssetSize: 400000
   },
   entry: [
-    ...(DEV
+    ...(isDev
       ? [
           'eventsource-polyfill', // used for IE's hot reloading
           'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
@@ -38,10 +38,10 @@ module.exports = {
     './app/client.js'
   ],
   output: {
-    path: SYSPATH['PUBLIC'],
+    path: syspath.public,
     publicPath: commonConfig.publicPath,
-    filename: DEV ? '[name].js' : '[name].[contenthash].js',
-    chunkFilename: DEV ? '[id].js' : '[id].[contenthash].js'
+    filename: isDev ? '[name].js' : '[name].[contenthash].js',
+    chunkFilename: isDev ? '[id].js' : '[id].[contenthash].js'
   },
   optimization: {
     // can provide uglify-js options for more controls
@@ -66,24 +66,24 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin(stringifiedEnv),
     new ExtractCssChunks({
-      hot: !!DEV,
+      hot: !!isDev,
       cssModules: true,
       reloadAll: true,
-      filename: DEV ? '[name].css' : '[name].[contenthash].css',
-      chunkFilename: DEV ? '[id].css' : '[id].[contenthash].css'
+      filename: isDev ? '[name].css' : '[name].[contenthash].css',
+      chunkFilename: isDev ? '[id].css' : '[id].[contenthash].css'
     }),
     new CopyWebpackPlugin([
       {
-        from: `${SYSPATH['RESOURCES']}/assets/manifest.json`,
-        to: SYSPATH['PUBLIC']
+        from: `${syspath.resources}/assets/manifest.json`,
+        to: syspath.public
       },
       {
-        from: `${SYSPATH['RESOURCES']}/assets/icons`,
-        to: `${SYSPATH['PUBLIC']}/icons`
+        from: `${syspath.resources}/assets/icons`,
+        to: `${syspath.public}/icons`
       }
     ])
   ].concat(
-    DEV
+    isDev
       ? [new webpack.HotModuleReplacementPlugin()]
       : [
           new StatsWebpackPlugin('stats.json'),

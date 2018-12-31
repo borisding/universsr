@@ -9,7 +9,7 @@ import { minify } from 'html-minifier';
 import { StaticRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ServiceClass } from '@utils';
-import { DEV } from '@config';
+import { isDev } from '@config';
 import configureStore from '@redux/configureStore';
 import createHtml from './html';
 import routes from './routes';
@@ -27,9 +27,9 @@ function prefetchBranchData(store, req) {
           return Promise.all(
             loadData.map(action => dispatch(action(match, req)))
           );
+        } else {
+          return dispatch(loadData(match, req));
         }
-
-        return dispatch(loadData(match, req));
       }
 
       return Promise.resolve(null);
@@ -46,7 +46,7 @@ function renderHtml(data) {
   let html = createHtml(data);
 
   // minify html for production, programmatically
-  if (!DEV) {
+  if (!isDev) {
     html = minify(html, {
       minifyCSS: true,
       minifyJS: true,
@@ -87,24 +87,24 @@ export default function serverRenderer({ clientStats }) {
       const { statusCode = 200, redirectUrl } = context;
 
       if ([301, 302].includes(statusCode) && redirectUrl) {
-        return res.redirect(statusCode, redirectUrl);
+        res.redirect(statusCode, redirectUrl);
+      } else {
+        const helmet = Helmet.renderStatic();
+        const preloadedState = serialize(store.getState(), { isJSON: true });
+        const { js, styles } = flushChunks(clientStats, {
+          chunkNames: flushChunkNames()
+        });
+
+        res.status(statusCode).send(
+          renderHtml({
+            styles,
+            js,
+            renderedAppString,
+            preloadedState,
+            helmet
+          })
+        );
       }
-
-      const helmet = Helmet.renderStatic();
-      const preloadedState = serialize(store.getState(), { isJSON: true });
-      const { js, styles } = flushChunks(clientStats, {
-        chunkNames: flushChunkNames()
-      });
-
-      return res.status(statusCode).send(
-        renderHtml({
-          styles,
-          js,
-          renderedAppString,
-          preloadedState,
-          helmet
-        })
-      );
     } catch (err) {
       next(new Error(err));
     }
