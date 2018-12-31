@@ -22,6 +22,7 @@ const result = dotenvExpand(dotenv.config({ path: pathToEnv }));
 const parsed = result.parsed;
 
 function getCustomEnv() {
+  if (!parsed) return {};
   // Populate key/value based on parsed env result for DefinePlugin
   // NOTE: We DON'T use destructuring from `process.env` object
   // this is to avoid expose any sensitive data when come to bundling
@@ -34,5 +35,8 @@ function getCustomEnv() {
   return { parsed, stringified };
 }
 
-// export custom parsed and stringified env variables
-module.exports = getCustomEnv;
+// export env related
+module.exports = {
+  pathToEnv,
+  getCustomEnv
+};

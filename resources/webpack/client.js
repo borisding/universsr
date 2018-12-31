@@ -7,11 +7,12 @@ const StatsWebpackPlugin = require('stats-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { DEV, SYSPATH } = require('@config');
-const getCustomEnv = require('@bin/scripts/env');
+const { getCustomEnv } = require('@bin/scripts/env');
 const webpackCommon = require('./common');
 
 const commonConfig = webpackCommon('client');
 const isAnalyze = process.env.ANALYZE_MODE === 'enabled';
+const stringifiedEnv = getCustomEnv().stringified || {};
 
 module.exports = {
   target: 'web',
@@ -63,7 +64,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin(getCustomEnv().stringified),
+    new webpack.DefinePlugin(stringifiedEnv),
     new ExtractCssChunks({
       hot: !!DEV,
       cssModules: true,

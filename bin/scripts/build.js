@@ -27,7 +27,7 @@ require('make-promises-safe');
 // clean files before proceeding
 require('./clean');
 // include env script to load targeted environment file
-require('./env');
+const { pathToEnv, getCustomEnv } = require('./env');
 
 const colors = require('colors');
 const slash = require('slash');
@@ -53,25 +53,33 @@ function webpackBuild() {
   });
 }
 
-webpackBuild()
-  .then(() => {
-    console.log(colors.green('Webpack compiled successfully.'));
-    console.log();
-    console.log(
-      colors.cyan(
-        `[CLIENT] Output location: ${slash(clientConfig.output.path)}`
-      )
-    );
-    console.log(
-      colors.cyan(
-        `[SERVER] Output location: ${slash(serverConfig.output.path)}`
-      )
-    );
-  })
-  .catch(error => {
-    console.log(colors.red('ERROR: Webpack failed to compile.'));
-    console.log(colors.red(error));
-    process.exit(1);
-  });
-
-module.exports = webpackBuild;
+// only proceed to build when env is already parsed for production
+if (!getCustomEnv().parsed) {
+  console.log(colors.red('Webpack build process aborted!'));
+  console.log(
+    colors.yellow(
+      `REASON: [${pathToEnv}] file is missing! Please create one for 'production' environment.`
+    )
+  );
+} else {
+  webpackBuild()
+    .then(() => {
+      console.log(colors.green('Webpack compiled successfully.'));
+      console.log();
+      console.log(
+        colors.cyan(
+          `[CLIENT] Output location: ${slash(clientConfig.output.path)}`
+        )
+      );
+      console.log(
+        colors.cyan(
+          `[SERVER] Output location: ${slash(serverConfig.output.path)}`
+        )
+      );
+    })
+    .catch(error => {
+      console.log(colors.red('ERROR: Webpack failed to compile.'));
+      console.log(colors.red(error));
+      process.exit(1);
+    });
+}
