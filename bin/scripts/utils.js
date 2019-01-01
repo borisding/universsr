@@ -1,24 +1,10 @@
 'use strict';
 
-const colors = require('colors');
 const crossSpawn = require('cross-spawn');
 
-// deal with arguments passed to script
-const argvs = getArgv();
-const expectedArgvs = ['--app', '--api'];
-
-const isApp = argvs[0] === expectedArgvs[0];
-const isApi = argvs[0] === expectedArgvs[1];
-
+// retrieve passed argument vectors from process.argv
 function getArgv() {
   return process.argv.slice(2) || [];
-}
-
-function checkOnlyAppOrApiAllowed() {
-  if (!isApi && !isApp) {
-    console.log(colors.red(`Expected argument: ==> ${expectedArgvs}`));
-    process.exit(1);
-  }
 }
 
 // node spawn process by using crossSpawan package
@@ -37,12 +23,11 @@ function spawn(args) {
     console.log('Process exited too early.');
     process.exit(1);
   }
+
+  return child;
 }
 
 module.exports = {
   spawn,
-  isApp,
-  isApi,
-  checkOnlyAppOrApiAllowed,
   getArgv
 };

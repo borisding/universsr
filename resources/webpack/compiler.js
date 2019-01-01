@@ -3,6 +3,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const webpackConfig = require('./config');
+const { syspath } = require('../../config');
 
 module.exports = function webpackCompiler(app) {
   const clientConfig = webpackConfig[0] || {};
@@ -17,12 +18,19 @@ module.exports = function webpackCompiler(app) {
       logLevel: 'warn',
       watchOptions: {
         aggregateTimeout: 500,
-        ignored: /node_modules/,
+        ignored: [
+          `${syspath.root}/node_modules`,
+          `${syspath.root}/package.json`,
+          syspath.bin,
+          syspath.resources,
+          syspath.storage
+        ],
         poll: false
       }
     })
   );
 
+  // mount webpack hot reloading middleware
   app.use(
     webpackHotMiddleware(
       compiler.compilers.find(compiler => compiler.name === 'client'),

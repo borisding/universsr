@@ -11,10 +11,22 @@ require('./env');
 
 const colors = require('colors');
 const nodemon = require('nodemon');
-const { spawn, isApi, isApp, checkOnlyAppOrApiAllowed } = require('./utils');
+const { spawn, getArgv } = require('./utils');
 const { syspath } = require('../../config');
 
-checkOnlyAppOrApiAllowed();
+const argv = getArgv();
+const expectedArgv = ['--app', '--api'];
+const isDevApp = argv[0] === expectedArgv[0];
+const isDevApi = argv[0] === expectedArgv[1];
+
+if (!isDevApi && !isDevApp) {
+  console.log(
+    colors.red(
+      `Expected argument vectors for development environment: ==> ${expectedArgv}`
+    )
+  );
+  process.exit(1);
+}
 
 // running app server
 const runDevApp = () => {
@@ -27,7 +39,6 @@ const runDevApi = () => {
     nodemon({
       script: `${syspath.root}/api.js`,
       watch: [`${syspath.root}/src/api/*`],
-      ignore: [`${syspath.root}/storage/sessions/*`],
       ext: 'js',
       debug: true
     });
@@ -59,8 +70,8 @@ const runDevApi = () => {
   }
 };
 
-if (isApp) {
+if (isDevApp) {
   runDevApp();
-} else if (isApi) {
+} else if (isDevApi) {
   runDevApi();
 }

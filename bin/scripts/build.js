@@ -44,7 +44,7 @@ function webpackBuild() {
     new SimpleProgressWebpackPlugin(options).apply(compiler);
 
     compiler.run((error, stats) => {
-      if (error && error.message) {
+      if (error) {
         return reject(error);
       } else {
         return resolve(stats);
@@ -55,10 +55,10 @@ function webpackBuild() {
 
 // only proceed to build when env is already parsed for production
 if (!getCustomEnv().parsed) {
-  console.log(colors.red('Webpack build process aborted!'));
+  console.log(colors.red('ERROR: Webpack build process aborted!'));
   console.log(
     colors.yellow(
-      `REASON: [${pathToEnv}] file is missing! Please create one for 'production' environment.`
+      `CAUSE: [${pathToEnv}] file was not found! Please create one for 'production' environment.`
     )
   );
 } else {

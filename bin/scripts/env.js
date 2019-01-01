@@ -25,7 +25,7 @@ function getCustomEnv() {
   if (!parsed) return {};
   // Populate key/value based on parsed env result for DefinePlugin
   // NOTE: We DON'T use destructuring from `process.env` object
-  // this is to avoid expose any sensitive data when come to bundling
+  // this is to avoid expose any sensitive data when come to bundling on client
   // assignment should be based on `process.env.[ENV_NAME]` is used
   const stringified = Object.keys(parsed).reduce((result, key) => {
     result[`process.env.${key}`] = JSON.stringify(parsed[key]);

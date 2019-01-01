@@ -10,15 +10,27 @@ require('./env');
 const fs = require('fs');
 const colors = require('colors');
 const slash = require('slash');
-const { spawn, isApi, isApp, checkOnlyAppOrApiAllowed } = require('./utils');
+const { spawn, getArgv } = require('./utils');
 const { syspath } = require('../../config');
 const webpackConfig = require('../../resources/webpack/config');
 
-checkOnlyAppOrApiAllowed();
+const argv = getArgv();
+const expectedArgv = ['--app', '--api'];
+const isProdApp = argv[0] === expectedArgv[0];
+const isProdApi = argv[0] === expectedArgv[1];
+
+if (!isProdApi && !isProdApp) {
+  console.log(
+    colors.red(
+      `Expected argument vectors for production environment: ==> ${expectedArgv}`
+    )
+  );
+  process.exit(1);
+}
 
 // simply check both client and server build output dir/file does exist
 // before running app server for production environment
-if (isApp) {
+if (isProdApp) {
   const checkIfOutputExists = output => {
     if (!fs.existsSync(output)) {
       console.log(
@@ -41,8 +53,8 @@ if (isApp) {
   ].forEach(output => checkIfOutputExists(output));
 }
 
-if (isApp) {
+if (isProdApp) {
   spawn(`${syspath.root}/app.js`);
-} else if (isApi) {
+} else if (isProdApi) {
   spawn(`${syspath.root}/api.js`);
 }
