@@ -7,8 +7,7 @@ require('make-promises-safe');
 // include env script to load targeted environment file
 require('./env');
 
-const { getArgv } = require('./utils');
-const argv = getArgv();
+const argv = process.argv.slice(2);
 
 // remove coverage folder if any
 if (argv.indexOf('--coverage') !== -1) {

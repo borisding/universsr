@@ -11,30 +11,41 @@ require('./env');
 
 const colors = require('colors');
 const nodemon = require('nodemon');
-const { spawn, getArgv } = require('./utils');
+const spawn = require('cross-spawn');
 const { syspath } = require('../config');
 
-const argv = getArgv();
+const argv = process.argv.slice(2);
 const expectedArgv = ['--app', '--api'];
-const isDevApp = argv[0] === expectedArgv[0];
-const isDevApi = argv[0] === expectedArgv[1];
+const isApp = argv[0] === expectedArgv[0];
+const isApi = argv[0] === expectedArgv[1];
 
-if (!isDevApi && !isDevApp) {
+if (!isApi && !isApp) {
   console.log(
     colors.red(
-      `Expected argument vectors for development environment: ==> ${expectedArgv}`
+      'Expected argument vectors for ' +
+        `${process.env.NODE_ENV} environment: ${expectedArgv}`
     )
   );
   process.exit(1);
 }
 
 // running app server
-const runDevApp = () => {
-  spawn(`${syspath.root}/app.js`);
-};
+function runDevApp() {
+  const child = spawn.sync('node', [`${syspath.root}/app.js`], {
+    stdio: 'inherit'
+  });
+
+  const signals = ['SIGKILL', 'SIGTERM'];
+  if (child.signal) {
+    if (child.signal === signals[0]) {
+      process.exit(137);
+    }
+    process.exit(1);
+  }
+}
 
 // running api server
-const runDevApi = () => {
+function runDevApi() {
   try {
     nodemon({
       script: `${syspath.root}/api.js`,
@@ -68,10 +79,10 @@ const runDevApi = () => {
     console.log(colors.red(error));
     process.exit(1);
   }
-};
+}
 
-if (isDevApp) {
+if (isApp) {
   runDevApp();
-} else if (isDevApi) {
+} else if (isApi) {
   runDevApi();
 }

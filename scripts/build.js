@@ -4,7 +4,7 @@
 process.env.NODE_ENV = 'production';
 
 // enable analyze webpack bundles
-const argv = require('./utils').getArgv();
+const argv = process.argv.slice(2);
 if (argv.indexOf('--analyze') !== -1) {
   process.env.ANALYZE_MODE = 'enabled';
 }
