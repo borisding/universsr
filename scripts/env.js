@@ -1,8 +1,9 @@
 'use strict';
 
+const fs = require('fs');
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
-const { syspath } = require('../../config');
+const { syspath } = require('../config');
 
 const NODE_ENV = process.env.NODE_ENV;
 if (!NODE_ENV) {
@@ -11,15 +12,18 @@ if (!NODE_ENV) {
   );
 }
 
-let pathToEnv = `${syspath.config}/.env`;
+let envFile = `${syspath.config}/.env`;
 // using .env.[NODE_ENV] file instead when not in `production` environment
 if (NODE_ENV !== 'production') {
-  pathToEnv = `${pathToEnv}.${NODE_ENV}`;
+  envFile = `${envFile}.${NODE_ENV}`;
 }
 
 // expand existing environment variables with targeted .env file
-const result = dotenvExpand(dotenv.config({ path: pathToEnv }));
-const parsed = result.parsed;
+let parsed;
+if (fs.existsSync(envFile)) {
+  const result = dotenvExpand(dotenv.config({ path: envFile }));
+  parsed = result.parsed;
+}
 
 function getCustomEnv() {
   if (!parsed) return {};
@@ -37,6 +41,6 @@ function getCustomEnv() {
 
 // export env related
 module.exports = {
-  pathToEnv,
+  envFile,
   getCustomEnv
 };

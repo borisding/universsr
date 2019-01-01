@@ -12,7 +12,7 @@ require('./env');
 const colors = require('colors');
 const nodemon = require('nodemon');
 const { spawn, getArgv } = require('./utils');
-const { syspath } = require('../../config');
+const { syspath } = require('../config');
 
 const argv = getArgv();
 const expectedArgv = ['--app', '--api'];

@@ -27,12 +27,12 @@ require('make-promises-safe');
 // clean files before proceeding
 require('./clean');
 // include env script to load targeted environment file
-const { pathToEnv, getCustomEnv } = require('./env');
+require('./env');
 
 const colors = require('colors');
 const slash = require('slash');
 const webpack = require('webpack');
-const webpackConfig = require('../../resources/webpack/config');
+const webpackConfig = require('../resources/webpack/config');
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 
 const clientConfig = webpackConfig[0];
@@ -53,33 +53,23 @@ function webpackBuild() {
   });
 }
 
-// only proceed to build when env is already parsed for production
-if (!getCustomEnv().parsed) {
-  console.log(colors.red('ERROR: Webpack build process aborted!'));
-  console.log(
-    colors.yellow(
-      `CAUSE: [${pathToEnv}] file was not found! Please create one for 'production' environment.`
-    )
-  );
-} else {
-  webpackBuild()
-    .then(() => {
-      console.log(colors.green('Webpack compiled successfully.'));
-      console.log();
-      console.log(
-        colors.cyan(
-          `[CLIENT] Output location: ${slash(clientConfig.output.path)}`
-        )
-      );
-      console.log(
-        colors.cyan(
-          `[SERVER] Output location: ${slash(serverConfig.output.path)}`
-        )
-      );
-    })
-    .catch(error => {
-      console.log(colors.red('ERROR: Webpack failed to compile.'));
-      console.log(colors.red(error));
-      process.exit(1);
-    });
-}
+webpackBuild()
+  .then(() => {
+    console.log(colors.green('Webpack compiled successfully.'));
+    console.log();
+    console.log(
+      colors.cyan(
+        `[CLIENT] Output location: ${slash(clientConfig.output.path)}`
+      )
+    );
+    console.log(
+      colors.cyan(
+        `[SERVER] Output location: ${slash(serverConfig.output.path)}`
+      )
+    );
+  })
+  .catch(error => {
+    console.log(colors.red('ERROR: Webpack failed to compile.'));
+    console.log(colors.red(error));
+    process.exit(1);
+  });

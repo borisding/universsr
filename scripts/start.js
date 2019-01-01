@@ -11,8 +11,8 @@ const fs = require('fs');
 const colors = require('colors');
 const slash = require('slash');
 const { spawn, getArgv } = require('./utils');
-const { syspath } = require('../../config');
-const webpackConfig = require('../../resources/webpack/config');
+const { syspath } = require('../config');
+const webpackConfig = require('../resources/webpack/config');
 
 const argv = getArgv();
 const expectedArgv = ['--app', '--api'];
