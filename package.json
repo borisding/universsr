@@ -1,7 +1,7 @@
 {
   "name": "universsr",
-  "version": "4.0.0",
-  "description": "Universal React + Redux, Express application starter kit.",
+  "version": "5.0.0",
+  "description": "Universal React + Redux project starter kit.",
   "main": "app.js",
   "scripts": {
     "clean": "rimraf public src/app/serverRenderer.*",
