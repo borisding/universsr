@@ -5,15 +5,19 @@ module.exports = function commonConfig(target) {
   const isClient = target === 'client';
   const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
   const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
+  const reloadAll = true; // set to `false` if don't want to reload all for hmr
   const publicPath = '/';
 
   // the style loaders for both css modules and global style
   const getStyleLoaders = (MiniCssExtractPlugin, cssLoaderOptions = {}) => {
     const sourceMap = isDev && isClient;
+    const cssHotLoader =
+      `css-hot-loader?reloadAll=${reloadAll}` +
+      `&cssModule=${cssLoaderOptions.modules}`;
 
     return [
       ...(MiniCssExtractPlugin
-        ? ['css-hot-loader', MiniCssExtractPlugin.loader]
+        ? [cssHotLoader, MiniCssExtractPlugin.loader]
         : []),
       {
         loader: 'css-loader',
@@ -118,7 +122,9 @@ module.exports = function commonConfig(target) {
     getGlobalStylesRule(MiniCssExtractPlugin = null) {
       return {
         test: /global\.(css|scss|sass)$/,
-        use: getStyleLoaders(MiniCssExtractPlugin)
+        use: getStyleLoaders(MiniCssExtractPlugin, {
+          modules: false
+        })
       };
     },
     getImagesRule() {
