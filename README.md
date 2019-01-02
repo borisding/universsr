@@ -8,19 +8,15 @@
 <a href="https://david-dm.org/borisding/universsr?type=dev"><img src="https://david-dm.org/borisding/universsr/dev-status.svg" alt="Dev Dependencies"></a>
 </p>
 
-In short, **universsr** is a server-rendered React app starter kit for universal JavaScript web development.
-It also uses Redux library for application state management and the back-end is powered by Node.js Express web framework.
+**universsr** - A project starter kit to kick off your next universal React + Redux application, powered by Node.js Express web framework as backend.
 
 > ✨ The name - "universsr" is combination of _universal_ and _server-side rendering_ acronym.
 
 ## Table of Contents
 
-- [Features](#features)
-- [Getting Started](#getting-started)
-- [Directory Structure](#directory-structure)
-- [Aliases for Modules](#aliases-for-modules)
-- [NPM Scripts](#npm-scripts)
-- [Project Configuration and Utilities](#project-configuration-and-utilities)
+- [Features](#features) / [Getting Started](#getting-started)
+- [Directory Structure](#directory-structure) / [Aliases for Modules](#aliases-for-modules) / [NPM Scripts](#npm-scripts)
+- [Project Configuration and Environment Variables](#project-configuration-and-environment-variables)
 - [App and API Routes](#app-and-api-routes)
 - [CSS, SCSS and CSS Modules](#css-scss-and-css-modules)
 - [Babel, Webpack and ESM Loader](#babel-webpack-and-esm-loader)
@@ -35,18 +31,20 @@ It also uses Redux library for application state management and the back-end is 
 
 ## Features
 
-- Server-rendered `react` 16 and powered by `express` framework.
+- Server-rendered `react` (v16) + `react-redux` (v6) for binding.
+- `Express` framework for backend work.
 - Predictable state management and server-side's initial state with `redux` library.
+- Modular redux by implementing [`re-ducks`](https://github.com/alexnm/re-ducks) modular approach.
 - Static route configuration with `react-router-config` for React Router.
 - Sass as extension of CSS and PostCSS for transforming styles with JS plugins.
 - Automatic mapping of CSS modules via `babel-plugin-react-css-modules`.
 - Webpack’s Hot Module Replacement (HMR) and `react-hot-loader` for both client & server.
-- Using `react-universal-component` for simultaneous SSR and code splitting.
+- Async components with `react-universal-component` for simultaneous SSR and code splitting.
 - Enforce convention and avoid errors with code linter and formatter. (`eslint`, `prettier`, `stylelint`)
 - Implement security good practices with Express `helmet` and `hpp` middlewares.
 - Combination of Babel and `webpack` enables writing next generation JavaScript and code optimization.
 - Using `webpack-bundle-analyzer` to visualize size of webpack output files.
-- Delightful testing with `jest` framework and `enzyme` testing utilities for React components.
+- Delightful testing with `jest` framework for React components.
 - Progressive Web App (PWA) with webpack's `offline-plugin`.
 - SEO ready with `react-helmet` component to manage document head.
 - Build API with Node `http-proxy` integration.
@@ -61,10 +59,12 @@ Before you proceed, please make sure your machine has met the following requirem
 
 | Dependency |  Version  |
 | ---------- | :-------: |
-| Node       | >= v8.0.0 |
+| Node       | >= v8.3.0 |
 | NPM        | >= v5.0.0 |
 
-Then, clone the git repository into your new project folder and install required dependencies by running the command below:
+> **React v16.4.0 or later** is required as this starter is using react-redux v6 for React binding.
+
+Next, clone the git repository into your new project folder and install required dependencies by running the command below:
 
 ```bash
 # cloning git repository into `my-project` folder
@@ -76,17 +76,7 @@ cd my-project && npm install
 
 > Alternatively, you may also use [`universsr-installer`](https://github.com/borisding/universsr-installer) that utilizes GitHub repository for project installation.
 
-ii) App configuration
-
-Copy example environment variables to `config`:
-
-```bash
-cp config/.env.example config/.env
-```
-
-> You may change environment variables to serve your app. Avoid using the same port for both development and production.
-
-iii) Running app
+ii) Running app
 
 - For **development**:
 
@@ -95,6 +85,14 @@ npm run dev
 ```
 
 - For **production**:
+
+Copy `.env.development` to `config` folder as `.env` production usage:
+
+```bash
+cp config/.env.development config/.env
+```
+
+Change environment variables in `.env` to serve your app. Avoid using the same port for both development and production.
 
 ```bash
 npm run build # or,
@@ -106,9 +104,6 @@ npm start
 - For **testing**:
 
 ```bash
-# run config script when `env-properties.json` is not available
-npm run config
-
 npm test
 ```
 
@@ -173,8 +168,6 @@ Below is overview of project folder structure in this starter along with the sho
         |-- utils                       # utilities used for both client & server
 ```
 
-This project structure is organized by pages in mind. Any new pages should be created in `./src/app/pages`. Things in common such as common styles or components can be kept in `./src/app/common` directory.
-
 **[Back to top](#table-of-contents)**
 
 ## Aliases for Modules
@@ -186,19 +179,22 @@ This project structure is organized by pages in mind. Any new pages should be cr
 | -------------- | ---------------------------------------------------- |
 | `@root`        | The project's root directory                         |
 | `@bin`         | The project's `bin` directory                        |
-| `@build`       | The project's `build` directory                      |
 | `@public`      | The project's built `public` directory in production |
 | `@resources`   | The project's `resources` directory                  |
 | `@assets`      | The `assets` subdirectory within `resources`         |
+| `@storage`     | The project's `storage` directory                    |
 | `@config`      | The project's `config` directory                     |
-| `@middlewares` | The `middlewares` subdirectory within `src`          |
 | `@utils`       | The `utils` subdirectory within `src`                |
 | `@api`         | The `api` subdirectory within `src`                  |
 | `@app`         | The `app` subdirectory within `src`                  |
 | `@common`      | The `common` subdirectory within `app`               |
+| `@layout`      | The `layout` subdirectory within `app`               |
 | `@pages`       | The `pages` subdirectory within `app`                |
+| `@redux`       | The `redux` subdirectory within `app`                |
+| `@logger`      | The `logger` subdirectory within `src`               |
+| `@middlewares` | The `middlewares` subdirectory within `src`          |
 
-- Changes can be made under `_moduleAliases` property in `package.json`. These aliases are used for both webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolve-alias) and `module-alias` package.
+- Those aliases can found under `_moduleAliases` property in `package.json`. Aliases are used for both webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolve-alias) and `module-alias` package to simplify require/import paths in project. Moreover, it makes project restructuring easier.
 
 **[Back to top](#table-of-contents)**
 
@@ -207,30 +203,29 @@ This project structure is organized by pages in mind. Any new pages should be cr
 - The following are available scripts in the project to perform respective tasks;
 - We can execute script by running: `npm run <script name here>`
 
-| Script Name     | Description                                                                                                                             |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `config`        | Loads `.env` environment variables into `process.env`. Also, generate `env-properties.json` file for universal usage.                   |
-| `clean`         | Remove `public` folder and respective built files.                                                                                      |
-| `webpack`       | Running webpack build process.                                                                                                          |
-| `build`         | Remove previous built files and build production ready files to be served. This will also run `config` script.                          |
-| `build:analyze` | Same with `build` script, except it comes with webpack bundle analyzer to visualize size of the output files.                           |
-| `postinstall`   | Run after packages installed - which triggers `build` script in our context. Useful for production deployment, eg: deployment on heroku |
-| `dev:app`       | Start running app server in development environment (React changes are monitored by `webpack-hot-server-middleware` on server-side).    |
-| `dev:api`       | Start running api server in development environment (started with `nodemon` for monitoring api changes).                                |
-| `dev`           | Clean existing built files before running BOTH app and api servers in development environment.                                          |
-| `start:app`     | Start running app server in production environment.                                                                                     |
-| `start:api`     | Start running api server in production environment.                                                                                     |
-| `start`         | Start running BOTH app and api servers in production environment.                                                                       |
-| `lint`          | Perform source code lint checks for JS, React and styles based on the ESLint config.                                                    |
-| `lint:style`    | Perform lint checks for Sass style.                                                                                                     |
-| `lint:js`       | Perform lint checks for JS and React.                                                                                                   |
-| `test`          | Perform lint checks and then running tests.                                                                                             |
-| `test:watch`    | Running tests with watch mode turned on.                                                                                                |
-| `test:coverage` | Running tests with coverage report output.                                                                                              |
+| Script Name        | Description                                                                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `clean`            | Remove `public` folder and respective built files.                                                                                   |
+| `webpack`          | Running webpack build process.                                                                                                       |
+| `build`            | Remove previous built files and build production ready files to be served.                                                           |
+| `build:analyze`    | Same with `build` script, except it comes with webpack bundle analyzer to visualize size of the output files.                        |
+| `dev:app`          | Start running app server in development environment (React changes are monitored by `webpack-hot-server-middleware` on server-side). |
+| `dev:api`          | Start running api server in development environment (started with `nodemon` for monitoring api changes).                             |
+| `dev`              | Clean existing built files before running BOTH app and api servers in development environment.                                       |
+| `start:app`        | Start running app server in production environment.                                                                                  |
+| `start:api`        | Start running api server in production environment.                                                                                  |
+| `start`            | Start running BOTH app and api servers in production environment, in parallel.                                                       |
+| `test`             | Perform lint checks and then running tests.                                                                                          |
+| `test:watch`       | Running tests with watch mode turned on.                                                                                             |
+| `test:coverage`    | Running tests with coverage report output.                                                                                           |
+| `lint`             | Perform source code lint checks for JS, React and styles based on the ESLint config.                                                 |
+| `lint:style`       | Perform lint checks for Sass style.                                                                                                  |
+| `lint:js`          | Perform lint checks for JS and React.                                                                                                |
+| `heroku-postbuild` | Heroku-specific key for building to serve production app on Heroku platform                                                          |
 
 **[Back to top](#table-of-contents)**
 
-## Project Configuration and Utilities
+## Project Configuration and Environment Variables
 
 **Configuration**
 
