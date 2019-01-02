@@ -2,7 +2,8 @@
 // @see: https://github.com/standard-things/esm#options
 require = require('esm')(module);
 
-// to enable aliases imports for non-transpiled modules
+// to enable aliases for required modules
+// such as app/api entry index files
 require('module-alias/register');
 
 module.exports = file => require(file).default;

@@ -7,7 +7,7 @@ const StatsWebpackPlugin = require('stats-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { isDev, syspath } = require('@config');
-const { getCustomEnv } = require('@scripts/env');
+const { getCustomEnv } = require('@root/env');
 const webpackCommon = require('./common');
 
 const commonConfig = webpackCommon('client');

@@ -5,7 +5,12 @@ import actions from '../actions';
 import types from '../types';
 import { requestTypes, requestActions } from '@redux/ducks/request';
 
-const host = 'http://localhost:3000/api/v1';
+const host =
+  `${process.env.PROTOCOL}://` +
+  `${process.env.HOST}:` +
+  `${process.env.PORT}` +
+  `/api/${process.env.API_VERSION}`;
+
 const endpoint = '/todos';
 
 const mockStore = configureMockStore([

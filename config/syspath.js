@@ -6,7 +6,6 @@ module.exports = {
   config: `${root}/config`,
   public: `${root}/public`,
   resources: `${root}/resources`,
-  scripts: `${root}/scripts`,
   src: `${root}/src`,
   storage: `${root}/storage`
 };

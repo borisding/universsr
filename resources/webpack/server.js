@@ -1,7 +1,7 @@
 const fs = require('fs');
 const webpack = require('webpack');
-const { syspath } = require('@config');
 const webpackCommon = require('./common');
+const { syspath } = require('@config');
 
 const commonConfig = webpackCommon('server');
 

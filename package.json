@@ -4,18 +4,19 @@
   "description": "Universal React + Redux, Express application starter kit.",
   "main": "app.js",
   "scripts": {
-    "clean": "node scripts/clean.js",
-    "build": "node scripts/build.js",
-    "build:analyze": "npm run build -- --analyze",
-    "dev:app": "node scripts/dev.js --app",
-    "dev:api": "node scripts/dev.js --api",
+    "clean": "rimraf public src/app/serverRenderer.*",
+    "webpack": "webpack --progress --hide-modules --config resources/webpack/config.js",
+    "build": "cross-env NODE_ENV=production npm-run-all clean webpack",
+    "build:analyze": "cross-env ANALYZE_MODE=enabled npm run build",
+    "dev:app": "cross-env NODE_ENV=development node app.js",
+    "dev:api": "nodemon --exec node api.js",
+    "dev": "run-p dev:api dev:app",
     "start:app": "cross-env NODE_ENV=production node app.js",
     "start:api": "cross-env NODE_ENV=production node api.js",
-    "dev": "run-p dev:api dev:app",
     "start": "run-p start:api start:app",
-    "test": "node scripts/test.js --detectOpenHandles",
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles",
+    "test:coverage": "rimraf storage/coverage && npm test -- --coverage",
     "test:watch": "npm test -- --watch",
-    "test:coverage": "npm test -- --coverage",
     "lint": "npm-run-all lint:js lint:style",
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
     "lint:js": "eslint . --fix",
@@ -58,7 +59,6 @@
     "compression": "^1.7.3",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
-    "cross-spawn": "^6.0.5",
     "detect-node": "^2.0.4",
     "dotenv": "^6.2.0",
     "dotenv-expand": "^4.2.0",
@@ -140,7 +140,6 @@
     "react-test-renderer": "^16.7.0",
     "redux-mock-store": "^1.5.3",
     "sass-loader": "^7.1.0",
-    "simple-progress-webpack-plugin": "^1.1.2",
     "stats-webpack-plugin": "^0.7.0",
     "style-loader": "^0.23.1",
     "stylelint": "^9.9.0",
@@ -154,6 +153,16 @@
     "webpack-dev-middleware": "^3.4.0",
     "webpack-hot-middleware": "^2.24.3",
     "webpack-hot-server-middleware": "^0.5.0"
+  },
+  "nodemonConfig": {
+    "debug": true,
+    "ext": "js",
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "watch": [
+      "src/api/*"
+    ]
   },
   "browserslist": [
     "> 1%",
@@ -242,6 +251,8 @@
     }
   },
   "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/resources/jest/setup.js",
+    "coverageDirectory": "<rootDir>/storage/coverage",
     "collectCoverageFrom": [
       "src/{api,app}/**/**/*.{js,jsx}",
       "src/{utils,middlewares}/*.js",
@@ -249,15 +260,13 @@
       "!src/{utils,middlewares}/index.js",
       "!src/app/serverRenderer.{js,map}"
     ],
-    "coverageDirectory": "<rootDir>/storage/coverage",
     "moduleFileExtensions": [
       "js",
       "jsx"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/jest/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/resources/jest/styleMock.js",
-      "^@common(.*)$": "<rootDir>/src/app/common$1"
+      "\\.(css|scss)$": "<rootDir>/resources/jest/styleMock.js"
     },
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
@@ -265,8 +274,7 @@
     "testEnvironment": "node",
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$",
     "testPathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/scripts/test.js"
+      "<rootDir>/node_modules/"
     ]
   },
   "_moduleAliases": {
@@ -275,7 +283,6 @@
     "@public": "public",
     "@resources": "resources",
     "@assets": "resources/assets",
-    "@scripts": "scripts",
     "@storage": "storage",
     "@config": "config",
     "@utils": "src/utils",
