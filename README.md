@@ -180,6 +180,7 @@ Below is overview of project folder structure in this starter along with the sho
 
 </p>
 </details>
+<br>
 
 **[Back to top](#table-of-contents)**
 
@@ -214,6 +215,7 @@ Those aliases can found under `_moduleAliases` property in `package.json`. Alias
 
 </p>
 </details>
+<br>
 
 **[Back to top](#table-of-contents)**
 
@@ -247,6 +249,7 @@ Those aliases can found under `_moduleAliases` property in `package.json`. Alias
 
 </p>
 </details>
+<br>
 
 **[Back to top](#table-of-contents)**
 
@@ -280,9 +283,7 @@ console.log(syspath.src);
 
 **Environment Variables**
 
-- `dotenv` and `dotenv-expand` packages are used in conjunction with `webpack.DefinePlugin` plugin for managing environment variables. The entire logic can be found in `./env.js` file.
-
-- The .env file is loaded based on the defined `process.env.NODE_ENV` value:
+- `dotenv` and `dotenv-expand` packages are used in conjunction with `webpack.DefinePlugin` plugin for managing environment variables. The entire logic can be found in `./env.js` file. The .env file is loaded based on the defined `process.env.NODE_ENV` value:
 
 | File name          | NODE_ENV    |    In Source Control    |
 | ------------------ | ----------- | :---------------------: |
