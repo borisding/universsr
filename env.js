@@ -12,8 +12,8 @@ if (!NODE_ENV) {
   );
 }
 
-let envFile = `${syspath.config}/.env`;
 // using .env.[NODE_ENV] file instead when not in `production` environment
+let envFile = `${syspath.config}/.env`;
 if (NODE_ENV !== 'production') {
   envFile = `${envFile}.${NODE_ENV}`;
 }
@@ -26,8 +26,9 @@ if (fs.existsSync(envFile)) {
 }
 
 function getCustomEnv() {
+  // return empty object instead when none was parsed
   if (!parsed) {
-    return {};
+    return { parsed: {}, stringified: {} };
   }
 
   // populate key/value based on parsed env result for DefinePlugin
