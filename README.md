@@ -10,21 +10,25 @@
 
 **universsr** - A project starter kit to kick off your next universal React + Redux application, powered by Node.js Express web framework as backend.
 
-> ✨ The name - "universsr" is combination of _universal_ and _server-side rendering_ acronym.
+> ✨ The name - "universsr" is combination of _universal_ and _server-side rendering (SSR)_ acronym.
 
 ## Table of Contents
 
-- [Features](#features) / [Getting Started](#getting-started)
-- [Directory Structure](#directory-structure) / [Aliases for Modules](#aliases-for-modules) / [NPM Scripts](#npm-scripts)
-- [Project Configuration and Environment Variables](#project-configuration-and-environment-variables)
-- [App and API Routes](#app-and-api-routes)
+- [Features](#features)
+- [Requirement](#requirement)
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [Aliases for Modules](#aliases-for-modules)
+- [NPM Scripts](#npm-scripts)
+- [Project Configuration, Environment Variables and Utilities](#project-configuration-environment-variables-and-utilities)
+- [Routes and Lazy Loading Components](#routes-and-lazy-loading-components)
 - [CSS, SCSS and CSS Modules](#css-scss-and-css-modules)
 - [Babel, Webpack and ESM Loader](#babel-webpack-and-esm-loader)
-- [Express and Redux Middlewares](#express-and-redux-middlewares)
-- [Session, Redux State Management](#session-redux-state-management)
+- [Express Middlewares and Logger](#express-middlewares-and-logger)
+- [Session and Redux State Management](#session-and-redux-state-management)
 - [Nodemon, HMR and React Hot Reloading](#nodemon-hmr-and-react-hot-reloading)
 - [Lint Checks and Formatting](#lint-checks-and-formatting)
-- [Unit Testing](#unit-testing)
+- [Testing](#testing)
 - [Deployment](#deployment)
 - [Changelog](#changelog)
 - [License](#license)
@@ -34,7 +38,8 @@
 - Server-rendered `react` (v16) + `react-redux` (v6) for binding.
 - `Express` framework for backend work.
 - Predictable state management and server-side's initial state with `redux` library.
-- Modular redux by implementing [`re-ducks`](https://github.com/alexnm/re-ducks) modular approach.
+- Modular Redux by implementing `re-ducks` modular approach.
+- Redux DevTools Extension support for better Redux debugging experience.
 - Static route configuration with `react-router-config` for React Router.
 - Sass as extension of CSS and PostCSS for transforming styles with JS plugins.
 - Automatic mapping of CSS modules via `babel-plugin-react-css-modules`.
@@ -51,9 +56,7 @@
 
 **[Back to top](#table-of-contents)**
 
-## Getting Started
-
-i) Installation
+## Requirement
 
 Before you proceed, please make sure your machine has met the following requirements:
 
@@ -64,7 +67,13 @@ Before you proceed, please make sure your machine has met the following requirem
 
 > **React v16.4.0 or later** is required as this starter is using react-redux v6 for React binding.
 
-Next, clone the git repository into your new project folder and install required dependencies by running the command below:
+**[Back to top](#table-of-contents)**
+
+## Quick Start
+
+i) Installation
+
+Clone the git repository into your new project folder and install required dependencies by running the command below:
 
 ```bash
 # cloning git repository into `my-project` folder
@@ -78,15 +87,15 @@ cd my-project && npm install
 
 ii) Running app
 
-- For **development**:
+For **development**:
 
 ```bash
 npm run dev
 ```
 
-- For **production**:
+For **production**:
 
-Copy `.env.development` to `config` folder as `.env` production usage:
+Copy `.env.development` to `./config` folder as `.env` for production usage:
 
 ```bash
 cp config/.env.development config/.env
@@ -101,7 +110,7 @@ npm run build:analyze # to analyze built bundles
 npm start
 ```
 
-- For **testing**:
+For **test**:
 
 ```bash
 npm test
@@ -109,9 +118,12 @@ npm test
 
 **[Back to top](#table-of-contents)**
 
-## Directory Structure
+## Project Structure
 
 Below is overview of project folder structure in this starter along with the short descriptions, respectively:
+
+<details><summary>CLICK ME</summary>
+<p>
 
 ```
 |--
@@ -119,54 +131,55 @@ Below is overview of project folder structure in this starter along with the sho
     |-- package.json                    # lists required dependencies, scripts, config, etc
     |-- api.js                          # api entry to expose api server
     |-- app.js                          # app entry to expose app server
+    |-- env.js                          # .env file loader with `dotenv` and `dotenv-expand`
     |-- esm.js                          # ESM loader and module alias hook
         ...
-    |-- bin                             # node server files of app and api
-    |-- build                           # parent directory of scripts/webpack
-    |   |-- scripts                     # build scripts for tooling purposes
-    |   |-- webpack                     # webpack config for both client & server
-    |   |-- serverRenderer.js           # built from `server.js` as server renderer for production
-    |-- config                          # app level configuration (.env/syspath, etc)
-    |-- logs                            # log files of the app
-    |-- node_modules                    # installed dependencies of the app
-    |-- public                          # production built assets (icons/images, etc)
-    |-- resources                       # parent directory of resources (logs/fixtures, etc)
-    |   |-- assets                      # parent directory of all assets
-    |   |   |-- manifest.json           # manifest JSON file for web app
-    |   |   |-- icons                   # source files of icon
-    |   |   |-- images                  # source files of image
-    |   |-- fixtures                    # fixture data for development
-    |   |-- mocks                       # file & style mocks for jest
-    |-- sessions                        # default directory for session file storage
-    |-- src                             # parent directory of both api & app source code
-        |-- api                         # parent directory of api source code
-        |   |-- routers                 # respective Express routes for API
-        |   |-- index.js                # api server index entry file
-        |-- app                         # parent directory of app source code
-        |   |-- client.js               # app rendering and webpack's client entry
-        |   |-- index.js                # app server index entry file
+    |-- bin                             # contains node server files of app and api
+    |-- config                          # contains configuration and env variable files
+    |-- node_modules                    # contains installed dependencies of the project
+    |-- public                          # contains production ready built assets (icons/images, etc)
+    |-- resources                       # contains assets, jest, webpack related
+    |   |-- assets                      # contains icons, images, etc
+    |   |-- jest                        # contains mocks, setup files for jest framework
+    |   |-- webpack                     # contains webpack configurations for both client/server
+    |-- src                             # contains all source files of project, both api & app
+        |-- api                         # contains all api source files
+        |   |-- routers                 # contains respective Express routes for API
+        |   |-- index.js                # Express entry for API
+        |-- app                         # contains all app source files
+        |   |-- client.js               # webpack's client entry and app rendering
+        |   |-- html.js                 # html layout in template string for react helmet
+        |   |-- index.js                # Express entry for app
         |   |-- offline.js              # offline plugin registration and event handlers
         |   |-- routes.js               # static React routes configuration
         |   |-- server.js               # server renderer for app string & initial state
-        |   |-- common                  # reusable React components & styles
-        |   |   |-- components          # reusable React components for common usage
-        |   |   |-- styles              # reusable CSS/SCSS for the app
-        |   |   |-- actions.js          # common actions for the app
-        |   |   |-- configureStore.js   # redux middleware registration & store creation
-        |   |   |-- rootReducer.js      # root reducer creation for the app
-        |   |   |-- types.js            # common action types for the app
-        |   |-- pages                   # page components based on "modules"
-        |       |-- Home                # `Home` page related (index.js/styles/tests, etc)
-        |       |-- NotFound            # NotFound component for page (index.js/styles/tests, etc)
-        |       |-- Root                # Root component for page layout (index.js/styles/tests, etc)
-        |       |-- Todos               # `Todos` demo page related (index.js/styles/tests, etc)
-        |       |-- index.js            # respective exported page components from entry
-        |       |-- loadComponent.js    # dynamic import util to load page components
-        |-- middlewares                 # all middlewares used for the app
-        |   |-- express                 # middlewares for Express framework
-        |   |-- redux                   # middlewares for Redux library
+        |   |-- serverRenderer.js       # built server render for production
+        |   |-- common                  # contains reusable React components & styles
+        |   |   |-- components          # contains reusable React components for common usage
+        |   |   |-- styles              # contains reusable CSS/SCSS for the app
+        |   |-- layout                  # contains root React component for page
+        |   |   | ...
+        |   |   |-- Layout.js           # Root component for react-router-config
+        |   |-- pages                   # contains page components based on features
+        |   |   |-- Home                # `Home` page related (index.js/styles/tests, etc)
+        |   |   |-- NotFound            # `NotFound` page component (index.js/styles/tests, etc)
+        |   |   |-- Todos               # `Todos` demo page related (index.js/styles/tests, etc)
+        |   |   |-- index.js            # respective exported page components from entry
+        |   |   |-- lazy.js             # lazy load page container for code-splitting
+        |   |-- redux                   # contains all redux related
+        |   |   |-- ducks               # contains reducers, actions, types, etc based on modules
+        |   |   |   | ...
+        |   |   |   |-- index.js        # redux root reducer for app
+        |   |   |-- middlewares         # contains redux middlewares
+        |   |   |-- configureStore.js   # configuring Redux store for the app
+        |-- logger                      # contains winston logger for both api & app
+        |-- middlewares                 # contains Express middlewares for both api & app
         |-- utils                       # utilities used for both client & server
+    |-- storage                         # contains fixtures, logs, session files, etc
 ```
+
+</p>
+</details>
 
 **[Back to top](#table-of-contents)**
 
@@ -174,6 +187,9 @@ Below is overview of project folder structure in this starter along with the sho
 
 - There are some aliases in this starter can be used to `import` or `require` targeted modules instead of using lengthy relative paths.
 - Here is a list of available aliases and description:
+
+<details><summary>CLICK ME</summary>
+<p>
 
 | Alias          | Description                                          |
 | -------------- | ---------------------------------------------------- |
@@ -194,7 +210,10 @@ Below is overview of project folder structure in this starter along with the sho
 | `@logger`      | The `logger` subdirectory within `src`               |
 | `@middlewares` | The `middlewares` subdirectory within `src`          |
 
-- Those aliases can found under `_moduleAliases` property in `package.json`. Aliases are used for both webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolve-alias) and `module-alias` package to simplify require/import paths in project. Moreover, it makes project restructuring easier.
+Those aliases can found under `_moduleAliases` property in `package.json`. Aliases are used for both webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolve-alias) and `module-alias` package to simplify require/import paths in project. Moreover, it makes project restructuring easier.
+
+</p>
+</details>
 
 **[Back to top](#table-of-contents)**
 
@@ -202,6 +221,9 @@ Below is overview of project folder structure in this starter along with the sho
 
 - The following are available scripts in the project to perform respective tasks;
 - We can execute script by running: `npm run <script name here>`
+
+<details><summary>CLICK ME</summary>
+<p>
 
 | Script Name        | Description                                                                                                                          |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
@@ -223,54 +245,58 @@ Below is overview of project folder structure in this starter along with the sho
 | `lint:js`          | Perform lint checks for JS and React.                                                                                                |
 | `heroku-postbuild` | Heroku-specific key for building to serve production app on Heroku platform                                                          |
 
+</p>
+</details>
+
 **[Back to top](#table-of-contents)**
 
-## Project Configuration and Environment Variables
+## Project Configuration, Environment Variables and Utilities
 
 **Configuration**
 
-- Project configuration should be placed in `./config` directory. By default, this starter comes with an example `.env.example` required for the app usage. Please rename the file to `.env` to serve your actual app configuration.
-
-- This starter relies on `dotenv` package to load environment variables from `.env` into Node's `process.env`. You should always define new environment variables in `.env`.
-
-- When environment values are changed, we can execute the following script to load new changes into `process.env`:
-
-```bash
-npm run config
-```
-
-- After script is executed, it will also create `env-properties.json` based on the defined environment variables for universal configuration usage in application. We should not amend directly any of the environment properties, which supposed to be synced with `.env`
-
-- To use the environment properties, import file as follows:
+- There are couple of things exposed in `./config/index.js` for project usage:
 
 ```js
-import { ENV } from "@config";
+import { helmet, isDev, isNode, syspath } from '@config';
 
-// print PORT value as configured in `.env`
-console.log(ENV["PORT"]);
+// React Helmet related config
+<Helmet {...helmet} />;
+
+// checking for development environment
+if (isDev) {
+  // do something only for development mode
+}
+
+// this is on server side (Node)
+if (isNode) {
+  // do something only for server-side
+}
+
+// expose project core directories, eg: absolute path of `src`
+console.log(syspath.src);
 ```
 
-> You should never commit `.env` file to version control. Please [check out](https://www.npmjs.com/package/dotenv#faq) the FAQ section on `dotenv` page for more details.
+- Feel free to add more configuration and used upon project needs.
 
-- Besides `ENV` object, it also exposes `DEV`, `NODE`, `SYSPATH` respectively:
+**Environment Variables**
+
+- `dotenv` and `dotenv-expand` packages are used in conjunction with `webpack.DefinePlugin` plugin for managing environment variables. The entire logic can be found in `./env.js` file.
+
+- The .env file is loaded based on the defined `process.env.NODE_ENV` value:
+
+| File name          | NODE_ENV    |    In Source Control    |
+| ------------------ | ----------- | :---------------------: |
+| `.env.test`        | test        |           Yes           |
+| `.env.development` | development |           Yes           |
+| `.env`             | production  | No (Need to create new) |
+
+- Defined custom environment variables can be accessed via `process.env.[VARIABLE_NAME]`, for in instance:
 
 ```js
-import { DEV, NODE, SYSPATH } from "@config";
-
-// check if we're in development environment
-if (DEV) {
-  console.log("We are in development environment.");
-}
-
-// check if it is on server side, the Node
-if (NODE) {
-  console.log("This is on server side.");
-}
-
-// print absolute path of `public` directory
-// defined system paths can be found in `syspath.js`
-console.log(SYSPATH["PUBLIC"]);
+process.env.PORT; // this will give us PORT value
 ```
+
+- Only those variables we defined in `.env*` file will get stringified for webpack.DefinePlugin for client build process.
 
 **Utilities**
 
@@ -281,15 +307,15 @@ console.log(SYSPATH["PUBLIC"]);
 - `print.[error|info|warn|success](message, code)`, example:
 
 ```js
-import { print } from "@utils";
+import { print } from '@utils';
 
 // on client side (the browser)
-print.error("This is error on client side.");
+print.error('This is error on client side.');
 
 // on server side (the node)
 // which will print error message
 // and exit the process with provided error code
-print.error("This is error on server side and exit with error code", -1);
+print.error('This is error on server side and exit with error code', -1);
 ```
 
 - `service.js` is a class wrapper for [`axios`](https://github.com/axios/axios) library, which is responsible for universal http client, example:
@@ -314,7 +340,9 @@ newService.interceptResponse(resolve, reject);
 
 **[Back to top](#table-of-contents)**
 
-## App and API Routes
+## Routes and Lazy Loading Components
+
+**Routes**
 
 - React routes can be found and defined in `.src/app/routes.js`, which is static route configuration helper provided by [`react-router-config`](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config) package to work for React Router, eg:
 
@@ -323,33 +351,16 @@ newService.interceptResponse(resolve, reject);
 
 ...
 {
-    path: '/',
-    exact: true,
-    menu: 'Home',
-    component: Home // `Home` component that can be loaded via `loadComponent` util
+    path: '/todos', // the path to todos page
+    exact: true, // match path exactly
+    menu: 'Todos', // custom `menu` key for navigation menu
+    component: pages.Todos, // exposed Todos page component
+    loadData: todosActions.prefetchTodos // imported todos fetch action when ssr
 }
 ...
 ```
 
-- You will find out [`react-universal-component`](https://github.com/faceyspacey/react-universal-component) is also being used for code splitting purpose. `loadComponent.js` is util file for serving that purpose:
-
-```js
-...
-
-// example of dynamic import by mapping the folder name
-export const Home = loadComponent('home');
-
-// example of defining `foo` chunk name through
-// webpack's magic comment for home component
-// by passing a callback as argument which returns `import`
-export const Home = loadComponent(() =>
-  import(/* webpackChunkName: "foo" */ './home')
-);
-
-...
-```
-
-- `loadData` property in route is action function, (could be in array for multiple actions) which will be used for fetching initial data on server-side when particular route is matched and fulfilled. `menu` is just another property to serve menu's label or name.
+- `loadData` property in route is action function, (could be in array for multiple actions) which will be used for fetching initial data on server-side when particular route is matched and fulfilled.
 
 ```js
 // in `server.js`
@@ -363,6 +374,28 @@ return dispatch(loadData(match, req));
 
 - For API, we define modular routes by using `express.Router` class and keep it as individual file in `./src/api/routers` directory. Please refer to `todos.js` as example.
 
+**Lazy Loading**
+
+- `./pages/lazy.js` is util for loading page component on demand via [`react-universal-component`](https://github.com/faceyspacey/react-universal-component):
+
+```js
+...
+// import the lazy util
+import lazy from '@pages/lazy';
+
+// we load `Todos` page component via `lazy` by passing a callback.
+// Also, defined a chunk name for it via magic comment
+export default lazy(() => import(/* webpackChunkName: 'todos' */ './Todos'));
+
+
+// additional options can be passed as second argument
+// to override the default options, eg: the `minDelay`
+export default lazy(() => import(/* ... */ ), {
+  minDelay: 2000
+});
+...
+```
+
 **[Back to top](#table-of-contents)**
 
 ## CSS, SCSS and CSS Modules
@@ -371,7 +404,7 @@ There are two main types of config for styles to work in this starter. Both are 
 
 **Global CSS/SCSS**
 
-- By default, the config of global styles rule `globalStylesRule` in `./build/webpack/common.js` recognizes `global.css` or `global.scss` file, which supposed to use CSS `@import` for external CSS stylesheets. (eg: [Bootstrap](https://getbootstrap.com/) or [Bulma](https://bulma.io/) CSS).
+- By default, the config of global styles rule `getGlobalStylesRule` in `./resources/webpack/common.js` recognizes `global.css` or `global.scss` file, which supposed to use CSS `@import` for external CSS stylesheets. (eg: [Bootstrap](https://getbootstrap.com/) or [Bulma](https://bulma.io/) CSS).
 
 - Once we have global stylesheet ready, we can include it in the root component. The following is an example of using Bulma CSS framework for global usage:
 
@@ -384,15 +417,15 @@ npm install bulma
 b) Include `bulma.sass` file in `global.scss`
 
 ```css
-@import "~bulma/bulma.sass";
+@import '~bulma/bulma.sass';
 ```
 
 > `~` above refers to the `node_modules` of current project.
 
-c) Include `global.scss` in `index.js`, which resides in `Root` folder
+c) Include `global.scss` in `src/app/layout/Layout.js`:
 
 ```js
-// in `index.js`
+// in `Layout.js`
 
 ...
 import '@common/styles/global.scss';
@@ -417,13 +450,13 @@ d) Lastly, apply Bulma styles in React component. For instance, the message comp
 
 **CSS Modules**
 
-- This starter also enables [CSS Modules](https://github.com/css-modules/css-modules) implementation apart from allowing to use global CSS as mentioned. It utilizes `babel-plugin-react-css-modules` instead of `react-css-modules` hook to transform `styleName` to `className` using compile time.
+- This starter also enables [CSS Modules](https://github.com/css-modules/css-modules) implementation apart from allowing to use global CSS as mentioned. It utilizes [`babel-plugin-react-css-modules`](https://github.com/gajus/babel-plugin-react-css-modules) to transform `styleName` to `className` using compile time.
 
 - This allows us to distinguish the usage in between global CSS and CSS Modules, as well as better performance via babel plugin. Please check out [more details here](https://github.com/gajus/babel-plugin-react-css-modules) on how it works and the differences.
 
-- The config of CSS Modules rule `cssModulesRule` can be found in `./build/webpack/common.js`.
+- CSS Modules rule can be found in `./resources/webpack/common.js` under `getCssModulesRule`.
 
-- It's straightforward to apply CSS Modules:
+- It must be using this file naming convention: `[name].module.[css|scss|sass]`
 
 a) Define your CSS selector
 
@@ -449,11 +482,11 @@ b) Assign CSS selector to `styleName` attribute in React component
 
 ## Babel, Webpack and ESM Loader
 
-- This stater uses Babel 7 to transpile ES2015 and beyond syntax. Also, webpack 4 is used for module bundling workflow. All webpack configuration can be found in `./build/webpack`.
+- This stater uses Babel 7 to transpile ES2015 and beyond syntax. Also, webpack 4 is used for module bundling workflow. All webpack configuration can be found in `./resources/webpack`.
 
 > Please note that stage presets (@babel/preset-stage-0, etc) [have been removed](https://babeljs.io/blog/2018/07/27/removing-babels-stage-presets) in Babel 7. Be sure new babel plugins are only installed based on your needs, if any.
 
-- It is not uncommon to have two different bundles for universal app where one for client and another for server:
+- There are two different bundles for universal app where one for client and another for server:
 
 Client entry:
 
@@ -481,17 +514,15 @@ entry: [
 
 - The server renderer (which is also Express middleware) will be used in conjunction with `webpack-hot-server-middleware` for ensuring the bundle is with the latest compilation without restarting the server over and over again.
 
-- We are not transpiling all server-side code since Node.js has already [supported](https://node.green/) most of the ES2015 syntax. `esm` package is used for `import` and `export` in those non-transpiled code. This keeps syntax consistent and also spares room for future ES Module transition in Node.
+- We are not transpiling all server-side code since Node.js has already [supported](https://node.green/) most of the ES2015 syntax. `esm` package is used for `import`/`export` and CJS interop in Node.js code. This keeps syntax consistent and also spares room for future ES Module transition.
 
 **[Back to top](#table-of-contents)**
 
-## Express and Redux Middlewares
+## Express Middlewares and Logger
 
-There are two categories of middleware in this starter:
+**Middlewares**
 
-**Express Middlewares**
-
-- Several custom Express middlewares are provided and located in `./src/middlewares/express` directory. Middlewares are being shared between app and api. The usage and description are as follows:
+- Several custom Express middlewares are provided and located in `./src/middlewares`. Middlewares can be shared between app and api. The usage and description are as follows:
 
 > How to use Express middleware, please check out [Using Middleware](https://expressjs.com/en/guide/using-middleware.html) documentation.
 
@@ -506,16 +537,12 @@ app.use(errorHandler());
 app.use(errorHandler({ json: true }));
 ```
 
-b) `logger.js` - A small custom logger middleware which utilizes `morgan` and `winston` for http request and exception logging, respectively.
+b) `httpLogger.js` - A small custom logger middleware which utilizes `morgan` and `winston` for http request logging.
 
 ```js
 // logs all http requests in development
 // skip any status code lesser than 400 in production
-app.use(logger.http());
-
-// logs thrown exception errors
-// used in `errorHandler.js` middleware
-logger.exception(err);
+app.use(httpLogger());
 ```
 
 c) `proxy.js` - A wrapper of [`node-http-proxy`](https://github.com/nodejitsu/node-http-proxy) for the app.
@@ -523,28 +550,25 @@ c) `proxy.js` - A wrapper of [`node-http-proxy`](https://github.com/nodejitsu/no
 ```js
 // mount the `proxy.proxyWeb` at the API path as middleware function
 // any requests made to `/api/v1` will be proxied
-app.use("/api/v1", proxy.proxyWeb);
+app.use('/api/v1', proxy.proxyWeb);
 ```
 
-**Redux Middlewares**
+**Logger**
 
-- By default, this starter comes with a custom Redux middleware - `serviceAlert.js` which resides in `./src/middlewares/redux` directory.
-
-- `serviceAlert.js` is used in conjunction with `react-s-alert` package for flashing info/warning/success alert messages in application, based on the dispatched action types.
-
-- Example of using middleware:
+- Logger util can be found in `./src/logger`, which exposes winston logger instance for logging purporses, eg:
 
 ```js
-import { serviceAlert } from "@middlewares/redux";
+import logger from '@logger';
 
-// mount the redux's service alert middleware
-const middlewares = [serviceAlert, nextMiddleware];
-const store = createStore(applyMiddleware(...middlewares));
+// logging info message
+logger.info('Hi! I am info message.');
 ```
+
+- log files are stored in `./src/storage/logs`.
 
 **[Back to top](#table-of-contents)**
 
-## Session, Redux State Management
+## Session and Redux State Management
 
 **Session Management**
 
@@ -578,27 +602,21 @@ app.use(session({
 
 **Redux State Management**
 
-- Since this starter adheres feature-first architecture, we keep the redux related, such as `actions.js`/`reducers.js`/`types.js` within feature directory that resides in `./src/app/pages`. You are free to tweak and move around those files within the folder.
+- All things related to Redux can be found in `./src/app/redux`, which adheres [`re-ducks`](https://github.com/alexnm/re-ducks) modular approach, which is good fit for large applications. Be sure to go through with the documentation.
+
+- Redux's middleware registration and store creation can be found in `./src/app/redux/configureStore.js`. The app's root reducer is produced in `./src/app/redux/ducks/index.js` via the `combineReducers` helper function.
 
 - Besides, this starter also comes with [`redux-thunk`](https://github.com/reduxjs/redux-thunk) as default package for handling asynchronous dispatch. Please check out `Todos` demo page on the todos' redux state management and async action dispatches.
 
-- Redux's middleware registration and store creation can be found in `./src/app/common/configureStore.js`. The app's state object is produced in `./src/app/common/rootReducer.js` via the `combineReducers` helper function.
+- For better Redux debugging experience, you may want to install [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension). It's turned on for development mode in this starter.
 
-```js
-// in `configureStore.js`
-...
-import { requestError, requestInfo, requestSuccess } from './actions';
+**Redux Middlewares**
 
-const middlewares = [
-    // register request actions for dispatch
-    // so that it's accessible in respective thunk wrappers
-    thunk.withExtraArgument({ requestError, requestInfo, requestSuccess }),
-    serviceAlert()
-];
-...
-```
+- By default, this starter comes with a custom middleware - `./src/app/redux/middlewares/serviceAlert.js`.
 
-- There are also common redux actions in `./src/app/common/actions.js`. Example, `requestError`/`requestInfo`/`requestSuccess` which are used for alert's action creation based on the status of http request made. Please refer to the usage example as shown in the above code snippet.
+- `serviceAlert.js` is used in conjunction with [`react-s-alert`](https://github.com/juliancwirko/react-s-alert) package for flashing info/warning/success alert messages in application, based on the dispatched action types. Please take a look at `./src/app/redux/configureStore.js` on the usage.
+
+- Any new Redux middlewares should be placed in `./src/app/redux/middlewares`.
 
 **[Back to top](#table-of-contents)**
 
@@ -621,7 +639,7 @@ if (module.hot) {
 
 - Since HMR is assuring the latest bundle on client side, we also adopt `webpack-hot-server-middleware` to assure bundle changes also get reflected on the fly for server-side, without requiring a server restart.
 
-- Besides JavaScript, this starter also uses [`extract-css-chunks-webpack-plugin`](https://github.com/faceyspacey/extract-css-chunks-webpack-plugin) in order to achieve HMR for changes made in CSS files/chunks, without going through full page reloading.
+- Besides JavaScript, this starter also uses [`mini-css-extract-plugin`](https://github.com/webpack-contrib/mini-css-extract-plugin) + [`css-hot-loader`](https://github.com/shepherdwind/css-hot-loader) to achieve HMR for changes made in CSS files/chunks, without going through full page reloading.
 
 **[Back to top](#table-of-contents)**
 
@@ -635,9 +653,12 @@ if (module.hot) {
 
 **[Back to top](#table-of-contents)**
 
-## Unit Testing
+## Testing
 
-- This starter comes with [Jest](https://jestjs.io/) JavaScript testing framework and [Enzyme](http://airbnb.io/enzyme/) testing utility for React components.
+- This starter comes with [Jest](https://jestjs.io/) JavaScript testing framework. The following testing utilities are useful and you may want to use it most of the time:
+
+  - [React Testing Library](https://github.com/kentcdodds/react-testing-library)
+  - [Enzyme](https://github.com/airbnb/enzyme)
 
 - We keep each `tests` folders along with its own page to align with feature-first project structure. Jest will look up respective `tests` directories which has test files end in either `.spec.jsx?` or `.test.jsx?` for execution. (Please check out `jest` section in `package.json` for configuration.)
 
@@ -647,17 +668,13 @@ if (module.hot) {
 
 ## Deployment
 
-- To deploy app to production on [Heroku](https://www.heroku.com/), you just remove or comment out `PORT` variable from `.env` file (remember to remove `.env` from `.gitignore`)
-
-- For deployment steps, please check out [this guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs) and the [build behavior](https://devcenter.heroku.com/articles/nodejs-support#build-behavior) on Heroku.
+To deploy app to production on [Heroku](https://www.heroku.com/), you just remove or comment out `PORT` variable from `.env` file (remember to remove `.env` from `.gitignore`). For deployment steps, please check out [this guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs) and the [build behavior](https://devcenter.heroku.com/articles/nodejs-support#build-behavior) on Heroku.
 
 **[Back to top](#table-of-contents)**
 
 ## Changelog
 
-All notable changes made to the project will be documented on [release page](https://github.com/borisding/universsr/releases).
-
-This project adheres to [Semantic Versioning](http://semver.org/).
+All notable changes made to the project will be documented on [release page](https://github.com/borisding/universsr/releases). For new project, always using the latest version. This project adheres to [Semantic Versioning](http://semver.org/).
 
 **[Back to top](#table-of-contents)**
 
