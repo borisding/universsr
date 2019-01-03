@@ -251,7 +251,7 @@
     }
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/resources/jest/setup.js",
+    "setupTestFrameworkScriptFile": "<rootDir>/resources/jest/setupTest.js",
     "coverageDirectory": "<rootDir>/storage/coverage",
     "collectCoverageFrom": [
       "src/{api,app}/**/**/*.{js,jsx}",
@@ -269,7 +269,7 @@
       "\\.(css|scss)$": "<rootDir>/resources/jest/styleMock.js"
     },
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+      "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest"
     },
     "testEnvironment": "node",
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$",
