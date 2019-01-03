@@ -46,9 +46,6 @@ module.exports = function clientConfig(env) {
       // can provide uglify-js options for more controls
       // @see: https://webpack.js.org/plugins/uglifyjs-webpack-plugin/
       minimizer: [new UglifyJsPlugin(), new OptimizeCssAssetsPlugin()],
-      runtimeChunk: {
-        name: 'bootstrap'
-      },
       splitChunks: {
         chunks: 'all' // all types of chunks
       }
