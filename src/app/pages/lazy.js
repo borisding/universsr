@@ -1,5 +1,4 @@
 import universal from 'react-universal-component';
-import { PageLoader } from '@layout';
 
 // page util to lazy load targeted page component by accepting callback
 export default function lazy(page, options = {}) {
@@ -9,9 +8,7 @@ export default function lazy(page, options = {}) {
 
   // default options for async component
   const defaultOptions = {
-    minDelay: parseInt(process.env.MIN_DELAY, 10),
-    loadingTransition: false,
-    loading: PageLoader
+    minDelay: parseInt(process.env.MIN_DELAY, 10)
   };
 
   // for universal api and options,
