@@ -18,11 +18,11 @@ export default function configureStore(preloadedState = {}) {
   const withReduxDevtools =
     isDev &&
     typeof window !== 'undefined' &&
-    window.__REDUX_isDevTOOLS_EXTENSION_COMPOSE__;
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
   // make compose enhancers
   const composeEnhancers = withReduxDevtools
-    ? window.__REDUX_isDevTOOLS_EXTENSION_COMPOSE__({
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
         /* specify extension’s options, if any */
       })
     : compose;
