@@ -35,24 +35,24 @@
 
 ## Features
 
-- Server-rendered `react` (v16) + `react-redux` (v6) for binding.
-- `Express` framework for backend work.
-- Predictable state management and server-side's initial state with `redux` library.
-- Modular Redux by implementing `re-ducks` modular approach.
-- Redux DevTools Extension support for better Redux debugging experience.
-- Static route configuration with `react-router-config` for React Router.
-- Sass as extension of CSS and PostCSS for transforming styles with JS plugins.
-- Automatic mapping of CSS modules via `babel-plugin-react-css-modules`.
-- Webpack’s Hot Module Replacement (HMR) and `react-hot-loader` for both client & server.
-- Async components with `react-universal-component` for simultaneous SSR and code splitting.
-- Enforce convention and avoid errors with code linter and formatter. (`eslint`, `prettier`, `stylelint`)
-- Implement security good practices with Express `helmet` and `hpp` middlewares.
-- Combination of Babel and `webpack` enables writing next generation JavaScript and code optimization.
-- Using `webpack-bundle-analyzer` to visualize size of webpack output files.
-- Delightful testing with `jest` framework for React components.
-- Progressive Web App (PWA) with webpack's `offline-plugin`.
-- SEO ready with `react-helmet` component to manage document head.
-- Build API with Node `http-proxy` integration.
+- Server-rendered [`react`](https://github.com/facebook/react) (v16) + [`react-redux`](https://github.com/reduxjs/react-redux) (v6) for binding.
+- [`Express`](https://github.com/expressjs/express) framework for backend work.
+- Combination of [`babel`](https://github.com/babel/babel) and [`webpack`](https://github.com/webpack) enables writing next generation JavaScript and code optimization.
+- Predictable state management and server-side's initial state with [`redux`](https://github.com/reduxjs/redux) library.
+- Modular Redux by implementing [`re-ducks`](https://github.com/alexnm/re-ducks) modular approach.
+- [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) support for better Redux debugging experience.
+- Static route configuration with [`react-router-config`](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config) for React Router.
+- Sass as extension of CSS and [`PostCSS`](https://github.com/postcss/postcss) for transforming styles with JS plugins.
+- Automatic mapping of [CSS modules](https://github.com/css-modules/css-modules) via [`babel-plugin-react-css-modules`](https://github.com/gajus/babel-plugin-react-css-modules).
+- Webpack’s Hot Module Replacement (HMR) and [`react-hot-loader`](https://github.com/gaearon/react-hot-loader) for both client & server.
+- Async components with [`react-universal-component`](https://github.com/faceyspacey/react-universal-component) for simultaneous SSR and code splitting.
+- Enforce convention and avoid errors with code linter and formatter. ([`eslint`](https://github.com/eslint/eslint), [`prettier`](https://github.com/prettier/prettier), [`stylelint`](https://github.com/stylelint/stylelint))
+- Implement security good practices with Express [`helmet`](https://github.com/helmetjs/helmet) and [`hpp`](https://github.com/analog-nico/hpp) middlewares.
+- Using [`webpack-bundle-analyzer`](https://github.com/webpack-contrib/webpack-bundle-analyzer) to visualize size of webpack output files.
+- Delightful testing with [`jest`](https://github.com/facebook/jest) framework for React components.
+- Progressive Web App (PWA) with webpack's [`offline-plugin`](https://github.com/NekR/offline-plugin).
+- SEO ready with [`react-helmet`](https://github.com/nfl/react-helmet) component to manage document head.
+- Build API with Node [`http-proxy`](https://github.com/nodejitsu/node-http-proxy) integration.
 
 **[Back to top](#table-of-contents)**
 
@@ -127,10 +127,10 @@ Below is overview of project folder structure in this starter along with the sho
 
 ```
 |--
-    |-- .babelrc                        # default babel configuration object
     |-- package.json                    # lists required dependencies, scripts, config, etc
     |-- api.js                          # api entry to expose api server
     |-- app.js                          # app entry to expose app server
+    |-- babel.config.js                 # default babel configuration object
     |-- env.js                          # .env file loader with `dotenv` and `dotenv-expand`
     |-- esm.js                          # ESM loader and module alias hook
         ...
@@ -607,7 +607,10 @@ app.use(session({
 
 - Redux's middleware registration and store creation can be found in `./src/app/redux/configureStore.js`. The app's root reducer is produced in `./src/app/redux/ducks/index.js` via the `combineReducers` helper function.
 
-- Besides, this starter also comes with [`redux-thunk`](https://github.com/reduxjs/redux-thunk) as default package for handling asynchronous dispatch. Please check out `Todos` demo page on the todos' redux state management and async action dispatches.
+- Besides, this starter also comes with [`redux-thunk`](https://github.com/reduxjs/redux-thunk) as default package for handling asynchronous dispatch. Please check out `Todos` demo page on the todos' redux state management and async action dispatches. Other useful libraries for handling async actions:
+
+  - [Redux Saga](https://github.com/redux-saga/redux-saga)
+  - [Redux Promise Middleware](https://github.com/pburtchaell/redux-promise-middleware)
 
 - For better Redux debugging experience, you may want to install [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension). It's turned on for development mode in this starter.
 
