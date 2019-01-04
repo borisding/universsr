@@ -1,3 +1,6 @@
-export { default } from './Layout';
-export { default as PageLoader } from './PageLoader';
-export { default as PageWrapper } from './PageWrapper';
+import Layout from './Layout';
+import PageLoader from './PageLoader';
+import PageWrapper from './PageWrapper';
+
+export default Layout;
+export { PageLoader, PageWrapper };

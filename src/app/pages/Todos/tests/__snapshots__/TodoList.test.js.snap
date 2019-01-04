@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoList renders correctly 1`] = `
+<div
+  className="todos-container"
+>
+  <h3>
+    My Todos (0 / 1)
+  </h3>
+  <ul>
+    <li>
+      <label
+        htmlFor="123"
+      >
+        <input
+          checked={false}
+          id="123"
+          onChange={[Function]}
+          type="checkbox"
+          value="123"
+        />
+        <span
+          className="pending"
+        >
+          todo value
+        </span>
+      </label>
+    </li>
+  </ul>
+</div>
+`;

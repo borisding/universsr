@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageLoader renders correctly 1`] = `
+<div
+  className="loader-container"
+>
+  <span>
+    Loading...
+  </span>
+</div>
+`;

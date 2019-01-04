@@ -110,6 +110,7 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
+    "babel-plugin-dynamic-import-node-babel-7": "^2.0.7",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.21",
     "babel-plugin-universal-import": "^3.1.2",
     "babel-plugin-webpack-alias": "^2.1.2",
@@ -267,9 +268,6 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/jest/fileMock.js",
       "\\.(css|scss)$": "<rootDir>/resources/jest/styleMock.js"
-    },
-    "transform": {
-      "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest"
     },
     "testEnvironment": "node",
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$",
