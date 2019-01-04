@@ -12,26 +12,29 @@ describe('ducks request', () => {
   });
 
   it('should dispatch `REQUEST_ERROR` action type.', () => {
-    store.dispatch(actions.requestError({ error: 'error' }));
-    const action = store.getActions();
+    const data = { error: 'error' };
+    store.dispatch(actions.requestError(data));
 
+    const action = store.getActions();
     expect(action[0].type).toEqual(types.REQUEST_ERROR);
-    expect(action[0].payload).toEqual({ error: 'error' });
+    expect(action[0].payload).toEqual(data);
   });
 
   it('should dispatch `REQUEST_INFO` action type.', () => {
-    store.dispatch(actions.requestInfo({ info: 'info' }));
-    const action = store.getActions();
+    const data = { info: 'info' };
+    store.dispatch(actions.requestInfo(data));
 
+    const action = store.getActions();
     expect(action[0].type).toEqual(types.REQUEST_INFO);
-    expect(action[0].payload).toEqual({ info: 'info' });
+    expect(action[0].payload).toEqual(data);
   });
 
   it('should dispatch `REQUEST_SUCCESS` action type.', () => {
-    store.dispatch(actions.requestSuccess({ success: 'success' }));
-    const action = store.getActions();
+    const data = { success: 'success' };
+    store.dispatch(actions.requestSuccess(data));
 
+    const action = store.getActions();
     expect(action[0].type).toEqual(types.REQUEST_SUCCESS);
-    expect(action[0].payload).toEqual({ success: 'success' });
+    expect(action[0].payload).toEqual(data);
   });
 });
