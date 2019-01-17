@@ -1,5 +1,5 @@
 import Layout from '@layout';
-import * as pages from '@pages';
+import * as Pages from '@pages';
 import { todosActions } from '@redux/ducks/todos';
 
 export const routes = [
@@ -7,18 +7,18 @@ export const routes = [
     path: '/',
     exact: true,
     menu: 'Home',
-    component: pages.Home
+    component: Pages.Home
   },
   {
     path: '/todos',
     exact: true,
     menu: 'Todos',
-    component: pages.Todos,
+    component: Pages.Todos,
     loadData: todosActions.prefetchTodos
   },
   {
     path: '/*',
-    component: pages.NotFound
+    component: Pages.NotFound
   }
 ];
 

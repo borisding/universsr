@@ -18,7 +18,7 @@ const fileSession = () =>
     resave: false,
     saveUninitialized: false,
     secret: process.env.SECRET_KEY,
-    cookie: { maxAge: process.env.COOKIE_MAXAGE }
+    cookie: { maxAge: parseInt(process.env.COOKIE_MAXAGE, 10) }
   });
 
 api
