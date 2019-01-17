@@ -1,6 +1,6 @@
 {
   "name": "universsr",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "description": "Universal React + Redux project starter kit.",
   "main": "app.js",
   "scripts": {
@@ -34,7 +34,8 @@
   },
   "verbose": true,
   "engines": {
-    "node": "10.x"
+    "npm": ">=5",
+    "node": ">=8.3.0"
   },
   "repository": {
     "type": "git",
