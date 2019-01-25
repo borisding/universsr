@@ -7,6 +7,10 @@ module.exports = {
   ],
   env: {
     test: {
+      presets: [
+        ['@babel/preset-env', { targets: { node: 'current' } }],
+        '@babel/preset-react'
+      ],
       plugins: [
         'dynamic-import-node-babel-7',
         [
