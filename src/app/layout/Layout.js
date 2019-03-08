@@ -1,6 +1,5 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { withRouter } from 'react-router-dom';
 import { helmet } from '@config';
 import Header from './Header';
 import Body from './Body';
@@ -15,4 +14,4 @@ const Layout = props => (
   </div>
 );
 
-export default withRouter(Layout);
+export default Layout;

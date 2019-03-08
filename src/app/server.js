@@ -2,6 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
+import { createMemoryHistory } from 'history';
 import { renderToString } from 'react-dom/server';
 import { flushChunkNames } from 'react-universal-component/server';
 import { matchRoutes, renderRoutes } from 'react-router-config';
@@ -71,7 +72,8 @@ export default function serverRenderer({ clientStats }) {
       }
 
       const context = {};
-      const store = configureStore();
+      const history = createMemoryHistory();
+      const store = configureStore(history);
       await prefetchBranchData(store, req);
 
       const renderedAppString = renderToString(
