@@ -103,6 +103,14 @@ module.exports = function commonConfig(target) {
         }
       };
     },
+    // using webpack loader for react-🔥-dom patch (v16.6+)
+    getHotWebpackRule() {
+      return {
+        test: /\.jsx?$/,
+        include: /node_modules/,
+        use: ['react-hot-loader/webpack']
+      };
+    },
     // this is for us to import local CSS modules from `src`, except global CSS file
     // Note: CSS class names are assigned to `styleName` property where
     // `babel-plugin-react-css-modules` plugin will take care of it and do the matching

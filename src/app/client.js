@@ -1,6 +1,5 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { AppContainer } from 'react-hot-loader';
 import { ConnectedRouter } from 'connected-react-router';
 import { renderRoutes } from 'react-router-config';
 import { createBrowserHistory } from 'history';
@@ -14,15 +13,13 @@ const history = createBrowserHistory();
 const preloadedState = window.__UNIVERSSR_PRELOADED_STATE__;
 const store = configureStore(history, preloadedState);
 
-const render = routes => {
+const render = AppRoutes => {
   hydrate(
-    <AppContainer>
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          {renderRoutes(routes)}
-        </ConnectedRouter>
-      </Provider>
-    </AppContainer>,
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        {renderRoutes(AppRoutes)}
+      </ConnectedRouter>
+    </Provider>,
     document.getElementById('root')
   );
 };
@@ -31,10 +28,4 @@ render(routes);
 
 if (!isDev) {
   registerOffline();
-}
-
-if (module.hot) {
-  module.hot.accept('./routes', () => {
-    render(routes);
-  });
 }

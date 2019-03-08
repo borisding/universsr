@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import Layout from '@layout';
 import * as Pages from '@pages';
 import { todosActions } from '@redux/ducks/todos';
@@ -24,7 +25,7 @@ export const routes = [
 
 export default [
   {
-    component: Layout,
+    component: hot(Layout),
     routes
   }
 ];
