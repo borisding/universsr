@@ -92,7 +92,6 @@
     "react-universal-component": "^4.0.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "regenerator": "^0.13.3",
     "rimraf": "^2.6.3",
     "serialize-javascript": "^1.6.1",
     "session-file-store": "^1.2.0",

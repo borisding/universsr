@@ -5,6 +5,7 @@ module.exports = function commonConfig(target) {
   const isClient = target === 'client';
   const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
   const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
+  const browserslist = pkg.browserslist.join(', ');
   const reloadAll = true; // set to `false` if don't want to reload all for hmr
   const publicPath = '/';
 
@@ -69,7 +70,14 @@ module.exports = function commonConfig(target) {
             babelrc: false,
             cacheDirectory: !!isDev,
             presets: [
-              ['@babel/preset-env', { useBuiltIns: 'entry' }],
+              [
+                '@babel/preset-env',
+                {
+                  modules: isClient ? false : 'commonjs',
+                  targets: isClient ? browserslist : { node: 'current' },
+                  useBuiltIns: 'entry'
+                }
+              ],
               '@babel/preset-react'
             ],
             plugins: [
