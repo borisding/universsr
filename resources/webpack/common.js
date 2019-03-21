@@ -75,7 +75,8 @@ module.exports = function commonConfig(target) {
                 {
                   modules: isClient ? false : 'commonjs',
                   targets: isClient ? browserslist : { node: 'current' },
-                  useBuiltIns: 'entry'
+                  useBuiltIns: 'entry',
+                  corejs: 3
                 }
               ],
               '@babel/preset-react'
