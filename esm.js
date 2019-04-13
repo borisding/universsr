@@ -6,4 +6,4 @@ require = require('esm')(module);
 // such as app/api entry index files
 require('module-alias/register');
 
-module.exports = file => require(file).default;
+module.exports = file => require(file);
