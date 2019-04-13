@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 import actions from '../actions';
 import types from '../types';
-import { requestTypes, requestActions } from '@redux/ducks/request';
+import { requestTypes, requestActions } from '@app/redux/ducks/request';
 
 const host =
   `${process.env.PROTOCOL}://` +

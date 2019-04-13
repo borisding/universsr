@@ -5,7 +5,7 @@ import { renderRoutes } from 'react-router-config';
 import { createBrowserHistory } from 'history';
 import { hydrate } from 'react-dom';
 import { isDev } from '@config';
-import configureStore from '@redux/configureStore';
+import configureStore from '@app/redux/configureStore';
 import registerOffline from './offline';
 import routes from './routes';
 

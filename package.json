@@ -256,7 +256,7 @@
   },
   "jest": {
     "setupFilesAfterEnv": [
-      "<rootDir>/resources/jest/setupTest.js"
+      "<rootDir>/config/jest/setupTest.js"
     ],
     "coverageDirectory": "<rootDir>/storage/coverage",
     "collectCoverageFrom": [
@@ -271,8 +271,8 @@
       "jsx"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/resources/jest/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/resources/jest/styleMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/fileMock.js",
+      "\\.(css|scss)$": "<rootDir>/config/jest/styleMock.js"
     },
     "testEnvironment": "node",
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$",
@@ -282,20 +282,14 @@
   },
   "_moduleAliases": {
     "@root": ".",
-    "@bin": "bin",
-    "@public": "public",
-    "@resources": "resources",
-    "@assets": "resources/assets",
-    "@storage": "storage",
-    "@config": "config",
-    "@utils": "utils",
     "@api": "api",
     "@app": "app",
-    "@common": "app/common",
-    "@layout": "app/layout",
-    "@pages": "app/pages",
-    "@redux": "app/redux",
+    "@bin": "bin",
+    "@config": "config",
     "@logger": "logger",
-    "@middlewares": "middlewares"
+    "@middlewares": "middlewares",
+    "@public": "public",
+    "@storage": "storage",
+    "@utils": "utils"
   }
 }

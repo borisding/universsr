@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { todosActions } from '@redux/ducks/todos';
-import { PageWrapper, PageLoader } from '@layout';
+import { todosActions } from '@app/redux/ducks/todos';
+import { PageWrapper, PageLoader } from '@app/layout';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 

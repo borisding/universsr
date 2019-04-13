@@ -11,7 +11,7 @@ import { StaticRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ServiceClass } from '@utils';
 import { isDev } from '@config';
-import configureStore from '@redux/configureStore';
+import configureStore from '@app/redux/configureStore';
 import createHtml from './html';
 import routes from './routes';
 

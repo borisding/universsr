@@ -9,7 +9,6 @@ module.exports = {
   logger: `${root}/logger`,
   middlewares: `${root}/middlewares`,
   public: `${root}/public`,
-  resources: `${root}/resources`,
   storage: `${root}/storage`,
   utils: `${root}/utils`
 };

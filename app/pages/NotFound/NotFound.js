@@ -1,6 +1,6 @@
 import React from 'react';
-import { PageWrapper } from '@layout';
-import { HttpStatus } from '@common/components';
+import { PageWrapper } from '@app/layout';
+import { HttpStatus } from '@app/common/components';
 
 const NotFound = () => (
   <PageWrapper title="Not Found">

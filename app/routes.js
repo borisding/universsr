@@ -1,7 +1,7 @@
 import { hot } from 'react-hot-loader/root';
-import Layout from '@layout';
-import * as Pages from '@pages';
-import { todosActions } from '@redux/ducks/todos';
+import Layout from '@app/layout';
+import * as Pages from '@app/pages';
+import { todosActions } from '@app/redux/ducks/todos';
 
 export const routes = [
   {
