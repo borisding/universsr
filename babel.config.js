@@ -16,7 +16,7 @@ module.exports = {
         [
           'babel-plugin-webpack-alias',
           {
-            config: './resources/webpack/config.js',
+            config: './webpack.config.js',
             findConfig: true
           }
         ],
