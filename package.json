@@ -1,6 +1,6 @@
 {
   "name": "universsr",
-  "version": "5.2.0",
+  "version": "6.0.0",
   "description": "Universal React + Redux project starter kit.",
   "main": "app.js",
   "scripts": {
@@ -207,7 +207,7 @@
     },
     "settings": {
       "react": {
-        "version": "16.7.0"
+        "version": "detect"
       }
     },
     "rules": {
