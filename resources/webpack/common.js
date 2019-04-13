@@ -54,7 +54,7 @@ module.exports = function commonConfig(target) {
   return {
     devtool,
     publicPath,
-    context: syspath.src,
+    context: syspath.app,
     mode: isDev ? 'development' : 'production',
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.sass'],
@@ -91,7 +91,7 @@ module.exports = function commonConfig(target) {
                 'react-css-modules',
                 {
                   exclude: 'global.(css|scss|sass)', // need to exclude the defined global CSS file
-                  context: syspath.src, // must match with webpack's context
+                  context: syspath.app, // must match with webpack's context
                   generateScopedName: cssScopedName,
                   filetypes: {
                     '.scss': {
@@ -120,7 +120,7 @@ module.exports = function commonConfig(target) {
         use: ['react-hot-loader/webpack']
       };
     },
-    // this is for us to import local CSS modules from `src`, except global CSS file
+    // this is for us to import local CSS modules from `app`, except global CSS file
     // Note: CSS class names are assigned to `styleName` property where
     // `babel-plugin-react-css-modules` plugin will take care of it and do the matching
     getCssModulesRule(MiniCssExtractPlugin = null) {

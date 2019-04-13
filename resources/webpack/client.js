@@ -34,7 +34,7 @@ module.exports = function clientConfig(env) {
           ]
         : []),
       '@babel/polyfill',
-      './app/client.js'
+      './client.js'
     ],
     output: {
       path: syspath.public,

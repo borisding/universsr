@@ -23,9 +23,9 @@ module.exports = function serverConfig() {
     devtool: commonConfig.devtool,
     resolve: commonConfig.resolve,
     externals: nodeExternals,
-    entry: ['./app/server.js'],
+    entry: './server.js',
     output: {
-      path: `${syspath.src}/app`,
+      path: syspath.app,
       libraryTarget: 'commonjs2',
       filename: 'serverRenderer.js'
     },

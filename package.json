@@ -4,7 +4,7 @@
   "description": "Universal React + Redux project starter kit.",
   "main": "app.js",
   "scripts": {
-    "clean": "rimraf public src/app/serverRenderer.*",
+    "clean": "rimraf public app/serverRenderer.*",
     "webpack": "webpack --progress --hide-modules --config resources/webpack/config.js",
     "build": "cross-env NODE_ENV=production npm-run-all clean webpack",
     "build:analyze": "cross-env ANALYZE_MODE=enabled npm run build",
@@ -165,7 +165,7 @@
       "NODE_ENV": "development"
     },
     "watch": [
-      "src/api/*"
+      "api/*"
     ]
   },
   "browserslist": [
@@ -234,7 +234,7 @@
   "eslintIgnore": [
     "storage/**/*",
     "public/**/*.js",
-    "src/app/serverRenderer.*"
+    "app/serverRenderer.*"
   ],
   "stylelint": {
     "plugins": [
@@ -260,11 +260,11 @@
     ],
     "coverageDirectory": "<rootDir>/storage/coverage",
     "collectCoverageFrom": [
-      "src/{api,app}/**/**/*.{js,jsx}",
-      "src/{utils,middlewares}/*.js",
-      "!src/{api,app}/**/**/index.{js,jsx}",
-      "!src/{utils,middlewares}/index.js",
-      "!src/app/serverRenderer.{js,map}"
+      "{api,app}/**/**/*.{js,jsx}",
+      "{utils,middlewares}/*.js",
+      "!{api,app}/**/**/index.{js,jsx}",
+      "!{utils,middlewares}/index.js",
+      "!app/serverRenderer.{js,map}"
     ],
     "moduleFileExtensions": [
       "js",
@@ -288,14 +288,14 @@
     "@assets": "resources/assets",
     "@storage": "storage",
     "@config": "config",
-    "@utils": "src/utils",
-    "@api": "src/api",
-    "@app": "src/app",
-    "@common": "src/app/common",
-    "@layout": "src/app/layout",
-    "@pages": "src/app/pages",
-    "@redux": "src/app/redux",
-    "@logger": "src/logger",
-    "@middlewares": "src/middlewares"
+    "@utils": "utils",
+    "@api": "api",
+    "@app": "app",
+    "@common": "app/common",
+    "@layout": "app/layout",
+    "@pages": "app/pages",
+    "@redux": "app/redux",
+    "@logger": "logger",
+    "@middlewares": "middlewares"
   }
 }

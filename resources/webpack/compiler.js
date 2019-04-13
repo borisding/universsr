@@ -20,7 +20,6 @@ module.exports = function webpackCompiler(app) {
         aggregateTimeout: 500,
         ignored: [
           `${syspath.root}/node_modules`,
-          `${syspath.root}/package.json`,
           syspath.bin,
           syspath.resources,
           syspath.storage

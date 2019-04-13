@@ -3,7 +3,7 @@
 import 'make-promises-safe';
 import colors from 'colors';
 import http from 'http';
-import app from '@app';
+import app from '@app/index';
 import { isDev } from '@config';
 
 const server = http.createServer(app);

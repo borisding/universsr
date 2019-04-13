@@ -3,7 +3,7 @@
 import 'make-promises-safe';
 import colors from 'colors';
 import http from 'http';
-import api from '@api';
+import api from '@api/index';
 
 const server = http.createServer(api);
 const serverPort = parseInt(process.env.API_PORT, 10) || 3030;

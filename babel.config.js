@@ -23,7 +23,7 @@ module.exports = {
         [
           'react-css-modules',
           {
-            context: './src',
+            context: './app',
             exclude: 'node_modules',
             generateScopedName: '[local]',
             filetypes: {
