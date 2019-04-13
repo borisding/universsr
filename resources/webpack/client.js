@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OfflinePlugin = require('offline-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StatsWebpackPlugin = require('stats-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { isDev, syspath } = require('@config');
 const webpackCommon = require('./common');
@@ -43,9 +43,9 @@ module.exports = function clientConfig(env) {
       chunkFilename: isDev ? '[id].js' : '[id].[contenthash].js'
     },
     optimization: {
-      // can provide uglify-js options for more controls
-      // @see: https://webpack.js.org/plugins/uglifyjs-webpack-plugin/
-      minimizer: [new UglifyJsPlugin(), new OptimizeCssAssetsPlugin()],
+      // @see: https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+      // @see: https://github.com/NMFR/optimize-css-assets-webpack-plugin
+      minimizer: [new TerserJSPlugin(), new OptimizeCssAssetsPlugin()],
       splitChunks: {
         chunks: 'all' // all types of chunks
       }
