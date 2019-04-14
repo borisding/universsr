@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import sessionFileStore from 'session-file-store';
 import { syspath } from '@config';
-import { httpLogger, errorHandler } from '@middlewares';
+import { httpLogger, errorHandler } from '@middleware';
 import routers from './routers';
 
 const api = express();

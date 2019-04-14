@@ -257,9 +257,9 @@
     "coverageDirectory": "<rootDir>/storage/coverage",
     "collectCoverageFrom": [
       "{api,app}/**/**/*.{js,jsx}",
-      "{utils,middlewares}/*.js",
+      "{utils,middleware}/*.js",
       "!{api,app}/**/**/index.{js,jsx}",
-      "!{utils,middlewares}/index.js",
+      "!{utils,middleware}/index.js",
       "!app/serverRenderer.{js,map}"
     ],
     "moduleFileExtensions": [
@@ -282,7 +282,7 @@
     "@app": "app",
     "@config": "config",
     "@logger": "logger",
-    "@middlewares": "middlewares",
+    "@middleware": "middleware",
     "@public": "public",
     "@storage": "storage",
     "@utils": "utils"

@@ -10,7 +10,7 @@ module.exports = function webpackCompiler(app) {
   const serverConfig = webpackConfig[1] || {};
   const compiler = webpack([clientConfig, serverConfig]);
 
-  // mount webpack middlewares for Express
+  // mount webpack middleware for Express
   app.use(
     webpackDevMiddleware(compiler, {
       publicPath: clientConfig.output.publicPath,

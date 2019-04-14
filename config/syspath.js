@@ -6,7 +6,7 @@ module.exports = {
   app: `${root}/app`,
   config: `${root}/config`,
   logger: `${root}/logger`,
-  middlewares: `${root}/middlewares`,
+  middleware: `${root}/middleware`,
   public: `${root}/public`,
   storage: `${root}/storage`,
   utils: `${root}/utils`

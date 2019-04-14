@@ -1,12 +1,12 @@
 import thunk from 'redux-thunk';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { isDev } from '@config';
-import { serviceAlert } from './middlewares';
+import { serviceAlert } from './middleware';
 import { requestActions } from './modules/request';
 import rootReducer from './modules';
 
 export default function configureStore(preloadedState = {}) {
-  const middlewares = [
+  const middleware = [
     // register request actions for dispatch
     // so that it's accessible in respective thunk wrappers
     thunk.withExtraArgument({ ...requestActions }),
@@ -27,7 +27,7 @@ export default function configureStore(preloadedState = {}) {
       })
     : compose;
 
-  const enhancer = composeEnhancers(applyMiddleware(...middlewares));
+  const enhancer = composeEnhancers(applyMiddleware(...middleware));
   const store = createStore(rootReducer(), preloadedState, enhancer);
 
   if (module.hot) {

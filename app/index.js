@@ -7,7 +7,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import { isDev, syspath } from '@config';
-import { proxy, httpLogger, errorHandler } from '@middlewares';
+import { proxy, httpLogger, errorHandler } from '@middleware';
 
 const app = express();
 
