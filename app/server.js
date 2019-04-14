@@ -2,12 +2,11 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
-import { createMemoryHistory } from 'history';
 import { renderToString } from 'react-dom/server';
 import { flushChunkNames } from 'react-universal-component/server';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import { minify } from 'html-minifier';
-import { StaticRouter as Router } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ServiceClass } from '@utils';
 import { isDev } from '@config';
@@ -72,15 +71,14 @@ export default function serverRenderer({ clientStats }) {
       }
 
       const context = {};
-      const history = createMemoryHistory();
-      const store = configureStore(history);
+      const store = configureStore();
       await prefetchBranchData(store, req);
 
       const renderedAppString = renderToString(
         <Provider store={store}>
-          <Router location={req.url} context={context}>
+          <StaticRouter location={req.url} context={context}>
             {renderRoutes(routes)}
-          </Router>
+          </StaticRouter>
         </Provider>
       );
 
@@ -89,24 +87,24 @@ export default function serverRenderer({ clientStats }) {
       const { statusCode = 200, redirectUrl } = context;
 
       if ([301, 302].includes(statusCode) && redirectUrl) {
-        res.redirect(statusCode, redirectUrl);
-      } else {
-        const helmet = Helmet.renderStatic();
-        const preloadedState = serialize(store.getState(), { isJSON: true });
-        const { js, styles } = flushChunks(clientStats, {
-          chunkNames: flushChunkNames()
-        });
-
-        res.status(statusCode).send(
-          renderHtml({
-            styles,
-            js,
-            renderedAppString,
-            preloadedState,
-            helmet
-          })
-        );
+        return res.redirect(statusCode, redirectUrl);
       }
+
+      const helmet = Helmet.renderStatic();
+      const preloadedState = serialize(store.getState(), { isJSON: true });
+      const { js, styles } = flushChunks(clientStats, {
+        chunkNames: flushChunkNames()
+      });
+
+      res.status(statusCode).send(
+        renderHtml({
+          styles,
+          js,
+          renderedAppString,
+          preloadedState,
+          helmet
+        })
+      );
     } catch (err) {
       next(new Error(err));
     }
