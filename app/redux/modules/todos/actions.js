@@ -16,20 +16,6 @@ export const fetchTodos = () => {
   };
 };
 
-// pre-fetch todos when there is no populated todos in store
-export const prefetchTodos = () => (dispatch, getState) => {
-  const { isFetching, isDone } = getState().todos;
-
-  // no action when it's fetching todos
-  // or, fetching todos is already done
-  if (isFetching || isDone) {
-    return Promise.resolve(true);
-  }
-
-  // else, just proceed to fetching new todos list
-  return dispatch(fetchTodos());
-};
-
 // fake adding new todo without saving into db
 export const addTodo = input => dispatch =>
   dispatch({
@@ -45,7 +31,6 @@ export const updateTodo = ({ value, checked }) => ({
 
 export default {
   fetchTodos,
-  prefetchTodos,
   addTodo,
   updateTodo
 };

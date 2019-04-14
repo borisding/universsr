@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { Frontload } from 'react-frontload';
 import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { hydrate } from 'react-dom';
@@ -14,7 +15,9 @@ const store = configureStore(preloadedState);
 const render = AppRoutes => {
   hydrate(
     <Provider store={store}>
-      <BrowserRouter>{renderRoutes(AppRoutes)}</BrowserRouter>
+      <Frontload>
+        <BrowserRouter>{renderRoutes(AppRoutes)}</BrowserRouter>
+      </Frontload>
     </Provider>,
     document.getElementById('root')
   );

@@ -1,7 +1,6 @@
 import { hot } from 'react-hot-loader/root';
 import Layout from './layout';
 import * as Pages from './pages';
-import { todosActions } from './redux/modules/todos';
 
 export const routes = [
   {
@@ -14,8 +13,7 @@ export const routes = [
     path: '/todos',
     exact: true,
     menu: 'Todos',
-    component: Pages.Todos,
-    loadData: todosActions.prefetchTodos
+    component: Pages.Todos
   },
   {
     path: '/*',

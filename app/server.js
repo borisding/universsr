@@ -2,9 +2,10 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
+import { frontloadServerRender } from 'react-frontload';
 import { renderToString } from 'react-dom/server';
 import { flushChunkNames } from 'react-universal-component/server';
-import { matchRoutes, renderRoutes } from 'react-router-config';
+import { renderRoutes } from 'react-router-config';
 import { minify } from 'html-minifier';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -13,33 +14,6 @@ import { isDev } from '@config';
 import configureStore from '@app/redux/configureStore';
 import createHtml from './html';
 import routes from './routes';
-
-// preload data for matched route
-function prefetchBranchData(store, req) {
-  try {
-    const branch = matchRoutes(routes, req.url);
-    const promises = branch.map(({ route, match }) => {
-      const { loadData } = route;
-      const { dispatch } = store;
-
-      if (match && match.isExact && loadData) {
-        if (Array.isArray(loadData)) {
-          return Promise.all(
-            loadData.map(action => dispatch(action(match, req)))
-          );
-        } else {
-          return dispatch(loadData(match, req));
-        }
-      }
-
-      return Promise.resolve(null);
-    });
-
-    return Promise.all(promises);
-  } catch (err) {
-    throw err;
-  }
-}
 
 // creating html page with passed data as content
 function renderHtml(data) {
@@ -72,14 +46,14 @@ export default function serverRenderer({ clientStats }) {
 
       const context = {};
       const store = configureStore();
-      await prefetchBranchData(store, req);
-
-      const renderedAppString = renderToString(
-        <Provider store={store}>
-          <StaticRouter location={req.url} context={context}>
-            {renderRoutes(routes)}
-          </StaticRouter>
-        </Provider>
+      const renderedAppString = await frontloadServerRender(() =>
+        renderToString(
+          <Provider store={store}>
+            <StaticRouter location={req.url} context={context}>
+              {renderRoutes(routes)}
+            </StaticRouter>
+          </Provider>
+        )
       );
 
       // make page redirection when expected `statusCode` and `redirectUrl`
