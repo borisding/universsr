@@ -284,7 +284,6 @@
     "@root": ".",
     "@api": "api",
     "@app": "app",
-    "@bin": "bin",
     "@config": "config",
     "@logger": "logger",
     "@middlewares": "middlewares",

@@ -4,7 +4,6 @@ module.exports = {
   root,
   api: `${root}/api`,
   app: `${root}/app`,
-  bin: `${root}/bin`,
   config: `${root}/config`,
   logger: `${root}/logger`,
   middlewares: `${root}/middlewares`,
