@@ -1,5 +1,5 @@
 // load environment variables at first place
 require('./env');
 
-// expose api server with esm loader
-require('./esm')('./bin/apiServer');
+// expose api with esm loader
+require('./esm')('./api/index');
