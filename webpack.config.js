@@ -8,7 +8,7 @@ const env = require('./env');
 
 // retrieve client & server config, respectively
 // also, passing env variable to client/server config for usage
-const webpackClient = require('@config/webpack/client')(env);
-const webpackServer = require('@config/webpack/server')(env);
+const webpackClient = require('./config/webpack/client')(env);
+const webpackServer = require('./config/webpack/server')(env);
 
 module.exports = [webpackClient, webpackServer];

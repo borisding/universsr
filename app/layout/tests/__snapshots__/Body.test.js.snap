@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Body renders correctly 1`] = `
+<div
+  className="content"
+>
+  <div
+    className="s-alert-wrapper"
+  />
+</div>
+`;

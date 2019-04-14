@@ -3,11 +3,11 @@ import Helmet from 'react-helmet';
 import { helmet } from '@config';
 import Header from './Header';
 import Body from './Body';
-import '@app/common/styles/global.scss';
-import styles from './styles/Layout.module.scss';
+import '../common/styles/global.scss';
+import styles from './Layout.module.scss';
 
 const Layout = props => (
-  <div styleName="styles.container">
+  <div styleName={'styles.container'}>
     <Helmet {...helmet} />
     <Header {...props} />
     <Body {...props} />

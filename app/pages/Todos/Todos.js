@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { todosActions } from '@app/redux/ducks/todos';
-import { PageWrapper, PageLoader } from '@app/layout';
+import { PageWrapper } from '@app/layout';
+import { Loader } from '@app/common/components';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 
@@ -21,7 +22,7 @@ export class Todos extends PureComponent {
     const { isFetching, actions, todos } = this.props;
 
     if (isFetching) {
-      return <PageLoader />;
+      return <Loader />;
     }
 
     return (

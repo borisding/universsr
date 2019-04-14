@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { routes } from '@app/routes';
-import { active } from './styles/Header.module.scss';
+import { routes } from '../routes';
+import styles from './Header.module.scss';
 
 const Header = () => (
   <header>
@@ -14,7 +14,7 @@ const Header = () => (
                 <NavLink
                   to={route.path}
                   exact={route.exact === true}
-                  activeClassName={active}
+                  activeClassName={styles.active}
                 >
                   {route.menu}
                 </NavLink>

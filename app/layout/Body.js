@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Alert from 'react-s-alert';
 import { renderRoutes } from 'react-router-config';
-import ErrorBoundary from './ErrorBoundary';
-import './styles/Body.module.scss';
+import ErrorBoundary from '../common/components/ErrorBoundary';
+import './Body.module.scss';
 
 const Body = ({ route }) => (
-  <div styleName="content">
+  <div styleName={'content'}>
     <ErrorBoundary>
       {renderRoutes(route.routes)}
       <Alert

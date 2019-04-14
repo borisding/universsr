@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { TextInput } from '@app/common/components';
-import './styles/TodoForm.module.scss';
+import './TodoForm.module.scss';
 
 const initialState = {
   todoInput: '',

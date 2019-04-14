@@ -18,7 +18,10 @@ module.exports = function webpackCompiler(app) {
       logLevel: 'warn',
       watchOptions: {
         aggregateTimeout: 500,
-        ignored: [`${syspath.root}/node_modules`],
+        ignored: [
+          `${syspath.root}/node_modules`,
+          `${syspath.root}/package.json`
+        ],
         poll: false
       }
     })
