@@ -1,6 +1,6 @@
 import Alert from 'react-s-alert';
 import { isDev } from '@config';
-import { requestTypes } from '@app/redux/ducks/request';
+import { requestTypes } from '../modules/request';
 
 // eslint-disable-next-line no-unused-vars
 export default () => store => next => action => {

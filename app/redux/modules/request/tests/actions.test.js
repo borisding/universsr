@@ -6,7 +6,7 @@ import types from '../types';
 const mockStore = configureMockStore([thunk.withExtraArgument({ ...actions })]);
 let store;
 
-describe('ducks request', () => {
+describe('modules request', () => {
   beforeEach(() => {
     store = mockStore({});
   });

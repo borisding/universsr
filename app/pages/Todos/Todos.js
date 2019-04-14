@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { todosActions } from '@app/redux/ducks/todos';
+import { todosActions } from '@app/redux/modules/todos';
 import { PageWrapper } from '@app/layout';
 import { Loader } from '@app/common/components';
 import TodoForm from './TodoForm';
