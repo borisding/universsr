@@ -75,7 +75,7 @@ module.exports = function commonConfig(target) {
                 {
                   modules: isClient ? false : 'commonjs',
                   targets: isClient ? browserslist : { node: 'current' },
-                  useBuiltIns: 'entry',
+                  useBuiltIns: 'usage',
                   corejs: 3
                 }
               ],

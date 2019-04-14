@@ -28,12 +28,8 @@ module.exports = function clientConfig(env) {
     },
     entry: [
       ...(isDev
-        ? [
-            'eventsource-polyfill', // used for IE's hot reloading
-            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
-          ]
+        ? ['webpack-hot-middleware/client?path=/__webpack_hmr&reload=true']
         : []),
-      '@babel/polyfill',
       './client.js'
     ],
     output: {
