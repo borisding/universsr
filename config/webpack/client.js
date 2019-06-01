@@ -35,8 +35,8 @@ module.exports = function clientConfig(env) {
     output: {
       path: syspath.public,
       publicPath: commonConfig.publicPath,
-      filename: isDev ? '[name].js' : '[name].[contenthash].js',
-      chunkFilename: isDev ? '[id].js' : '[id].[contenthash].js'
+      filename: isDev ? '[name].js' : '[name].[contenthash:8].js',
+      chunkFilename: isDev ? '[name].js' : '[name].[contenthash:8].js'
     },
     optimization: {
       // @see: https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
