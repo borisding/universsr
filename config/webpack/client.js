@@ -59,8 +59,8 @@ module.exports = function clientConfig(env) {
     plugins: [
       new webpack.DefinePlugin(env.getCustomEnv().stringified),
       new MiniCssExtractPlugin({
-        filename: isDev ? '[name].css' : '[name].[contenthash].css',
-        chunkFilename: isDev ? '[id].css' : '[id].[contenthash].css'
+        filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
+        chunkFilename: isDev ? '[name].css' : '[name].[contenthash:8].css'
       }),
       new CopyWebpackPlugin([
         {
