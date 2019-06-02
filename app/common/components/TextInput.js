@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextInput = ({
+export default function TextInput({
   autoFocus,
   className,
   name,
@@ -10,7 +10,7 @@ const TextInput = ({
   placeholder,
   onBlur,
   onChange
-}) => {
+}) {
   return (
     <input
       type="text"
@@ -24,7 +24,7 @@ const TextInput = ({
       onChange={onChange}
     />
   );
-};
+}
 
 TextInput.propTypes = {
   autoFocus: PropTypes.bool,
@@ -35,5 +35,3 @@ TextInput.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func
 };
-
-export default TextInput;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Checkbox = ({
+export default function Checkbox({
   className,
   name,
   id,
@@ -9,7 +9,7 @@ const Checkbox = ({
   isChecked,
   onChange,
   onClick
-}) => {
+}) {
   return (
     <input
       type="checkbox"
@@ -22,7 +22,7 @@ const Checkbox = ({
       onChange={onChange}
     />
   );
-};
+}
 
 Checkbox.propTypes = {
   className: PropTypes.string,
@@ -32,5 +32,3 @@ Checkbox.propTypes = {
   onChange: PropTypes.func,
   onClick: PropTypes.func
 };
-
-export default Checkbox;

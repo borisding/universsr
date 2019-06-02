@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { frontloadConnect } from 'react-frontload';
 import { todosActions } from '@app/redux/modules/todos';
-import { PageWrapper } from '@app/layout';
 import { Loader } from '@app/common/components';
+import PageWrapper from '../PageWrapper';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 

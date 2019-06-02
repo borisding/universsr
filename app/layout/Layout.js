@@ -8,14 +8,16 @@ import Body from './Body';
 import '../common/styles/global.scss';
 import styles from './Layout.module.scss';
 
-const Layout = props => (
-  <Frontload>
-    <div styleName={'styles.container'}>
-      <Helmet {...helmet} />
-      <Header {...props} />
-      <Body {...props} />
-    </div>
-  </Frontload>
-);
+export function Layout(props) {
+  return (
+    <Frontload>
+      <div styleName={'styles.container'}>
+        <Helmet {...helmet} />
+        <Header {...props} />
+        <Body {...props} />
+      </div>
+    </Frontload>
+  );
+}
 
 export default withRouter(Layout);

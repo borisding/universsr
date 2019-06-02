@@ -5,22 +5,22 @@ import { renderRoutes } from 'react-router-config';
 import ErrorBoundary from '../common/components/ErrorBoundary';
 import './Body.module.scss';
 
-const Body = ({ route }) => (
-  <div styleName={'content'}>
-    <ErrorBoundary>
-      {renderRoutes(route.routes)}
-      <Alert
-        stack={{ limit: 1 }}
-        position="bottom"
-        effect="flip"
-        timeout={5000}
-      />
-    </ErrorBoundary>
-  </div>
-);
+export default function Body({ route }) {
+  return (
+    <div styleName={'content'}>
+      <ErrorBoundary>
+        {renderRoutes(route.routes)}
+        <Alert
+          stack={{ limit: 1 }}
+          position="bottom"
+          effect="flip"
+          timeout={5000}
+        />
+      </ErrorBoundary>
+    </div>
+  );
+}
 
 Body.propTypes = {
   route: PropTypes.object.isRequired
 };
-
-export default Body;

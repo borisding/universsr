@@ -1,71 +1,60 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { TextInput } from '@app/common/components';
 import './TodoForm.module.scss';
 
 const initialState = {
-  todoInput: '',
-  isInvalid: false
+  isInvalid: false,
+  todoInput: ''
 };
 
-export default class TodoForm extends Component {
-  static propTypes = {
-    addTodo: PropTypes.func.isRequired
-  };
+export default function TodoForm(props) {
+  const [isInvalid, setIsInvalid] = useState(initialState.isInvalid);
+  const [todoInput, setTodoInput] = useState(initialState.todoInput);
 
-  constructor(props) {
-    super(props);
-    this.state = initialState;
+  const styles = classNames('todo-input', { 'error-input': !!isInvalid });
+  const placeholder = isInvalid ? 'Todo is required!' : 'Enter new todo...';
+
+  function handleChange(evt) {
+    setIsInvalid(initialState.isInvalid);
+    setTodoInput(evt.target.value);
   }
 
-  handleChange = evt => {
-    this.setState({
-      todoInput: evt.target.value,
-      isInvalid: initialState.isInvalid
-    });
-  };
-
-  handleBlur = evt => {
-    if (this.state.isInvalid) {
-      this.setState({
-        todoInput: evt.target.value,
-        isInvalid: !this.state.isInvalid
-      });
+  function handleBlur(evt) {
+    if (isInvalid) {
+      setIsInvalid(!isInvalid);
+      setTodoInput(evt.target.value);
     }
-  };
+  }
 
-  handleSubmit = evt => {
+  function handleSubmit(evt) {
     evt.preventDefault();
-    const { todoInput } = this.state;
 
     if (todoInput.trim() === '') {
-      return this.setState({
-        todoInput,
-        isInvalid: !initialState.isInvalid
-      });
+      setIsInvalid(!initialState.isInvalid);
+      setTodoInput(initialState.todoInput);
+    } else {
+      props.addTodo(todoInput);
+      setIsInvalid(initialState.isInvalid);
+      setTodoInput(initialState.todoInput);
     }
-
-    this.props.addTodo(todoInput);
-    this.setState(initialState);
-  };
-
-  render() {
-    const { todoInput, isInvalid } = this.state;
-    const styles = classNames('todo-input', { 'error-input': !!isInvalid });
-    const placeholder = isInvalid ? 'Todo is required!' : 'Enter new todo...';
-
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <TextInput
-          name="newTodo"
-          value={todoInput}
-          styleName={styles}
-          placeholder={placeholder}
-          onChange={this.handleChange}
-          onBlur={this.handleBlur}
-        />
-      </form>
-    );
   }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <TextInput
+        name="newTodo"
+        value={todoInput}
+        styleName={styles}
+        placeholder={placeholder}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
+    </form>
+  );
 }
+
+TodoForm.propTypes = {
+  addTodo: PropTypes.func.isRequired
+};
