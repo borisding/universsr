@@ -4,7 +4,7 @@ import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
 import { frontloadServerRender } from 'react-frontload';
 import { renderToString } from 'react-dom/server';
-import { flushChunkNames } from 'react-universal-component/server';
+import { clearChunks, flushChunkNames } from 'react-universal-component/server';
 import { renderRoutes } from 'react-router-config';
 import { minify } from 'html-minifier';
 import { StaticRouter } from 'react-router-dom';
@@ -38,6 +38,8 @@ function renderHtml(data) {
 export default function serverRenderer({ clientStats }) {
   return async (req, res, next) => {
     try {
+      clearChunks();
+
       // assign request object to service class via setter method
       // so that we can add cookie header in service later for server
       if (req && req.cookies) {
