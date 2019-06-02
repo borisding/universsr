@@ -2,7 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 
-export default function PageWrapper({ title, children }) {
+export default function Container({ title, children }) {
   return (
     <>
       <Helmet title={title} />
@@ -11,7 +11,7 @@ export default function PageWrapper({ title, children }) {
   );
 }
 
-PageWrapper.propTypes = {
+Container.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired
 };

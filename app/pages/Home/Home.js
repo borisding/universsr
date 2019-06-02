@@ -1,12 +1,12 @@
 import React from 'react';
 import Alert from 'react-s-alert';
 import logo from '@app/assets/images/logo.png'; // example of import assets image
-import PageWrapper from '../PageWrapper';
+import Container from '../Container';
 import './Home.module.scss';
 
 export default function Home() {
   return (
-    <PageWrapper title="Home">
+    <Container title="Home">
       <div styleName="logo">
         <img src={logo} alt="React Redux Boilerplate" />
       </div>
@@ -28,6 +28,6 @@ export default function Home() {
         {' or, go to '}
         <a href="https://github.com/borisding/universsr">GitHub repository</a>
       </div>
-    </PageWrapper>
+    </Container>
   );
 }

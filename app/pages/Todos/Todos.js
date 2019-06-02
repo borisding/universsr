@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { frontloadConnect } from 'react-frontload';
 import { todosActions } from '@app/redux/modules/todos';
 import { Loader } from '@app/common/components';
-import PageWrapper from '../PageWrapper';
+import Container from '../Container';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 
@@ -15,12 +15,12 @@ export function Todos({ actions, todos, isFetching }) {
   }
 
   return (
-    <PageWrapper title="Todos">
+    <Container title="Todos">
       <h3>Todos Demo</h3>
       <TodoForm addTodo={actions.addTodo} />
       <hr />
       <TodoList todos={todos} updateTodo={actions.updateTodo} />
-    </PageWrapper>
+    </Container>
   );
 }
 
