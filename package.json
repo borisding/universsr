@@ -84,7 +84,7 @@
     "react-dom": "^16.8.6",
     "react-frontload": "^1.0.7",
     "react-helmet": "^5.2.1",
-    "react-hot-loader": "^4.8.8",
+    "react-hot-loader": "^4.9.0",
     "react-redux": "^7.0.3",
     "react-router-config": "^5.0.0",
     "react-router-dom": "^5.0.0",
