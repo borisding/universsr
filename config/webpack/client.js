@@ -36,7 +36,9 @@ module.exports = function clientConfig(env) {
       path: syspath.public,
       publicPath: commonConfig.publicPath,
       filename: isDev ? '[name].js' : '[name].[contenthash:8].js',
-      chunkFilename: isDev ? '[name].js' : '[name].[contenthash:8].js'
+      chunkFilename: isDev
+        ? '[name].chunk.js'
+        : '[name].chunk.[contenthash:8].js'
     },
     optimization: {
       // @see: https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
@@ -60,7 +62,9 @@ module.exports = function clientConfig(env) {
       new webpack.DefinePlugin(env.getCustomEnv().stringified),
       new MiniCssExtractPlugin({
         filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
-        chunkFilename: isDev ? '[name].css' : '[name].[contenthash:8].css'
+        chunkFilename: isDev
+          ? '[name].chunk.css'
+          : '[name].chunk.[contenthash:8].css'
       }),
       new CopyWebpackPlugin([
         {
