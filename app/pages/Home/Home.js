@@ -1,7 +1,7 @@
 import React from 'react';
 import Alert from 'react-s-alert';
 import logo from '@app/assets/images/logo.png'; // example of import assets image
-import Container from '../Container';
+import { Container } from '@app/common/components';
 import './Home.module.scss';
 
 export default function Home() {

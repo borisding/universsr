@@ -1,6 +1,5 @@
 import React from 'react';
-import { HttpStatus } from '@app/common/components';
-import Container from '../Container';
+import { Container, HttpStatus } from '@app/common/components';
 
 export default function NotFound() {
   return (
