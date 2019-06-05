@@ -17,23 +17,19 @@ import routes from './routes';
 
 // creating html page with passed data as content
 function createHtmlPage(data) {
-  let htmlPage = html(data);
+  if (isDev) return html(data);
 
   // minify html for production, programmatically
-  if (!isDev) {
-    htmlPage = minify(htmlPage, {
-      collapseWhitespace: true,
-      minifyCSS: true,
-      minifyJS: true,
-      minifyURLs: true,
-      removeComments: true,
-      removeEmptyAttributes: true,
-      removeRedundantAttributes: true,
-      trimCustomFragments: true
-    });
-  }
-
-  return htmlPage;
+  return minify(html(data), {
+    collapseWhitespace: true,
+    minifyCSS: true,
+    minifyJS: true,
+    minifyURLs: true,
+    removeComments: true,
+    removeEmptyAttributes: true,
+    removeRedundantAttributes: true,
+    trimCustomFragments: true
+  });
 }
 
 // export default server renderer and receiving stats
