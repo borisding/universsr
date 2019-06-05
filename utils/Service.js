@@ -43,17 +43,19 @@ export default class Service {
     // use it if request base URL is explicitly defined (eg: domain name)
     if (process.env.REQUEST_BASEURL) {
       return process.env.REQUEST_BASEURL + api;
-    } else if (isNode) {
-      // else, construct base URL when is on server side
+    }
+
+    // else, construct base URL when is on server side
+    if (isNode) {
       return (
         `${process.env.PROTOCOL}://` +
         `${process.env.HOST}:` +
         `${process.env.PORT}${api}`
       );
-    } else {
-      // or return as it is
-      return api;
     }
+
+    // or return as it is
+    return api;
   }
 
   interceptRequest(resolve, reject) {
