@@ -12,25 +12,28 @@ import { Provider } from 'react-redux';
 import { ServiceClass } from '@utils';
 import { isDev } from '@config';
 import configureStore from '@app/redux/configureStore';
-import createHtml from './html';
+import html from './html';
 import routes from './routes';
 
 // creating html page with passed data as content
-function renderHtml(data) {
-  let html = createHtml(data);
+function createHtmlPage(data) {
+  let htmlPage = html(data);
 
   // minify html for production, programmatically
   if (!isDev) {
-    html = minify(html, {
+    htmlPage = minify(htmlPage, {
+      collapseWhitespace: true,
       minifyCSS: true,
       minifyJS: true,
-      collapseWhitespace: true,
+      minifyURLs: true,
       removeComments: true,
+      removeEmptyAttributes: true,
+      removeRedundantAttributes: true,
       trimCustomFragments: true
     });
   }
 
-  return html;
+  return htmlPage;
 }
 
 // export default server renderer and receiving stats
@@ -73,7 +76,7 @@ export default function serverRenderer({ clientStats }) {
       });
 
       res.status(statusCode).send(
-        renderHtml({
+        createHtmlPage({
           styles,
           js,
           renderedAppString,
