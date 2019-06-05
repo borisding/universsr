@@ -5,13 +5,12 @@ import { withRouter } from 'react-router-dom';
 import { helmet } from '@config';
 import Header from './Header';
 import Body from './Body';
-import '@app/common/styles/global.scss';
-import styles from './Layout.module.scss';
+import './Layout.module.scss';
 
 export function Layout(props) {
   return (
     <Frontload>
-      <div styleName={'styles.container'}>
+      <div styleName="container">
         <Helmet {...helmet} />
         <Header {...props} />
         <Body {...props} />

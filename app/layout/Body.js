@@ -7,7 +7,7 @@ import './Body.module.scss';
 
 export default function Body({ route }) {
   return (
-    <div styleName={'content'}>
+    <div styleName="content">
       <ErrorBoundary>
         {renderRoutes(route.routes)}
         <Alert

@@ -1,23 +1,15 @@
-@import '../common/styles/variables';
+@import '@app/common/styles/variables';
 
 header {
-  background-color: lighten($color-black, 10%);
-  color: $color-white;
-  display: block;
+  background-color: $color-primary;
+  box-shadow: 0 2px 2px -1px $color-border;
   height: $header-height;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
 }
 
 .menu {
   .active,
   %active {
-    background-color: lighten($color-black, 25%);
+    background-color: lighten($color-primary, 5%);
     text-decoration: underline;
   }
 

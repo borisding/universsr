@@ -5,28 +5,30 @@ import { Container } from '@app/common/components';
 import './Home.module.scss';
 
 export default function Home() {
+  function onClick() {
+    Alert.info('Hello! This is universal React + Redux demo site.');
+  }
+
   return (
     <Container title="Home">
       <div styleName="logo">
         <img src={logo} alt="React Redux Boilerplate" />
       </div>
       <p styleName="lead">
-        <span>
-          universsr is <strong>universal</strong> React-Redux starter kit.
-        </span>
+        universsr is <strong>universal</strong> React-Redux starter kit.
       </p>
       <div>
-        <a
-          href="#"
-          onClick={evt => {
-            evt.preventDefault();
-            Alert.info('Hello! This is universal React + Redux demo site.');
-          }}
-        >
+        <button styleName="btn-alert" onClick={onClick}>
           Show alert
-        </a>
+        </button>
         {' or, go to '}
-        <a href="https://github.com/borisding/universsr">GitHub repository</a>
+        <a
+          href="https://github.com/borisding/universsr"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          GitHub repository
+        </a>
       </div>
     </Container>
   );
