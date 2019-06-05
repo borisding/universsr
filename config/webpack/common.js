@@ -6,7 +6,7 @@ module.exports = function commonConfig(target) {
   const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
   const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
   const reloadAll = true; // set to `false` if don't want to reload all for hmr
-  const publicPath = '/';
+  const publicPath = process.env.PUBLIC_PATH || '/';
 
   // the style loaders for both css modules and global style
   const getStyleLoaders = (MiniCssExtractPlugin, cssLoaderOptions = {}) => {
