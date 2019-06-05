@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { helmet } from '@config';
 import Header from './Header';
 import Body from './Body';
-import '../common/styles/global.scss';
+import '@app/common/styles/global.scss';
 import styles from './Layout.module.scss';
 
 export function Layout(props) {
