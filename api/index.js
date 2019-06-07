@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import sessionFileStore from 'session-file-store';
 import { syspath } from '@config';
-import { httpLogger, errorHandler } from '@middleware';
+import { httpLogger, errorHandler, notFoundHandler } from '@middleware';
 import routers from './routers';
 
 const api = express();
@@ -34,8 +34,8 @@ api
   .use(`/api/${process.env.API_VERSION}`, routers)
   .get('/favicon.ico', (req, res) => res.status(204)); // simply ignore
 
-// mount error handler middleware last
-api.use(errorHandler({ json: true }));
+// mount not found and error handler middlewares
+api.use(notFoundHandler()).use(errorHandler({ json: true }));
 
 // running api server
 const server = http.createServer(api);

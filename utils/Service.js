@@ -107,5 +107,7 @@ service.interceptResponse(
   },
   // we may do something with response error
   // say, when user authentication failure occured
-  err => Promise.reject(err)
+  err => {
+    return Promise.reject(err.response && err.response.data);
+  }
 );

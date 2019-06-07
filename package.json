@@ -163,7 +163,8 @@
       "NODE_ENV": "development"
     },
     "watch": [
-      "api/*"
+      "api/*",
+      "middleware/*"
     ]
   },
   "browserslist": [
