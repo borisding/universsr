@@ -1,10 +1,9 @@
 import httpProxy from 'http-proxy';
 
 // @see: https://github.com/nodejitsu/node-http-proxy#options
+const origin = `${process.env.API_PROTOCOL}://${process.env.API_HOST}:${process.env.API_PORT}`;
 const proxy = httpProxy.createProxyServer({
-  target: `${process.env.API_PROTOCOL}://${process.env.API_HOST}:${
-    process.env.API_PORT
-  }/api/${process.env.API_VERSION}`
+  target: `${origin}/api/${process.env.API_VERSION}`
 });
 
 const proxyWeb = (req, res) => {
