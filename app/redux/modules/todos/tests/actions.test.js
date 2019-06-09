@@ -11,15 +11,12 @@ const host =
   `${process.env.PORT}` +
   `/api/${process.env.API_VERSION}`;
 
-const endpoint = '/todos';
-
 const mockStore = configureMockStore([
   thunk.withExtraArgument({ ...requestActions })
 ]);
 
 describe('fetching todos data', () => {
-  const response = [{ id: 'todo-id2', todo: 'New Todo', done: false }];
-  const errorMessage = 'Request failed with status code 404';
+  const endpoint = '/todos';
   let store;
 
   beforeEach(() => {
@@ -37,14 +34,16 @@ describe('fetching todos data', () => {
   });
 
   it('should dispatch `TODOS_FETCH_SUCCESS` action type when fetching todos is already done.', done => {
+    const response = [{ id: 'todo-id2', todo: 'New Todo', done: false }];
+
     nock(host)
       .get(endpoint)
       .reply(200, response);
 
     store.dispatch(actions.fetchTodos()).then(() => {
-      const act = store.getActions();
-      expect(act[0]).toEqual({ type: types.TODOS_FETCH_BEGIN });
-      expect(act[1]).toEqual({
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({ type: types.TODOS_FETCH_BEGIN });
+      expect(actions[1]).toEqual({
         type: types.TODOS_FETCH_SUCCESS,
         payload: response
       });
@@ -53,16 +52,20 @@ describe('fetching todos data', () => {
   });
 
   it('should dispatch `REQUEST_ERROR` action type when failed to fetch todos.', done => {
+    const statusCode = 404;
+    const errorMessage = 'Request failed with status code 404';
+
     nock(host)
       .get(endpoint)
-      .replyWithError(errorMessage);
+      .reply(statusCode, { code: statusCode, message: errorMessage });
 
     store.dispatch(actions.fetchTodos()).then(() => {
-      const act = store.getActions();
-      expect(act[0]).toEqual({ type: types.TODOS_FETCH_BEGIN });
-      expect(act[1]).toEqual({ type: types.TODOS_FETCH_FAILURE });
-      expect(act[2].type).toEqual(requestTypes.REQUEST_ERROR);
-      expect(act[2].payload.message).toEqual(errorMessage);
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({ type: types.TODOS_FETCH_BEGIN });
+      expect(actions[1]).toEqual({ type: types.TODOS_FETCH_FAILURE });
+      expect(actions[2].type).toEqual(requestTypes.REQUEST_ERROR);
+      expect(actions[2].payload.code).toEqual(statusCode);
+      expect(actions[2].payload.message).toEqual(errorMessage);
       done();
     });
   });
