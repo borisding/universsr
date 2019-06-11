@@ -20,12 +20,6 @@ module.exports = function clientConfig(env) {
     context: commonConfig.context,
     devtool: commonConfig.devtool,
     resolve: commonConfig.resolve,
-    // for more about performance hints
-    // @see: https://webpack.js.org/configuration/performance/#performance
-    performance: {
-      maxEntrypointSize: 400000,
-      maxAssetSize: 400000
-    },
     entry: [
       ...(isDev
         ? ['webpack-hot-middleware/client?path=/__webpack_hmr&reload=true']
@@ -48,6 +42,17 @@ module.exports = function clientConfig(env) {
         chunks: 'all' // all types of chunks
       }
     },
+    // for more about performance hints
+    // @see: https://webpack.js.org/configuration/performance/#performance
+    performance: isDev
+      ? { hints: false }
+      : {
+          maxEntrypointSize: 400000,
+          maxAssetSize: 400000,
+          assetFilter: assetFilename => {
+            return !/\.map$/.test(assetFilename);
+          }
+        },
     module: {
       rules: [
         commonConfig.getBabelRule(),
