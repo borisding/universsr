@@ -129,9 +129,8 @@ module.exports = function commonConfig(target) {
         test: /\.module\.(css|scss|sass)$/,
         exclude: /global\.(css|scss|sass)/,
         use: getStyleLoaders(MiniCssExtractPlugin, {
-          modules: true,
-          exportOnlyLocals: !isClient,
-          localIdentName: cssScopedName
+          modules: { localIdentName: cssScopedName },
+          onlyLocals: !isClient
         })
       };
     },
