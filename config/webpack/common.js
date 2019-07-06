@@ -74,7 +74,6 @@ module.exports = function commonConfig(target) {
                 {
                   corejs: 3,
                   useBuiltIns: 'usage',
-                  modules: isClient ? false : 'commonjs',
                   targets: isClient
                     ? { browsers: 'last 2 versions', ie: 11 }
                     : { node: 'current' }
