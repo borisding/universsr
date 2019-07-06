@@ -117,7 +117,6 @@
     "babel-plugin-webpack-alias": "^2.1.2",
     "copy-webpack-plugin": "^5.0.3",
     "cross-env": "^5.2.0",
-    "css-hot-loader": "^1.4.4",
     "css-loader": "^3.0.0",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",

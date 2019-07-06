@@ -3,22 +3,15 @@ const pkg = require('@root/package');
 
 module.exports = function commonConfig(target) {
   const isClient = target === 'client';
+  const publicPath = process.env.PUBLIC_PATH || '/';
   const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
   const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
   const reloadAll = true; // set to `false` if don't want to reload all for hmr
-  const publicPath = process.env.PUBLIC_PATH || '/';
 
   // the style loaders for both css modules and global style
   const getStyleLoaders = (MiniCssExtractPlugin, cssLoaderOptions = {}) => {
     const sourceMap = isDev && isClient;
-    const cssHotLoader =
-      `css-hot-loader?reloadAll=${reloadAll}` +
-      `&cssModule=${cssLoaderOptions.modules}`;
-
-    return [
-      ...(MiniCssExtractPlugin
-        ? [cssHotLoader, MiniCssExtractPlugin.loader]
-        : []),
+    const styleLoaders = [
       {
         loader: 'css-loader',
         options: { sourceMap, importLoaders: 2, ...cssLoaderOptions }
@@ -32,6 +25,18 @@ module.exports = function commonConfig(target) {
         options: { sourceMap }
       }
     ];
+
+    if (MiniCssExtractPlugin) {
+      styleLoaders.unshift({
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+          hmr: !!isDev,
+          reloadAll
+        }
+      });
+    }
+
+    return styleLoaders;
   };
 
   // file loaders for both images and fonts
