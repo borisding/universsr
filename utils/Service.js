@@ -66,20 +66,24 @@ export default class Service {
     return this.axios.interceptors.response.use(resolve, reject);
   }
 
+  delete(url, config) {
+    return this.axios.delete(url, config);
+  }
+
   get(url, config) {
     return this.axios.get(url, config);
   }
 
-  post(url, config) {
-    return this.axios.post(url, config);
+  post(url, data, config) {
+    return this.axios.post(url, data, config);
   }
 
-  put(url, config) {
-    return this.axios.put(url, config);
+  put(url, data, config) {
+    return this.axios.put(url, data, config);
   }
 
-  delete(url, config) {
-    return this.axios.delete(url, config);
+  patch(url, data, config) {
+    return this.axios.patch(url, data, config);
   }
 }
 
