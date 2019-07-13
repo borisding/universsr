@@ -8,7 +8,7 @@ import { requestActions } from './modules/request';
 import createRootReducer from './modules';
 
 export default function configureStore(preloadedState) {
-  const { url, ...intialState } = preloadedState;
+  const { url, ...initialState } = preloadedState;
   const history = isNode
     ? createMemoryHistory({ initialEntries: [url] })
     : createBrowserHistory();
@@ -34,7 +34,7 @@ export default function configureStore(preloadedState) {
     : compose;
 
   const enhancer = composeEnhancers(applyMiddleware(...middleware));
-  const store = createStore(createRootReducer(history), intialState, enhancer);
+  const store = createStore(createRootReducer(history), initialState, enhancer);
 
   if (module.hot) {
     module.hot.accept('./modules', () => {
