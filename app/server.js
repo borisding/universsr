@@ -38,7 +38,6 @@ export default function serverRenderer({ clientStats }) {
   return async (req, res, next) => {
     try {
       clearChunks();
-
       // assign request object to service class via setter method
       // so that we can add cookie header in service later for server
       if (req && req.cookies) {
@@ -46,11 +45,12 @@ export default function serverRenderer({ clientStats }) {
       }
 
       const context = {};
-      const store = configureStore();
+      const { url = '/' } = req;
+      const { store } = configureStore({ url });
       const renderedAppString = await frontloadServerRender(() =>
         renderToString(
           <Provider store={store}>
-            <StaticRouter location={req.url} context={context}>
+            <StaticRouter location={url} context={context}>
               {renderRoutes(routes)}
             </StaticRouter>
           </Provider>
@@ -60,7 +60,6 @@ export default function serverRenderer({ clientStats }) {
       // make page redirection when expected `statusCode` and `redirectUrl`
       // props are provided in `HttpStatus` component
       const { statusCode = 200, redirectUrl } = context;
-
       if ([301, 302].includes(statusCode) && redirectUrl) {
         return res.redirect(statusCode, redirectUrl);
       }

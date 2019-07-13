@@ -1,12 +1,20 @@
 import thunk from 'redux-thunk';
+import { createBrowserHistory, createMemoryHistory } from 'history';
 import { compose, createStore, applyMiddleware } from 'redux';
-import { isDev } from '@config';
+import { routerMiddleware } from 'connected-react-router';
+import { isDev, isNode } from '@config';
 import { serviceAlert } from './middleware';
 import { requestActions } from './modules/request';
-import rootReducer from './modules';
+import createRootReducer from './modules';
 
-export default function configureStore(preloadedState = {}) {
+export default function configureStore(preloadedState) {
+  const { url, ...intialState } = preloadedState;
+  const history = isNode
+    ? createMemoryHistory({ initialEntries: [url] })
+    : createBrowserHistory();
+
   const middleware = [
+    routerMiddleware(history),
     // register request actions for dispatch
     // so that it's accessible in respective thunk wrappers
     thunk.withExtraArgument({ ...requestActions }),
@@ -16,9 +24,7 @@ export default function configureStore(preloadedState = {}) {
   // check if redux devtools extension compose available
   // apply for development environment only
   const withReduxDevtools =
-    isDev &&
-    typeof window !== 'undefined' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+    isDev && !isNode && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
   // make compose enhancers
   const composeEnhancers = withReduxDevtools
@@ -28,7 +34,7 @@ export default function configureStore(preloadedState = {}) {
     : compose;
 
   const enhancer = composeEnhancers(applyMiddleware(...middleware));
-  const store = createStore(rootReducer(), preloadedState, enhancer);
+  const store = createStore(createRootReducer(history), intialState, enhancer);
 
   if (module.hot) {
     module.hot.accept('./modules', () => {
@@ -37,5 +43,5 @@ export default function configureStore(preloadedState = {}) {
     });
   }
 
-  return store;
+  return { store, history };
 }
