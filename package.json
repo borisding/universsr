@@ -34,8 +34,8 @@
   },
   "verbose": true,
   "engines": {
-    "npm": ">=6",
-    "node": ">=8.15.1"
+    "npm": ">=6.4.1",
+    "node": ">=8.16.0"
   },
   "repository": {
     "type": "git",
