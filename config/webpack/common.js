@@ -1,11 +1,10 @@
 const { isDev, syspath } = require('@config');
-const pkg = require('@root/package');
+const { localScopedName, _moduleAliases } = require('@root/package');
 
 module.exports = function commonConfig(target) {
   const isClient = target === 'client';
   const publicPath = process.env.PUBLIC_PATH || '/';
   const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
-  const cssScopedName = isDev ? '[local]___[hash:base64:5]' : '[hash:base64:5]';
   const reloadAll = true; // set to `false` if don't want to reload all for hmr
 
   // the style loaders for both css modules and global style
@@ -62,7 +61,7 @@ module.exports = function commonConfig(target) {
     mode: isDev ? 'development' : 'production',
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.sass'],
-      alias: pkg._moduleAliases
+      alias: _moduleAliases
     },
     getBabelRule() {
       return {
@@ -71,48 +70,8 @@ module.exports = function commonConfig(target) {
         use: {
           loader: 'babel-loader',
           options: {
-            babelrc: false,
             cacheDirectory: !!isDev,
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  corejs: 3,
-                  useBuiltIns: 'usage',
-                  targets: isClient
-                    ? { browsers: 'last 2 versions', ie: 11 }
-                    : { node: 'current' }
-                }
-              ],
-              '@babel/preset-react'
-            ],
-            plugins: [
-              'react-hot-loader/babel',
-              'universal-import',
-              '@babel/plugin-transform-strict-mode',
-              '@babel/plugin-syntax-dynamic-import',
-              '@babel/plugin-proposal-class-properties',
-              [
-                'react-css-modules',
-                {
-                  exclude: 'global.(css|scss|sass)', // need to exclude the defined global CSS file
-                  context: syspath.app, // must match with webpack's context
-                  generateScopedName: cssScopedName,
-                  filetypes: {
-                    '.scss': {
-                      syntax: 'postcss-scss',
-                      plugins: ['postcss-nested']
-                    }
-                  }
-                }
-              ]
-            ],
-            // environment specific
-            env: {
-              production: {
-                plugins: ['transform-react-remove-prop-types']
-              }
-            }
+            configFile: true
           }
         }
       };
@@ -133,7 +92,7 @@ module.exports = function commonConfig(target) {
         test: /\.module\.(css|scss|sass)$/,
         exclude: /global\.(css|scss|sass)/,
         use: getStyleLoaders(MiniCssExtractPlugin, {
-          modules: { localIdentName: cssScopedName },
+          modules: { localIdentName: localScopedName },
           onlyLocals: !isClient
         })
       };

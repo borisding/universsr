@@ -166,6 +166,7 @@
       "middleware/*"
     ]
   },
+  "localScopedName": "[local]___[hash:base64:5]",
   "browserslist": [
     "last 2 versions",
     "ie 11"
