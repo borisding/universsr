@@ -49,7 +49,6 @@ function babelConfig() {
     },
     test: {
       plugins: [
-        'dynamic-import-node-babel-7',
         [
           'babel-plugin-webpack-alias',
           {
