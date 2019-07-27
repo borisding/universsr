@@ -84,24 +84,24 @@ module.exports = function commonConfig(target) {
         use: ['react-hot-loader/webpack']
       };
     },
-    // this is for us to import local CSS modules from `app`, except global CSS file
+    // rule for any local CSS modules from `app`
     // Note: CSS class names are assigned to `styleName` property where
     // `babel-plugin-react-css-modules` plugin will take care of it and do the matching
     getCssModulesRule(MiniCssExtractPlugin = null) {
       return {
         test: /\.module\.(css|scss|sass)$/,
-        exclude: /global\.(css|scss|sass)/,
+        exclude: /node_modules/,
         use: getStyleLoaders(MiniCssExtractPlugin, {
           modules: { localIdentName: localScopedName },
           onlyLocals: !isClient
         })
       };
     },
-    // this is for us to use global styles imported in `global.css` or `global.scss` file
-    // Note: we assign global CSS class names to `className` property instead of `styleName`
-    getGlobalStylesRule(MiniCssExtractPlugin = null) {
+    // rule for any styles that is not coming from `*.module.(css|scss|sass)`
+    getStylesRule(MiniCssExtractPlugin = null) {
       return {
-        test: /global\.(css|scss|sass)$/,
+        test: /\.(css|scss|sass)$/,
+        exclude: /\.module\.(css|scss|sass)$/,
         use: getStyleLoaders(MiniCssExtractPlugin, {
           modules: false
         })

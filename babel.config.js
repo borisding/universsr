@@ -27,7 +27,7 @@ function babelConfig() {
     [
       'react-css-modules',
       {
-        exclude: 'global.(css|scss|sass)', // need to exclude the defined global CSS file
+        exclude: 'node_modules',
         context: webpackConfig[0].context, // must match with webpack's context
         generateScopedName: isTest ? '[local]' : localScopedName,
         filetypes: {

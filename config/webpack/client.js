@@ -60,7 +60,7 @@ module.exports = function clientConfig(env) {
         commonConfig.getImagesRule(),
         commonConfig.getFontsRule(),
         commonConfig.getCssModulesRule(MiniCssExtractPlugin),
-        commonConfig.getGlobalStylesRule(MiniCssExtractPlugin)
+        commonConfig.getStylesRule(MiniCssExtractPlugin)
       ]
     },
     plugins: [

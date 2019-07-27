@@ -39,7 +39,7 @@ module.exports = function serverConfig() {
         commonConfig.getImagesRule(),
         commonConfig.getFontsRule(),
         commonConfig.getCssModulesRule(),
-        commonConfig.getGlobalStylesRule()
+        commonConfig.getStylesRule()
       ]
     },
     plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })]
