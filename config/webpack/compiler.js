@@ -5,13 +5,25 @@ const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const webpackConfig = require('@root/webpack.config');
 const { syspath } = require('@config');
 
-module.exports = function webpackCompiler(app) {
+let isServerRunning = false;
+
+module.exports = function webpackCompiler(runServer) {
   const clientConfig = webpackConfig[0] || {};
   const serverConfig = webpackConfig[1] || {};
   const compiler = webpack([clientConfig, serverConfig]);
+  const clientCompiler = compiler.compilers.find(
+    compiler => compiler.name === 'client'
+  );
 
-  // mount webpack middleware for Express
-  app.use(
+  clientCompiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
+    if (!isServerRunning) {
+      runServer();
+      isServerRunning = true;
+    }
+  });
+
+  return [
+    // mount webpack middleware for Express
     webpackDevMiddleware(compiler, {
       publicPath: clientConfig.output.publicPath,
       serverSideRender: true,
@@ -21,21 +33,14 @@ module.exports = function webpackCompiler(app) {
         ignored: [`${syspath.root}/node_modules`],
         poll: false
       }
-    })
-  );
-
-  // mount webpack hot reloading middleware
-  app.use(
-    webpackHotMiddleware(
-      compiler.compilers.find(compiler => compiler.name === 'client'),
-      {
-        log: console.log,
-        path: '/__webpack_hmr',
-        heartbeat: 10000
-      }
-    )
-  );
-
-  // server hot updates must be placed after client hot reload
-  app.use(webpackHotServerMiddleware(compiler));
+    }),
+    // mount webpack hot reloading middleware
+    webpackHotMiddleware(clientCompiler, {
+      log: console.log,
+      path: '/__webpack_hmr',
+      heartbeat: 10000
+    }),
+    // server hot updates must be placed after client hot reload
+    webpackHotServerMiddleware(compiler)
+  ];
 };

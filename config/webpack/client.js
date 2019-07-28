@@ -64,6 +64,7 @@ module.exports = function clientConfig(env) {
       ]
     },
     plugins: [
+      new webpack.ProgressPlugin(),
       new webpack.DefinePlugin(env.getCustomEnv().stringified),
       new MiniCssExtractPlugin({
         filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
