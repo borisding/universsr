@@ -76,7 +76,6 @@
     "http-proxy": "^1.17.0",
     "husky": "^3.0.1",
     "is-plain-object": "^3.0.0",
-    "isdev": "^1.0.1",
     "make-promises-safe": "^5.0.0",
     "module-alias": "^2.2.0",
     "morgan": "^1.9.1",

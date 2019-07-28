@@ -1,8 +1,6 @@
-const { isNode } = require('./config');
+const { isNode, isTest } = require('./config');
 const { localScopedName } = require('./package');
 const webpackConfig = require('./webpack.config');
-
-const isTest = process.env.NODE_ENV === 'test';
 
 function babelConfig() {
   const presets = [
