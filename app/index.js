@@ -7,7 +7,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import { isDev, syspath } from '@config';
-import { proxy, httpLogger, errorHandler } from '@middleware';
+import { proxyServer, httpLogger, errorHandler } from '@middleware';
 
 const app = express();
 
@@ -18,7 +18,7 @@ app
   .use(cookieParser())
   .use(compression())
   .use(express.static(syspath.public))
-  .use(`/api/${process.env.API_VERSION}`, proxy.proxyWeb)
+  .use(`/api/${process.env.API_VERSION}`, proxyServer.proxyWeb)
   .get('/favicon.ico', (req, res) => res.status(204)); // simply ignore
 
 // use webpack compiler for development

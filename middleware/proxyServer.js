@@ -2,15 +2,15 @@ import httpProxy from 'http-proxy';
 
 // @see: https://github.com/nodejitsu/node-http-proxy#options
 const origin = `${process.env.API_PROTOCOL}://${process.env.API_HOST}:${process.env.API_PORT}`;
-const proxy = httpProxy.createProxyServer({
+const proxyServer = httpProxy.createProxyServer({
   target: `${origin}/api/${process.env.API_VERSION}`
 });
 
 const proxyWeb = (req, res) => {
-  proxy.web(req, res);
+  proxyServer.web(req, res);
 };
 
-proxy.on('error', (err, req, res) => {
+proxyServer.on('error', (err, req, res) => {
   if (err.code !== 'ECONNRESET') {
     console.error('Proxy error:', err);
   }
