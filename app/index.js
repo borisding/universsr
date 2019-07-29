@@ -47,9 +47,9 @@ function runServer() {
     console.info(colors.cyan(`App server is listening PORT: ${serverPort}`));
 
     if (isDev) {
-      console.log(
-        colors.green(`App is started at: http://localhost:${serverPort}`)
-      );
+      const url = `http://localhost:${serverPort}`;
+      console.log(colors.green(`App is started at: ${url}`));
+      require('open')(url);
     }
   });
 
