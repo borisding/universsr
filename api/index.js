@@ -1,7 +1,7 @@
 import 'make-promises-safe';
-import colors from 'colors';
 import http from 'http';
 import express from 'express';
+import colors from 'colors';
 import hpp from 'hpp';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
@@ -24,12 +24,13 @@ api.use(notFoundHandler()).use(errorHandler({ json: true }));
 
 // running api server
 const server = http.createServer(api);
-const serverPort = parseInt(process.env.API_PORT, 10) || 3030;
+const host = process.env.API_HOST || 'localhost';
+const port = parseInt(process.env.API_PORT, 10) || 3030;
 
-server.listen(serverPort);
+server.listen(port, host);
 
 server.on('listening', () => {
-  console.info(colors.cyan(`API server is listening PORT: ${serverPort}`));
+  console.info(colors.cyan(`API server is listening PORT: ${port}`));
 });
 
 server.on('error', err => {
@@ -39,7 +40,7 @@ server.on('error', err => {
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(colors.red(`${serverPort} is already in use.`));
+      console.error(colors.red(`${port} is already in use.`));
       process.exit(1);
       break;
     default:

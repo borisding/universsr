@@ -8,7 +8,7 @@ export default function lazy(page, options = {}) {
 
   // default options for async component
   const defaultOptions = {
-    minDelay: parseInt(process.env.MIN_DELAY, 10)
+    minDelay: 0
   };
 
   // for universal api and options,

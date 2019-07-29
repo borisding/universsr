@@ -1,7 +1,7 @@
 import 'make-promises-safe';
-import colors from 'colors';
 import http from 'http';
 import express from 'express';
+import colors from 'colors';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
@@ -36,19 +36,20 @@ if (isDev) {
 // mount error handler middleware last
 app.use(errorHandler());
 
+// running app server
 function runServer() {
-  // running app server
   const server = http.createServer(app);
-  const serverPort = parseInt(process.env.PORT, 10) || 3000;
+  const host = process.env.HOST || 'localhost';
+  const port = parseInt(process.env.PORT, 10) || 3000;
 
-  server.listen(serverPort);
+  server.listen(port, host);
 
   server.on('listening', () => {
-    console.info(colors.cyan(`App server is listening PORT: ${serverPort}`));
+    console.info(colors.cyan(`App server is listening PORT: ${port}`));
 
     if (isDev) {
-      const url = `http://localhost:${serverPort}`;
-      console.log(colors.green(`App is started at: ${url}`));
+      const url = `http://${host}:${port}`;
+      console.log(colors.green(`App started at: ${url}`));
       require('open')(url);
     }
   });
@@ -60,7 +61,7 @@ function runServer() {
         process.exit(1);
         break;
       case 'EADDRINUSE':
-        console.error(colors.red(`${serverPort} is already in use.`));
+        console.error(colors.red(`${port} is already in use.`));
         process.exit(1);
         break;
       default:

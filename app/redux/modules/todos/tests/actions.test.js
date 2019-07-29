@@ -5,12 +5,7 @@ import actions from '../actions';
 import types from '../types';
 import { requestTypes, requestActions } from '@app/redux/modules/request';
 
-const host =
-  `${process.env.PROTOCOL}://` +
-  `${process.env.HOST}:` +
-  `${process.env.PORT}` +
-  `/api/${process.env.API_VERSION}`;
-
+const host = `http://${process.env.HOST}:${process.env.PORT}/api/${process.env.API_VERSION}`;
 const mockStore = configureMockStore([
   thunk.withExtraArgument({ ...requestActions })
 ]);
