@@ -5,7 +5,7 @@ const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const webpackConfig = require('@root/webpack.config');
 const { syspath } = require('@config');
 
-let isServerRunning = false;
+let isEmitted = false;
 
 module.exports = function webpackCompiler(runServer) {
   const clientConfig = webpackConfig[0] || {};
@@ -16,9 +16,9 @@ module.exports = function webpackCompiler(runServer) {
   );
 
   clientCompiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
-    if (!isServerRunning) {
+    if (!isEmitted) {
+      isEmitted = true;
       runServer();
-      isServerRunning = true;
     }
   });
 
