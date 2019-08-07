@@ -169,115 +169,11 @@
     "last 2 versions",
     "ie 11"
   ],
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {
-        "grid": true,
-        "flexbox": "no-2009"
-      }
-    }
-  },
-  "eslintConfig": {
-    "root": true,
-    "parser": "babel-eslint",
-    "extends": [
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "prettier",
-      "prettier/react"
-    ],
-    "plugins": [
-      "prettier",
-      "jest"
-    ],
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "env": {
-      "browser": true,
-      "node": true,
-      "es6": true,
-      "jest": true
-    },
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    },
-    "rules": {
-      "global-require": 0,
-      "linebreak-style": 0,
-      "no-global-assign": 0,
-      "no-console": 0,
-      "no-unused-vars": [
-        2,
-        {
-          "varsIgnorePattern": "styles"
-        }
-      ],
-      "react/prop-types": 0,
-      "react/display-name": 0,
-      "react/jsx-no-target-blank": 1,
-      "prettier/prettier": [
-        "error",
-        {
-          "singleQuote": true,
-          "endOfLine": "auto"
-        }
-      ]
-    }
-  },
   "eslintIgnore": [
     "storage/**/*",
     "public/**/*.js",
     "app/serverRenderer.*"
   ],
-  "stylelint": {
-    "plugins": [
-      "stylelint-scss"
-    ],
-    "extends": "stylelint-config-sass-guidelines",
-    "rules": {
-      "selector-max-id": 1,
-      "selector-class-pattern": null,
-      "property-no-unknown": [
-        true,
-        {
-          "ignoreProperties": [
-            "composes"
-          ]
-        }
-      ]
-    }
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/config/jest/setupTest.js"
-    ],
-    "coverageDirectory": "<rootDir>/storage/coverage",
-    "collectCoverageFrom": [
-      "{api,app}/**/**/*.{js,jsx}",
-      "{utils,middleware}/*.js",
-      "!{api,app}/**/**/index.{js,jsx}",
-      "!{utils,middleware}/index.js",
-      "!app/serverRenderer.{js,map}"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/config/jest/styleMock.js"
-    },
-    "testEnvironment": "node",
-    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$",
-    "testPathIgnorePatterns": [
-      "<rootDir>/node_modules/"
-    ]
-  },
   "_moduleAliases": {
     "@root": ".",
     "@api": "api",
