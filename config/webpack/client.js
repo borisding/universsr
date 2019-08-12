@@ -74,11 +74,11 @@ module.exports = function clientConfig(env) {
       }),
       new CopyWebpackPlugin([
         {
-          from: `${syspath.app}/assets/manifest.json`,
+          from: `${syspath.assets}/manifest.json`,
           to: syspath.public
         },
         {
-          from: `${syspath.app}/assets/icons`,
+          from: `${syspath.assets}/icons`,
           to: `${syspath.public}/icons`
         }
       ])

@@ -1,6 +1,6 @@
 import React from 'react';
 import Alert from 'react-s-alert';
-import logo from '@app/assets/images/logo.png'; // example of import assets image
+import logo from '../../../assets/images/logo.png';
 import { Container } from '@app/common/components';
 import './Home.module.scss';
 
