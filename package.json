@@ -53,7 +53,6 @@
   "author": "Boris Ding Poh Hing",
   "license": "MIT",
   "dependencies": {
-    "acorn": "^6.2.1",
     "app-root-path": "^2.2.1",
     "axios": "^0.19.0",
     "babel-plugin-react-css-modules": "^5.2.6",
