@@ -8,4 +8,7 @@ require('make-promises-safe');
 // to enable aliases for required modules for app/api
 require('module-alias/register');
 
+// load environment variables at first place
+require('./env.config');
+
 module.exports = file => require(file);
