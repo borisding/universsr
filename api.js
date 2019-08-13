@@ -2,4 +2,4 @@
 require('./env');
 
 // expose api with esm loader
-require('./esm')('./api/index');
+require('./esm.config')('./api/index');

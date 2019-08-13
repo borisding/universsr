@@ -2,4 +2,4 @@
 require('./env');
 
 // expose app with esm loader
-require('./esm')('./app/index');
+require('./esm.config')('./app/index');
