@@ -9,7 +9,8 @@ module.exports = {
     ],
     "plugins": [
       "prettier",
-      "jest"
+      "jest",
+      "react-hooks",
     ],
     "parserOptions": {
       "ecmaFeatures": {
@@ -41,6 +42,8 @@ module.exports = {
       "react/prop-types": 0,
       "react/display-name": 0,
       "react/jsx-no-target-blank": 1,
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
       "prettier/prettier": [
         "error",
         {
