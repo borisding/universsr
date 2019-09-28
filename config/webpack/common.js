@@ -61,7 +61,7 @@ module.exports = function commonConfig(target) {
     mode: isDev ? 'development' : 'production',
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.sass'],
-      alias: _moduleAliases
+      alias: { 'react-dom': '@hot-loader/react-dom', ..._moduleAliases }
     },
     getBabelRule() {
       return {
@@ -74,14 +74,6 @@ module.exports = function commonConfig(target) {
             configFile: true
           }
         }
-      };
-    },
-    // using webpack loader for react-🔥-dom patch (v16.6+)
-    getHotWebpackRule() {
-      return {
-        test: /\.jsx?$/,
-        include: /node_modules/,
-        use: ['react-hot-loader/webpack']
       };
     },
     // rule for any local CSS modules from `app`

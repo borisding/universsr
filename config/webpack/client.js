@@ -56,7 +56,6 @@ module.exports = function clientConfig(env) {
     module: {
       rules: [
         commonConfig.getBabelRule(),
-        commonConfig.getHotWebpackRule(),
         commonConfig.getImagesRule(),
         commonConfig.getFontsRule(),
         commonConfig.getCssModulesRule(MiniCssExtractPlugin),
