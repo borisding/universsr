@@ -41,7 +41,4 @@ const FrontloadTodos = frontloadConnect(async ({ actions, todos }) => {
   if (todos.length === 0) return await actions.fetchTodos();
 })(Todos);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FrontloadTodos);
+export default connect(mapStateToProps, mapDispatchToProps)(FrontloadTodos);
