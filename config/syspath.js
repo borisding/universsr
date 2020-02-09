@@ -3,12 +3,11 @@ const root = require('app-root-path');
 module.exports = {
   root,
   api: `${root}/api`,
-  app: `${root}/app`,
-  assets: `${root}/assets`,
+  assets: `${root}/src/assets`,
+  client: `${root}/src/client`,
   config: `${root}/config`,
-  logger: `${root}/logger`,
-  middleware: `${root}/middleware`,
   public: `${root}/public`,
+  server: `${root}/src/server`,
   storage: `${root}/storage`,
-  utils: `${root}/utils`
+  utils: `${root}/src/utils`
 };

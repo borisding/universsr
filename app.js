@@ -1,2 +1,2 @@
 // expose app with esm loader
-require('./esm.config')('./app/index');
+require('./esm.config')('./src/server');

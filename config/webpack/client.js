@@ -16,15 +16,15 @@ module.exports = function clientConfig(env) {
   return {
     target: 'web',
     name: 'client',
+    context: syspath.client,
     mode: commonConfig.mode,
-    context: commonConfig.context,
     devtool: commonConfig.devtool,
     resolve: commonConfig.resolve,
     entry: [
       ...(isDev
         ? ['webpack-hot-middleware/client?path=/__webpack_hmr&reload=true']
         : []),
-      './client.js'
+      './index.js'
     ],
     output: {
       path: syspath.public,

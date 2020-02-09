@@ -1,0 +1,31 @@
+@import '@client/common/styles/variables';
+
+body {
+  display: flex;
+  flex-direction: column;
+  font: $base-font-size $font-stack;
+  margin: 0;
+  min-height: 100vh;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $color-border;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.container {
+  min-height: 100vh;
+}

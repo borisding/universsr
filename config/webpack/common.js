@@ -1,4 +1,4 @@
-const { isDev, syspath } = require('@config');
+const { isDev } = require('@config');
 const { localScopedName, _moduleAliases } = require('@root/package');
 
 module.exports = function commonConfig(target) {
@@ -57,7 +57,6 @@ module.exports = function commonConfig(target) {
   return {
     devtool,
     publicPath,
-    context: syspath.app,
     mode: isDev ? 'development' : 'production',
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.sass'],

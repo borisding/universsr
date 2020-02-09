@@ -1,9 +1,10 @@
 coverage
 node_modules
 public
+src/server/dist
+
 .env
 .DS_Store
 *.log
 *.map
-serverRenderer.*
 *-properties.*

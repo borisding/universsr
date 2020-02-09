@@ -2,11 +2,11 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/env.config.js'],
   coverageDirectory: '<rootDir>/storage/coverage',
   collectCoverageFrom: [
-    '{api,app}/**/**/*.{js,jsx}',
-    '{utils,middleware}/*.js',
-    '!{api,app}/**/**/index.{js,jsx}',
-    '!{utils,middleware}/index.js',
-    '!app/serverRenderer.{js,map}'
+    '{api,src}/**/**/*.{js,jsx}',
+    '{src/utils}/*.js',
+    '!{api,src}/**/**/index.{js,jsx}',
+    '!{src/utils}/index.js',
+    '!src/server/dist.{js,map}'
   ],
   moduleFileExtensions: ['js', 'jsx'],
   moduleNameMapper: {

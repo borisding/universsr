@@ -18,16 +18,16 @@ module.exports = function serverConfig() {
   return {
     target: 'node',
     name: 'server',
+    context: syspath.server,
     mode: commonConfig.mode,
-    context: commonConfig.context,
     devtool: commonConfig.devtool,
     resolve: commonConfig.resolve,
     externals: nodeExternals,
-    entry: './server.js',
+    entry: './renderer.js',
     output: {
-      path: syspath.app,
+      path: syspath.server,
       libraryTarget: 'commonjs2',
-      filename: 'serverRenderer.js'
+      filename: 'dist/renderer.js'
     },
     node: {
       __filename: false,
