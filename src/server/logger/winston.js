@@ -8,11 +8,11 @@ const winstonLogger = createLogger({
   transports: [
     new transports.File({
       level: 'info',
-      filename: `${syspath.storage}/logs/access.log`
+      filename: `${syspath.logs}/access.log`
     }),
     new transports.File({
       level: 'error',
-      filename: `${syspath.storage}/logs/errors.log`,
+      filename: `${syspath.logs}/errors.log`,
       format: combine(
         label({ label: 'ERROR:' }),
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),

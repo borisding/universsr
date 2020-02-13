@@ -183,7 +183,6 @@
     "@config": "config",
     "@public": "public",
     "@server": "src/server",
-    "@storage": "storage",
     "@utils": "src/utils"
   }
 }
