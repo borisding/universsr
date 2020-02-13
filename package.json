@@ -178,7 +178,7 @@
   "_moduleAliases": {
     "@root": ".",
     "@api": "api",
-    "@assets":  "src/assets",
+    "@assets":  "assets",
     "@client": "src/client",
     "@config": "config",
     "@public": "public",
