@@ -15,7 +15,7 @@
     "start:api": "cross-env NODE_ENV=production node api.js",
     "start": "run-p start:api start:app",
     "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
-    "test:coverage": "rimraf storage/coverage && npm test -- --coverage",
+    "test:coverage": "rimraf assets/coverage && npm test -- --coverage",
     "test:watch": "npm test -- --watch",
     "lint": "npm-run-all lint:js lint:style",
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
@@ -171,7 +171,6 @@
     "ie 11"
   ],
   "eslintIgnore": [
-    "storage/**/*",
     "public/**/*.js",
     "src/server/dist"
   ],

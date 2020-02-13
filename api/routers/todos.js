@@ -1,5 +1,5 @@
 import express from 'express';
-import todos from '@storage/fixtures/todos';
+import todos from '@assets/fixtures/todos';
 
 // records should be reading from db for real world app
 // can add more http verbs request for complete CRUD

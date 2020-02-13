@@ -1,12 +1,12 @@
 module.exports = {
   setupFilesAfterEnv: ['<rootDir>/env.config.js'],
-  coverageDirectory: '<rootDir>/storage/coverage',
+  coverageDirectory: '<rootDir>/assets/coverage',
   collectCoverageFrom: [
     '{api,src}/**/**/*.{js,jsx}',
     '{src/utils}/*.js',
     '!{api,src}/**/**/index.{js,jsx}',
     '!{src/utils}/index.js',
-    '!src/server/dist.{js,map}'
+    '!src/server/dist/*.{js,map}'
   ],
   moduleFileExtensions: ['js', 'jsx'],
   moduleNameMapper: {
