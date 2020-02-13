@@ -5,10 +5,8 @@ module.exports = {
   api: `${root}/api`,
   assets: `${root}/assets`,
   config: `${root}/config`,
-  public: `${root}/public`,
   logs: `${root}/logs`,
-  webpack: `${root}/webpack`,
-  client: `${root}/src/client`,
-  server: `${root}/src/server`,
-  utils: `${root}/src/utils`
+  public: `${root}/public`,
+  src: `${root}/src`,
+  webpack: `${root}/webpack`
 };

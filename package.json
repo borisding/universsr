@@ -178,9 +178,10 @@
     "@root": ".",
     "@api": "api",
     "@assets":  "assets",
-    "@client": "src/client",
     "@config": "config",
     "@public": "public",
+    "@webpack": "webpack",
+    "@client": "src/client",
     "@server": "src/server",
     "@utils": "src/utils"
   }
