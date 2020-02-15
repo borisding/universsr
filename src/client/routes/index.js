@@ -1,5 +1,5 @@
 import { hot } from 'react-hot-loader/root';
-import Layout from '../layout';
+import { Layout } from '../layout';
 import * as Pages from '../pages';
 
 export const routes = [
