@@ -3,12 +3,10 @@ import { createBrowserHistory, createMemoryHistory } from 'history';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import { isDev, isNode } from '@config';
-import { serviceAlert } from './middleware';
 import { requestActions } from './modules/request';
 import createRootReducer from './modules';
 
-export default function configureStore(preloadedState) {
-  const { url, ...initialState } = preloadedState;
+export default function configureStore({ url, ...initialState }) {
   const history = isNode
     ? createMemoryHistory({ initialEntries: [url] })
     : createBrowserHistory();
@@ -17,8 +15,7 @@ export default function configureStore(preloadedState) {
     routerMiddleware(history),
     // register request actions for dispatch
     // so that it's accessible in respective thunk wrappers
-    thunk.withExtraArgument({ ...requestActions }),
-    serviceAlert()
+    thunk.withExtraArgument({ ...requestActions })
   ];
 
   // check if redux devtools extension compose available

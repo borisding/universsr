@@ -90,7 +90,6 @@
     "react-redux": "^7.1.3",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.1.2",
-    "react-s-alert": "^1.4.1",
     "react-universal-component": "^4.0.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",

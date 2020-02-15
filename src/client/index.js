@@ -8,7 +8,6 @@ import { isDev } from '@config';
 import configureStore from './redux/configureStore';
 import registerOffline from './offline';
 import routes from './routes';
-import '@client/common/styles/global.scss';
 
 const preloadedState = window.__UNIVERSSR_PRELOADED_STATE__;
 const { store, history } = configureStore(preloadedState);

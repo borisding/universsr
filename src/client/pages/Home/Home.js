@@ -1,14 +1,9 @@
 import React from 'react';
-import Alert from 'react-s-alert';
 import logo from '@assets/images/logo.png';
 import { Container } from '@client/common/components';
 import './Home.module.scss';
 
 export default function Home() {
-  function onClick() {
-    Alert.info('Hello! This is universal React + Redux demo site.');
-  }
-
   return (
     <Container title="Home">
       <div styleName="logo">
@@ -17,19 +12,14 @@ export default function Home() {
       <p styleName="lead">
         universsr is <strong>universal</strong> React-Redux starter kit.
       </p>
-      <div>
-        <button styleName="btn-alert" onClick={onClick}>
-          Show alert
-        </button>
-        {' or, go to '}
-        <a
-          href="https://github.com/borisding/universsr"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          GitHub repository
-        </a>
-      </div>
+      <br />
+      <a
+        href="https://github.com/borisding/universsr"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        GitHub repository
+      </a>
     </Container>
   );
 }
