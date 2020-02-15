@@ -24,25 +24,22 @@ app
 // otherwise, use built server renderer instead
 if (isDev) {
   const webpackCompiler = require('@webpack/compiler');
-  app.use(webpackCompiler(runServer));
+  app.use(webpackCompiler(runHttpServer));
 } else {
   const clientStats = require('@public/stats');
   const serverRenderer = require('./dist/renderer').default;
   app.use(serverRenderer({ clientStats }));
-  runServer();
+  app.use(errorHandler());
+  runHttpServer();
 }
 
-// mount error handler middleware last
-app.use(errorHandler());
-
-// running app server
-function runServer() {
+// running app http server
+function runHttpServer() {
   const server = http.createServer(app);
   const host = process.env.HOST || 'localhost';
   const port = parseInt(process.env.PORT, 10) || 3000;
 
   server.listen(port, host);
-
   server.on('listening', () => {
     console.info(colors.cyan(`App server is listening PORT: ${port}`));
 

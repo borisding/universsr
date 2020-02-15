@@ -5,9 +5,7 @@ const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const webpackConfig = require('@root/webpack.config');
 const { syspath } = require('@config');
 
-let isEmitted = false;
-
-module.exports = function webpackCompiler(runServer) {
+module.exports = function webpackCompiler(runHttpServer) {
   const clientConfig = webpackConfig[0] || {};
   const serverConfig = webpackConfig[1] || {};
   const compiler = webpack([clientConfig, serverConfig]);
@@ -15,25 +13,25 @@ module.exports = function webpackCompiler(runServer) {
     compiler => compiler.name === 'client'
   );
 
-  clientCompiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
-    if (!isEmitted) {
-      isEmitted = true;
-      runServer();
+  const webpackDevInstance = webpackDevMiddleware(compiler, {
+    publicPath: clientConfig.output.publicPath,
+    serverSideRender: true,
+    logLevel: 'warn',
+    watchOptions: {
+      aggregateTimeout: 500,
+      ignored: [`${syspath.root}/node_modules`],
+      poll: false
     }
   });
 
+  // only runnig http server once compiled bundle is valid
+  webpackDevInstance.waitUntilValid(() => {
+    runHttpServer();
+  });
+
   return [
-    // mount webpack middleware for Express
-    webpackDevMiddleware(compiler, {
-      publicPath: clientConfig.output.publicPath,
-      serverSideRender: true,
-      logLevel: 'warn',
-      watchOptions: {
-        aggregateTimeout: 500,
-        ignored: [`${syspath.root}/node_modules`],
-        poll: false
-      }
-    }),
+    // mount webpack dev middleware
+    webpackDevInstance,
     // mount webpack hot reloading middleware
     webpackHotMiddleware(clientCompiler, {
       log: console.log,
