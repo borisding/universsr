@@ -7,9 +7,10 @@ const StatsWebpackPlugin = require('stats-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { isDev, syspath } = require('@config');
+const { getDefinedVars } = require('../env.config');
 const webpackCommon = require('./common');
 
-module.exports = function clientConfig(env) {
+module.exports = function clientConfig() {
   const commonConfig = webpackCommon('client');
   const isAnalyze = process.env.ANALYZE_MODE === 'enabled';
 
@@ -64,7 +65,7 @@ module.exports = function clientConfig(env) {
     },
     plugins: [
       new webpack.ProgressPlugin(),
-      new webpack.DefinePlugin(env.getCustomEnv().stringified),
+      new webpack.DefinePlugin(getDefinedVars().stringified),
       new MiniCssExtractPlugin({
         filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
         chunkFilename: isDev

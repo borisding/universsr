@@ -23,7 +23,7 @@ if (fs.existsSync(envFile)) {
   parsed = result.parsed;
 }
 
-function getCustomEnv() {
+function getDefinedVars() {
   // return empty object instead when none was parsed
   if (!parsed) {
     return { parsed: {}, stringified: {} };
@@ -41,5 +41,5 @@ function getCustomEnv() {
 // export env related
 module.exports = {
   envFile,
-  getCustomEnv
+  getDefinedVars
 };
