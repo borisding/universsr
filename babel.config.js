@@ -20,7 +20,6 @@ function babelConfig() {
   const plugins = [
     'universal-import',
     '@babel/plugin-transform-strict-mode',
-    '@babel/plugin-syntax-dynamic-import',
     '@babel/plugin-proposal-class-properties',
     [
       'react-css-modules',
