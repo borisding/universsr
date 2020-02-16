@@ -9,14 +9,13 @@ import { renderRoutes } from 'react-router-config';
 import { minify } from 'html-minifier';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { ServiceClass } from '@utils';
 import { isDev } from '@config';
 import configureStore from '@client/redux/configureStore';
 import html from '@client/html';
 import routes from '@client/routes';
 
 // creating html page with passed data as content
-function createHtmlPage(data) {
+function createHtmlPageContent(data) {
   if (isDev) return html(data);
 
   // minify html for production, programmatically
@@ -38,11 +37,6 @@ export default function serverRenderer({ clientStats }) {
   return async (req, res, next) => {
     try {
       clearChunks();
-      // assign request object to service class via setter method
-      // so that we can add cookie header in service later for server
-      if (req && req.cookies) {
-        ServiceClass.req = req;
-      }
 
       const context = {};
       const { url = '/' } = req;
@@ -71,7 +65,7 @@ export default function serverRenderer({ clientStats }) {
       });
 
       res.status(statusCode).send(
-        createHtmlPage({
+        createHtmlPageContent({
           styles,
           js,
           renderedAppString,

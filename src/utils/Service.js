@@ -1,8 +1,5 @@
 import axios from 'axios';
 import isPlainObject from 'is-plain-object';
-import { isNode } from '@config';
-
-let req = null;
 
 export default class Service {
   constructor(axiosConfig) {
@@ -16,7 +13,7 @@ export default class Service {
 
     this.defaultConfig = {
       baseURL: this.getBaseURL(),
-      timeout: parseInt(process.env.TIMEOUT, 10)
+      timeout: parseInt(process.env.REQUEST_TIMEOUT, 10)
     };
 
     this.axios = axios.create({
@@ -29,32 +26,10 @@ export default class Service {
     return new Service(axiosConfig);
   }
 
-  static get req() {
-    return req;
-  }
-
-  static set req(value) {
-    req = value;
-  }
-
   getBaseURL() {
     const api = `api/${process.env.API_VERSION}`;
-    const origin = process.env.ORIGIN;
-    const host = process.env.HOST || 'localhost';
-    const port = parseInt(process.env.PORT, 10) || 3000;
-
-    // use it if origin is explicitly defined (eg: domain name)
-    if (origin) {
-      return `${origin}/${api}`;
-    }
-
-    // construct base URL when is on server side
-    if (isNode) {
-      return `http://${host}:${port}/${api}`;
-    }
-
-    // or return as it is
-    return `/${api}`;
+    const origin = `http://${process.env.HOST}:${process.env.PORT}`;
+    return `${origin}/${api}`;
   }
 
   interceptRequest(resolve, reject) {
@@ -92,12 +67,6 @@ export const service = Service.create();
 
 service.interceptRequest(
   config => {
-    // set the cookie header for server
-    if (isNode && Service.req && Service.req.header) {
-      config.headers.Cookie = Service.req.header('cookie') || '';
-      Service.req = null;
-    }
-
     return config;
   },
   err => Promise.reject(err)
@@ -105,11 +74,8 @@ service.interceptRequest(
 
 service.interceptResponse(
   res => {
-    // we may do something here before returning response data
     return res;
   },
-  // we may do something with response error
-  // say, when user authentication failure occured
   err => {
     return Promise.reject(err.response && err.response.data);
   }

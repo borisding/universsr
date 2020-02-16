@@ -7,7 +7,7 @@ export const fetchTodos = () => {
   return async (dispatch, getState, { requestError }) => {
     try {
       await dispatch({ type: types.TODOS_FETCH_BEGIN });
-      const res = await service.get('/todos');
+      const res = await service.get('/todos?_limit=10');
       dispatch({ type: types.TODOS_FETCH_SUCCESS, payload: res.data });
     } catch (err) {
       dispatch({ type: types.TODOS_FETCH_FAILURE });
