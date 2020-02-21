@@ -1,4 +1,3 @@
-import 'make-promises-safe';
 import http from 'http';
 import express from 'express';
 import colors from 'colors';

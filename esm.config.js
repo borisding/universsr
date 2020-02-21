@@ -2,10 +2,7 @@
 // @see: https://github.com/standard-things/esm#options
 require = require('esm')(module);
 
-// to enable aliases for required modules for app/api
+// to enable aliases for required modules for app
 require('module-alias/register');
-
-// load environment variables at first place
-require('./env.config');
 
 module.exports = file => require(file);

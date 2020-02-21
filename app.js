@@ -1,2 +1,9 @@
+// make use of promise safe
+require('make-promises-safe');
+
+// load environment variables
+require('./env.config');
+
 // expose app with esm loader
-require('./esm.config')('./src/server');
+const esmLoader = require('./esm.config');
+esmLoader('./src/server');
