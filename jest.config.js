@@ -1,5 +1,5 @@
 module.exports = {
-  setupFilesAfterEnv: ['<rootDir>/env.config.js'],
+  setupFilesAfterEnv: ['<rootDir>/env.loader.js'],
   coverageDirectory: '<rootDir>/assets/coverage',
   collectCoverageFrom: [
     '{src}/**/**/*.{js,jsx}',

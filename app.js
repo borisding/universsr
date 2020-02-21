@@ -4,7 +4,7 @@ const esmLoader = require('./esm.loader');
 esmLoader('module-alias/register');
 
 // load environment variables
-esmLoader('./env.config');
+esmLoader('./env.loader');
 
 // load server entry for the app
 esmLoader('./src/server');
