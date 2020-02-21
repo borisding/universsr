@@ -2,7 +2,4 @@
 // @see: https://github.com/standard-things/esm#options
 require = require('esm')(module);
 
-// to enable aliases for required modules for app
-require('module-alias/register');
-
 module.exports = file => require(file);
