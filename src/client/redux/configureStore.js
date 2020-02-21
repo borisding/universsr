@@ -21,7 +21,9 @@ export default function configureStore({ url, ...initialState }) {
   // check if redux devtools extension compose available
   // apply for development environment only
   const withReduxDevtools =
-    isDev && !isNode && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+    isDev &&
+    typeof window !== 'undefined' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
   // make compose enhancers
   const composeEnhancers = withReduxDevtools
@@ -35,8 +37,8 @@ export default function configureStore({ url, ...initialState }) {
 
   if (module.hot) {
     module.hot.accept('./modules', () => {
-      const { nextRootReducer } = require('./modules').default;
-      store.replaceReducer(nextRootReducer);
+      const nextRootReducer = require('./modules').default;
+      store.replaceReducer(nextRootReducer(history));
     });
   }
 
