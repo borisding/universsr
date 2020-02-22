@@ -6,4 +6,4 @@ require('module-alias/register');
 const webpackClient = require('./webpack/client');
 const webpackServer = require('./webpack/server');
 
-module.exports = [webpackClient(), webpackServer()];
+module.exports = [webpackClient, webpackServer];
