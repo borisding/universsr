@@ -5,8 +5,7 @@ import TodoList from '../TodoList';
 describe('TodoList', () => {
   it('renders correctly', () => {
     const props = {
-      todos: [{ id: '123', todo: 'todo value', done: false }],
-      updateTodo: jest.fn()
+      todos: [{ id: 1, title: 'todo value', completed: false }]
     };
     const tree = renderer.create(<TodoList {...props} />).toJSON();
     expect(tree).toMatchSnapshot();

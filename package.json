@@ -12,6 +12,7 @@
     "start": "cross-env NODE_ENV=production node app.js",
     "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
     "test:coverage": "rimraf assets/coverage && npm test -- --coverage",
+    "test:update": "npm test -- --updateSnapshot",
     "test:watch": "npm test -- --watch",
     "lint": "npm-run-all lint:js lint:style",
     "lint:style": "stylelint **/*.scss --syntax=scss --fix",
@@ -92,7 +93,6 @@
     "rimraf": "^3.0.2",
     "serialize-javascript": "^3.0.0",
     "slash": "^3.0.0",
-    "uuid": "^3.4.0",
     "webpack-flush-chunks": "^2.0.3",
     "winston": "^3.2.1"
   },

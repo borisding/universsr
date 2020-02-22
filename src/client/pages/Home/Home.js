@@ -1,11 +1,11 @@
 import React from 'react';
 import logo from '@assets/images/logo.png';
-import { Container } from '@client/common/components';
+import { PageContainer } from '@client/common/components';
 import './Home.module.scss';
 
-export default function Home() {
+function Home() {
   return (
-    <Container title="Home">
+    <PageContainer title="Home">
       <div styleName="logo">
         <img src={logo} alt="React Redux Boilerplate" />
       </div>
@@ -20,6 +20,8 @@ export default function Home() {
       >
         GitHub repository
       </a>
-    </Container>
+    </PageContainer>
   );
 }
+
+export default React.memo(Home);

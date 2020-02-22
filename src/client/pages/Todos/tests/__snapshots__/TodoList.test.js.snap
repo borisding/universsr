@@ -5,26 +5,18 @@ exports[`TodoList renders correctly 1`] = `
   className="todos-container"
 >
   <h3>
-    My Todos (0 / 1)
+    Todo List (0 / 1)
   </h3>
   <ul>
     <li>
-      <label
-        htmlFor="123"
+      <span
+        className="pending"
       >
-        <input
-          checked={false}
-          id="123"
-          onChange={[Function]}
-          type="checkbox"
-          value="123"
-        />
-        <span
-          className="pending"
-        >
-          todo value
-        </span>
-      </label>
+        todo value
+         (ID: 
+        1
+        )
+      </span>
     </li>
   </ul>
 </div>

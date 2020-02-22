@@ -1,5 +1,14 @@
-import lazy from '@client/pages/lazy';
+import React from 'react';
+import { PageContainer, HttpStatus } from '@client/common/components';
 
-export default lazy(() =>
-  import(/* webpackChunkName: 'not-found' */ './NotFound')
-);
+function NotFound() {
+  return (
+    <PageContainer title="Not Found">
+      <HttpStatus statusCode={404}>
+        <h3>404 - Page Not Found.</h3>
+      </HttpStatus>
+    </PageContainer>
+  );
+}
+
+export default React.memo(NotFound);

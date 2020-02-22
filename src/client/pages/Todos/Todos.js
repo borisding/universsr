@@ -4,28 +4,24 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { frontloadConnect } from 'react-frontload';
 import { todosActions } from '@client/redux/modules/todos';
-import { Container, Loader } from '@client/common/components';
-import TodoForm from './TodoForm';
+import { PageContainer, Loader } from '@client/common/components';
 import TodoList from './TodoList';
 
-export function Todos({ actions, todos, isFetching }) {
+export function Todos({ todos, isFetching }) {
   if (isFetching) {
     return <Loader />;
   }
 
   return (
-    <Container title="Todos">
-      <h3>Todos Demo</h3>
-      <TodoForm addTodo={actions.addTodo} />
-      <hr />
-      <TodoList todos={todos} updateTodo={actions.updateTodo} />
-    </Container>
+    <PageContainer title="Todos">
+      <TodoList todos={todos} />
+    </PageContainer>
   );
 }
 
 Todos.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-  actions: PropTypes.objectOf(PropTypes.func).isRequired
+  isFetching: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -37,8 +33,12 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(todosActions, dispatch)
 });
 
-const FrontloadTodos = frontloadConnect(async ({ actions, todos }) => {
-  if (todos.length === 0) return await actions.fetchTodos();
-})(Todos);
+const FrontloadTodos = frontloadConnect(
+  async ({ actions, todos, isFetching }) => {
+    if (!isFetching && todos.length === 0) {
+      await actions.fetchTodos();
+    }
+  }
+)(React.memo(Todos));
 
 export default connect(mapStateToProps, mapDispatchToProps)(FrontloadTodos);

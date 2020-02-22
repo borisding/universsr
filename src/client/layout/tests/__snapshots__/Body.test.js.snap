@@ -3,9 +3,5 @@
 exports[`Body renders correctly 1`] = `
 <div
   className="content"
->
-  <div
-    className="s-alert-wrapper"
-  />
-</div>
+/>
 `;

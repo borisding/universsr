@@ -1,29 +1,18 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox } from '@client/common/components';
 import './TodoList.module.scss';
 
-export default function TodoList({ todos, updateTodo }) {
-  const isTruthy = value => value === true;
-  const totalDone = todos.filter(todo => isTruthy(todo.done)).length;
-
+function TodoList({ todos }) {
+  const totalCompleted = todos.filter(todo => !!todo.completed).length;
   return (
     <div styleName="todos-container">
-      <h3>{`My Todos (${totalDone} / ${todos.length})`}</h3>
+      <h3>{`Todo List (${totalCompleted} / ${todos.length})`}</h3>
       <ul>
-        {todos.map(record => (
-          <li key={record.id}>
-            <label htmlFor={record.id}>
-              <Checkbox
-                id={record.id}
-                value={record.id}
-                onChange={evt => updateTodo(evt.target)}
-                isChecked={isTruthy(record.done)}
-              />
-              <span styleName={!record.done ? 'pending' : 'done'}>
-                {record.todo}
-              </span>
-            </label>
+        {todos.map(todo => (
+          <li key={todo.id}>
+            <span styleName={!todo.completed ? 'pending' : 'completed'}>
+              {todo.title} (ID: {todo.id})
+            </span>
           </li>
         ))}
       </ul>
@@ -34,10 +23,11 @@ export default function TodoList({ todos, updateTodo }) {
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      todo: PropTypes.string.isRequired,
-      done: PropTypes.bool.isRequired
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired
     })
-  ).isRequired,
-  updateTodo: PropTypes.func.isRequired
+  ).isRequired
 };
+
+export default memo(TodoList);

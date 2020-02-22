@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
-import NotFound from '../NotFound';
+import NotFound from '../index';
 
 describe('NotFound', () => {
   it('renders correctly', () => {

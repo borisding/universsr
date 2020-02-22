@@ -7,11 +7,9 @@ describe('Todos', () => {
   it('renders correctly', () => {
     const props = {
       isFetching: false,
-      todos: [{ id: '123', todo: 'todo value', done: false }],
+      todos: [{ id: 1, title: 'todo value', completed: false }],
       actions: {
-        addTodo: jest.fn(),
-        updateTodo: jest.fn(),
-        prefetchTodos: jest.fn()
+        fetchTodos: jest.fn()
       }
     };
     const tree = renderer

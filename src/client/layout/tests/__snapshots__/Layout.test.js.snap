@@ -34,10 +34,6 @@ exports[`Layout renders correctly 1`] = `
   </header>
   <div
     className="content"
-  >
-    <div
-      className="s-alert-wrapper"
-    />
-  </div>
+  />
 </div>
 `;

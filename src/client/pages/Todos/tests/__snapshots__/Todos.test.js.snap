@@ -1,50 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Todos renders correctly 1`] = `
-Array [
+<div
+  className="todos-container"
+>
   <h3>
-    Todos Demo
-  </h3>,
-  <form
-    onSubmit={[Function]}
-  >
-    <input
-      className="todo-input"
-      name="newTodo"
-      onBlur={[Function]}
-      onChange={[Function]}
-      placeholder="Enter new todo..."
-      type="text"
-      value=""
-    />
-  </form>,
-  <hr />,
-  <div
-    className="todos-container"
-  >
-    <h3>
-      My Todos (0 / 1)
-    </h3>
-    <ul>
-      <li>
-        <label
-          htmlFor="123"
-        >
-          <input
-            checked={false}
-            id="123"
-            onChange={[Function]}
-            type="checkbox"
-            value="123"
-          />
-          <span
-            className="pending"
-          >
-            todo value
-          </span>
-        </label>
-      </li>
-    </ul>
-  </div>,
-]
+    Todo List (0 / 1)
+  </h3>
+  <ul>
+    <li>
+      <span
+        className="pending"
+      >
+        todo value
+         (ID: 
+        1
+        )
+      </span>
+    </li>
+  </ul>
+</div>
 `;

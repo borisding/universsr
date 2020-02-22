@@ -19,21 +19,13 @@ Array [
     </strong>
      React-Redux starter kit.
   </p>,
-  <div>
-    <button
-      className="btn-alert"
-      onClick={[Function]}
-    >
-      Show alert
-    </button>
-     or, go to 
-    <a
-      href="https://github.com/borisding/universsr"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      GitHub repository
-    </a>
-  </div>,
+  <br />,
+  <a
+    href="https://github.com/borisding/universsr"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    GitHub repository
+  </a>,
 ]
 `;

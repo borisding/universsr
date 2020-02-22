@@ -1,3 +1,5 @@
-import lazy from '@client/pages/lazy';
+import lazyLoad from '../lazyLoad';
 
-export default lazy(() => import(/* webpackChunkName: 'todos' */ './Todos'));
+export default lazyLoad(() =>
+  import(/* webpackChunkName: 'todos' */ './Todos')
+);

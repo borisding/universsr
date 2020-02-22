@@ -1,7 +1,7 @@
 import universal from 'react-universal-component';
 
 // page util to lazy load targeted page component by accepting callback
-export default function lazy(page, options = {}) {
+export default function lazyLoad(page, options = {}) {
   if (typeof page !== 'function') {
     throw new TypeError('Invalid data type of `page`. It must be a function.');
   }

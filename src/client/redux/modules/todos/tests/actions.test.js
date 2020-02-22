@@ -3,23 +3,19 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 import actions from '../actions';
 import types from '../types';
-import { requestTypes, requestActions } from '@client/redux/modules/request';
 
 const host = `http://${process.env.HOST}:${process.env.PORT}/api/${process.env.API_VERSION}`;
-const mockStore = configureMockStore([
-  thunk.withExtraArgument({ ...requestActions })
-]);
+const mockStore = configureMockStore([thunk]);
 
 describe('fetching todos data', () => {
-  const endpoint = '/todos';
+  const endpoint = '/todos?_limit=10';
   let store;
 
   beforeEach(() => {
     store = mockStore({
       todos: {
         isFetching: false,
-        isDone: false,
-        data: [{ id: 'todo-id1', todo: 'Current Todo', done: true }]
+        data: [{ id: 1, title: 'Current Todo', completed: true }]
       }
     });
   });
@@ -28,8 +24,8 @@ describe('fetching todos data', () => {
     nock.cleanAll();
   });
 
-  it('should dispatch `TODOS_FETCH_SUCCESS` action type when fetching todos is already done.', done => {
-    const response = [{ id: 'todo-id2', todo: 'New Todo', done: false }];
+  it('should dispatch `TODOS_FETCH_SUCCESS` action type when fetching todos is already completed.', done => {
+    const response = [{ id: 2, title: 'New Todo', completed: false }];
 
     nock(host)
       .get(endpoint)
@@ -46,7 +42,7 @@ describe('fetching todos data', () => {
     });
   });
 
-  it('should dispatch `REQUEST_ERROR` action type when failed to fetch todos.', done => {
+  it('should dispatch `TODOS_FETCH_FAILURE` action type when failed to fetch todos.', done => {
     const statusCode = 404;
     const errorMessage = 'Request failed with status code 404';
 
@@ -58,9 +54,6 @@ describe('fetching todos data', () => {
       const actions = store.getActions();
       expect(actions[0]).toEqual({ type: types.TODOS_FETCH_BEGIN });
       expect(actions[1]).toEqual({ type: types.TODOS_FETCH_FAILURE });
-      expect(actions[2].type).toEqual(requestTypes.REQUEST_ERROR);
-      expect(actions[2].payload.code).toEqual(statusCode);
-      expect(actions[2].payload.message).toEqual(errorMessage);
       done();
     });
   });

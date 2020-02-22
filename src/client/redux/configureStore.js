@@ -1,9 +1,8 @@
 import thunk from 'redux-thunk';
-import { createBrowserHistory, createMemoryHistory } from 'history';
 import { compose, createStore, applyMiddleware } from 'redux';
+import { createBrowserHistory, createMemoryHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import { isDev, isNode } from '@config';
-import { requestActions } from './modules/request';
 import createRootReducer from './modules';
 
 export default function configureStore({ url, ...initialState }) {
@@ -11,12 +10,7 @@ export default function configureStore({ url, ...initialState }) {
     ? createMemoryHistory({ initialEntries: [url] })
     : createBrowserHistory();
 
-  const middleware = [
-    routerMiddleware(history),
-    // register request actions for dispatch
-    // so that it's accessible in respective thunk wrappers
-    thunk.withExtraArgument({ ...requestActions })
-  ];
+  const middleware = [routerMiddleware(history), thunk];
 
   // check if redux devtools extension compose available
   // apply for development environment only
