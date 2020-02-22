@@ -19,20 +19,10 @@
     "lint:js": "eslint . --fix",
     "heroku-postbuild": "npm run build"
   },
-  "sideEffects": [
-    "*.css",
-    "*.scss",
-    "*.sass"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
-  },
   "verbose": true,
   "engines": {
-    "npm": ">=6.4.1",
-    "node": ">=8.16.0"
+    "npm": ">=6.0.0",
+    "node": ">=10.0.0"
   },
   "repository": {
     "type": "git",
@@ -49,6 +39,16 @@
   ],
   "author": "Boris Ding Poh Hing",
   "license": "MIT",
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "*.sass"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "dependencies": {
     "@hot-loader/react-dom": "^16.11.0",
     "app-root-path": "^3.0.0",
