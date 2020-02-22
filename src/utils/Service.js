@@ -27,8 +27,11 @@ export default class Service {
   }
 
   getBaseURL() {
+    const host = process.env.HOST || 'localhost';
+    const port = process.env.PORT || 3000;
     const api = `api/${process.env.API_VERSION}`;
-    const origin = `http://${process.env.HOST}:${process.env.PORT}`;
+    const origin = `http://${host}:${port}`;
+
     return `${origin}/${api}`;
   }
 

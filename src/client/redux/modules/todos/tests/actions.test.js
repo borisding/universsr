@@ -1,16 +1,17 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
+import { service } from '@utils';
 import actions from '../actions';
 import types from '../types';
 
-const host = `http://${process.env.HOST}:${process.env.PORT}/api/${process.env.API_VERSION}`;
 const mockStore = configureMockStore([thunk]);
 
 describe('fetching todos data', () => {
+  const { baseURL } = service.defaultConfig;
   const endpoint = '/todos?_limit=10';
-  let store;
 
+  let store;
   beforeEach(() => {
     store = mockStore({
       todos: {
@@ -27,7 +28,7 @@ describe('fetching todos data', () => {
   it('should dispatch `TODOS_FETCH_SUCCESS` action type when fetching todos is already completed.', done => {
     const response = [{ id: 2, title: 'New Todo', completed: false }];
 
-    nock(host)
+    nock(baseURL)
       .get(endpoint)
       .reply(200, response);
 
@@ -46,7 +47,7 @@ describe('fetching todos data', () => {
     const statusCode = 404;
     const errorMessage = 'Request failed with status code 404';
 
-    nock(host)
+    nock(baseURL)
       .get(endpoint)
       .reply(statusCode, { code: statusCode, message: errorMessage });
 
