@@ -1,5 +1,6 @@
 const fs = require('fs');
 const webpack = require('webpack');
+const WebpackBar = require('webpackbar');
 const webpackCommon = require('./common');
 const { syspath } = require('@config');
 
@@ -41,5 +42,8 @@ module.exports = {
       commonConfig.getStylesRule()
     ]
   },
-  plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })]
+  plugins: [
+    new WebpackBar({ name: 'server', color: 'orange', profile: true }),
+    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
+  ]
 };

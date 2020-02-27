@@ -62,7 +62,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new WebpackBar({ profile: true }),
+    new WebpackBar({ name: 'client', color: 'green', profile: true }),
     new webpack.DefinePlugin(getDefinedVars().stringified),
     new MiniCssExtractPlugin({
       filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
