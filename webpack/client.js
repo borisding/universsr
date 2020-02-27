@@ -5,6 +5,7 @@ const OfflinePlugin = require('offline-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StatsWebpackPlugin = require('stats-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
+const WebpackBar = require('webpackbar');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { isDev, syspath } = require('@config');
 const { getDefinedVars } = require('@root/env.loader');
@@ -61,7 +62,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.ProgressPlugin(),
+    new WebpackBar({ profile: true }),
     new webpack.DefinePlugin(getDefinedVars().stringified),
     new MiniCssExtractPlugin({
       filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
