@@ -1,10 +1,10 @@
-const esmLoader = require('./esm.loader');
+const esmImport = require('./esm.import');
 
 // register custom module paths
-esmLoader('module-alias/register');
+esmImport('module-alias/register');
 
 // load environment variables
-esmLoader('./env.loader');
+esmImport('./env.loader');
 
-// load server entry for the app
-esmLoader('./src/server');
+// run app entry
+esmImport('./src/server');
