@@ -1,23 +1,25 @@
 import { hot } from 'react-hot-loader/root';
 import { Layout } from '../layout';
-import * as Pages from '../pages';
+import Home from '../pages/Home';
+import Todos from '../pages/Todos';
+import NotFound from '../pages/NotFound';
 
 export const routes = [
   {
     path: '/',
     exact: true,
     menu: 'Home',
-    component: Pages.Home
+    component: Home
   },
   {
     path: '/todos',
     exact: true,
     menu: 'Todos',
-    component: Pages.Todos
+    component: Todos
   },
   {
     path: '/*',
-    component: Pages.NotFound
+    component: NotFound
   }
 ];
 
