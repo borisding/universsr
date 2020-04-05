@@ -28,9 +28,7 @@ describe('fetching todos data', () => {
   it('should dispatch `TODOS_FETCH_SUCCESS` action type when fetching todos is already completed.', done => {
     const response = [{ id: 2, title: 'New Todo', completed: false }];
 
-    nock(baseURL)
-      .get(endpoint)
-      .reply(200, response);
+    nock(baseURL).get(endpoint).reply(200, response);
 
     store.dispatch(actions.fetchTodos()).then(() => {
       const actions = store.getActions();
