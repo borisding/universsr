@@ -1,5 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { Frontload } from 'react-frontload';
 import { withRouter } from 'react-router-dom';
 import { helmet } from '@config';
