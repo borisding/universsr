@@ -70,16 +70,18 @@ module.exports = {
         ? '[name].chunk.css'
         : '[name].chunk.[contenthash:8].css'
     }),
-    new CopyWebpackPlugin([
-      {
-        from: `${syspath.assets}/manifest.json`,
-        to: syspath.public
-      },
-      {
-        from: `${syspath.assets}/icons`,
-        to: `${syspath.public}/icons`
-      }
-    ])
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: `${syspath.assets}/manifest.json`,
+          to: syspath.public
+        },
+        {
+          from: `${syspath.assets}/icons`,
+          to: `${syspath.public}/icons`
+        }
+      ]
+    })
   ].concat(
     isDev
       ? [new webpack.HotModuleReplacementPlugin()]
