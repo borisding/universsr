@@ -9,7 +9,7 @@ const mockStore = configureMockStore([thunk]);
 
 describe('fetching todos data', () => {
   const { baseURL } = service.defaultConfig;
-  const endpoint = '/todos?_limit=10';
+  const endpoint = '/todos';
 
   let store;
   beforeEach(() => {

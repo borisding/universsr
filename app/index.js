@@ -65,7 +65,7 @@ function runHttpServer() {
     }
   });
 
-  ['SIGINT', 'SIGTERM'].forEach(signal => {
+  ['SIGINT', 'SIGTERM', 'SIGHUP'].forEach(signal => {
     process.on(signal, () => {
       server.close();
       process.exit();

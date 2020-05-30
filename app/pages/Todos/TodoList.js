@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './TodoList.module.scss';
 
-function TodoList({ todos }) {
+export default function TodoList({ todos }) {
   const totalCompleted = todos.filter(todo => !!todo.completed).length;
   return (
     <div styleName="todos-container">
@@ -29,5 +29,3 @@ TodoList.propTypes = {
     })
   ).isRequired
 };
-
-export default memo(TodoList);

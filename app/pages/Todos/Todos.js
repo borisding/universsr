@@ -39,6 +39,6 @@ const FrontloadTodos = frontloadConnect(
       await actions.fetchTodos();
     }
   }
-)(React.memo(Todos));
+)(Todos);
 
 export default connect(mapStateToProps, mapDispatchToProps)(FrontloadTodos);
