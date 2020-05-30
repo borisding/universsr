@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
     'prettier/react',
     'prettier'
@@ -32,17 +33,10 @@ module.exports = {
     'linebreak-style': 0,
     'no-global-assign': 0,
     'no-console': 0,
-    'no-unused-vars': [
-      2,
-      {
-        varsIgnorePattern: 'styles'
-      }
-    ],
+    'no-unused-vars': 1,
     'react/prop-types': 0,
     'react/display-name': 0,
     'react/jsx-no-target-blank': 1,
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
     'prettier/prettier': ['error', prettierConfig]
   }
 };
