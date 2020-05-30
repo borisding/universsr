@@ -157,7 +157,6 @@
       "NODE_ENV": "development"
     },
     "watch": [
-      "app/index.js",
       "api/*",
       "middleware/*"
     ]
