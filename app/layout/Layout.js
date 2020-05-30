@@ -4,12 +4,12 @@ import { Frontload } from 'react-frontload';
 import { withRouter } from 'react-router-dom';
 import { helmet } from '@config';
 import { Header, Body } from '.';
-import './Layout.module.scss';
+import styles from './Layout.module.scss';
 
 export function Layout(props) {
   return (
     <Frontload>
-      <div styleName="container">
+      <div className={styles.container}>
         <Helmet {...helmet} />
         <Header {...props} />
         <Body {...props} />

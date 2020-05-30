@@ -2,7 +2,7 @@
 
 exports[`TodoList renders correctly 1`] = `
 <div
-  className="todos-container"
+  className="todosContainer"
 >
   <h3>
     Todo List (0 / 1)

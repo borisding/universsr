@@ -1,6 +1,4 @@
-const { isNode, isTest } = require('./config');
-const { localScopedName } = require('./package');
-const webpackConfig = require('./webpack.config');
+const { isNode } = require('./config');
 
 const presets = [
   [
@@ -19,21 +17,7 @@ const presets = [
 const plugins = [
   'universal-import',
   '@babel/plugin-transform-strict-mode',
-  '@babel/plugin-proposal-class-properties',
-  [
-    'react-css-modules',
-    {
-      exclude: 'node_modules',
-      context: webpackConfig[0].context, // must match with webpack's context
-      generateScopedName: isTest ? '[local]' : localScopedName,
-      filetypes: {
-        '.scss': {
-          syntax: 'postcss-scss',
-          plugins: ['postcss-nested']
-        }
-      }
-    }
-  ]
+  '@babel/plugin-proposal-class-properties'
 ];
 
 const env = {
@@ -45,13 +29,7 @@ const env = {
   },
   test: {
     plugins: [
-      [
-        'babel-plugin-webpack-alias',
-        {
-          config: webpackConfig,
-          findConfig: true
-        }
-      ],
+      ['babel-plugin-webpack-alias', { config: './webpack.config' }],
       ...plugins
     ]
   }

@@ -2,7 +2,7 @@
 
 exports[`Loader renders correctly 1`] = `
 <div
-  className="loader-container"
+  className="loaderContainer"
 >
   <span>
     Loading...

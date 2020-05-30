@@ -1,15 +1,15 @@
 import React from 'react';
 import logo from '@assets/images/logo.png';
 import { PageContainer } from '@app/common/components';
-import './Home.module.scss';
+import styles from './Home.module.scss';
 
 function Home() {
   return (
     <PageContainer title="Home">
-      <div styleName="logo">
+      <div className={styles.logo}>
         <img src={logo} alt="React Redux Boilerplate" />
       </div>
-      <p styleName="lead">
+      <p className={styles.lead}>
         universsr is <strong>universal</strong> React-Redux starter kit.
       </p>
       <br />

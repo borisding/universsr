@@ -76,8 +76,6 @@ module.exports = function commonConfig(target) {
       };
     },
     // rule for any local CSS modules from `app`
-    // Note: CSS class names are assigned to `styleName` property where
-    // `babel-plugin-react-css-modules` plugin will take care of it and do the matching
     getCssModulesRule(MiniCssExtractPlugin = null) {
       return {
         test: /\.module\.(css|scss|sass)$/,
@@ -88,7 +86,7 @@ module.exports = function commonConfig(target) {
         })
       };
     },
-    // rule for any styles that is not coming from `*.module.(css|scss|sass)`
+    // rule for any regular styles, except CSS modules
     getStylesRule(MiniCssExtractPlugin = null) {
       return {
         test: /\.(css|scss|sass)$/,

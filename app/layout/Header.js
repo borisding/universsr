@@ -6,7 +6,7 @@ import styles from './Header.module.scss';
 export default function Header() {
   return (
     <header>
-      <nav styleName="menu">
+      <nav className={styles.menu}>
         <ul>
           {routes.map(
             (route, index) =>
