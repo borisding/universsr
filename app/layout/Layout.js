@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { Frontload } from 'react-frontload';
 import { withRouter } from 'react-router-dom';
 import { helmet } from '@config';
-import { Header, Body } from './';
+import { Header, Body } from '.';
 import './Layout.module.scss';
 
 export function Layout(props) {

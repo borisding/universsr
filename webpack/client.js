@@ -17,7 +17,7 @@ const isAnalyze = process.env.ANALYZE_MODE === 'enabled';
 module.exports = {
   target: 'web',
   name: 'client',
-  context: syspath.src,
+  context: syspath.app,
   mode: commonConfig.mode,
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
@@ -25,7 +25,7 @@ module.exports = {
     ...(isDev
       ? ['webpack-hot-middleware/client?path=/__webpack_hmr&reload=true']
       : []),
-    './client/index.js'
+    './App.js'
   ],
   output: {
     path: syspath.public,

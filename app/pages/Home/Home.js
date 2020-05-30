@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '@assets/images/logo.png';
-import { PageContainer } from '@client/common/components';
+import { PageContainer } from '@app/common/components';
 import './Home.module.scss';
 
 function Home() {

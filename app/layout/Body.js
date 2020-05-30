@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { renderRoutes } from 'react-router-config';
-import { ErrorBoundary } from '@client/common/components';
+import { ErrorBoundary } from '../common/components';
 import './Body.module.scss';
 
 export default function Body({ route }) {

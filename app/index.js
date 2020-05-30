@@ -7,7 +7,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import { isDev, syspath } from '@config';
-import { httpLogger, httpProxy, errorHandler } from '@server/middleware';
+import { httpLogger, httpProxy, errorHandler } from '@middleware';
 
 const app = express();
 
@@ -27,7 +27,7 @@ if (isDev) {
   app.use(webpackCompiler(runHttpServer));
 } else {
   const clientStats = require('@public/stats');
-  const serverRenderer = require('./dist/renderer').default;
+  const serverRenderer = require('./dist/serverRenderer').default;
   app.use(serverRenderer({ clientStats }));
   app.use(errorHandler());
   runHttpServer();

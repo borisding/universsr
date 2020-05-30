@@ -1,2 +1,2 @@
 public/**/*.js
-src/server/dist
+app/dist

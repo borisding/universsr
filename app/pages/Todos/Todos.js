@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { frontloadConnect } from 'react-frontload';
-import { todosActions } from '@client/redux/modules/todos';
-import { PageContainer, Loader } from '@client/common/components';
+import { todosActions } from '@app/redux/modules/todos';
+import { PageContainer, Loader } from '@app/common/components';
 import TodoList from './TodoList';
 
 export function Todos({ todos, isFetching }) {

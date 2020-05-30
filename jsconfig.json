@@ -3,10 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@config": ["./config/index.js"],
-      "@utils": ["./src/utils/index.js"],
-      "@client/*": ["./src/client/*"],
-      "@server/*": ["./src/server/*"]
+      "@utils": ["./utils/index.js"],
+      "@app/*": ["./app/*"]
     }
   },
-  "exclude": ["node_modules", "public", "src/server/dist"]
+  "exclude": ["node_modules", "public", "app/dist"]
 }

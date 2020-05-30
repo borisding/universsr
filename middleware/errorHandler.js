@@ -1,4 +1,4 @@
-import logger from '@server/logger';
+import logger from '@logger';
 import { isDev } from '@config';
 
 // custom error handler for the app/api

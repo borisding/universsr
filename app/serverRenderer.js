@@ -9,10 +9,10 @@ import { renderRoutes } from 'react-router-config';
 import { minify } from 'html-minifier';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { isDev } from '@config';
-import configureStore from '@client/redux/configureStore';
-import html from '@client/html';
-import routes from '@client/routes';
+import { isDev } from '../config';
+import configureStore from './redux/configureStore';
+import html from './html';
+import routes from './routes';
 
 // creating html page with passed data as content
 function createHtmlPageContent(data) {

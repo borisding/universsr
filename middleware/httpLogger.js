@@ -1,5 +1,5 @@
 import morgan from 'morgan';
-import logger from '@server/logger';
+import logger from '@logger';
 import { isDev } from '@config';
 
 // winston logger writable stream for morgan

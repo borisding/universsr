@@ -18,16 +18,16 @@ const nodeExternals = fs
 module.exports = {
   target: 'node',
   name: 'server',
-  context: syspath.src,
+  context: syspath.app,
   mode: commonConfig.mode,
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
   externals: nodeExternals,
-  entry: './server/renderer.js',
+  entry: './serverRenderer.js',
   output: {
-    path: syspath.src,
+    path: syspath.app,
     libraryTarget: 'commonjs2',
-    filename: './server/dist/renderer.js'
+    filename: './dist/serverRenderer.js'
   },
   node: {
     __filename: false,

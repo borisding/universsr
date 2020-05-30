@@ -7,4 +7,4 @@ esmImport('module-alias/register');
 esmImport('./env.loader');
 
 // run app entry
-esmImport('./src/server');
+esmImport('./app/index');
