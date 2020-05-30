@@ -27,7 +27,7 @@ if (isDev) {
   app.use(webpackCompiler(runHttpServer));
 } else {
   const clientStats = require('@public/stats');
-  const serverRenderer = require('./dist/serverRenderer').default;
+  const serverRenderer = require('./build/serverRenderer').default;
   app.use(serverRenderer({ clientStats }));
   app.use(errorHandler());
   runHttpServer();

@@ -27,7 +27,7 @@ module.exports = {
   output: {
     path: syspath.app,
     libraryTarget: 'commonjs2',
-    filename: './dist/serverRenderer.js'
+    filename: './build/serverRenderer.js'
   },
   node: {
     __filename: false,

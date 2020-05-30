@@ -4,7 +4,7 @@
   "description": "Universal React + Redux project starter kit.",
   "main": "app.js",
   "scripts": {
-    "clean": "rimraf public app/dist",
+    "clean": "rimraf public app/build",
     "webpack": "webpack --hide-modules",
     "build": "cross-env NODE_ENV=production npm-run-all clean webpack",
     "build:analyze": "cross-env ANALYZE_MODE=enabled npm run build",
@@ -155,7 +155,7 @@
   ],
   "eslintIgnore": [
     "public/**/*.js",
-    "app/dist"
+    "app/build"
   ],
   "_moduleAliases": {
     "@root": ".",

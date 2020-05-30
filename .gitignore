@@ -1,7 +1,7 @@
 coverage
 node_modules
 public
-dist
+build
 
 .env
 .DS_Store
