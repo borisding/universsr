@@ -3,7 +3,10 @@
     "baseUrl": ".",
     "paths": {
       "@config": ["./config/index.js"],
+      "@logger": ["./logger/index.js"],
+      "@middleware": ["./middleware/index.js"],
       "@utils": ["./utils/index.js"],
+      "@api/*": ["./api/*"],
       "@app/*": ["./app/*"]
     }
   },
