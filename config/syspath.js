@@ -1,6 +1,6 @@
-const root = require('app-root-path');
+import root from 'app-root-path';
 
-module.exports = {
+export default {
   root,
   api: `${root}/api`,
   app: `${root}/app`,

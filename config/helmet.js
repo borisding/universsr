@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   htmlAttributes: { lang: 'en' },
   titleTemplate: 'Universal App | %s',
   link: [
