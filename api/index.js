@@ -1,7 +1,7 @@
 import 'make-promises-safe';
 import express from 'express';
 import http from 'http';
-import colors from 'colors';
+import chalk from 'chalk';
 import hpp from 'hpp';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
@@ -28,18 +28,18 @@ const port = parseInt(process.env.API_PORT, 10) || 3030;
 
 server.listen(port, host);
 server.on('listening', () => {
-  console.info(colors.cyan(`API server is listening PORT: ${port}`));
+  console.info(chalk.cyan(`API server is listening PORT: ${port}`));
   console.log();
 });
 
 server.on('error', err => {
   switch (err.code) {
     case 'EACCES':
-      console.error(colors.red('Not enough privileges to run API server.'));
+      console.error(chalk.red('Not enough privileges to run API server.'));
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(colors.red(`${port} is already in use.`));
+      console.error(chalk.red(`${port} is already in use.`));
       process.exit(1);
       break;
     default:

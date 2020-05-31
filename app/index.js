@@ -1,7 +1,7 @@
 import 'make-promises-safe';
 import http from 'http';
 import express from 'express';
-import colors from 'colors';
+import chalk from 'chalk';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
@@ -42,17 +42,17 @@ function runHttpServer() {
 
   server.listen(port, host);
   server.on('listening', () => {
-    console.info(colors.cyan(`App server is listening PORT: ${port}`));
+    console.info(chalk.cyan(`App server is listening PORT: ${port}`));
   });
 
   server.on('error', err => {
     switch (err.code) {
       case 'EACCES':
-        console.error(colors.red('Not enough privileges to run app server.'));
+        console.error(chalk.red('Not enough privileges to run app server.'));
         process.exit(1);
         break;
       case 'EADDRINUSE':
-        console.error(colors.red(`${port} is already in use.`));
+        console.error(chalk.red(`${port} is already in use.`));
         process.exit(1);
         break;
       default:
