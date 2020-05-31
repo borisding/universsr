@@ -43,12 +43,6 @@ function runHttpServer() {
   server.listen(port, host);
   server.on('listening', () => {
     console.info(colors.cyan(`App server is listening PORT: ${port}`));
-
-    if (isDev) {
-      const url = `http://${host}:${port}`;
-      console.log(colors.green(`App started at: ${url}`));
-      require('open')(url);
-    }
   });
 
   server.on('error', err => {
