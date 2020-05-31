@@ -100,10 +100,10 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
-    "@babel/core": "^7.10.1",
+    "@babel/core": "^7.10.2",
     "@babel/plugin-proposal-class-properties": "^7.10.1",
     "@babel/plugin-transform-strict-mode": "^7.10.1",
-    "@babel/preset-env": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
     "autoprefixer": "^9.8.0",
     "babel-eslint": "^10.1.0",
