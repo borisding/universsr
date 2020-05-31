@@ -21,12 +21,6 @@ const env = {
   },
   production: {
     plugins: ['transform-react-remove-prop-types', ...plugins]
-  },
-  test: {
-    plugins: [
-      ['babel-plugin-webpack-alias', { config: './webpack.config' }],
-      ...plugins
-    ]
   }
 };
 

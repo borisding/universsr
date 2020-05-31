@@ -4,7 +4,7 @@ import { Frontload } from 'react-frontload';
 import { ConnectedRouter } from 'connected-react-router';
 import { renderRoutes } from 'react-router-config';
 import { hydrate } from 'react-dom';
-import { isDev } from '@config';
+import { isDev } from '../config';
 import configureStore from './redux/configureStore';
 import registerOffline from './offline';
 import routes from './routes';

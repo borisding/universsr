@@ -1,5 +1,5 @@
-const { isDev } = require('@config');
-const { localScopedName, _moduleAliases } = require('@root/package');
+const { isDev } = require('../config');
+const { localScopedName } = require('../package');
 
 module.exports = function commonConfig(target) {
   const isClient = target === 'client';
@@ -60,7 +60,7 @@ module.exports = function commonConfig(target) {
     mode: isDev ? 'development' : 'production',
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.sass'],
-      alias: { 'react-dom': '@hot-loader/react-dom', ..._moduleAliases }
+      alias: { 'react-dom': '@hot-loader/react-dom' }
     },
     getBabelRule() {
       return {

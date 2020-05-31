@@ -1,5 +1,5 @@
-import logger from '@logger';
-import { isDev } from '@config';
+import logger from '../logger';
+import { isDev } from '../config';
 
 // custom error handler for the app/api
 // only include error stack in development mode

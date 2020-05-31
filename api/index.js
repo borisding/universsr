@@ -5,7 +5,7 @@ import colors from 'colors';
 import hpp from 'hpp';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import { httpLogger, errorHandler, notFoundHandler } from '@middleware';
+import { httpLogger, errorHandler, notFoundHandler } from '../middleware';
 import routes from './routes';
 
 const api = express();

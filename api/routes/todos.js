@@ -1,5 +1,5 @@
 import express from 'express';
-import todosData from '@assets/mocks/db.json';
+import todosData from '../../assets/mocks/db.json';
 
 const todosRoutes = express.Router();
 

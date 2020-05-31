@@ -2,7 +2,7 @@ import thunk from 'redux-thunk';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
-import { isDev, isNode } from '@config';
+import { isDev, isNode } from '../../config';
 import createRootReducer from './modules';
 
 export default function configureStore({ url, ...initialState }) {

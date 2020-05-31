@@ -77,7 +77,6 @@
     "husky": "^4.2.5",
     "is-plain-object": "^3.0.0",
     "make-promises-safe": "^5.1.0",
-    "module-alias": "^2.2.2",
     "morgan": "^1.10.0",
     "open": "^7.0.4",
     "prop-types": "^15.7.2",
@@ -111,7 +110,6 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "babel-plugin-universal-import": "^4.0.2",
-    "babel-plugin-webpack-alias": "^2.1.2",
     "copy-webpack-plugin": "^6.0.1",
     "cross-env": "^7.0.2",
     "css-loader": "^3.5.3",
@@ -170,17 +168,5 @@
   "eslintIgnore": [
     "public/**/*.js",
     "app/build"
-  ],
-  "_moduleAliases": {
-    "@root": ".",
-    "@api": "api",
-    "@app": "app",
-    "@assets": "assets",
-    "@config": "config",
-    "@logger": "logger",
-    "@middleware": "middleware",
-    "@public": "public",
-    "@utils": "utils",
-    "@webpack": "webpack"
-  }
+  ]
 }

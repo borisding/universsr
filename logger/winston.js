@@ -1,5 +1,5 @@
 import { format, transports, createLogger } from 'winston';
-import { isDev, syspath } from '@config';
+import { isDev, syspath } from '../config';
 
 const { combine, json, timestamp, label } = format;
 

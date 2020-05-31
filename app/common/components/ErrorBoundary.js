@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { isDev } from '@config';
+import { isDev } from '../../../config';
 
 export default class ErrorBoundary extends Component {
   constructor() {

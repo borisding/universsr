@@ -6,8 +6,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
-import { isDev, syspath } from '@config';
-import { httpLogger, httpProxy, errorHandler } from '@middleware';
+import { isDev, syspath } from '../config';
+import { httpLogger, httpProxy, errorHandler } from '../middleware';
 
 const app = express();
 
@@ -24,10 +24,10 @@ app.get('/favicon.ico', (req, res) => res.status(204));
 // use webpack compiler for development
 // otherwise, use built server renderer instead
 if (isDev) {
-  const webpackCompiler = require('@webpack/compiler');
+  const webpackCompiler = require('../webpack/compiler');
   app.use(webpackCompiler(runHttpServer));
 } else {
-  const clientStats = require('@public/stats');
+  const clientStats = require('../public/stats');
   const serverRenderer = require('./build/serverRenderer').default;
   app.use(serverRenderer({ clientStats }));
   app.use(errorHandler());

@@ -2,7 +2,7 @@ const fs = require('fs');
 const webpack = require('webpack');
 const WebpackBar = require('webpackbar');
 const webpackCommon = require('./common');
-const { syspath } = require('@config');
+const { syspath } = require('../config');
 
 const commonConfig = webpackCommon('server');
 // custom externals for node

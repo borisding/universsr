@@ -7,8 +7,8 @@ const StatsWebpackPlugin = require('stats-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const { isDev, syspath } = require('@config');
-const { getDefinedVars } = require('@root/env.loader');
+const { isDev, syspath } = require('../config');
+const { getDefinedVars } = require('../env.loader');
 const webpackCommon = require('./common');
 
 const commonConfig = webpackCommon('client');

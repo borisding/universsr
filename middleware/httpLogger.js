@@ -1,6 +1,6 @@
 import morgan from 'morgan';
-import logger from '@logger';
-import { isDev } from '@config';
+import logger from '../logger';
+import { isDev } from '../config';
 
 // winston logger writable stream for morgan
 logger.stream = {

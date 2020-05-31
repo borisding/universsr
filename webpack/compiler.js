@@ -2,8 +2,8 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
-const webpackConfig = require('@root/webpack.config');
-const { syspath } = require('@config');
+const webpackConfig = require('../webpack.config');
+const { syspath } = require('../config');
 
 module.exports = function webpackCompiler(runHttpServer) {
   const clientConfig = webpackConfig[0] || {};
