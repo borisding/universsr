@@ -1,11 +1,11 @@
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
-const webpackConfig = require('../webpack.config');
-const { syspath } = require('../config');
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpackHotServerMiddleware from 'webpack-hot-server-middleware';
+import webpackConfig from '../webpack.config.babel';
+import { syspath } from '../config';
 
-module.exports = function webpackCompiler(runHttpServer) {
+export default function webpackCompiler(runHttpServer) {
   const clientConfig = webpackConfig[0] || {};
   const serverConfig = webpackConfig[1] || {};
   const compiler = webpack([clientConfig, serverConfig]);
@@ -41,4 +41,4 @@ module.exports = function webpackCompiler(runHttpServer) {
     // server hot updates must be placed after client hot reload
     webpackHotServerMiddleware(compiler)
   ];
-};
+}

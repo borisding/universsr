@@ -1,7 +1,7 @@
-const { isDev } = require('../config');
-const { localScopedName } = require('../package');
+import { isDev } from '../config';
+import { localScopedName } from '../package';
 
-module.exports = function commonConfig(target) {
+export default function commonConfig(target) {
   const isClient = target === 'client';
   const publicPath = process.env.PUBLIC_PATH || '/';
   const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
@@ -109,4 +109,4 @@ module.exports = function commonConfig(target) {
       };
     }
   };
-};
+}

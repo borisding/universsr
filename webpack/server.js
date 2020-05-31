@@ -1,8 +1,8 @@
-const fs = require('fs');
-const webpack = require('webpack');
-const WebpackBar = require('webpackbar');
-const webpackCommon = require('./common');
-const { syspath } = require('../config');
+import fs from 'fs';
+import webpack from 'webpack';
+import WebpackBar from 'webpackbar';
+import webpackCommon from './common';
+import { syspath } from '../config';
 
 const commonConfig = webpackCommon('server');
 // custom externals for node
@@ -15,7 +15,7 @@ const nodeExternals = fs
     return externals;
   }, {});
 
-module.exports = {
+export default {
   target: 'node',
   name: 'server',
   context: syspath.app,

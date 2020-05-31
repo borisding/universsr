@@ -1,20 +1,20 @@
-const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OfflinePlugin = require('offline-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const StatsWebpackPlugin = require('stats-webpack-plugin');
-const TerserJSPlugin = require('terser-webpack-plugin');
-const WebpackBar = require('webpackbar');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const { isDev, syspath } = require('../config');
-const { getDefinedVars } = require('../env.loader');
-const webpackCommon = require('./common');
+import webpack from 'webpack';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import OfflinePlugin from 'offline-plugin';
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import StatsWebpackPlugin from 'stats-webpack-plugin';
+import TerserJSPlugin from 'terser-webpack-plugin';
+import WebpackBar from 'webpackbar';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { isDev, syspath } from '../config';
+import { getDefinedVars } from '../env.loader';
+import webpackCommon from './common';
 
 const commonConfig = webpackCommon('client');
 const isAnalyze = process.env.ANALYZE_MODE === 'enabled';
 
-module.exports = {
+export default {
   target: 'web',
   name: 'client',
   context: syspath.app,
