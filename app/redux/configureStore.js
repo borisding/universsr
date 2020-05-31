@@ -3,7 +3,7 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import { isDev, isNode } from '../../config';
-import createRootReducer from './modules';
+import createRootReducer from './';
 
 export default function configureStore({ url, ...initialState }) {
   const history = isNode
@@ -30,8 +30,8 @@ export default function configureStore({ url, ...initialState }) {
   const store = createStore(createRootReducer(history), initialState, enhancer);
 
   if (module.hot) {
-    module.hot.accept('./modules', () => {
-      const nextRootReducer = require('./modules').default;
+    module.hot.accept('./index', () => {
+      const nextRootReducer = require('./index').default;
       store.replaceReducer(nextRootReducer(history));
     });
   }

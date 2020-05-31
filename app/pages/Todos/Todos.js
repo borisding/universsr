@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { frontloadConnect } from 'react-frontload';
-import { todosActions } from '../../redux/modules/todos';
+import { todosActions } from '../../redux/todos';
 import { PageContainer, Loader } from '../../common/components';
 import TodoList from './TodoList';
 

@@ -1,4 +1,4 @@
-import { service } from '../../../../utils';
+import { service } from '../../utils';
 import types from './types';
 
 export const fetchTodos = () => {

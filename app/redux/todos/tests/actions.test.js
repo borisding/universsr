@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
-import { service } from '../../../../../utils';
+import { service } from '../../../utils';
 import actions from '../actions';
 import types from '../types';
 
