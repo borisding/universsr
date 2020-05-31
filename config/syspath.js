@@ -10,6 +10,5 @@ module.exports = {
   logs: `${root}/logs`,
   middleware: `${root}/middleware`,
   public: `${root}/public`,
-  utils: `${root}/utils`,
   webpack: `${root}/webpack`
 };
