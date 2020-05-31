@@ -1,14 +1,9 @@
-const { isNode } = require('./config');
-
 const presets = [
   [
     '@babel/preset-env',
     {
       corejs: 3,
-      useBuiltIns: 'usage',
-      targets: !isNode
-        ? { browsers: 'last 2 versions', ie: 11 }
-        : { node: 'current' }
+      useBuiltIns: 'usage'
     }
   ],
   '@babel/preset-react'
