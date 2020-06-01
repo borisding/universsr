@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageContainer, HttpStatus } from '../../common/components';
+import { PageContainer, HttpStatus } from '../../components';
 
 function NotFound() {
   return (

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { frontloadConnect } from 'react-frontload';
 import { todosActions } from '../../redux/todos';
-import { PageContainer, Loader } from '../../common/components';
+import { PageContainer, Loader } from '../../components';
 import TodoList from './TodoList';
 
 export function Todos({ todos, isFetching }) {

@@ -1,8 +1,8 @@
-import * as OfflineRuntime from 'offline-plugin/runtime';
-
 // only for production PWA purpose
+// using `require` to avoid runtime message (https://goo.gl/2Ca7NO) in development
 export default function registerOffline() {
-  return OfflineRuntime.install({
+  const OfflineRuntime = require('offline-plugin/runtime');
+  OfflineRuntime.install({
     onInstalled() {
       console.info('App is ready for offline usage.');
     },
