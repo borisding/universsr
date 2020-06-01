@@ -1,13 +1,13 @@
-import runtime from 'offline-plugin/runtime';
+import * as OfflineRuntime from 'offline-plugin/runtime';
 
 // only for production PWA purpose
 export default function registerOffline() {
-  return runtime.install({
+  return OfflineRuntime.install({
     onInstalled() {
       console.info('App is ready for offline usage.');
     },
     onUpdateReady() {
-      runtime.applyUpdate();
+      OfflineRuntime.applyUpdate();
     },
     onUpdated() {
       // force browser to reload upon update
