@@ -157,7 +157,6 @@
       "middleware/*"
     ]
   },
-  "localScopedName": "[local]___[hash:base64:5]",
   "browserslist": [
     "> 1%",
     "last 2 versions",

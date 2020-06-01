@@ -1,10 +1,10 @@
 import { isDev } from '../config';
-import { localScopedName } from '../package';
 
 export default function commonConfig(target) {
   const isClient = target === 'client';
   const publicPath = process.env.PUBLIC_PATH || '/';
   const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
+  const localIdentName = '[local]___[hash:base64:5]';
   const reloadAll = true; // set to `false` if don't want to reload all for hmr
 
   // the style loaders for both css modules and global style
@@ -81,7 +81,7 @@ export default function commonConfig(target) {
         test: /\.module\.(css|scss|sass)$/,
         exclude: /node_modules/,
         use: getStyleLoaders(MiniCssExtractPlugin, {
-          modules: { localIdentName: localScopedName },
+          modules: { localIdentName },
           onlyLocals: !isClient
         })
       };
