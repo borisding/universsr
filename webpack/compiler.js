@@ -3,7 +3,6 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackHotServerMiddleware from 'webpack-hot-server-middleware';
 import webpackConfig from '../webpack.config.babel';
-import { syspath } from '../config';
 
 export default function webpackCompiler(runHttpServer) {
   const clientConfig = webpackConfig[0] || {};
@@ -19,7 +18,7 @@ export default function webpackCompiler(runHttpServer) {
     logLevel: 'warn',
     watchOptions: {
       aggregateTimeout: 500,
-      ignored: [`${syspath.root}/node_modules`],
+      ignored: /node_modules/,
       poll: false
     }
   });
