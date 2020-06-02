@@ -14,13 +14,11 @@ const { store, history } = configureStore(preloadedState);
 
 const render = AppRoutes => {
   hydrate(
-    <Frontload>
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          {renderRoutes(AppRoutes)}
-        </ConnectedRouter>
-      </Provider>
-    </Frontload>,
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Frontload>{renderRoutes(AppRoutes)}</Frontload>
+      </ConnectedRouter>
+    </Provider>,
     document.getElementById('root')
   );
 };

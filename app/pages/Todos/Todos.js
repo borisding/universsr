@@ -33,12 +33,10 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(todosActions, dispatch)
 });
 
-const FrontloadTodos = frontloadConnect(
-  async ({ actions, todos, isFetching }) => {
-    if (!isFetching && todos.length === 0) {
-      await actions.fetchTodos();
-    }
+const FrontloadTodos = frontloadConnect(async ({ actions, todos }) => {
+  if (!todos.length) {
+    await actions.fetchTodos();
   }
-)(Todos);
+})(Todos);
 
 export default connect(mapStateToProps, mapDispatchToProps)(FrontloadTodos);

@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
 import flushChunks from 'webpack-flush-chunks';
-import { frontloadServerRender } from 'react-frontload';
+import { Frontload, frontloadServerRender } from 'react-frontload';
 import { renderToString } from 'react-dom/server';
 import { clearChunks, flushChunkNames } from 'react-universal-component/server';
 import { renderRoutes } from 'react-router-config';
@@ -45,7 +45,7 @@ export default function serverRenderer({ clientStats }) {
         renderToString(
           <Provider store={store}>
             <StaticRouter location={url} context={context}>
-              {renderRoutes(routes)}
+              <Frontload>{renderRoutes(routes)}</Frontload>
             </StaticRouter>
           </Provider>
         )
