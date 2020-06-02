@@ -161,9 +161,5 @@
     "> 1%",
     "last 2 versions",
     "not IE 10"
-  ],
-  "eslintIgnore": [
-    "public/**/*.js",
-    "app/build"
   ]
 }

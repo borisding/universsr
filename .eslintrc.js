@@ -8,8 +8,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
-    'prettier/react',
-    'prettier'
+    'prettier',
+    'prettier/react'
   ],
   plugins: ['prettier', 'jest', 'react-hooks'],
   parserOptions: {
@@ -28,7 +28,9 @@ module.exports = {
       version: 'detect'
     }
   },
+  ignorePatterns: ['public/**/*', 'app/build/*'],
   rules: {
+    'prettier/prettier': ['error', prettierConfig],
     'global-require': 0,
     'linebreak-style': 0,
     'no-global-assign': 0,
@@ -36,7 +38,6 @@ module.exports = {
     'no-unused-vars': 1,
     'react/prop-types': 0,
     'react/display-name': 0,
-    'react/jsx-no-target-blank': 1,
-    'prettier/prettier': ['error', prettierConfig]
+    'react/jsx-no-target-blank': 1
   }
 };
