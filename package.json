@@ -74,7 +74,6 @@
     "html-minifier": "^4.0.0",
     "http-proxy-middleware": "^1.0.4",
     "husky": "^4.2.5",
-    "is-plain-object": "^3.0.0",
     "make-promises-safe": "^5.1.0",
     "morgan": "^1.10.0",
     "prop-types": "^15.7.2",

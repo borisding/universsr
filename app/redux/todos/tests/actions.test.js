@@ -1,14 +1,14 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
-import { service } from '../../../utils';
+import { getBaseURL } from '../../../utils';
 import actions from '../actions';
 import types from '../types';
 
 const mockStore = configureMockStore([thunk]);
 
 describe('fetching todos data', () => {
-  const { baseURL } = service.defaultConfig;
+  const baseURL = getBaseURL();
   const endpoint = '/todos';
 
   let store;
