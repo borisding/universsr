@@ -23,10 +23,9 @@ api.use(errorHandler({ json: true }));
 
 // running api server
 const server = http.createServer(api);
-const host = process.env.API_HOST || 'localhost';
 const port = parseInt(process.env.API_PORT, 10) || 3030;
 
-server.listen(port, host);
+server.listen(port);
 server.on('listening', () => {
   console.info(chalk.cyan(`API server is listening PORT: ${port}`));
   console.log();

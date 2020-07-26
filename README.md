@@ -153,26 +153,25 @@ Below is overview of project folder structure in this starter along with the sho
 <details><summary>CLICK ME</summary>
 <p>
 
-| Script Name        | Description                                                                                                            |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| `clean`            | Remove `public` folder and respective built files.                                                                     |
-| `webpack`          | Running webpack build process.                                                                                         |
-| `build`            | Remove previous built files and build production ready files to be served.                                             |
-| `build:analyze`    | Same with `build` script, except it comes with webpack bundle analyzer to visualize size of the output files.          |
-| `dev:app`          | Start running app server in development environment (server renderer is monitored by `webpack-hot-server-middleware`). |
-| `dev:api`          | Start running api server in development environment (started with `nodemon` for monitoring api changes).               |
-| `dev`              | Clean existing built files before running BOTH app and api servers in development environment.                         |
-| `start:app`        | Start running app server in production environment.                                                                    |
-| `start:api`        | Start running api server in production environment.                                                                    |
-| `start`            | Start running BOTH app and api servers in production environment, in parallel.                                         |
-| `test`             | Perform tests execution.                                                                                               |
-| `test:update`      | Running tests with snapshots get updated on.                                                                           |
-| `test:watch`       | Running tests with watch mode turned on.                                                                               |
-| `test:coverage`    | Running tests with coverage report output.                                                                             |
-| `lint`             | Perform source code lint checks for JS, React and styles based on the ESLint and stylelint config.                     |
-| `lint:style`       | Perform lint checks for Sass style.                                                                                    |
-| `lint:js`          | Perform lint checks for JS and React.                                                                                  |
-| `heroku-postbuild` | Heroku-specific key for building to serve production app on Heroku platform                                            |
+| Script Name     | Description                                                                                                            |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `clean`         | Remove `public` folder and respective built files.                                                                     |
+| `webpack`       | Running webpack build process.                                                                                         |
+| `build`         | Remove previous built files and build production ready files to be served.                                             |
+| `build:analyze` | Same with `build` script, except it comes with webpack bundle analyzer to visualize size of the output files.          |
+| `dev:app`       | Start running app server in development environment (server renderer is monitored by `webpack-hot-server-middleware`). |
+| `dev:api`       | Start running api server in development environment (started with `nodemon` for monitoring api changes).               |
+| `dev`           | Clean existing built files before running BOTH app and api servers in development environment.                         |
+| `start:app`     | Start running app server in production environment.                                                                    |
+| `start:api`     | Start running api server in production environment.                                                                    |
+| `start`         | Start running BOTH app and api servers in production environment, in parallel.                                         |
+| `test`          | Perform tests execution.                                                                                               |
+| `test:update`   | Running tests with snapshots get updated on.                                                                           |
+| `test:watch`    | Running tests with watch mode turned on.                                                                               |
+| `test:coverage` | Running tests with coverage report output.                                                                             |
+| `lint`          | Perform source code lint checks for JS, React and styles based on the ESLint and stylelint config.                     |
+| `lint:style`    | Perform lint checks for Sass style.                                                                                    |
+| `lint:js`       | Perform lint checks for JS and React.                                                                                  |
 
 </p>
 </details>

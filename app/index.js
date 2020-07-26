@@ -37,10 +37,9 @@ if (isDev) {
 // running app http server
 function runHttpServer() {
   const server = http.createServer(app);
-  const host = process.env.HOST || 'localhost';
   const port = parseInt(process.env.PORT, 10) || 3000;
 
-  server.listen(port, host);
+  server.listen(port);
   server.on('listening', () => {
     console.info(chalk.cyan(`App server is listening PORT: ${port}`));
   });
