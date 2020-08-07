@@ -51,18 +51,18 @@ export default function serverRenderer({ clientStats }) {
         )
       );
 
+      const helmet = Helmet.renderStatic();
+      const preloadedState = serialize(store.getState(), { isJSON: true });
+      const { js, styles } = flushChunks(clientStats, {
+        chunkNames: flushChunkNames()
+      });
+
       // make page redirection when expected `statusCode` and `redirectUrl`
       // props are provided in `HttpStatus` component
       const { statusCode = 200, redirectUrl } = context;
       if ([301, 302].includes(statusCode) && redirectUrl) {
         return res.redirect(statusCode, redirectUrl);
       }
-
-      const helmet = Helmet.renderStatic();
-      const preloadedState = serialize(store.getState(), { isJSON: true });
-      const { js, styles } = flushChunks(clientStats, {
-        chunkNames: flushChunkNames()
-      });
 
       res.status(statusCode).send(
         createHtmlPageContent({
