@@ -3,9 +3,6 @@ import { isDev } from '../config';
 export default function commonConfig(target) {
   const isClient = target === 'client';
   const publicPath = process.env.PUBLIC_PATH || '/';
-  const devtool = isDev ? 'cheap-module-inline-source-map' : 'source-map';
-  const localIdentName = '[local]___[hash:base64:5]';
-  const reloadAll = true; // set to `false` if don't want to reload all for hmr
 
   // the style loaders for both css modules and global style
   const getStyleLoaders = (MiniCssExtractPlugin, cssLoaderOptions = {}) => {
@@ -30,7 +27,7 @@ export default function commonConfig(target) {
         loader: MiniCssExtractPlugin.loader,
         options: {
           hmr: !!isDev,
-          reloadAll
+          reloadAll: !!isDev
         }
       });
     }
@@ -55,9 +52,9 @@ export default function commonConfig(target) {
   };
 
   return {
-    devtool,
     publicPath,
     mode: isDev ? 'development' : 'production',
+    devtool: isDev ? 'cheap-module-source-map' : 'source-map',
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.sass'],
       alias: { 'react-dom': '@hot-loader/react-dom' }
@@ -81,8 +78,14 @@ export default function commonConfig(target) {
         test: /\.module\.(css|scss|sass)$/,
         exclude: /node_modules/,
         use: getStyleLoaders(MiniCssExtractPlugin, {
-          modules: { localIdentName },
-          onlyLocals: !isClient
+          modules: {
+            mode: 'local',
+            exportGlobals: true,
+            exportOnlyLocals: !isClient,
+            localIdentName: isDev
+              ? '[path][name]__[local]--[hash:base64:5]'
+              : '[hash:base64:5]'
+          }
         })
       };
     },
