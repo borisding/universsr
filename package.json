@@ -1,6 +1,6 @@
 {
   "name": "universsr",
-  "version": "6.3.0",
+  "version": "6.4.0",
   "description": "Universal React + Redux project starter kit.",
   "main": "app.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "start": "run-p start:api start:app",
     "start:app": "cross-env NODE_ENV=production node app",
     "start:api": "cross-env NODE_ENV=production node api",
-    "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
+    "test": "cross-env NODE_ENV=test jest",
     "test:coverage": "rimraf assets/coverage && npm test -- --coverage",
     "test:update": "npm test -- --updateSnapshot",
     "test:watch": "npm test -- --watch",
