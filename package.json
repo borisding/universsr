@@ -19,7 +19,7 @@
     "test:update": "npm test -- --updateSnapshot",
     "test:watch": "npm test -- --watch",
     "lint": "npm-run-all lint:js lint:style",
-    "lint:style": "stylelint **/*.scss --syntax=scss --fix",
+    "lint:style": "stylelint **/*.{css,scss,sass} --fix",
     "lint:js": "eslint . --fix"
   },
   "verbose": true,
