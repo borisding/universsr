@@ -17,7 +17,6 @@ app.use(cors());
 app.use(cookieParser());
 app.use(compression());
 app.use(express.static(syspath.public));
-app.use('/images', express.static(`${syspath.assets}/images`));
 app.use(`/api/${process.env.API_VERSION}`, httpProxy());
 app.get('/favicon.ico', (req, res) => res.status(204));
 

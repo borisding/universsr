@@ -44,7 +44,7 @@ export default function commonConfig(target) {
           fallback: 'file-loader',
           publicPath,
           limit: 10240,
-          emitFile: false,
+          emitFile: !!isClient,
           ...options
         }
       }
