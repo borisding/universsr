@@ -1,5 +1,5 @@
 module.exports = {
-  setupFilesAfterEnv: ['<rootDir>/env.loader.js'],
+  setupFiles: ['<rootDir>/env.loader.js'],
   coverageDirectory: '<rootDir>/assets/coverage',
   moduleFileExtensions: ['js', 'jsx'],
   moduleNameMapper: {
