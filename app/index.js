@@ -12,7 +12,7 @@ import { httpLogger, httpProxy, errorHandler } from '../middleware';
 const app = express();
 
 app.use(httpLogger());
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors());
 app.use(cookieParser());
 app.use(compression());
