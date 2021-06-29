@@ -23,10 +23,9 @@
     "lint:js": "eslint . --fix",
     "prepare": "husky install"
   },
-  "verbose": true,
   "engines": {
-    "npm": ">=6.4.1",
-    "node": ">=10.13.0"
+    "npm": ">=6.12.0",
+    "node": ">=12.13.0"
   },
   "repository": {
     "type": "git",
