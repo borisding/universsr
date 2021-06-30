@@ -21,7 +21,7 @@ app.get('/favicon.ico', (req, res) => res.status(204));
 // otherwise, use built server renderer instead
 if (env.isDev) {
   const webpackCompiler = require('../webpack/compiler').default;
-  app.use(webpackCompiler(runHttpServer));
+  app.use(webpackCompiler(() => runHttpServer()));
 } else {
   const serverRenderer = require('../build/serverRenderer').default;
   app.use(serverRenderer());

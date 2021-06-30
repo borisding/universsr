@@ -4,7 +4,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackHotServerMiddleware from 'webpack-hot-server-middleware';
 import webpackConfig from '../webpack.config.babel';
 
-export default function webpackCompiler(runHttpServer) {
+export default function webpackCompiler(callback = () => {}) {
   const clientConfig = webpackConfig[0] || {};
   const serverConfig = webpackConfig[1] || {};
   const compiler = webpack([clientConfig, serverConfig]);
@@ -18,10 +18,8 @@ export default function webpackCompiler(runHttpServer) {
     writeToDisk: filePath => /loadable-stats\.json$/.test(filePath)
   });
 
-  // only runnig http server once compiled bundle is valid
-  webpackDevInstance.waitUntilValid(() => {
-    runHttpServer();
-  });
+  // invoked callback once compiled bundle is valid
+  webpackDevInstance.waitUntilValid(callback);
 
   return [
     // mount webpack dev middleware
