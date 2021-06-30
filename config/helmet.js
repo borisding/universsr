@@ -10,10 +10,6 @@ export default {
       rel: 'icon',
       type: 'image/png',
       href: '/icons/favicon.png'
-    },
-    {
-      rel: 'manifest',
-      href: '/manifest.json'
     }
   ],
   meta: [
@@ -24,10 +20,6 @@ export default {
     {
       name: 'description',
       content: 'Universal React Redux Boilerplate.'
-    },
-    {
-      name: 'theme-color',
-      content: '#1a1a1a'
     }
   ]
 };

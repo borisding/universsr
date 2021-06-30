@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import OfflinePlugin from 'offline-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserJSPlugin from 'terser-webpack-plugin';
 import WebpackBar from 'webpackbar';
@@ -75,10 +74,6 @@ export default {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: `${syspath.assets}/manifest.json`,
-          to: syspath.public
-        },
-        {
           from: `${syspath.assets}/icons`,
           to: `${syspath.public}/icons`
         }
@@ -88,13 +83,6 @@ export default {
     isDev
       ? [new webpack.HotModuleReplacementPlugin()]
       : [
-          new OfflinePlugin({
-            externals: ['/'],
-            publicPath: commonConfig.publicPath,
-            relativePaths: false, // to allow using publicPath
-            ServiceWorker: { events: true }, // use ServiceWorker for offline usage
-            AppCache: false // disable for AppCache
-          }),
           // for more webpack bundle analyzer options,
           // @see: https://github.com/webpack-contrib/webpack-bundle-analyzer#options-for-plugin
           new BundleAnalyzerPlugin({

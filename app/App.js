@@ -6,9 +6,7 @@ import { renderRoutes } from 'react-router-config';
 import { loadableReady } from '@loadable/component';
 import { hydrate } from 'react-dom';
 
-import { isDev } from '../config';
 import configureStore from './redux/configureStore';
-import registerOffline from './registerOffline';
 import routes from './routes';
 
 const preloadedState = window.__UNIVERSSR_PRELOADED_STATE__;
@@ -24,7 +22,3 @@ loadableReady(() => {
     document.getElementById('root')
   );
 });
-
-if (!isDev) {
-  registerOffline();
-}
