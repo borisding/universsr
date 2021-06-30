@@ -2,19 +2,18 @@ import 'make-promises-safe';
 import http from 'http';
 import express from 'express';
 import chalk from 'chalk';
-import cors from 'cors';
+import hpp from 'hpp';
 import helmet from 'helmet';
-import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import { isDev, syspath } from '../config';
 import { httpLogger, errorHandler } from '../middleware';
 
 const app = express();
 
+// could add more middleware here where applicable
 app.use(httpLogger());
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors());
-app.use(cookieParser());
+app.use(hpp());
 app.use(compression());
 app.use(express.static(syspath.public));
 app.get('/favicon.ico', (req, res) => res.status(204));
