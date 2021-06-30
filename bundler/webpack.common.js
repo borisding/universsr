@@ -2,7 +2,7 @@ import { env } from '../utils';
 
 const { isDev } = env;
 
-export default function commonConfig(target) {
+export default function webpackCommon(target) {
   const isClient = target === 'client';
   const publicPath = process.env.PUBLIC_PATH || '/';
 

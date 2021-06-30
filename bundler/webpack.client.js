@@ -6,9 +6,9 @@ import TerserJSPlugin from 'terser-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import LoadablePlugin from '@loadable/webpack-plugin';
 
+import webpackCommon from './webpack.common';
 import { env, paths } from '../utils';
 import { getDefinedVars } from '../env.loader';
-import webpackCommon from './common';
 
 const commonConfig = webpackCommon('client');
 

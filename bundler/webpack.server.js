@@ -1,6 +1,6 @@
 import fs from 'fs';
 import webpack from 'webpack';
-import webpackCommon from './common';
+import webpackCommon from './webpack.common';
 import { paths } from '../utils';
 
 const commonConfig = webpackCommon('server');

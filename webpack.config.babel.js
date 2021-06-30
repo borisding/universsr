@@ -1,5 +1,4 @@
-// retrieve client & server config, respectively
-import webpackClient from './webpack/client';
-import webpackServer from './webpack/server';
+import webpackClient from './bundler/webpack.client';
+import webpackServer from './bundler/webpack.server';
 
 export default [webpackClient, webpackServer];
