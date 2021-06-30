@@ -7,8 +7,8 @@ export default function Todos() {
   const { data: todos, frontloadMeta } = useFrontload(
     'todos',
     async ({ api }) => {
-      const todos = await api.fetchTodos();
-      return todos;
+      const { data } = await api.fetchTodos();
+      return data;
     }
   );
 

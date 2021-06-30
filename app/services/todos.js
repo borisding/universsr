@@ -3,10 +3,10 @@ import axios from 'axios';
 // example of fetching user's todos via json placeholder api
 export async function fetchTodos() {
   try {
-    const { data } = await axios.get(
+    const response = await axios.get(
       'https://jsonplaceholder.typicode.com/users/1/todos'
     );
-    return data;
+    return response;
   } catch (error) {
     return error;
   }
