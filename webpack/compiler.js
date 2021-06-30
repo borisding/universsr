@@ -15,12 +15,7 @@ export default function webpackCompiler(runHttpServer) {
   const webpackDevInstance = webpackDevMiddleware(compiler, {
     publicPath: clientConfig.output.publicPath,
     serverSideRender: true,
-    logLevel: 'warn',
-    watchOptions: {
-      aggregateTimeout: 500,
-      ignored: /node_modules/,
-      poll: false
-    }
+    writeToDisk: filePath => /loadable-stats\.json$/.test(filePath)
   });
 
   // only runnig http server once compiled bundle is valid

@@ -1,15 +1,16 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import serialize from 'serialize-javascript';
-import flushChunks from 'webpack-flush-chunks';
 import { Frontload, frontloadServerRender } from 'react-frontload';
 import { renderToString } from 'react-dom/server';
-import { clearChunks, flushChunkNames } from 'react-universal-component/server';
+import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import { renderRoutes } from 'react-router-config';
 import { minify } from 'html-minifier';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { isDev } from '../config';
+import serialize from 'serialize-javascript';
+import path from 'path';
+
+import { isDev, syspath } from '../config';
 import configureStore from './redux/configureStore';
 import html from './html';
 import routes from './routes';
@@ -33,29 +34,34 @@ function createHtmlPageContent(data) {
 
 // export default server renderer and receiving stats
 // also, should allow it to be mounted as middleware for production usage
-export default function serverRenderer({ clientStats }) {
+export default function serverRenderer() {
   return async (req, res, next) => {
     try {
-      clearChunks();
+      const statsFile = path.resolve(`${syspath.public}/loadable-stats.json`);
+      const extractor = new ChunkExtractor({
+        statsFile
+      });
 
       const context = {};
       const { url = '/' } = req;
       const { store } = configureStore({ url });
       const renderedAppString = await frontloadServerRender(() =>
         renderToString(
-          <Provider store={store}>
-            <StaticRouter location={url} context={context}>
-              <Frontload>{renderRoutes(routes)}</Frontload>
-            </StaticRouter>
-          </Provider>
+          <ChunkExtractorManager extractor={extractor}>
+            <Provider store={store}>
+              <StaticRouter location={url} context={context}>
+                <Frontload>{renderRoutes(routes)}</Frontload>
+              </StaticRouter>
+            </Provider>
+          </ChunkExtractorManager>
         )
       );
 
+      const js = extractor.getScriptTags();
+      const styles = extractor.getStyleTags();
+
       const helmet = Helmet.renderStatic();
       const preloadedState = serialize(store.getState(), { isJSON: true });
-      const { js, styles } = flushChunks(clientStats, {
-        chunkNames: flushChunkNames()
-      });
 
       // make page redirection when expected `statusCode` and `redirectUrl`
       // props are provided in `HttpStatus` component

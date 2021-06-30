@@ -1,5 +1,5 @@
-import lazyLoad from '../lazyLoad';
+import loadable from '@loadable/component';
 
-export default lazyLoad(() =>
+export default loadable(() =>
   import(/* webpackChunkName: 'todos' */ './Todos')
 );

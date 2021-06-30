@@ -1,3 +1,3 @@
-import lazyLoad from '../lazyLoad';
+import loadable from '@loadable/component';
 
-export default lazyLoad(() => import(/* webpackChunkName: 'home' */ './Home'));
+export default loadable(() => import(/* webpackChunkName: 'home' */ './Home'));

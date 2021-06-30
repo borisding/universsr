@@ -3,10 +3,11 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OfflinePlugin from 'offline-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import StatsWebpackPlugin from 'stats-webpack-plugin';
 import TerserJSPlugin from 'terser-webpack-plugin';
 import WebpackBar from 'webpackbar';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import LoadablePlugin from '@loadable/webpack-plugin';
+
 import { isDev, syspath } from '../config';
 import { getDefinedVars } from '../env.loader';
 import webpackCommon from './common';
@@ -62,6 +63,7 @@ export default {
     ]
   },
   plugins: [
+    new LoadablePlugin(),
     new WebpackBar({ name: 'client', color: 'green', profile: true }),
     new webpack.DefinePlugin(getDefinedVars().stringified),
     new MiniCssExtractPlugin({
@@ -86,7 +88,6 @@ export default {
     isDev
       ? [new webpack.HotModuleReplacementPlugin()]
       : [
-          new StatsWebpackPlugin('stats.json'),
           new OfflinePlugin({
             externals: ['/'],
             publicPath: commonConfig.publicPath,

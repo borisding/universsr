@@ -6,7 +6,7 @@ import { syspath } from '../config';
 
 const commonConfig = webpackCommon('server');
 // custom externals for node
-const externalRegExp = /\.bin|react-universal-component|webpack-flush-chunks/;
+const externalRegExp = /@loadable\/component/;
 const nodeExternals = fs
   .readdirSync(`${syspath.root}/node_modules`)
   .filter(x => !externalRegExp.test(x))

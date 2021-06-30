@@ -1,7 +1,7 @@
-const esmImport = require('./esm.import');
+require('@babel/register')();
 
 // load environment variables
-esmImport('./env.loader');
+require('./env.loader');
 
 // run app entry
-esmImport('./app/index');
+require('./app/index');

@@ -10,7 +10,7 @@ const presets = [
 ];
 
 const plugins = [
-  'universal-import',
+  '@loadable/babel-plugin',
   '@babel/plugin-transform-strict-mode',
   '@babel/plugin-proposal-class-properties'
 ];
