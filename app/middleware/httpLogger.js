@@ -1,6 +1,6 @@
 import morgan from 'morgan';
 import logger from '../logger';
-import { isDev } from '../config';
+import { isDev } from '../../config';
 
 // winston logger writable stream for morgan
 logger.stream = {
@@ -9,11 +9,10 @@ logger.stream = {
   }
 };
 
-const httpLogger = () => {
-  return morgan(isDev ? 'tiny' : 'combined', {
+const httpLogger = () =>
+  morgan(isDev ? 'tiny' : 'combined', {
     stream: logger.stream,
     skip: (req, res) => res.statusCode < 400
   });
-};
 
 export default httpLogger;

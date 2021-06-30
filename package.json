@@ -4,11 +4,11 @@
   "description": "Universal React + Redux project starter kit.",
   "main": "app.js",
   "scripts": {
-    "clean": "rimraf public app/build",
+    "clean": "rimraf build",
     "webpack": "webpack --hide-modules",
     "build": "cross-env NODE_ENV=production npm-run-all clean webpack",
     "build:analyze": "cross-env ANALYZE_MODE=enabled npm run build",
-    "dev": "cross-env NODE_ENV=development node app",
+    "dev": "cross-env NODE_ENV=development nodemon app",
     "start": "cross-env NODE_ENV=production node app",
     "test": "cross-env NODE_ENV=test jest",
     "test:coverage": "rimraf assets/coverage && npm test -- --coverage",
@@ -127,8 +127,9 @@
       "NODE_ENV": "development"
     },
     "watch": [
-      "api/*",
-      "middleware/*"
+      "app/logger/*",
+      "app/middleware/*",
+      "app/server"
     ]
   },
   "browserslist": [

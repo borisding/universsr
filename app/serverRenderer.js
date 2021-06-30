@@ -34,7 +34,7 @@ export default function serverRenderer() {
   return async (req, res, next) => {
     try {
       const staticContext = {};
-      const statsFile = path.resolve(`${syspath.public}/loadable-stats.json`);
+      const statsFile = path.resolve(`${syspath.build}/loadable-stats.json`);
       const extractor = new ChunkExtractor({ statsFile });
 
       const frontloadState = createFrontloadState.server({

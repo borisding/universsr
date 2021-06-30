@@ -1,5 +1,5 @@
 import { format, transports, createLogger } from 'winston';
-import { isDev, syspath } from '../config';
+import { isDev, syspath } from '../../config';
 
 const { combine, json, timestamp, label } = format;
 
@@ -8,11 +8,11 @@ const winstonLogger = createLogger({
   transports: [
     new transports.File({
       level: 'info',
-      filename: `${syspath.logs}/access.log`
+      filename: `${syspath.storage}/logs/access.log`
     }),
     new transports.File({
       level: 'error',
-      filename: `${syspath.logs}/errors.log`,
+      filename: `${syspath.storage}/logs/errors.log`,
       format: combine(
         label({ label: 'ERROR:' }),
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),

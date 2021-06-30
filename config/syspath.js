@@ -2,13 +2,11 @@ import root from 'app-root-path';
 
 export default {
   root,
-  api: `${root}/api`,
   app: `${root}/app`,
   assets: `${root}/assets`,
+  build: `${root}/build`,
   config: `${root}/config`,
-  logger: `${root}/logger`,
-  logs: `${root}/logs`,
-  middleware: `${root}/middleware`,
   public: `${root}/public`,
+  storage: `${root}/storage`,
   webpack: `${root}/webpack`
 };

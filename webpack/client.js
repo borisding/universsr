@@ -27,7 +27,7 @@ export default {
     './client.js'
   ],
   output: {
-    path: syspath.public,
+    path: syspath.build,
     publicPath: commonConfig.publicPath,
     filename: isDev ? '[name].js' : '[name].[contenthash:8].js',
     chunkFilename: isDev ? '[name].chunk.js' : '[name].chunk.[contenthash:8].js'
@@ -74,7 +74,7 @@ export default {
       patterns: [
         {
           from: `${syspath.assets}/icons`,
-          to: `${syspath.public}/icons`
+          to: `${syspath.build}/icons`
         }
       ]
     })

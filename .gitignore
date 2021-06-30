@@ -1,6 +1,5 @@
 coverage
 node_modules
-public
 build
 
 .env

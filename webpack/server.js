@@ -24,9 +24,9 @@ export default {
   externals: nodeExternals,
   entry: './serverRenderer.js',
   output: {
-    path: syspath.app,
+    path: syspath.build,
     libraryTarget: 'commonjs2',
-    filename: './build/serverRenderer.js'
+    filename: 'serverRenderer.js'
   },
   node: {
     __filename: false,

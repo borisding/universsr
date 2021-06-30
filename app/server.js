@@ -6,7 +6,7 @@ import hpp from 'hpp';
 import helmet from 'helmet';
 import compression from 'compression';
 import { isDev, syspath } from '../config';
-import { httpLogger, errorHandler } from '../middleware';
+import { httpLogger, errorHandler } from './middleware';
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(httpLogger());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(hpp());
 app.use(compression());
-app.use(express.static(syspath.public));
+app.use(express.static(syspath.build));
 app.get('/favicon.ico', (req, res) => res.status(204));
 
 // use webpack compiler for development
@@ -24,7 +24,7 @@ if (isDev) {
   const webpackCompiler = require('../webpack/compiler').default;
   app.use(webpackCompiler(runHttpServer));
 } else {
-  const serverRenderer = require('./build/serverRenderer').default;
+  const serverRenderer = require('../build/serverRenderer').default;
   app.use(serverRenderer());
   app.use(errorHandler());
   runHttpServer();
