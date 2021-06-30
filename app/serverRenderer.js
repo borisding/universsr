@@ -8,7 +8,7 @@ import { StaticRouter } from 'react-router-dom';
 import serialize from 'serialize-javascript';
 import path from 'path';
 
-import App from './components/App';
+import { App } from './components';
 import html from './html';
 import * as services from './services';
 import { isDev, syspath } from '../config';
