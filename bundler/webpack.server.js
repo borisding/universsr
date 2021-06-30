@@ -4,6 +4,7 @@ import webpackCommon from './webpack.common';
 import { paths } from '../utils';
 
 const commonConfig = webpackCommon('server');
+
 // custom externals for node
 const externalRegExp = /@loadable\/component/;
 const nodeExternals = fs
@@ -22,11 +23,11 @@ export default {
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
   externals: nodeExternals,
-  entry: './serverRenderer.js',
+  entry: './ssr.js',
   output: {
     path: paths.build,
     libraryTarget: 'commonjs2',
-    filename: 'serverRenderer.js'
+    filename: 'ssr.js'
   },
   node: {
     __filename: false,

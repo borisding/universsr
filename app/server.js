@@ -18,16 +18,17 @@ app.use(express.static(paths.build));
 app.get('/favicon.ico', (req, res) => res.status(204));
 
 // use webpack compiler for development
-// otherwise, use built server renderer instead
+// otherwise, use built server side renderer instead
 if (env.isDev) {
-  const webpackCompiler = require('../bundler/webpack.compiler').default;
+  const { default: webpackCompiler } = require('../bundler/webpack.compiler');
   app.use(webpackCompiler(() => runHttpServer()));
 } else {
-  const serverRenderer = require('../build/serverRenderer').default;
-  app.use(serverRenderer());
-  app.use(errorHandler());
+  const { default: ssr } = require('../build/ssr');
+  app.use(ssr());
   runHttpServer();
 }
+
+app.use(errorHandler());
 
 // running app http server
 function runHttpServer() {

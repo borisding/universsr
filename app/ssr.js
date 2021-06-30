@@ -30,7 +30,7 @@ function createHtmlPageContent(data) {
   });
 }
 
-export default function serverRenderer() {
+export default function ssr() {
   return async (req, res, next) => {
     try {
       const staticContext = {};
