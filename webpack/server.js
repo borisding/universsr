@@ -1,6 +1,5 @@
 import fs from 'fs';
 import webpack from 'webpack';
-import WebpackBar from 'webpackbar';
 import webpackCommon from './common';
 import { syspath } from '../config';
 
@@ -42,8 +41,5 @@ export default {
       commonConfig.getStylesRule()
     ]
   },
-  plugins: [
-    new WebpackBar({ name: 'server', color: 'orange', profile: true }),
-    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
-  ]
+  plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })]
 };

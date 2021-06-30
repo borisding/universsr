@@ -135,8 +135,7 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
-    "webpack-hot-server-middleware": "^0.6.1",
-    "webpackbar": "^4.0.0"
+    "webpack-hot-server-middleware": "^0.6.1"
   },
   "nodemonConfig": {
     "debug": true,

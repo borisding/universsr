@@ -3,7 +3,6 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserJSPlugin from 'terser-webpack-plugin';
-import WebpackBar from 'webpackbar';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import LoadablePlugin from '@loadable/webpack-plugin';
 
@@ -62,9 +61,9 @@ export default {
     ]
   },
   plugins: [
-    new LoadablePlugin(),
-    new WebpackBar({ name: 'client', color: 'green', profile: true }),
+    new webpack.ProgressPlugin(),
     new webpack.DefinePlugin(getDefinedVars().stringified),
+    new LoadablePlugin(),
     new MiniCssExtractPlugin({
       filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
       chunkFilename: isDev
