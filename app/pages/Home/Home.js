@@ -1,11 +1,11 @@
 import React from 'react';
 import logo from '../../../assets/images/logo.png';
-import { PageContainer } from '../../components';
+import { Page } from '../../components';
 import styles from './Home.module.scss';
 
 export default function Home() {
   return (
-    <PageContainer title="Home">
+    <Page title="Home">
       <div className={styles.logo}>
         <img src={logo} alt="React Redux Boilerplate" />
       </div>
@@ -20,6 +20,6 @@ export default function Home() {
       >
         GitHub repository
       </a>
-    </PageContainer>
+    </Page>
   );
 }

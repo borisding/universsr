@@ -1,4 +1,4 @@
-import { Layout } from '../layout';
+import Root from '../pages/Root';
 import Home from '../pages/Home';
 import Todos from '../pages/Todos';
 import NotFound from '../pages/NotFound';
@@ -24,7 +24,7 @@ export const routes = [
 
 export default [
   {
-    component: Layout,
+    component: Root,
     routes
   }
 ];

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFrontload } from 'react-frontload';
-import { PageContainer, Loader } from '../../components';
+import { Page, Loader } from '../../components';
 import TodoList from './TodoList';
 
 export default function Todos() {
@@ -17,8 +17,8 @@ export default function Todos() {
   }
 
   return (
-    <PageContainer title="Todos">
+    <Page title="Todos">
       <TodoList todos={todos} />
-    </PageContainer>
+    </Page>
   );
 }
