@@ -1,5 +1,4 @@
 import 'make-promises-safe';
-import http from 'http';
 import express from 'express';
 import chalk from 'chalk';
 import hpp from 'hpp';
@@ -32,33 +31,13 @@ if (isDev) {
 
 // running app http server
 function runHttpServer() {
-  const server = http.createServer(app);
-  const port = parseInt(process.env.PORT, 10) || 3000;
-
-  server.listen(port);
-  server.on('listening', () => {
-    console.info(chalk.cyan(`App server is listening PORT: ${port}`));
-  });
-
-  server.on('error', err => {
-    switch (err.code) {
-      case 'EACCES':
-        console.error(chalk.red('Not enough privileges to run app server.'));
-        process.exit(1);
-        break;
-      case 'EADDRINUSE':
-        console.error(chalk.red(`${port} is already in use.`));
-        process.exit(1);
-        break;
-      default:
-        throw err;
-    }
-  });
-
-  ['SIGINT', 'SIGTERM', 'SIGHUP'].forEach(signal => {
-    process.on(signal, () => {
-      server.close();
-      process.exit();
+  const PORT = parseInt(process.env.PORT, 10) || 3000;
+  app
+    .listen(PORT, () => {
+      console.info(chalk.cyan(`App server is listening PORT: ${PORT}`));
+    })
+    .on('error', err => {
+      console.error(chalk.red(err.message));
+      process.exit(-1);
     });
-  });
 }
