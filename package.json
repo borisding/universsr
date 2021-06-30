@@ -51,7 +51,6 @@
     "chalk": "^4.1.1",
     "compression": "^1.7.4",
     "core-js": "^3.15.2",
-    "detect-node": "^2.1.0",
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
     "express": "^4.17.1",

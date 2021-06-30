@@ -1,7 +1,7 @@
 const fs = require('fs');
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
-const { syspath } = require('./config');
+const { paths } = require('./utils');
 
 const NODE_ENV = process.env.NODE_ENV;
 if (!NODE_ENV) {
@@ -11,7 +11,7 @@ if (!NODE_ENV) {
 }
 
 // using .env.[NODE_ENV] file instead when not in `production` environment
-let envFile = `${syspath.config}/dotenv/.env`;
+let envFile = `${paths.config}/.env`;
 if (NODE_ENV !== 'production') {
   envFile = `${envFile}.${NODE_ENV}`;
 }

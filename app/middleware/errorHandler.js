@@ -1,5 +1,5 @@
 import logger from '../logger';
-import { isDev } from '../../config';
+import { env } from '../../utils';
 
 // custom error handler for the app/api
 // only include error stack in development mode
@@ -8,8 +8,8 @@ const errorHandler =
   // eslint-disable-next-line no-unused-vars
   (err, req, res, next) => {
     const code = err.code || 500;
-    const stack = isDev ? err.stack : null;
-    const error = isDev ? err.message : 'Sorry! Something went wrong.';
+    const stack = env.isDev ? err.stack : null;
+    const error = env.isDev ? err.message : 'Sorry! Something went wrong.';
     const errorData = { code, error, stack };
 
     res.status(code);

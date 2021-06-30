@@ -11,10 +11,10 @@ import path from 'path';
 import { App } from './components';
 import html from './html';
 import * as services from './services';
-import { isDev, syspath } from '../config';
+import { env, paths } from '../utils';
 
 function createHtmlPageContent(data) {
-  if (isDev) {
+  if (env.isDev) {
     return html(data);
   }
 
@@ -34,7 +34,7 @@ export default function serverRenderer() {
   return async (req, res, next) => {
     try {
       const staticContext = {};
-      const statsFile = path.resolve(`${syspath.build}/loadable-stats.json`);
+      const statsFile = path.resolve(`${paths.build}/loadable-stats.json`);
       const extractor = new ChunkExtractor({ statsFile });
 
       const frontloadState = createFrontloadState.server({

@@ -1,13 +1,13 @@
 import fs from 'fs';
 import webpack from 'webpack';
 import webpackCommon from './common';
-import { syspath } from '../config';
+import { paths } from '../utils';
 
 const commonConfig = webpackCommon('server');
 // custom externals for node
 const externalRegExp = /@loadable\/component/;
 const nodeExternals = fs
-  .readdirSync(`${syspath.root}/node_modules`)
+  .readdirSync(`${paths.root}/node_modules`)
   .filter(x => !externalRegExp.test(x))
   .reduce((externals, mod) => {
     externals[mod] = `commonjs ${mod}`;
@@ -17,14 +17,14 @@ const nodeExternals = fs
 export default {
   target: 'node',
   name: 'server',
-  context: syspath.app,
+  context: paths.app,
   mode: commonConfig.mode,
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
   externals: nodeExternals,
   entry: './serverRenderer.js',
   output: {
-    path: syspath.build,
+    path: paths.build,
     libraryTarget: 'commonjs2',
     filename: 'serverRenderer.js'
   },

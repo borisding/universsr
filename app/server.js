@@ -4,8 +4,8 @@ import chalk from 'chalk';
 import hpp from 'hpp';
 import helmet from 'helmet';
 import compression from 'compression';
-import { isDev, syspath } from '../config';
 import { httpLogger, errorHandler } from './middleware';
+import { env, paths } from '../utils';
 
 const app = express();
 
@@ -14,12 +14,12 @@ app.use(httpLogger());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(hpp());
 app.use(compression());
-app.use(express.static(syspath.build));
+app.use(express.static(paths.build));
 app.get('/favicon.ico', (req, res) => res.status(204));
 
 // use webpack compiler for development
 // otherwise, use built server renderer instead
-if (isDev) {
+if (env.isDev) {
   const webpackCompiler = require('../webpack/compiler').default;
   app.use(webpackCompiler(runHttpServer));
 } else {

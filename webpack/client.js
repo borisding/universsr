@@ -6,17 +6,19 @@ import TerserJSPlugin from 'terser-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import LoadablePlugin from '@loadable/webpack-plugin';
 
-import { isDev, syspath } from '../config';
+import { env, paths } from '../utils';
 import { getDefinedVars } from '../env.loader';
 import webpackCommon from './common';
 
 const commonConfig = webpackCommon('client');
+
+const { isDev } = env;
 const isAnalyze = process.env.ANALYZE_MODE === 'enabled';
 
 export default {
   target: 'web',
   name: 'client',
-  context: syspath.app,
+  context: paths.app,
   mode: commonConfig.mode,
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
@@ -27,7 +29,7 @@ export default {
     './client.js'
   ],
   output: {
-    path: syspath.build,
+    path: paths.build,
     publicPath: commonConfig.publicPath,
     filename: isDev ? '[name].js' : '[name].[contenthash:8].js',
     chunkFilename: isDev ? '[name].chunk.js' : '[name].chunk.[contenthash:8].js'
@@ -73,8 +75,8 @@ export default {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: `${syspath.assets}/icons`,
-          to: `${syspath.build}/icons`
+          from: `${paths.assets}/icons`,
+          to: `${paths.build}/icons`
         }
       ]
     })

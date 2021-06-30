@@ -1,4 +1,6 @@
-import { isDev } from '../config';
+import { env } from '../utils';
+
+const { isDev } = env;
 
 export default function commonConfig(target) {
   const isClient = target === 'client';
