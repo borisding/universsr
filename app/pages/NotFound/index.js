@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageContainer, HttpStatus } from '../../components';
 
-function NotFound() {
+export default function NotFound() {
   return (
     <PageContainer title="Not Found">
       <HttpStatus statusCode={404}>
@@ -10,5 +10,3 @@ function NotFound() {
     </PageContainer>
   );
 }
-
-export default React.memo(NotFound);

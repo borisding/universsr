@@ -13,8 +13,8 @@ export default function webpackCompiler(runHttpServer) {
   );
 
   const webpackDevInstance = webpackDevMiddleware(compiler, {
-    publicPath: clientConfig.output.publicPath,
     serverSideRender: true,
+    publicPath: clientConfig.output.publicPath,
     writeToDisk: filePath => /loadable-stats\.json$/.test(filePath)
   });
 

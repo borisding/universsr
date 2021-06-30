@@ -1,9 +1,9 @@
 export default function html({
+  helmet,
   styles,
-  js,
-  renderedAppString,
-  preloadedState,
-  helmet
+  scripts,
+  rendered,
+  serverRenderedData
 } = {}) {
   return `<!DOCTYPE html>
   <html ${helmet.htmlAttributes.toString()}>
@@ -15,9 +15,9 @@ export default function html({
       ${styles}
     </head>
     <body>
-      <div id="root">${renderedAppString}</div>
-      <script>window.__UNIVERSSR_PRELOADED_STATE__ = ${preloadedState}</script>
-      ${js}
+      <div id="root">${rendered}</div>
+      <script>window.__UNIVERSSR_PRELOADED_DATA__ = ${serverRenderedData}</script>
+      ${scripts}
     </body>
   </html>`;
 }

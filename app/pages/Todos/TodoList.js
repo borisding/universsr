@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './TodoList.module.scss';
 
 export default function TodoList({ todos }) {
@@ -21,13 +20,3 @@ export default function TodoList({ todos }) {
     </div>
   );
 }
-
-TodoList.propTypes = {
-  todos: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      completed: PropTypes.bool.isRequired
-    })
-  ).isRequired
-};

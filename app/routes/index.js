@@ -1,4 +1,3 @@
-import { hot } from 'react-hot-loader/root';
 import { Layout } from '../layout';
 import Home from '../pages/Home';
 import Todos from '../pages/Todos';
@@ -25,7 +24,7 @@ export const routes = [
 
 export default [
   {
-    component: hot(Layout),
+    component: Layout,
     routes
   }
 ];

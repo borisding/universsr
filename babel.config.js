@@ -1,11 +1,5 @@
 const presets = [
-  [
-    '@babel/preset-env',
-    {
-      corejs: 3,
-      useBuiltIns: 'usage'
-    }
-  ],
+  ['@babel/preset-env', { corejs: 3, useBuiltIns: 'usage' }],
   '@babel/preset-react'
 ];
 
@@ -17,7 +11,7 @@ const plugins = [
 
 const env = {
   development: {
-    plugins: ['react-hot-loader/babel', ...plugins]
+    plugins
   },
   production: {
     plugins: ['transform-react-remove-prop-types', ...plugins]

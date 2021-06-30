@@ -3,7 +3,7 @@ import logo from '../../../assets/images/logo.png';
 import { PageContainer } from '../../components';
 import styles from './Home.module.scss';
 
-function Home() {
+export default function Home() {
   return (
     <PageContainer title="Home">
       <div className={styles.logo}>
@@ -23,5 +23,3 @@ function Home() {
     </PageContainer>
   );
 }
-
-export default React.memo(Home);

@@ -24,7 +24,7 @@ export default {
     ...(isDev
       ? ['webpack-hot-middleware/client?path=/__webpack_hmr&reload=true']
       : []),
-    './App.js'
+    './client.js'
   ],
   output: {
     path: syspath.public,

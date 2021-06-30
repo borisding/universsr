@@ -56,8 +56,7 @@ export default function commonConfig(target) {
     mode: isDev ? 'development' : 'production',
     devtool: isDev ? 'cheap-module-source-map' : 'source-map',
     resolve: {
-      extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.sass'],
-      alias: { 'react-dom': '@hot-loader/react-dom' }
+      extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.sass']
     },
     getBabelRule() {
       return {
