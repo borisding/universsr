@@ -17,7 +17,7 @@ const { isDev } = env;
 const isAnalyze = Boolean(process.env.ANALYZE_MODE) === true;
 const entryFile = './client.js';
 
-const webpackClient = {
+const clientConfig = {
   target: 'web',
   name: 'client',
   context: paths.app,
@@ -94,13 +94,13 @@ const webpackClient = {
 };
 
 if (isDev) {
-  webpackClient.plugins = [
-    ...webpackClient.plugins,
+  clientConfig.plugins = [
+    ...clientConfig.plugins,
     new webpack.HotModuleReplacementPlugin()
   ];
 } else {
-  webpackClient.plugins = [
-    ...webpackClient.plugins,
+  clientConfig.plugins = [
+    ...clientConfig.plugins,
     // for more webpack bundle analyzer options,
     // @see: https://github.com/webpack-contrib/webpack-bundle-analyzer#options-for-plugin
     new BundleAnalyzerPlugin({
@@ -110,4 +110,4 @@ if (isDev) {
   ];
 }
 
-export default webpackClient;
+export default clientConfig;
