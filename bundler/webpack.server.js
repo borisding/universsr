@@ -15,7 +15,7 @@ const nodeExternals = fs
     return externals;
   }, {});
 
-export default {
+const serverConfig = {
   target: 'node',
   name: 'server',
   context: paths.app,
@@ -26,12 +26,13 @@ export default {
   entry: './ssr.js',
   output: {
     path: paths.build,
+    publicPath: commonConfig.publicPath,
     libraryTarget: 'commonjs2',
     filename: 'ssr.js'
   },
   node: {
-    __filename: false,
-    __dirname: false
+    __filename: true,
+    __dirname: true
   },
   module: {
     rules: [
@@ -44,3 +45,5 @@ export default {
   },
   plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })]
 };
+
+export default serverConfig;

@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../theme/variables';
 
 .todosContainer {
@@ -6,8 +7,8 @@
   }
 
   ul > li {
-    padding-bottom: $base-padding / 3;
-    padding-top: $base-padding / 3;
+    padding-bottom: math.div($base-padding, 3);
+    padding-top: math.div($base-padding, 3);
   }
 
   span {

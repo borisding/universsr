@@ -27,30 +27,11 @@ export default function webpackCommon(target) {
     if (MiniCssExtractPlugin) {
       styleLoaders.unshift({
         loader: MiniCssExtractPlugin.loader,
-        options: {
-          hmr: !!isDev,
-          reloadAll: !!isDev
-        }
+        options: { publicPath }
       });
     }
 
     return styleLoaders;
-  };
-
-  // file loaders for both images and fonts
-  const getFileLoaders = options => {
-    return [
-      {
-        loader: 'url-loader',
-        options: {
-          fallback: 'file-loader',
-          publicPath,
-          limit: 10240,
-          emitFile: !!isClient,
-          ...options
-        }
-      }
-    ];
   };
 
   return {
@@ -103,13 +84,19 @@ export default function webpackCommon(target) {
     getImagesRule() {
       return {
         test: /\.(svg|png|jpe?g|gif)(\?.*)?$/i,
-        use: getFileLoaders({ name: 'images/[name].[ext]' })
+        type: 'asset',
+        generator: {
+          emit: !!isClient
+        }
       };
     },
     getFontsRule() {
       return {
         test: /\.(eot|ttf|woff2?)(\?.*)?$/i,
-        use: getFileLoaders({ name: 'fonts/[name].[ext]' })
+        type: 'asset',
+        generator: {
+          emit: !!isClient
+        }
       };
     }
   };

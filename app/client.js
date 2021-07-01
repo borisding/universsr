@@ -20,3 +20,9 @@ loadableReady(() => {
     document.getElementById('root')
   );
 });
+
+// temp fix for webpack 5
+// @see: https://github.com/webpack-contrib/webpack-hot-middleware/issues/390
+if (module.hot) {
+  module.hot.accept();
+}

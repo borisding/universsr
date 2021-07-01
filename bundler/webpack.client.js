@@ -1,10 +1,11 @@
 import webpack from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import TerserJSPlugin from 'terser-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import LoadablePlugin from '@loadable/webpack-plugin';
+import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 import webpackCommon from './webpack.common';
 import { env, paths } from '../utils';
@@ -13,21 +14,22 @@ import { getDefinedVars } from '../env.loader';
 const commonConfig = webpackCommon('client');
 
 const { isDev } = env;
-const isAnalyze = process.env.ANALYZE_MODE === 'enabled';
+const isAnalyze = Boolean(process.env.ANALYZE_MODE) === true;
+const entryFile = './client.js';
 
-export default {
+const webpackClient = {
   target: 'web',
   name: 'client',
   context: paths.app,
   mode: commonConfig.mode,
   devtool: commonConfig.devtool,
   resolve: commonConfig.resolve,
-  entry: [
-    ...(isDev
-      ? ['webpack-hot-middleware/client?path=/__webpack_hmr&reload=true']
-      : []),
-    './client.js'
-  ],
+  entry: isDev
+    ? [
+        'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true',
+        entryFile
+      ]
+    : entryFile,
   output: {
     path: paths.build,
     publicPath: commonConfig.publicPath,
@@ -36,10 +38,19 @@ export default {
   },
   optimization: {
     // @see: https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
-    // @see: https://github.com/NMFR/optimize-css-assets-webpack-plugin
-    minimizer: [new TerserJSPlugin(), new OptimizeCssAssetsPlugin()],
+    // @see: https://webpack.js.org/plugins/css-minimizer-webpack-plugin/#options
+    minimizer: [new TerserJSPlugin(), new CssMinimizerPlugin()],
+    runtimeChunk: {
+      name: entrypoint => `runtime~${entrypoint.name}`
+    },
     splitChunks: {
-      chunks: 'all' // all types of chunks
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all'
+        }
+      }
     }
   },
   // for more about performance hints
@@ -65,6 +76,7 @@ export default {
   plugins: [
     new webpack.ProgressPlugin(),
     new webpack.DefinePlugin(getDefinedVars().stringified),
+    new NodePolyfillPlugin({ excludeAliases: ['console'] }),
     new LoadablePlugin(),
     new MiniCssExtractPlugin({
       filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
@@ -80,16 +92,24 @@ export default {
         }
       ]
     })
-  ].concat(
-    isDev
-      ? [new webpack.HotModuleReplacementPlugin()]
-      : [
-          // for more webpack bundle analyzer options,
-          // @see: https://github.com/webpack-contrib/webpack-bundle-analyzer#options-for-plugin
-          new BundleAnalyzerPlugin({
-            analyzerMode: isAnalyze ? 'server' : 'disabled',
-            openAnalyzer: isAnalyze
-          })
-        ]
-  )
+  ]
 };
+
+if (isDev) {
+  webpackClient.plugins = [
+    ...webpackClient.plugins,
+    new webpack.HotModuleReplacementPlugin()
+  ];
+} else {
+  webpackClient.plugins = [
+    ...webpackClient.plugins,
+    // for more webpack bundle analyzer options,
+    // @see: https://github.com/webpack-contrib/webpack-bundle-analyzer#options-for-plugin
+    new BundleAnalyzerPlugin({
+      analyzerMode: isAnalyze ? 'server' : 'disabled',
+      openAnalyzer: isAnalyze
+    })
+  ];
+}
+
+export default webpackClient;

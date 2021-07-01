@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../theme/variables';
 
 .lead {
@@ -8,7 +9,7 @@
 .logo {
   display: block;
   height: 96px;
-  margin-bottom: $base-margin / 4;
+  margin-bottom: math.div($base-margin, 4);
   overflow: hidden;
   width: 96px;
 

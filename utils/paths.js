@@ -1,4 +1,6 @@
-import root from 'app-root-path';
+import path from 'path';
+
+const root = path.resolve(process.cwd());
 
 export default {
   root,
