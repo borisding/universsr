@@ -36,6 +36,7 @@ export default function webpackCommon(target) {
 
   return {
     publicPath,
+    stats: 'minimal',
     mode: isDev ? 'development' : 'production',
     devtool: isDev ? 'cheap-module-source-map' : 'source-map',
     resolve: {
