@@ -34,7 +34,7 @@ const webpackClient = {
     path: paths.build,
     publicPath: commonConfig.publicPath,
     filename: isDev ? '[name].js' : '[name].[contenthash:8].js',
-    chunkFilename: isDev ? '[name].chunk.js' : '[name].chunk.[contenthash:8].js'
+    chunkFilename: isDev ? '[id].chunk.js' : '[id].chunk.[contenthash:8].js'
   },
   optimization: {
     // @see: https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
@@ -80,9 +80,7 @@ const webpackClient = {
     new LoadablePlugin(),
     new MiniCssExtractPlugin({
       filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
-      chunkFilename: isDev
-        ? '[name].chunk.css'
-        : '[name].chunk.[contenthash:8].css'
+      chunkFilename: isDev ? '[id].chunk.css' : '[id].chunk.[contenthash:8].css'
     }),
     new CopyWebpackPlugin({
       patterns: [

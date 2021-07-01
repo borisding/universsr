@@ -1,5 +1,3 @@
 import loadable from '@loadable/component';
 
-export default loadable(() =>
-  import(/* webpackChunkName: 'todos' */ './Todos')
-);
+export default loadable(() => import('./Todos'));
