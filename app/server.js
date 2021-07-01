@@ -28,8 +28,6 @@ if (env.isDev) {
   runHttpServer();
 }
 
-//app.use(errorHandler());
-
 // running app http server
 function runHttpServer() {
   const PORT = parseInt(process.env.PORT, 10) || 3000;
