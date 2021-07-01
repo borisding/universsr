@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import hpp from 'hpp';
 import helmet from 'helmet';
 import compression from 'compression';
-import { httpLogger, errorHandler } from './middleware';
+import { httpLogger } from './middleware';
 import { env, paths } from '../utils';
 
 const app = express();
@@ -28,7 +28,7 @@ if (env.isDev) {
   runHttpServer();
 }
 
-app.use(errorHandler());
+//app.use(errorHandler());
 
 // running app http server
 function runHttpServer() {

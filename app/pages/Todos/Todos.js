@@ -16,9 +16,13 @@ export default function Todos() {
     return <Loader />;
   }
 
+  if (frontloadMeta.error) {
+    return <div>Failed to fetch data!</div>;
+  }
+
   return (
     <Page title="Todos">
-      <TodoList todos={todos} />
+      <TodoList todos={todos} />J
     </Page>
   );
 }
