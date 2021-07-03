@@ -25,7 +25,7 @@ const serverConfig = {
   externals: nodeExternals,
   entry: './ssr.js',
   output: {
-    path: paths.build,
+    path: commonConfig.outputPath,
     publicPath: commonConfig.publicPath,
     libraryTarget: 'commonjs2',
     filename: 'ssr.js'

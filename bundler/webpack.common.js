@@ -1,9 +1,10 @@
-import { env } from '../utils';
+import { env, paths } from '../utils';
 
 const { isDev } = env;
 
 export default function webpackCommon(target) {
   const isClient = target === 'client';
+  const outputPath = paths.build;
   const publicPath = process.env.PUBLIC_PATH || '/';
 
   // the style loaders for both css modules and global style
@@ -35,6 +36,7 @@ export default function webpackCommon(target) {
   };
 
   return {
+    outputPath,
     publicPath,
     stats: 'minimal',
     mode: isDev ? 'development' : 'production',

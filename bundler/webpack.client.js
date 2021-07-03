@@ -30,7 +30,7 @@ const clientConfig = {
       ]
     : entryFile,
   output: {
-    path: paths.build,
+    path: commonConfig.outputPath,
     publicPath: commonConfig.publicPath,
     filename: isDev ? '[name].js' : '[name].[contenthash:8].js',
     chunkFilename: isDev ? '[id].chunk.js' : '[id].chunk.[contenthash:8].js'
