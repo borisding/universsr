@@ -10,7 +10,7 @@ import webpackCommon from './webpack.common';
 import { env, paths } from '../utils';
 import { getDefinedVars } from '../env.loader';
 
-const commonConfig = webpackCommon('client');
+const config = webpackCommon('client');
 
 const { isDev } = env;
 const isAnalyze = Boolean(process.env.ANALYZE_MODE) === true;
@@ -20,10 +20,10 @@ const clientConfig = {
   target: 'web',
   name: 'client',
   context: paths.app,
-  mode: commonConfig.mode,
-  devtool: commonConfig.devtool,
+  mode: config.mode,
+  devtool: config.devtool,
   resolve: {
-    ...commonConfig.resolve,
+    ...config.resolve,
     fallback: {
       fs: false
     }
@@ -35,8 +35,8 @@ const clientConfig = {
       ]
     : entryFile,
   output: {
-    path: commonConfig.outputPath,
-    publicPath: commonConfig.publicPath,
+    path: config.outputPath,
+    publicPath: config.publicPath,
     filename: isDev ? '[name].js' : '[name].[contenthash:8].js',
     chunkFilename: isDev ? '[id].chunk.js' : '[id].chunk.[contenthash:8].js'
   },
@@ -70,11 +70,11 @@ const clientConfig = {
       },
   module: {
     rules: [
-      commonConfig.getBabelRule(),
-      commonConfig.getImagesRule(),
-      commonConfig.getFontsRule(),
-      commonConfig.getCssModulesRule(MiniCssExtractPlugin),
-      commonConfig.getStylesRule(MiniCssExtractPlugin)
+      config.getBabelRule(),
+      config.getImagesRule(),
+      config.getFontsRule(),
+      config.getCssModulesRule(MiniCssExtractPlugin),
+      config.getStylesRule(MiniCssExtractPlugin)
     ]
   },
   plugins: [

@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import webpackCommon from './webpack.common';
 import { paths } from '../utils';
 
-const commonConfig = webpackCommon('server');
+const config = webpackCommon('server');
 
 // custom externals for node
 const externalRegExp = /@loadable\/component/;
@@ -19,14 +19,14 @@ const serverConfig = {
   target: 'node',
   name: 'server',
   context: paths.app,
-  mode: commonConfig.mode,
-  devtool: commonConfig.devtool,
-  resolve: commonConfig.resolve,
+  mode: config.mode,
+  devtool: config.devtool,
+  resolve: config.resolve,
   externals: nodeExternals,
   entry: './ssr.js',
   output: {
-    path: commonConfig.outputPath,
-    publicPath: commonConfig.publicPath,
+    path: config.outputPath,
+    publicPath: config.publicPath,
     libraryTarget: 'commonjs2',
     filename: 'ssr.js'
   },
@@ -36,11 +36,11 @@ const serverConfig = {
   },
   module: {
     rules: [
-      commonConfig.getBabelRule(),
-      commonConfig.getImagesRule(),
-      commonConfig.getFontsRule(),
-      commonConfig.getCssModulesRule(),
-      commonConfig.getStylesRule()
+      config.getBabelRule(),
+      config.getImagesRule(),
+      config.getFontsRule(),
+      config.getCssModulesRule(),
+      config.getStylesRule()
     ]
   },
   plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })]
