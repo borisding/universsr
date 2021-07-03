@@ -8,5 +8,6 @@ export default {
   build: `${root}/build`,
   config: `${root}/config`,
   resources: `${root}/resources`,
+  icons: `${root}/resources/icons`,
   webpack: `${root}/webpack`
 };
