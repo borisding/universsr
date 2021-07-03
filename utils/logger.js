@@ -1,9 +1,9 @@
 import { format, transports, createLogger } from 'winston';
-import { env, paths } from '../../utils';
+import { env, paths } from './';
 
 const { combine, json, timestamp, label } = format;
 
-const winstonLogger = createLogger({
+const logger = createLogger({
   exitOnError: false,
   transports: [
     new transports.File({
@@ -24,11 +24,11 @@ const winstonLogger = createLogger({
 
 // add console only for development
 if (env.isDev) {
-  winstonLogger.add(
+  logger.add(
     new transports.Console({
       handleExceptions: true
     })
   );
 }
 
-export default winstonLogger;
+export default logger;

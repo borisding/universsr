@@ -22,7 +22,12 @@ const clientConfig = {
   context: paths.app,
   mode: commonConfig.mode,
   devtool: commonConfig.devtool,
-  resolve: commonConfig.resolve,
+  resolve: {
+    ...commonConfig.resolve,
+    fallback: {
+      fs: false
+    }
+  },
   entry: isDev
     ? [
         'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true',
