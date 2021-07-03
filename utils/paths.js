@@ -8,7 +8,6 @@ export default {
   assets: `${root}/assets`,
   build: `${root}/build`,
   config: `${root}/config`,
-  public: `${root}/public`,
-  storage: `${root}/storage`,
+  resources: `${root}/resources`,
   webpack: `${root}/webpack`
 };
