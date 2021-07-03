@@ -16,7 +16,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.use(hpp());
 app.use(compression());
 app.use(express.static(paths.build));
-app.use(favicon(`${paths.build}/icons/favicon.ico`));
+app.use(favicon(`${paths.assets}/icons/favicon.ico`));
 
 // use webpack compiler for development
 // otherwise, use built server side renderer instead
