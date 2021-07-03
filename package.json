@@ -66,6 +66,7 @@
     "react-router-dom": "^5.2.0",
     "rimraf": "^3.0.2",
     "serialize-javascript": "^6.0.0",
+    "serve-favicon": "^2.5.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {

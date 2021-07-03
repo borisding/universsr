@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import hpp from 'hpp';
 import helmet from 'helmet';
 import compression from 'compression';
+import favicon from 'serve-favicon';
 import { httpLogger } from './middleware';
 import { env, paths } from '../utils';
 
@@ -15,7 +16,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.use(hpp());
 app.use(compression());
 app.use(express.static(paths.build));
-app.get('/favicon.ico', (req, res) => res.status(204));
+app.use(favicon(`${paths.build}/icons/favicon.ico`));
 
 // use webpack compiler for development
 // otherwise, use built server side renderer instead

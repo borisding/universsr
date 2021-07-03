@@ -17,8 +17,8 @@ const helmet = {
     },
     {
       rel: 'icon',
-      type: 'image/png',
-      href: '/icons/favicon.png'
+      type: 'image/x-icon',
+      href: '/icons/favicon.ico'
     }
   ],
   meta: [
