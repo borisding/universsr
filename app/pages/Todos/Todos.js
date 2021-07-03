@@ -22,7 +22,7 @@ export default function Todos() {
 
   return (
     <Page title="Todos">
-      <TodoList todos={todos} />J
+      <TodoList todos={todos} />
     </Page>
   );
 }
