@@ -1,5 +1,4 @@
 import webpack from 'webpack';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import TerserJSPlugin from 'terser-webpack-plugin';
@@ -81,14 +80,6 @@ const clientConfig = {
     new MiniCssExtractPlugin({
       filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
       chunkFilename: isDev ? '[id].chunk.css' : '[id].chunk.[contenthash:8].css'
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: `${paths.assets}/icons`,
-          to: `${paths.build}/icons`
-        }
-      ]
     })
   ]
 };

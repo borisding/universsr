@@ -15,8 +15,11 @@ app.use(httpLogger());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(hpp());
 app.use(compression());
+
+// serve static files
 app.use(express.static(paths.build));
-app.use(favicon(`${paths.assets}/icons/favicon.ico`));
+app.use('/icons', express.static(`${paths.resources}/icons`));
+app.use(favicon(`${paths.resources}/icons/favicon.ico`));
 
 // use webpack compiler for development
 // otherwise, use built server side renderer instead
