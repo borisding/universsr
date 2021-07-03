@@ -8,14 +8,6 @@
 
 .logo {
   display: block;
-  height: 96px;
   margin-bottom: math.div($base-margin, 4);
   overflow: hidden;
-  width: 96px;
-
-  img {
-    display: block;
-    height: 100%;
-    width: 100%;
-  }
 }

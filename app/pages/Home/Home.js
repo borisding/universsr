@@ -10,7 +10,7 @@ export default function Home() {
         <img src={logo} alt="React Logo" />
       </div>
       <p className={styles.lead}>
-        universsr is <strong>universal</strong> React-Redux starter kit.
+        <strong>universsr</strong> is universal React web app boilerplate.
       </p>
       <br />
       <a
