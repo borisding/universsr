@@ -127,7 +127,7 @@
     "watch": [
       "app/logger/*",
       "app/middleware/*",
-      "app/server"
+      "app/server.js"
     ]
   },
   "browserslist": [
