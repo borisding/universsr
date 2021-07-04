@@ -9,7 +9,7 @@ const paths = {
   config: `${root}/config`,
   resources: `${root}/resources`,
   icons: `${root}/resources/icons`,
-  utils: `${root}/resources/utils`
+  utils: `${root}/utils`
 };
 
 export default paths;
