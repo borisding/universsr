@@ -6,8 +6,9 @@ export default {
   root,
   app: `${root}/app`,
   build: `${root}/build`,
+  bundler: `${root}/bundler`,
   config: `${root}/config`,
   resources: `${root}/resources`,
   icons: `${root}/resources/icons`,
-  webpack: `${root}/webpack`
+  utils: `${root}/resources/utils`
 };
