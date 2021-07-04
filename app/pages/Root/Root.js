@@ -6,7 +6,7 @@ import { renderRoutes } from 'react-router-config';
 import { ErrorBoundary } from '../../components';
 import { routes } from '../../routes';
 import helmet from '../../static/helmet';
-import styles from './Root.module.scss';
+import styles from './Root.module';
 
 export function Root({ route }) {
   return (

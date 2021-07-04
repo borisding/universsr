@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './TodoList.module.scss';
+import styles from './TodoList.module';
 
 export default function TodoList({ todos }) {
   const totalCompleted = todos.filter(todo => !!todo.completed).length;

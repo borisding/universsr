@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../static/images/logo.svg';
 import { Page } from '../../components';
-import styles from './Home.module.scss';
+import styles from './Home.module';
 
 export default function Home() {
   return (
