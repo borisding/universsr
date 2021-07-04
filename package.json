@@ -1,7 +1,7 @@
 {
   "name": "universsr",
   "version": "7.0.0",
-  "description": "Universal React + Redux project starter kit.",
+  "description": "Universal React web app boilerplate.",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf build",
@@ -31,9 +31,7 @@
     "universal",
     "ssr",
     "express",
-    "react",
-    "redux",
-    "react-redux"
+    "react"
   ],
   "author": "Boris Ding Poh Hing",
   "license": "MIT",
