@@ -23,12 +23,12 @@ const serverConfig = {
   devtool: config.devtool,
   resolve: config.resolve,
   externals: nodeExternals,
-  entry: './middleware/ssr.js',
+  entry: './middleware/serverRenderer.js',
   output: {
     path: config.outputPath,
     publicPath: config.publicPath,
     libraryTarget: 'commonjs2',
-    filename: 'ssr.js'
+    filename: 'serverRenderer.js'
   },
   node: {
     __filename: true,

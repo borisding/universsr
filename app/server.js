@@ -27,8 +27,8 @@ if (env.isDev) {
   const { default: webpackCompiler } = require('../bundler/webpack.compiler');
   app.use(webpackCompiler(() => runHttpServer()));
 } else {
-  const { default: ssr } = require('../build/ssr');
-  app.use(ssr());
+  const { default: serverRenderer } = require('../build/serverRenderer');
+  app.use(serverRenderer());
   runHttpServer();
 }
 
