@@ -8,10 +8,10 @@ import { StaticRouter } from 'react-router-dom';
 import serialize from 'serialize-javascript';
 import path from 'path';
 
-import { App } from './components';
-import html from './static/html';
-import * as services from './services';
-import { env, paths } from '../utils';
+import { App } from '../components';
+import html from '../static/html';
+import * as services from '../services';
+import { env, paths } from '../../utils';
 
 function createHtmlPageContent(data) {
   if (env.isDev) {

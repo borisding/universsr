@@ -23,7 +23,7 @@ const serverConfig = {
   devtool: config.devtool,
   resolve: config.resolve,
   externals: nodeExternals,
-  entry: './ssr.js',
+  entry: './middleware/ssr.js',
   output: {
     path: config.outputPath,
     publicPath: config.publicPath,
