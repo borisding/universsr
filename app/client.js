@@ -9,7 +9,7 @@ import * as services from './services';
 
 const frontloadState = createFrontloadState.client({
   context: { api: services },
-  serverRenderedData: window.__UNIVERSSR_PRELOADED_DATA__
+  serverRenderedData: window.__UNIVERSSR_RENDERED_DATA__
 });
 
 loadableReady(() => {

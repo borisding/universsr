@@ -56,9 +56,8 @@ export default function serverRenderer() {
 
       const scripts = extractor.getScriptTags();
       const styles = extractor.getStyleTags();
-
+      const renderedData = serialize(data, { isJSON: true });
       const helmet = Helmet.renderStatic();
-      const serverRenderedData = serialize(data, { isJSON: true });
 
       const { statusCode = 200, redirectUrl } = staticContext;
       if ([301, 302].includes(statusCode) && redirectUrl) {
@@ -71,7 +70,7 @@ export default function serverRenderer() {
           styles,
           scripts,
           rendered,
-          serverRenderedData
+          renderedData
         })
       );
     } catch (err) {

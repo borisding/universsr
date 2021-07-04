@@ -3,7 +3,7 @@ export default function html({
   styles,
   scripts,
   rendered,
-  serverRenderedData
+  renderedData
 } = {}) {
   return `<!DOCTYPE html>
   <html ${helmet.htmlAttributes.toString()}>
@@ -16,7 +16,7 @@ export default function html({
     </head>
     <body>
       <div id="root">${rendered}</div>
-      <script>window.__UNIVERSSR_PRELOADED_DATA__ = ${serverRenderedData}</script>
+      <script>window.__UNIVERSSR_RENDERED_DATA__ = ${renderedData}</script>
       ${scripts}
     </body>
   </html>`;
