@@ -1,6 +1,6 @@
 const helmet = {
   htmlAttributes: { lang: 'en' },
-  titleTemplate: 'Universal App | %s',
+  titleTemplate: 'Universal React App | %s',
   link: [
     {
       rel: 'stylesheet',
@@ -19,7 +19,7 @@ const helmet = {
     },
     {
       name: 'description',
-      content: 'Universal React Redux Boilerplate.'
+      content: 'Universal React Web App Boilerplate.'
     }
   ]
 };
