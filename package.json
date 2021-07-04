@@ -123,6 +123,9 @@
     "env": {
       "NODE_ENV": "development"
     },
+    "ignore": [
+      "app/middleware/serverRenderer.js"
+    ],
     "watch": [
       "app/logger/*",
       "app/middleware/*",
