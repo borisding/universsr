@@ -1,8 +1,7 @@
 import path from 'path';
 
 const root = path.resolve(process.cwd());
-
-export default {
+const paths = {
   root,
   app: `${root}/app`,
   build: `${root}/build`,
@@ -12,3 +11,5 @@ export default {
   icons: `${root}/resources/icons`,
   utils: `${root}/resources/utils`
 };
+
+export default paths;
