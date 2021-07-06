@@ -9,5 +9,11 @@ module.exports = {
   },
   testEnvironment: 'node',
   testRegex: '(/tests/.*|(\\.|/)(test|spec))\\.jsx?$',
-  testPathIgnorePatterns: ['<rootDir>/node_modules/']
+  testPathIgnorePatterns: ['<rootDir>/node_modules/'],
+  collectCoverageFrom: [
+    'app/*/*.js',
+    '!app/*/index.js',
+    'utils/*.js',
+    '!utils/index.js'
+  ]
 };
