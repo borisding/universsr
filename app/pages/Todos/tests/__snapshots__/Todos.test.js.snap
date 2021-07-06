@@ -5,19 +5,8 @@ exports[`Todos renders correctly 1`] = `
   className="todosContainer"
 >
   <h3>
-    Todo List (0 / 1)
+    Todo List (0 / 0)
   </h3>
-  <ul>
-    <li>
-      <span
-        className="pending"
-      >
-        todo value
-         (ID: 
-        1
-        )
-      </span>
-    </li>
-  </ul>
+  <ul />
 </div>
 `;

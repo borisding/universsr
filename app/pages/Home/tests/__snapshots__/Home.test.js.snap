@@ -6,18 +6,17 @@ Array [
     className="logo"
   >
     <img
-      alt="React Redux Boilerplate"
+      alt="React Logo"
       src="test-file-stub"
     />
   </div>,
   <p
     className="lead"
   >
-    universsr is 
     <strong>
-      universal
+      universsr
     </strong>
-     React-Redux starter kit.
+     is universal React web app boilerplate.
   </p>,
   <br />,
   <a
