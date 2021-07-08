@@ -3,7 +3,7 @@ export default function html({
   styles,
   scripts,
   rendered,
-  renderedData
+  frontloadData
 } = {}) {
   return `<!DOCTYPE html>
   <html ${helmet.htmlAttributes.toString()}>
@@ -16,7 +16,7 @@ export default function html({
     </head>
     <body>
       <div id="root">${rendered}</div>
-      <script>window.__UNIVERSSR_RENDERED_DATA__ = ${renderedData}</script>
+      <script>window.__UNIVERSSR_FRONTLOAD_DATA__ = ${frontloadData}</script>
       ${scripts}
     </body>
   </html>`;
