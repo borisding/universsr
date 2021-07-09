@@ -1,4 +1,4 @@
-∏<h1>universsr</h1>
+<h1>universsr</h1>
 
 <p>
 <a href="https://github.com/borisding/universsr"><img src="https://img.shields.io/github/release/borisding/universsr.svg" alt="Release Version"></a>
@@ -37,7 +37,6 @@ Before you proceed, please make sure your machine has met the following requirem
 | ---------- | :---------: |
 | Node       | >= v12.13.0 |
 | NPM        | >= v6.12.0  |
-
 
 ## Quick Start
 
@@ -92,7 +91,7 @@ Below is overview of project folder structure in this starter along with the sho
 ```
 ├── app                         # contains all app source files
 |  ├── client.js                # webpack's client entry
-|  ├── components               # contains React components 
+|  ├── components               # contains React components
 |  ├── middleware               # contains Express middleware, include server renderer
 |  ├── pages                    # contains page components
 |  ├── routes                   # contains react route's configuration
@@ -140,20 +139,20 @@ Below is overview of project folder structure in this starter along with the sho
 <details><summary>CLICK ME</summary>
 <p>
 
-| Script Name     | Description                                                                                                            |
-| --------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `clean`         | Remove `build` folder and respective built files.                                                                      |
-| `build`         | Remove previous built files and build production ready files to be served.                                             |
-| `build:analyze` | Same with `build` script, except it comes with webpack bundle analyzer to visualize size of the output files.          |
-| `dev`           | Start app server in development environment via nodemon.                                                               |
-| `start`         | Start app server in production environment                                                                             |
-| `test`          | Perform tests execution.                                                                                               |
-| `test:update`   | Running tests with snapshots get updated on.                                                                           |
-| `test:watch`    | Running tests with watch mode turned on.                                                                               |
-| `test:coverage` | Running tests with coverage report output.                                                                             |
-| `lint`          | Perform source code lint checks for JS, React and styles based on the ESLint and stylelint config.                     |
-| `lint:style`    | Perform lint checks for Sass style.                                                                                    |
-| `lint:js`       | Perform lint checks for JS and React.                                                                                  |
+| Script Name     | Description                                                                                                   |
+| --------------- | ------------------------------------------------------------------------------------------------------------- |
+| `clean`         | Remove `build` folder and respective built files.                                                             |
+| `build`         | Remove previous built files and build production ready files to be served.                                    |
+| `build:analyze` | Same with `build` script, except it comes with webpack bundle analyzer to visualize size of the output files. |
+| `dev`           | Start app server in development environment via nodemon.                                                      |
+| `start`         | Start app server in production environment                                                                    |
+| `test`          | Perform tests execution.                                                                                      |
+| `test:update`   | Running tests with snapshots get updated on.                                                                  |
+| `test:watch`    | Running tests with watch mode turned on.                                                                      |
+| `test:coverage` | Running tests with coverage report output.                                                                    |
+| `lint`          | Perform source code lint checks for JS, React and styles based on the ESLint and stylelint config.            |
+| `lint:style`    | Perform lint checks for Sass style.                                                                           |
+| `lint:js`       | Perform lint checks for JS and React.                                                                         |
 
 </p>
 </details>
