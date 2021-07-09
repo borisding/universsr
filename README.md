@@ -1,4 +1,4 @@
-<h1>universsr</h1>
+∏<h1>universsr</h1>
 
 <p>
 <a href="https://github.com/borisding/universsr"><img src="https://img.shields.io/github/release/borisding/universsr.svg" alt="Release Version"></a>
@@ -8,31 +8,26 @@
 <a href="https://david-dm.org/borisding/universsr?type=dev"><img src="https://david-dm.org/borisding/universsr/dev-status.svg" alt="Dev Dependencies"></a>
 </p>
 
-**universsr** - An opinionated project starter kit to kick off your next universal React + Redux application, powered by Node.js Express web framework as backend.
+**universsr** - Universal React web app boilerplate, powered by Node.js Express web framework as backend.
 
 > ✨ The name - "universsr" is combination of _universal_ and _server-side rendering (SSR)_ acronym.
 
 ## Features
 
-- Server-rendered [`react`](https://github.com/facebook/react) + [`react-redux`](https://github.com/reduxjs/react-redux) for binding.
-- [`Express`](https://github.com/expressjs/express) framework for backend work.
-- ECMAScript modules with [`esm`](https://github.com/standard-things/esm) module loader.
+- Server-rendered [`react`](https://github.com/facebook/react) + [`react-frontload`](https://github.com/davnicwil/react-frontload) for async data loading.
+- [`Express`](https://github.com/expressjs/express) - Node.js framework for backend work.
+- Code splitting for server rendered components via [`loadable-components`](https://github.com/gregberge/loadable-components) library.
 - Combination of [`babel`](https://github.com/babel/babel) and [`webpack`](https://github.com/webpack) enables writing next generation JavaScript and code optimization.
-- Predictable state management and server-side's initial state with [`redux`](https://github.com/reduxjs/redux) library, in modular pattern.
-- [React Frontload](https://github.com/davnicwil/react-frontload) async data loading for React components.
-- [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) support for better Redux debugging experience.
+- [`webpack-hot-server-middleware`](https://github.com/60frames/webpack-hot-server-middleware) - hot reload for bundled file on server-side.
 - Static route configuration with [`react-router-config`](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config) for React Router.
-- Sass as extension of CSS and [`PostCSS`](https://github.com/postcss/postcss) for transforming styles with JS plugins.
-- Supports [CSS modules](https://github.com/css-modules/css-modules) out of the box.
-- Webpack’s Hot Module Replacement (HMR) and [`react-hot-loader`](https://github.com/gaearon/react-hot-loader) for both client & server.
-- Async components with [`react-universal-component`](https://github.com/faceyspacey/react-universal-component) for simultaneous SSR and code splitting.
+- Sass as extension of CSS and [`PostCSS`](https://github.com/postcss/postcss) for transforming styles, as well as [CSS modules](https://github.com/css-modules/css-modules) implementation out of the box.
 - Enforce convention and avoid errors with code linter and formatter. ([`eslint`](https://github.com/eslint/eslint), [`prettier`](https://github.com/prettier/prettier), [`stylelint`](https://github.com/stylelint/stylelint))
 - Implement security good practices with Express [`helmet`](https://github.com/helmetjs/helmet) and [`hpp`](https://github.com/analog-nico/hpp) middlewares.
 - Using [`webpack-bundle-analyzer`](https://github.com/webpack-contrib/webpack-bundle-analyzer) to visualize size of webpack output files.
 - Delightful testing with [`jest`](https://github.com/facebook/jest) framework for React components.
-- Progressive Web App (PWA) with webpack's [`offline-plugin`](https://github.com/NekR/offline-plugin).
 - SEO ready with [`react-helmet`](https://github.com/nfl/react-helmet) component to manage document head.
-- Build API with Node [`http-proxy-middleware`](https://github.com/chimurai/http-proxy-middleware) integration.
+- [`husky`](https://github.com/typicode/husky) for better git commits experience.
+- [`nodemon`](https://github.com/remy/nodemon) to monitor changes made on server-side and automatically restart server.
 
 ## Requirement
 
@@ -40,10 +35,9 @@ Before you proceed, please make sure your machine has met the following requirem
 
 | Dependency |   Version   |
 | ---------- | :---------: |
-| Node       | >= v10.13.0 |
-| NPM        |  >= v6.4.1  |
+| Node       | >= v12.13.0 |
+| NPM        | >= v6.12.0  |
 
-> **React v16.8.3 or later** is required as this starter is using react-redux v7 for React binding.
 
 ## Quick Start
 
@@ -67,10 +61,10 @@ npm run dev
 
 For **production**:
 
-Copy `.env.development` to `./config/dotenv` folder as `.env` for production usage:
+Copy `.env.development` to `./config` folder as `.env` for production usage:
 
 ```bash
-cp config/dotenv/.env.development config/dotenv/.env
+cp config/.env.development config/.env
 ```
 
 Change environment variables in `.env` to serve your app.
@@ -96,49 +90,42 @@ Below is overview of project folder structure in this starter along with the sho
 <p>
 
 ```
-|--
-    |-- api                             # contains all api source files
-    |   |-- routes                      # contains respective Express routes for API
-    |   |-- index.js                    # Express entry for API
-    |-- app                             # contains all app source files
-    |   |-- App.js                      # webpack's client entry and app rendering
-    |   |-- html.js                     # html layout in template string
-    |   |-- index.js                    # Express entry for app
-    |   |-- registerOffline.js          # offline plugin registration for service worker
-    |   |-- serverRenderer.js           # server renderer for app string & initial state
-    |   |-- components                  # contains reusable React components for common usage
-    |   |-- layout                      # contains root React component for pages
-    |   |   | ...
-    |   |   |   |-- Layout.js           # Root component for react-router-config
-    |   |-- pages                       # contains page components based on features
-    |   |   |-- Home                    # `Home` page related
-    |   |   |-- NotFound                # `NotFound` page component
-    |   |   |-- Todos                   # SSR todos list example
-    |   |   |-- lazyLoad.js             # lazy load page component and code-splitting on SSR
-    |   |-- redux                       # contains all redux related
-    |   |   |-- todos                   # contains redux files for todos demo
-    |   |   |   | ...
-    |   |   |-- index.js                # redux root reducer for app
-    |   |   |-- configureStore.js       # configuring Redux store for the app
-    |   |-- routes                      # contains react route's configuration
-    |   |-- theme                       # contains app general theme files, such as variables
-    |   |-- utils                       # utilities used for the app
-    |-- assets                          # contains icons, images, mocks etc
-    |-- config                          # contains configuration and env variable files
-    |-- logger                          # contains winston logger for both api & app
-    |-- logs                            # contains the generated log files
-    |-- middleware                      # contains Express respective middlewares for both api & app
-    |-- node_modules                    # contains installed dependencies of the project
-    |-- public                          # contains production ready built assets, such as icons
-    |-- webpack                         # contains webpack configurations for both client/server
-    |-- api.js                          # api entry to expose api server
-    |-- app.js                          # app entry to expose app server
-    |-- babel.config.js                 # default babel configuration object
-    |-- env.loader.js                   # .env file loader with `dotenv` and `dotenv-expand`
-    |-- esm.import.js                   # ES module loader
-    |-- package.json                    # lists required dependencies, scripts, etc
-        ...                             # other tooling config files (ESLint/Prettier/PostCSS/Stylelint/Jest)
-    |-- webpack.config.babel.js         # webpack entry files for both client/server
+├── app                         # contains all app source files
+|  ├── client.js                # webpack's client entry
+|  ├── components               # contains React components 
+|  ├── middleware               # contains Express middleware, include server renderer
+|  ├── pages                    # contains page components
+|  ├── routes                   # contains react route's configuration
+|  ├── server.js                # Express entry for the app
+|  ├── services                 # services registered for react frontload api
+|  ├── static                   # contains static files that used in components
+|  └── theme                    # contains app styels and variables
+├── babel.config.js             # default babel configuration object
+├── bundler                     # contains webpack bundler config files
+|  ├── webpack.client.js        # webpack config for client
+|  ├── webpack.common.js        # webpack common config for both client/server
+|  ├── webpack.compiler.js      # webpack compiler for client and dev server
+|  └── webpack.server.js        # webpack config for server
+├── config                      # contains environment variables
+├── env.loader.js               # env variables loader with `dotenv` and `dotenv-expand`
+├── index.js                    # app entry to expose app server
+├── jest.config.js              # jest testing framework config file
+├── package-lock.json           # package lock file
+├── package.json                # required dependencies, scripts, etc
+├── postcss.config.js           # PostCSS config file
+├── prettier.config.js          # Prettier formatter config file
+├── resources                   # contains other resources
+|  ├── coverage                 # generated test coverage folder
+|  ├── icons                    # contains icons for the app
+|  ├── jest                     # jest related files such as mocks
+|  └── logs                     # store genereated log files
+├── stylelint.config.js         # stylelint config file
+├── utils                       # util files for the app
+|  ├── env.js                   # environment util
+|  ├── index.js                 # entry file to re-export utils
+|  ├── logger.js                # logger util for the app
+|  └── paths.js                 # project defined paths
+└── webpack.config.babel.js     # webpack config entry
 ```
 
 </p>
@@ -155,16 +142,11 @@ Below is overview of project folder structure in this starter along with the sho
 
 | Script Name     | Description                                                                                                            |
 | --------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `clean`         | Remove `public` folder and respective built files.                                                                     |
-| `webpack`       | Running webpack build process.                                                                                         |
+| `clean`         | Remove `build` folder and respective built files.                                                                      |
 | `build`         | Remove previous built files and build production ready files to be served.                                             |
 | `build:analyze` | Same with `build` script, except it comes with webpack bundle analyzer to visualize size of the output files.          |
-| `dev:app`       | Start running app server in development environment (server renderer is monitored by `webpack-hot-server-middleware`). |
-| `dev:api`       | Start running api server in development environment (started with `nodemon` for monitoring api changes).               |
-| `dev`           | Clean existing built files before running BOTH app and api servers in development environment.                         |
-| `start:app`     | Start running app server in production environment.                                                                    |
-| `start:api`     | Start running api server in production environment.                                                                    |
-| `start`         | Start running BOTH app and api servers in production environment, in parallel.                                         |
+| `dev`           | Start app server in development environment via nodemon.                                                               |
+| `start`         | Start app server in production environment                                                                             |
 | `test`          | Perform tests execution.                                                                                               |
 | `test:update`   | Running tests with snapshots get updated on.                                                                           |
 | `test:watch`    | Running tests with watch mode turned on.                                                                               |

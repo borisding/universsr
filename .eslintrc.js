@@ -26,7 +26,7 @@ module.exports = {
       version: 'detect'
     }
   },
-  ignorePatterns: ['build/**/*'],
+  ignorePatterns: ['build', 'coverage'],
   rules: {
     'prettier/prettier': ['error', prettierConfig],
     'global-require': 0,
