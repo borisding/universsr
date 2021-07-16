@@ -4,4 +4,4 @@ require('@babel/register')();
 require('./env.loader');
 
 // run app server
-require('./app/server');
+require('./app/index');
