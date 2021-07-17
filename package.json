@@ -1,6 +1,6 @@
 {
   "name": "universsr",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "description": "Universal React web app boilerplate.",
   "main": "index.js",
   "scripts": {
@@ -126,6 +126,7 @@
     "watch": [
       "app/logger/*",
       "app/middleware/*",
+      "app/index.js",
       "app/server.js"
     ]
   },
