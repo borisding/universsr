@@ -1,4 +1,3 @@
-import React from 'react';
 import { Helmet } from 'react-helmet';
 import { NavLink, withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';

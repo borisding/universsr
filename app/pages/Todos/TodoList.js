@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './TodoList.module';
 
 export default function TodoList({ todos }) {

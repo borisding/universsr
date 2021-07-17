@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFrontload } from 'react-frontload';
 import { Page, Loader } from '../../components';
 import TodoList from './TodoList';

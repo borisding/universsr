@@ -1,4 +1,3 @@
-import React from 'react';
 import logo from '../../static/images/logo.svg';
 import { Page } from '../../components';
 import styles from './Home.module';

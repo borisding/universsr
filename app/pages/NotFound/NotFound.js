@@ -1,4 +1,3 @@
-import React from 'react';
 import { Page, HttpStatus } from '../../components';
 
 export default function NotFound() {

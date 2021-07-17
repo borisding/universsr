@@ -1,4 +1,3 @@
-import React from 'react';
 import { FrontloadProvider } from 'react-frontload';
 import { renderRoutes } from 'react-router-config';
 import routes from '../routes';

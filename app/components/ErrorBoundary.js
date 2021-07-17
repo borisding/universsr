@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { env } from '../../utils';
 
 export default class ErrorBoundary extends Component {
