@@ -44,7 +44,7 @@
     "@loadable/component": "^5.15.2",
     "@loadable/server": "^5.15.2",
     "axios": "^0.26.1",
-    "chalk": "^4.1.1",
+    "chalk": "^4.1.2",
     "compression": "^1.7.4",
     "core-js": "^3.21.1",
     "cross-env": "^7.0.3",
