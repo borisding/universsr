@@ -51,7 +51,7 @@
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
     "express": "^4.17.3",
-    "helmet": "^4.6.0",
+    "helmet": "^5.0.2",
     "hpp": "^0.2.3",
     "html-minifier": "^4.0.0",
     "morgan": "^1.10.0",
