@@ -41,8 +41,8 @@
     "*.sass"
   ],
   "dependencies": {
-    "@loadable/component": "^5.15.0",
-    "@loadable/server": "^5.15.0",
+    "@loadable/component": "^5.15.2",
+    "@loadable/server": "^5.15.2",
     "axios": "^0.26.1",
     "chalk": "^4.1.1",
     "compression": "^1.7.4",
@@ -78,7 +78,7 @@
     "@babel/preset-react": "^7.16.7",
     "@babel/register": "^7.17.7",
     "@loadable/babel-plugin": "^5.13.2",
-    "@loadable/webpack-plugin": "^5.15.0",
+    "@loadable/webpack-plugin": "^5.15.2",
     "autoprefixer": "^10.3.1",
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
