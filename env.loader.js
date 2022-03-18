@@ -19,7 +19,7 @@ if (NODE_ENV !== 'production') {
 // expand existing environment variables with targeted .env file
 let parsed;
 if (fs.existsSync(envFile)) {
-  const result = dotenvExpand(dotenv.config({ path: envFile }));
+  const result = dotenvExpand.expand(dotenv.config({ path: envFile }));
   parsed = result.parsed;
 }
 
