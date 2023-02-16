@@ -1,5 +1,6 @@
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Todos from '../Todos';
 
 jest.mock('react-frontload', () => ({
@@ -11,7 +12,9 @@ describe('Todos', () => {
     const tree = renderer
       .create(
         <MemoryRouter>
-          <Todos />
+          <HelmetProvider>
+            <Todos />
+          </HelmetProvider>
         </MemoryRouter>
       )
       .toJSON();

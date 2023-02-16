@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { renderToString } from 'react-dom/server';
 import { ChunkExtractor } from '@loadable/server';
 import { createFrontloadState, frontloadServerRender } from 'react-frontload';
@@ -33,6 +33,7 @@ export default function serverRenderer() {
   return async (req, res, next) => {
     try {
       const staticContext = {};
+      const helmetContext = {};
       const statsFile = path.resolve(`${paths.build}/loadable-stats.json`);
       const extractor = new ChunkExtractor({ statsFile });
 
@@ -46,7 +47,9 @@ export default function serverRenderer() {
           return renderToString(
             extractor.collectChunks(
               <StaticRouter location={req.url} context={staticContext}>
-                <App frontloadState={frontloadState} />
+                <HelmetProvider context={helmetContext}>
+                  <App frontloadState={frontloadState} />
+                </HelmetProvider>
               </StaticRouter>
             )
           );
@@ -56,7 +59,7 @@ export default function serverRenderer() {
       const scripts = extractor.getScriptTags();
       const styles = extractor.getStyleTags();
       const frontloadData = serialize(data, { isJSON: true });
-      const helmet = Helmet.renderStatic();
+      const { helmet } = helmetContext;
 
       const { statusCode = 200, redirectUrl } = staticContext;
       if ([301, 302].includes(statusCode) && redirectUrl) {

@@ -1,5 +1,6 @@
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import NotFound from '../index';
 
 describe('NotFound', () => {
@@ -7,7 +8,9 @@ describe('NotFound', () => {
     const tree = renderer
       .create(
         <MemoryRouter>
-          <NotFound />
+          <HelmetProvider>
+            <NotFound />
+          </HelmetProvider>
         </MemoryRouter>
       )
       .toJSON();
