@@ -25,7 +25,7 @@
 - Implement security good practices with Express [`helmet`](https://github.com/helmetjs/helmet) and [`hpp`](https://github.com/analog-nico/hpp) middlewares.
 - Using [`webpack-bundle-analyzer`](https://github.com/webpack-contrib/webpack-bundle-analyzer) to visualize size of webpack output files.
 - Delightful testing with [`jest`](https://github.com/facebook/jest) framework for React components.
-- SEO ready with [`react-helmet`](https://github.com/nfl/react-helmet) component to manage document head.
+- SEO ready with [`react-helmet-async`](https://github.com/staylor/react-helmet-async) component to manage document head.
 - [`husky`](https://github.com/typicode/husky) for better git commits experience.
 - [`nodemon`](https://github.com/remy/nodemon) to monitor changes made on server-side and automatically restart server.
 
