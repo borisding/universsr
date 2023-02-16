@@ -1,5 +1,6 @@
 import { format, transports, createLogger } from 'winston';
-import { env, paths } from './';
+import paths from './paths';
+import env from './env';
 
 const { combine, json, timestamp, label } = format;
 

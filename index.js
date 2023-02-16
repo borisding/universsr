@@ -1,4 +1,4 @@
-require('@babel/register')();
+require = require('esm-wallaby')(module /*, options*/);
 
 // load environment variables
 require('./env.loader');

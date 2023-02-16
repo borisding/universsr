@@ -50,6 +50,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
     "dotenv-expand": "^8.0.2",
+    "esm-wallaby": "^3.2.26",
     "express": "^4.17.3",
     "helmet": "^5.0.2",
     "hpp": "^0.2.3",
