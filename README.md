@@ -35,8 +35,8 @@ Before you proceed, please make sure your machine has met the following requirem
 
 | Dependency |   Version   |
 | ---------- | :---------: |
-| Node       | >= v12.13.0 |
-| NPM        | >= v6.12.0  |
+| Node       | >= v14.15.0 |
+| NPM        | >= v6.14.8  |
 
 ## Quick Start
 

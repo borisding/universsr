@@ -1,7 +1,7 @@
 module.exports = {
-  plugins: ['stylelint-scss'],
-  extends: ['stylelint-config-sass-guidelines'],
+  extends: 'stylelint-config-standard-scss',
   rules: {
-    'selector-class-pattern': null
+    'selector-class-pattern': null,
+    'scss/no-global-function-names': null
   }
 };
