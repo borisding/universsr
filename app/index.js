@@ -3,13 +3,17 @@ import hpp from 'hpp';
 import helmet from 'helmet';
 import compression from 'compression';
 import favicon from 'serve-favicon';
+import cors from 'cors';
+
 import runHttpServer from './server';
 import { httpLogger } from './middleware';
 import { env, paths } from '../utils';
-
 const app = express();
 
 // could add more middleware here where applicable
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(httpLogger());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(hpp());
