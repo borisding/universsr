@@ -1,6 +1,7 @@
 import { useFrontload } from 'react-frontload';
-import { Page, Loader } from '../../components';
+import Page from '../Page';
 import TodoList from './TodoList';
+import { Loader } from '../../components';
 
 export default function Todos() {
   const { data: todos, frontloadMeta } = useFrontload(

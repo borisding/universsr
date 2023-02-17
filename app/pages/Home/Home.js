@@ -1,5 +1,5 @@
 import logo from '../../static/images/logo.svg';
-import { Page } from '../../components';
+import Page from '../Page';
 import styles from './Home.module';
 
 export default function Home() {
