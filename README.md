@@ -93,10 +93,11 @@ Below is overview of project folder structure in this starter along with the sho
 |  ├── client.js                # webpack's client entry
 |  ├── components               # contains React components
 |  ├── index.js                 # app main entry file
-|  ├── middleware               # contains Express middleware, include server renderer
+|  ├── middleware               # contains internal Express middleware
 |  ├── pages                    # contains page components
 |  ├── routes                   # contains react route's configuration
 |  ├── server.js                # Express http server of the app
+|  ├── serverRenderer.js        # server renderer for backend hot update
 |  ├── services                 # services registered for react frontload api
 |  ├── static                   # contains static files that used in components
 |  └── theme                    # contains app styels and variables
