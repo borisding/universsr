@@ -91,6 +91,7 @@ Below is overview of project folder structure in this starter along with the sho
 ```
 ├── app                         # contains all app source files
 |  ├── client.js                # webpack's client entry
+|  ├── context                  # contains React context
 |  ├── components               # contains React components
 |  ├── index.js                 # app main entry file
 |  ├── middleware               # contains internal Express middleware

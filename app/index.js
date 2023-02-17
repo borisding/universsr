@@ -8,6 +8,7 @@ import cors from 'cors';
 import runHttpServer from './server';
 import { httpLogger } from './middleware';
 import { env, paths } from '../utils';
+
 const app = express();
 
 // could add more middleware here where applicable

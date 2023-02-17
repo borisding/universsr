@@ -1,11 +1,13 @@
-import { Page, HttpStatus } from '../../components';
+import { Page } from '../../components';
+import { useStaticRouterContext } from '../../context';
 
 export default function NotFound() {
+  const staticContext = useStaticRouterContext();
+  staticContext.statusCode = 400;
+
   return (
     <Page title="Not Found">
-      <HttpStatus statusCode={404}>
-        <h3>404 - Page Not Found.</h3>
-      </HttpStatus>
+      <h3>404 - Page Not Found.</h3>
     </Page>
   );
 }

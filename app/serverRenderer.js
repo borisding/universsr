@@ -3,14 +3,15 @@ import { renderToString } from 'react-dom/server';
 import { ChunkExtractor } from '@loadable/server';
 import { createFrontloadState, frontloadServerRender } from 'react-frontload';
 import { minify } from 'html-minifier';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom/server';
 import serialize from 'serialize-javascript';
 import path from 'path';
 
-import { App } from './components';
+import App from './App';
 import html from './static/html';
 import * as services from './services';
 import { env, paths } from '../utils';
+import { StaticRouterProvider } from './context';
 
 function createHtmlPageContent(data) {
   if (env.isDev) {
@@ -46,10 +47,12 @@ export default function serverRenderer() {
         render() {
           return renderToString(
             extractor.collectChunks(
-              <StaticRouter location={req.url} context={staticContext}>
-                <HelmetProvider context={helmetContext}>
-                  <App frontloadState={frontloadState} />
-                </HelmetProvider>
+              <StaticRouter location={req.url}>
+                <StaticRouterProvider context={staticContext}>
+                  <HelmetProvider context={helmetContext}>
+                    <App frontloadState={frontloadState} />
+                  </HelmetProvider>
+                </StaticRouterProvider>
               </StaticRouter>
             )
           );
@@ -60,11 +63,7 @@ export default function serverRenderer() {
       const styles = extractor.getStyleTags();
       const frontloadData = serialize(data, { isJSON: true });
       const { helmet } = helmetContext;
-
-      const { statusCode = 200, redirectUrl } = staticContext;
-      if ([301, 302].includes(statusCode) && redirectUrl) {
-        return res.redirect(statusCode, redirectUrl);
-      }
+      const { statusCode = 200 } = staticContext;
 
       res.status(statusCode).send(
         createHtmlPageContent({

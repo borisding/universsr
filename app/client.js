@@ -3,9 +3,8 @@ import { loadableReady } from '@loadable/component';
 import { createFrontloadState } from 'react-frontload';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-
-import { App } from './components';
 import * as services from './services';
+import App from './App';
 
 const frontloadState = createFrontloadState.client({
   context: { api: services },
