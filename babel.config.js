@@ -11,7 +11,7 @@ const plugins = [
 
 const env = {
   development: {
-    plugins
+    plugins: ['react-refresh/babel', ...plugins]
   },
   production: {
     plugins: ['transform-react-remove-prop-types', ...plugins]

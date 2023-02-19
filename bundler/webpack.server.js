@@ -1,9 +1,11 @@
 import fs from 'fs';
 import webpack from 'webpack';
+import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import webpackCommon from './webpack.common';
-import { paths } from '../utils';
+import { env, paths } from '../utils';
 
 const config = webpackCommon('server');
+const { isDev } = env;
 
 // custom externals for node
 const externalRegExp = /@loadable\/component/;
@@ -45,5 +47,17 @@ const serverConfig = {
   },
   plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })]
 };
+
+if (isDev) {
+  serverConfig.plugins = [
+    ...serverConfig.plugins,
+    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshPlugin({
+      overlay: {
+        sockIntegration: 'whm'
+      }
+    })
+  ];
+}
 
 export default serverConfig;

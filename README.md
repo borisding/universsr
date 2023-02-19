@@ -18,6 +18,7 @@
 - [`Express`](https://github.com/expressjs/express) - Node.js framework for backend work.
 - Code splitting for server rendered components via [`loadable-components`](https://github.com/gregberge/loadable-components) library.
 - Combination of [`babel`](https://github.com/babel/babel) and [`webpack`](https://github.com/webpack) enables writing next generation JavaScript and code optimization.
+- [`Webapck fast refresh plugin`](https://github.com/pmmmwh/react-refresh-webpack-plugin) - hot reloading for React components.
 - [`webpack-hot-server-middleware`](https://github.com/60frames/webpack-hot-server-middleware) - hot reload for bundled file on server-side.
 - Static route configuration with [`react-router-config`](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config) for React Router.
 - Sass as extension of CSS and [`PostCSS`](https://github.com/postcss/postcss) for transforming styles, as well as [CSS modules](https://github.com/css-modules/css-modules) implementation out of the box.

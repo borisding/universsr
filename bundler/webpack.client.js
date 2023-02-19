@@ -5,14 +5,15 @@ import TerserJSPlugin from 'terser-webpack-plugin';
 import LoadablePlugin from '@loadable/webpack-plugin';
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 import webpackCommon from './webpack.common';
 import { env, paths } from '../utils';
 import { getDefinedVars } from '../env.loader';
 
 const config = webpackCommon('client');
-
 const { isDev } = env;
+
 const isAnalyze = Boolean(process.env.ANALYZE_MODE) === true;
 const entryFile = './client.js';
 
@@ -92,7 +93,12 @@ const clientConfig = {
 if (isDev) {
   clientConfig.plugins = [
     ...clientConfig.plugins,
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshPlugin({
+      overlay: {
+        sockIntegration: 'whm'
+      }
+    })
   ];
 } else {
   clientConfig.plugins = [
