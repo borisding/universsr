@@ -156,7 +156,7 @@ Below is overview of project folder structure in this starter along with the sho
 | `test:coverage` | Running tests with coverage report output.                                                                    |
 | `lint`          | Perform source code lint checks for JS, React and styles based on the ESLint and stylelint config.            |
 | `lint:style`    | Perform lint checks for Sass style.                                                                           |
-| `lint:js`       | Perform lint checks for JS and React.                                                                         |
+| `lint:code`     | Perform lint checks for JS and React.                                                                         |
 
 </p>
 </details>

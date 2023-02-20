@@ -13,9 +13,9 @@
     "test:coverage": "rimraf resources/coverage && npm test -- --coverage",
     "test:update": "npm test -- --updateSnapshot",
     "test:watch": "npm test -- --watch",
-    "lint": "npm-run-all lint:js lint:style",
+    "lint": "npm-run-all lint:code lint:style",
     "lint:style": "stylelint **/*.{css,scss,sass} --fix",
-    "lint:js": "eslint . --fix",
+    "lint:code": "eslint . --fix",
     "prepare": "husky install"
   },
   "engines": {
