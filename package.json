@@ -43,7 +43,7 @@
   "dependencies": {
     "@loadable/component": "^5.15.3",
     "@loadable/server": "^5.15.3",
-    "axios": "^1.3.3",
+    "axios": "^1.3.4",
     "chalk": "^4.1.2",
     "compression": "^1.7.4",
     "core-js": "^3.28.0",
